@@ -27,4 +27,8 @@ object LocalDatabase {
     }
 
 
+    fun resetMemory(){
+        sharedPref?.edit()?.clear()?.apply()
+    }
+
 }

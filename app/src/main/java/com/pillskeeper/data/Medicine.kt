@@ -1,4 +1,7 @@
 package com.pillskeeper.data
 
-class Medicine {
+class Medicine (name:String, qty: Int) {
+
+    var name: String = name
+
 }

@@ -1,7 +1,3 @@
 package com.pillskeeper.data
 
-class Medicine (name:String, qty: Int) {
-
-    var name: String = name
-
-}
+data class Medicine (var name:String, var totalPills: Int, var remainingPills: Int, var reminders: LinkedHashMap<String, Reminder>)

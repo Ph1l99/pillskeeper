@@ -1,3 +1,5 @@
 package com.pillskeeper.data
 
-data class Medicine (var name:String, var totalPills: Int, var remainingPills: Int, var reminders: LinkedHashMap<String, Reminder>)
+import java.util.*
+
+data class Medicine (var name:String, var totalPills: Float, var remainingPills: Float, var reminders: LinkedList<Reminder>)

@@ -24,8 +24,8 @@ class FirstLoginActivity : AppCompatActivity() {
             if(username.isEmpty() || username == ""){
                 Toast.makeText(this, "Perfavore inserisci valori corretti!", Toast.LENGTH_LONG).show()
             } else {
-                LocalDatabase.saveValue(LocalDbKeyEnum.USERNAME.toString(),username)
-                CentralDatabase.obtainRemoteDatabase()
+                LocalDatabase.saveUsername(username)
+                //CentralDatabase.obtainRemoteDatabase()
                 //CentralDatabase.writeNewUser(User(1234))
                 sendDataBackToPreviousActivity(username)
                 finish()

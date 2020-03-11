@@ -12,6 +12,10 @@ interface LocalDatabaseInterface {
 
     fun readMedicineList(): LinkedList<Medicine>
 
+    fun saveUsername(username: String)
+
+    fun saveFriendList(friends: LinkedList<Friend>)
+
     fun saveMedicineList(medicine: LinkedList<Medicine>)
 
     fun resetMemory()

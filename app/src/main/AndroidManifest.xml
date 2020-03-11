@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.FriendListActivity"></activity>
         <activity
             android:name=".activity.FirstLoginActivity"
             android:label="@string/title_activity_first_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.FirstLoginActivity"
             android:label="@string/title_activity_first_login" />

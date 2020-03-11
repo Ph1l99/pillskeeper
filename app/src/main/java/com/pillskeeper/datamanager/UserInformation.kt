@@ -3,6 +3,7 @@ package com.pillskeeper.datamanager
 import android.util.Log
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.Medicine
+import com.pillskeeper.data.Reminder
 import java.util.*
 
 object UserInformation {
@@ -97,6 +98,54 @@ object UserInformation {
 
         Log.w(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend not found")
         return false
+    }
+
+    @Synchronized fun addNewReminder(medicineName: String, reminder: Reminder): Boolean {
+        Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Started")
+
+        var currMedicine: Medicine? = null
+
+        for(i in medicines.indices) {
+            if(medicines[i].name == medicineName) {
+                currMedicine = medicines[i]
+                break
+            }
+        }
+
+        if(currMedicine == null){
+            Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Medicine not found")
+            return false
+        }
+
+        currMedicine.reminders?.forEach { it ->
+            if(it.days == reminder.days && it.duration == reminder.duration &&
+                it.hours == reminder.hours && it.minutes == reminder.minutes && it.number_pills == reminder.number_pills){
+                Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder with same Info")
+                return false
+            }
+        }
+
+        currMedicine.reminders?.add(reminder)
+
+        Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder inserted")
+        return true
+    }
+
+    fun addNewReminderList(medicineName: String, reminderList: LinkedList<Reminder>){
+        Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Started")
+
+        reminderList.forEach { entry -> addNewReminder(medicineName, entry) }
+
+        Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
+    }
+
+    @Synchronized fun flush(){
+        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Started")
+
+        LocalDatabase.saveFriendList(friends)
+        LocalDatabase.saveMedicineList(medicines)
+
+        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Ended")
     }
 
 }

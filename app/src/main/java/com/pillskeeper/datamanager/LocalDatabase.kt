@@ -14,7 +14,7 @@ object LocalDatabase : LocalDatabaseInterface{
 
     var sharedPref: SharedPreferences? = null
 
-    fun saveValue(key: String, value: Any){
+    private fun saveValue(key: String, value: Any){
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
 
         with (sharedPref?.edit()) {
@@ -22,16 +22,16 @@ object LocalDatabase : LocalDatabaseInterface{
                 is Int      ->  this?.putInt(key, value)
                 is String   ->  this?.putString(key, value)
                 is Boolean  ->  this?.putBoolean(key, value)
-                else ->  {
-                    println("this info is going to be inserted: ${Gson().toJson(value)}")
-                    this?.putString(key, Gson().toJson(value))
-                }
+                else        ->  this?.putString(key, Gson().toJson(value))
             }
             this?.apply()
         }
 
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Ended - Value Saved")
     }
+
+
+    /*  READ Function   */
 
     override fun readUsername(): String? {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
@@ -72,6 +72,25 @@ object LocalDatabase : LocalDatabaseInterface{
 
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List full")
         return LinkedList(Gson().fromJson(medicinesJson, Array<Medicine>::class.java).toList())
+    }
+
+
+    /*  SAVE Function   */
+
+    override fun saveUsername(username: String){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+
+        saveValue(LocalDbKeyEnum.USERNAME.toString(), username)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+    }
+
+    override fun saveFriendList(friends: LinkedList<Friend>){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+
+        saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),friends)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
     override fun saveMedicineList(medicine: LinkedList<Medicine>) {

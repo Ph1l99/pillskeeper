@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
-        UserInformation
+        UserInformation //necessario per inizializzare i componenti interni
 
         //TODO DEBUG - to be removed
         funTest()
@@ -50,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         buttonResetLocalMemory.setOnClickListener {
             LocalDatabase.resetMemory()
             exitProcess(-1)
+        }
+
+        friendListButton.setOnClickListener {
+            val activity = Intent(this, FriendListActivity::class.java)
+            startActivity(activity)
         }
     }
 

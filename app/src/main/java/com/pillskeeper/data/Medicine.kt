@@ -1,3 +1,5 @@
 package com.pillskeeper.data
 
-data class Medicine (var name:String, var totalPills: Int, var remainingPills: Int, var reminders: LinkedHashMap<String, Reminder>)
+import com.pillskeeper.enums.MedicineTypeEnum
+
+abstract class Medicine(medicineName: String, medicineType: MedicineTypeEnum, medicineId: String)

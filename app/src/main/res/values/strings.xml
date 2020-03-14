@@ -7,4 +7,11 @@
     <string name="firstloginbutton">Avanti</string>
     <string name="username">Username</string>
     <string name="hello_world">Hello World</string>
+
+    <!-- Strings for SignUp Activity-->
+    <string name="signup_button">Registrati</string>
+    <string name="signup_name">Nome</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Password</string>
+    <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>
 </resources>

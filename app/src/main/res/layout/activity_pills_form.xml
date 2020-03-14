@@ -4,6 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.PillsFormActivity">
+    tools:context=".activity.pills.PillsFormActivity">
 
+    <TextView
+        android:id="@+id/textViewQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:text="Quantità"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="185dp"
+        android:text="Nome del farmaco"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextQuantity"
+        android:layout_width="326dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Inserire la quantità"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="326dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Inserire il nome del farmaco"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
+
+    <Button
+        android:id="@+id/buttonCamera"
+        android:layout_width="71dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="164dp"
+        android:layout_marginEnd="18dp"
+        android:text="Read"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonConfirm"
+        android:layout_width="117dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="121dp"
+        android:text="Conferma"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
 </androidx.constraintlayout.widget.ConstraintLayout>

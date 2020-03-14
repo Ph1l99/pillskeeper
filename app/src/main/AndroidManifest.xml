@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PillsFormActivity"></activity>
-        <activity android:name=".activity.PillsActivity" />
+        <activity android:name=".activity.pills.PillsListActivity"></activity>
+        <activity android:name=".activity.pills.PillsFormActivity" />
+        <activity android:name=".activity.pills.TextReaderActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity
             android:name=".activity.FirstLoginActivity"

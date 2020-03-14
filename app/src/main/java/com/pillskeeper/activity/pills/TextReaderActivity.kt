@@ -1,4 +1,4 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.pills
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +14,7 @@ import com.google.android.gms.vision.text.TextRecognizer
 import com.pillskeeper.R
 import kotlinx.android.synthetic.main.activity_pills.*
 
-class PillsActivity : AppCompatActivity() {
+class TextReaderActivity : AppCompatActivity() {
 
     //TODO da controllare a cosa serve (forse per i permessi)
     val REQUEST_CAMERA_PERMISSION_ID = 1001
@@ -91,6 +91,7 @@ class PillsActivity : AppCompatActivity() {
 
             confirm_button.setOnClickListener{
                 val it = Intent(this, PillsFormActivity::class.java)
+                it.putExtra("pillName", textView.text)
                 startActivity(it)
             }
         }

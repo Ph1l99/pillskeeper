@@ -1,5 +1,6 @@
 package com.pillskeeper.activity.pills
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -91,8 +92,9 @@ class TextReaderActivity : AppCompatActivity() {
 
             confirm_button.setOnClickListener{
                 val it = Intent(this, PillsFormActivity::class.java)
-                it.putExtra("pillName", textView.text)
-                startActivity(it)
+                it.putExtra("pillName", textView.text.toString())
+                setResult(Activity.RESULT_OK, it)
+                finish()
             }
         }
     }

@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.AuthenticationManager
-import com.pillskeeper.datamanager.CentralDatabase
+import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.enums.LocalDbKeyEnum
 import kotlinx.android.synthetic.main.activity_first_login.*
@@ -17,7 +17,7 @@ class FirstLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_login)
-        CentralDatabase.obtainRemoteDatabase()
+        DatabaseManager.obtainRemoteDatabase()
         AuthenticationManager.obtainAuthentication()
 
         firstLoginButton.setOnClickListener {

@@ -1,15 +1,6 @@
 package com.pillskeeper
 
 
-import android.content.Context
-import com.google.firebase.FirebaseApp
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.pillskeeper.activity.SignUp
-import com.pillskeeper.data.User
-import com.pillskeeper.datamanager.CentralDatabase
-import org.junit.Before
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock

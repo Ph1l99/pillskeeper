@@ -11,6 +11,7 @@
     <!-- Strings for SignUp Activity-->
     <string name="signup_button">Registrati</string>
     <string name="signup_name">Nome</string>
+    <string name="signup_surname">Cognome</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
     <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>

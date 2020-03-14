@@ -25,12 +25,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
-        readFirstLogin();
+        readFirstLogin()
 
         if(isFirstLogin){
             val activity = Intent(this, FirstLoginActivity::class.java)
             startActivityForResult(activity,START_FIRST_LOGIN_ACTIVITY_CODE)
+        } else {
+            //Apro la home page
+            val it = Intent(this, HomeActivity::class.java)
+            startActivity(it)
         }
+
+
 
         //TODO for debug, to be removed
         buttonResetLocalMemory.setOnClickListener {

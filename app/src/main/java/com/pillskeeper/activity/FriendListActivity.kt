@@ -20,9 +20,17 @@ class FriendListActivity : AppCompatActivity() {
         initList()
 
         addFriendFab.setOnClickListener {
-            FriendDialog(this).show()
+            NewFriendActivity(this).show()
         }
     }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        initList()
+    }
+
+
 
     private fun initList(){
         Log.w(Log.DEBUG.toString(), "FriendListActivity - initList() Started")
@@ -30,15 +38,13 @@ class FriendListActivity : AppCompatActivity() {
         val listItems = arrayOfNulls<String>(UserInformation.friends.size)
 
         for (i in 0 until UserInformation.friends.size) {
-            val medicine = UserInformation.friends[i]
-            listItems[i] = medicine.name + "  -  " + medicine.relationEnum.toString()
+            val friend = UserInformation.friends[i]
+            listItems[i] = friend.name + "  -  " + friend.relationEnum.toString()
         }
 
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems)
         friendListView.adapter = adapter
         Log.w(Log.DEBUG.toString(), "FriendListActivity - initList() Ended")
     }
-
-
 
 }

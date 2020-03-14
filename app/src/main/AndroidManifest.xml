@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.FriendDialog"></activity>
+        <activity android:name=".activity.NewFriendActivity"></activity>
+        <activity android:name=".activity.FriendDialog" />
         <activity android:name=".activity.FriendListActivity" />
         <activity
             android:name=".activity.FirstLoginActivity"

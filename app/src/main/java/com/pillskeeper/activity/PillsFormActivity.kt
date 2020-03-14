@@ -9,5 +9,6 @@ class PillsFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
+        //TODO finire il form
     }
 }

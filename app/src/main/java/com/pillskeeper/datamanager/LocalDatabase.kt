@@ -4,7 +4,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
 import com.pillskeeper.data.Friend
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.enums.LocalDbKeyEnum
 import com.pillskeeper.interfaces.LocalDatabaseInterface
 import java.util.*
@@ -14,7 +15,7 @@ object LocalDatabase : LocalDatabaseInterface{
 
     var sharedPref: SharedPreferences? = null
 
-    fun saveValue(key: String, value: Any){
+    private fun saveValue(key: String, value: Any){
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
 
         with (sharedPref?.edit()) {
@@ -22,16 +23,16 @@ object LocalDatabase : LocalDatabaseInterface{
                 is Int      ->  this?.putInt(key, value)
                 is String   ->  this?.putString(key, value)
                 is Boolean  ->  this?.putBoolean(key, value)
-                else ->  {
-                    println("this info is going to be inserted: ${Gson().toJson(value)}")
-                    this?.putString(key, Gson().toJson(value))
-                }
+                else        ->  this?.putString(key, Gson().toJson(value))
             }
             this?.apply()
         }
 
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Ended - Value Saved")
     }
+
+
+    /*  READ Function   */
 
     override fun readUsername(): String? {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
@@ -60,21 +61,48 @@ object LocalDatabase : LocalDatabaseInterface{
         return LinkedList(Gson().fromJson(friendsJson, Array<Friend>::class.java).toList())
     }
 
-    override fun readMedicineList(): LinkedList<Medicine> {
+    override fun readMedicineList(): LinkedList<LocalMedicine> {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Started")
 
         val medicinesJson: String? = sharedPref?.getString(LocalDbKeyEnum.MEDICINELIST.toString(), null)
 
         if (medicinesJson.isNullOrEmpty()) {
             Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List empty")
-            return LinkedList<Medicine>()
+            return LinkedList<LocalMedicine>()
         }
 
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List full")
-        return LinkedList(Gson().fromJson(medicinesJson, Array<Medicine>::class.java).toList())
+        return LinkedList(Gson().fromJson(medicinesJson, Array<LocalMedicine>::class.java).toList())
     }
 
-    override fun saveMedicineList(medicine: LinkedList<Medicine>) {
+
+    /*  SAVE Function   */
+
+    override fun saveUsername(username: String){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+
+        saveValue(LocalDbKeyEnum.USERNAME.toString(), username)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+    }
+
+    override fun saveFriendList(friends: LinkedList<Friend>){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+
+        saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),friends)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+    }
+
+    override fun saveFriendList(){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+
+        saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),UserInformation.friends)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+    }
+
+    override fun saveMedicineList(medicine: LinkedList<LocalMedicine>) {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),medicine)
@@ -82,10 +110,21 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
 
+    override fun saveMedicineList() {
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+
+        saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),UserInformation.medicines)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+    }
+
+    //TODO TEST
     override fun resetMemory(){
 
         sharedPref?.edit()?.clear()?.commit()
 
     }
+
+
 
 }

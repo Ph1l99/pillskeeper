@@ -15,6 +15,10 @@
         <activity android:name=".activity.pills.PillsFormActivity" />
         <activity android:name=".activity.pills.TextReaderActivity" />
         <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.friend.EditFriendActivity"></activity>
+        <activity android:name=".activity.friend.NewFriendActivity" />
+        <activity android:name=".activity.FriendDialog" />
+        <activity android:name=".activity.friend.FriendListActivity" />
         <activity
             android:name=".activity.FirstLoginActivity"
             android:label="@string/title_activity_first_login"

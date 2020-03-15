@@ -7,4 +7,17 @@
     <string name="firstloginbutton">Avanti</string>
     <string name="username">Username</string>
     <string name="hello_world">Hello World</string>
+    <string name="nome">Nome:</string>
+    <string name="cognome">Cognome:</string>
+    <string name="relazione">Relazione:</string>
+    <string name="yes">Yes</string>
+    <string name="email">Email:</string>
+    <string name="nome_persona">Nome amico</string>
+    <string name="cognome_amico">Cognome amico</string>
+    <string name="email_amico">Email amico</string>
+    <string name="confermaButton">Conferma</string>
+    <string name="deleteButton">Cancella</string>
+    <string name="phoneNumber">Numero:</string>
+    <string name="phoneNumberHint">Numero Cellulare</string>
+    <string name="editButton">Modifica</string>
 </resources>

@@ -6,19 +6,21 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
-import kotlin.collections.LinkedHashMap
 
 class MainActivity : AppCompatActivity() {
 
-    var isFirstLogin : Boolean = true;
-    var username : String? = null
+    private var isFirstLogin : Boolean = true
+    private var username : String? = null
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
@@ -32,12 +34,11 @@ class MainActivity : AppCompatActivity() {
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
-        UserInformation
+        UserInformation //necessario per inizializzare i componenti interni
 
-        //TODO DEBUG
+        //TODO DEBUG - to be removed
         funTest()
 
-        readFirstLogin();
         readFirstLogin()
 
         if(isFirstLogin){
@@ -56,11 +57,15 @@ class MainActivity : AppCompatActivity() {
             LocalDatabase.resetMemory()
             exitProcess(-1)
         }
+
+        friendListButton.setOnClickListener {
+            val activity = Intent(this, FriendListActivity::class.java)
+            startActivity(activity)
+        }
     }
 
     private fun readFirstLogin(){
         val userN = LocalDatabase.readUsername()
-        println(userN)
         if (userN != null) {
             if(userN.isNotEmpty() || userN != "") {
                 username = userN
@@ -86,22 +91,17 @@ class MainActivity : AppCompatActivity() {
         val reminders = LinkedList<Reminder>()
         reminders.add(Reminder(1.5F,0,19,"Lun-Mar-Mer", Date(),null))
         reminders.add(Reminder(1F,0,19,"Ven",Date(),null))
-        val med = Medicine("Tachipirina",24F,24F,reminders)
+        UserInformation.addNewMedicine(LocalMedicine("Tachipirina",MedicineTypeEnum.Pills,24F,24F,reminders,"Tachipirina"))
+
 
         val reminders2 = LinkedList<Reminder>()
-        reminders.add(Reminder(1.5F,0,19,"Lun-Mer", Date(),null))
-        reminders.add(Reminder(1F,0,19,"Wed",Date(),null))
-        var med2 = Medicine("Aulin",24F,24F,reminders2)
-
-        val medicines = LinkedList<Medicine>()
-        medicines.add(med)
-        medicines.add(med2)
-
-        LocalDatabase.saveMedicineList(medicines)
+        reminders2.add(Reminder(1.5F,0,19,"Lun-Mer", Date(),null))
+        reminders2.add(Reminder(1F,0,19,"Wed",Date(),null))
+        UserInformation.addNewMedicine(LocalMedicine("Aulin",MedicineTypeEnum.Pills,24F,24F,null, "Aulin"))
+        UserInformation.addNewReminderList("Aulin",reminders2)
 
 
-
-        println("Stampo adesso quello che ho letto: ${LocalDatabase.readMedicineList()}")
+        LocalDatabase.saveMedicineList(UserInformation.medicines)
 
     }
 

@@ -1,5 +1,7 @@
 package com.pillskeeper.data
 
-import java.util.*
+import com.pillskeeper.enums.MedicineTypeEnum
 
-data class Medicine (var name:String, var totalPills: Float, var remainingPills: Float, var reminders: LinkedList<Reminder>?)
+abstract class Medicine(name: String, id: String, medicineType: MedicineTypeEnum) {
+
+}

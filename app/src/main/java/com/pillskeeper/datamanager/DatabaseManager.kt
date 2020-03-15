@@ -1,25 +1,29 @@
 package com.pillskeeper.datamanager
 
 import android.util.Log
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
+import com.pillskeeper.enums.ErrorTypeEnum
 
 object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
-    private const val MEDICINES = "Medicines"
     private const val PATH_USERS = "users"
     private const val PATH_MEDICINES = "medicines"
-    private const val ERROR_WRITING = "Errore nella scrittura,valori gia' presenti"
 
     /**
      * Metodo per ottenere il riferimento remoto del database
      */
     fun obtainRemoteDatabase() {
+        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Started")
         databaseReference = Firebase.database.reference
+        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Ended")
     }
 
     /**
@@ -41,7 +45,7 @@ object DatabaseManager {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                map = if (property == MEDICINES) {
+                map = if (property == PATH_MEDICINES) {
                     p0.value as Map<String, RemoteMedicine>
                 } else {
                     p0.value as Map<String, User>
@@ -57,12 +61,24 @@ object DatabaseManager {
      * @param User L'utente che deve essere aggiunto al database
      * @return True se l'inserimento è andato a buon fine, false altrimenti
      */
-    fun writeNewUser(user: User): Boolean {
+    fun writeNewUser(user: User): Pair<ErrorTypeEnum?, Boolean>? {
+        Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
+        var result: Pair<ErrorTypeEnum?, Boolean>? = null
         return if (getUser(user.userId) != null) {
-            false
+            Log.d(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
+            Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
             databaseReference.child(PATH_USERS).setValue(user)
-            true
+                .addOnCompleteListener {
+                    Log.d(Log.DEBUG.toString(), "writeNewUser()-Completed")
+                    result = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
+                }.addOnFailureListener {
+                    Log.d(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
+                    result = Pair(ErrorTypeEnum.FIREBASE_DB_READING, false)
+                    throw it
+                }
+            Log.d(Log.DEBUG.toString(), "writeNewUser()-Ended")
+            result
         }
     }
 
@@ -95,19 +111,19 @@ object DatabaseManager {
      * Metodo per la scrittura di una nuova medicina
      * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
      */
-    fun writeNewMedicine(medicine: RemoteMedicine): Pair<String?, Boolean>? {
-        var actionCompleted: Pair<Nothing?, Boolean>? = null
+    fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum?, Boolean>? {
+        var actionCompleted: Pair<ErrorTypeEnum?, Boolean>? = null
         return if (getMedicine(medicine.medicineId) != null) {
-            Pair(ERROR_WRITING, false)
+            Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
             databaseReference.child(PATH_MEDICINES).child(medicine.medicineId).setValue(medicine)
                 .addOnCompleteListener {
                     Log.d(Log.DEBUG.toString(), "writeNewMedicine()-Completed")
-                    actionCompleted = Pair(null, true)
+                    actionCompleted = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
                 }
                 .addOnFailureListener {
                     Log.d(Log.DEBUG.toString(), "writeNewMedicine()-ERROR-FIREBASE" + it.message)
-                    actionCompleted = Pair(null, false)
+                    actionCompleted = Pair(ErrorTypeEnum.FIREBASE_DB_READING, false)
                     throw it
                 }
             actionCompleted
@@ -120,7 +136,7 @@ object DatabaseManager {
      */
     fun getMedicines(): Map<String, RemoteMedicine> {
         Log.d(Log.DEBUG.toString(), "getMedicines()-Started")
-        return getDataFromDB(PATH_MEDICINES, "Medicine") as Map<String, RemoteMedicine>
+        return getDataFromDB(PATH_MEDICINES, PATH_MEDICINES) as Map<String, RemoteMedicine>
     }
 
     /**
@@ -146,22 +162,5 @@ object DatabaseManager {
             })
         Log.d(Log.DEBUG.toString(), "getUser()-Ended")
         return foundMedicine
-    }
-
-    //Private methods for Users
-
-    private fun checkAlreadyExistingUser(
-        users: Map<String, User>,
-        userId: String
-    ): Pair<Boolean, User?> {
-        return Pair(users.containsKey(userId), users[userId])
-    }
-
-    //Private methods for medicines
-    private fun getMedicineFromList(
-        medicines: Map<String, RemoteMedicine>,
-        medicineId: String
-    ): RemoteMedicine? {
-        return medicines[medicineId]
     }
 }

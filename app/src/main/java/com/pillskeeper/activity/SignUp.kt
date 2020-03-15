@@ -24,6 +24,7 @@ class SignUp : AppCompatActivity() {
     }
 
     fun signUp(view: View) {
+        /*
         AuthenticationManager.createNewUser(
             mailField.text.toString(),
             passwordField.text.toString()
@@ -38,7 +39,7 @@ class SignUp : AppCompatActivity() {
                         mailField.text.toString()
                     )
                 )
-                if (result) {
+                if (true) {
                     //TODO passare utente all'activity dopo attraverso un intent e scrivere le info a DB locale + a db condiviso
                 } else {
                     //TODO spaccare tutto e dire all'utente di reinserire i dati
@@ -47,6 +48,6 @@ class SignUp : AppCompatActivity() {
                 Toast.makeText(this, resources.getString(R.string.error_values), Toast.LENGTH_LONG)
                     .show()
             }
-        }
+        }*/
     }
 }

@@ -8,7 +8,7 @@ data class RemoteMedicine(
     var medicineId: String
 ) :
     Medicine(
-        name, type,
-        medicineId
+        name,
+        medicineId, type
     ) {
 }

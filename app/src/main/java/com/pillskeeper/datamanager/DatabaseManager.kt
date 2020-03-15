@@ -113,10 +113,10 @@ object DatabaseManager {
      */
     fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum?, Boolean>? {
         var actionCompleted: Pair<ErrorTypeEnum?, Boolean>? = null
-        return if (getMedicine(medicine.medicineId) != null) {
+        return if (getMedicine(medicine.id) != null) {
             Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
-            databaseReference.child(PATH_MEDICINES).child(medicine.medicineId).setValue(medicine)
+            databaseReference.child(PATH_MEDICINES).child(medicine.id).setValue(medicine)
                 .addOnCompleteListener {
                     Log.d(Log.DEBUG.toString(), "writeNewMedicine()-Completed")
                     actionCompleted = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)

@@ -9,17 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.friend.EditFriendActivity"></activity>
         <activity android:name=".activity.friend.NewFriendActivity" />
-        <activity android:name=".activity.FriendDialog" />
+        <activity android:name=".activity.SignUp" />
         <activity android:name=".activity.friend.FriendListActivity" />
         <activity
             android:name=".activity.FirstLoginActivity"
             android:label="@string/title_activity_first_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.login.FirstLoginActivity"
-            android:label="@string/title_activity_first_login" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.FirstLoginActivity"
-            android:label="@string/title_activity_first_login"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.MainActivity"></activity>
     </application>
 
 </manifest>

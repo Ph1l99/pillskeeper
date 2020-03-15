@@ -4,11 +4,6 @@ import com.pillskeeper.enums.MedicineTypeEnum
 
 data class RemoteMedicine(
     var name: String,
-    var type: MedicineTypeEnum,
-    var medicineId: String
-) :
-    Medicine(
-        name,
-        medicineId, type
-    ) {
-}
+    var id: String,
+    var medicineType: MedicineTypeEnum
+) : AbstractMedicine(name, id, medicineType)

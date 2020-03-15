@@ -10,5 +10,4 @@ data class LocalMedicine(
     var remainingPills: Float,
     var reminders: LinkedList<Reminder>?,
     var id :String
-) : Medicine(name, id, medicineType) {
-}
+) : AbstractMedicine(name, id, medicineType)

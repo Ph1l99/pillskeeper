@@ -2,16 +2,17 @@ package com.pillskeeper.datamanager
 
 import android.util.Log
 import com.pillskeeper.data.Friend
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.data.Reminder
 import java.util.*
 
 object UserInformation {
 
-    var medicines: LinkedList<Medicine> = LocalDatabase.readMedicineList()
+    var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
 
-    @Synchronized fun getSpecificMedicine(name: String): Medicine?{
+    @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
         Log.w(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
         
         medicines.forEach {
@@ -54,7 +55,7 @@ object UserInformation {
         return true
     }
 
-    @Synchronized fun addNewMedicine(medicine: Medicine) : Boolean{
+    @Synchronized fun addNewMedicine(medicine: LocalMedicine) : Boolean{
         Log.w(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Started")
 
         medicines.forEach {
@@ -70,7 +71,7 @@ object UserInformation {
         return true
     }
 
-    @Synchronized fun editMedicine(oldName: String, medicine: Medicine): Boolean{
+    @Synchronized fun editMedicine(oldName: String, medicine: LocalMedicine): Boolean{
         Log.w(Log.DEBUG.toString(),"UserInformation: editMedicine() - Started")
 
         for(i in medicines.indices){
@@ -103,7 +104,7 @@ object UserInformation {
     @Synchronized fun addNewReminder(medicineName: String, reminder: Reminder): Boolean {
         Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Started")
 
-        var currMedicine: Medicine? = null
+        var currMedicine: LocalMedicine? = null
 
         for(i in medicines.indices) {
             if(medicines[i].name == medicineName) {
@@ -139,13 +140,13 @@ object UserInformation {
         Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
     }
 
-    @Synchronized fun flush(){
-        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Started")
+    @Synchronized fun flushAll(){
+        Log.w(Log.DEBUG.toString(),"UserInformation: flushAll() - Started")
 
         LocalDatabase.saveFriendList(friends)
         LocalDatabase.saveMedicineList(medicines)
 
-        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Ended")
+        Log.w(Log.DEBUG.toString(),"UserInformation: flushAll() - Ended")
     }
 
 }

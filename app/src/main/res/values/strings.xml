@@ -15,4 +15,17 @@
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
     <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>
+    <string name="nome">Nome:</string>
+    <string name="cognome">Cognome:</string>
+    <string name="relazione">Relazione:</string>
+    <string name="yes">Yes</string>
+    <string name="email">Email:</string>
+    <string name="nome_persona">Nome amico</string>
+    <string name="cognome_amico">Cognome amico</string>
+    <string name="email_amico">Email amico</string>
+    <string name="confermaButton">Conferma</string>
+    <string name="deleteButton">Cancella</string>
+    <string name="phoneNumber">Numero:</string>
+    <string name="phoneNumberHint">Numero Cellulare</string>
+    <string name="editButton">Modifica</string>
 </resources>

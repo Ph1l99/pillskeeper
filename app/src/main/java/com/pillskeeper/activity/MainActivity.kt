@@ -6,14 +6,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.data.Friend
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.RelationEnum
+import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
-        UserInformation
+        UserInformation //necessario per inizializzare i componenti interni
 
         //TODO DEBUG - to be removed
         funTest()
@@ -50,6 +51,11 @@ class MainActivity : AppCompatActivity() {
         buttonResetLocalMemory.setOnClickListener {
             LocalDatabase.resetMemory()
             exitProcess(-1)
+        }
+
+        friendListButton.setOnClickListener {
+            val activity = Intent(this, FriendListActivity::class.java)
+            startActivity(activity)
         }
     }
 
@@ -80,23 +86,17 @@ class MainActivity : AppCompatActivity() {
         val reminders = LinkedList<Reminder>()
         reminders.add(Reminder(1.5F,0,19,"Lun-Mar-Mer", Date(),null))
         reminders.add(Reminder(1F,0,19,"Ven",Date(),null))
-        UserInformation.addNewMedicine(Medicine("Tachipirina",24F,24F,reminders))
+        UserInformation.addNewMedicine(LocalMedicine("Tachipirina",MedicineTypeEnum.Pills,24F,24F,reminders,"Tachipirina"))
 
 
         val reminders2 = LinkedList<Reminder>()
         reminders2.add(Reminder(1.5F,0,19,"Lun-Mer", Date(),null))
         reminders2.add(Reminder(1F,0,19,"Wed",Date(),null))
-        UserInformation.addNewMedicine(Medicine("Aulin",24F,24F,null))
+        UserInformation.addNewMedicine(LocalMedicine("Aulin",MedicineTypeEnum.Pills,24F,24F,null, "Aulin"))
         UserInformation.addNewReminderList("Aulin",reminders2)
 
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
-
-
-        UserInformation.addNewFriend(Friend("paolo","3402323423",null,RelationEnum.Friend))
-        UserInformation.addNewFriend(Friend("Carlo","3482945679",null,RelationEnum.Doctor))
-
-        UserInformation.flush()
 
     }
 

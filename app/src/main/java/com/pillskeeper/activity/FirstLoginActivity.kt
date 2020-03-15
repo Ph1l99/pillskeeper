@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.pillskeeper.R
+import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.CentralDatabase
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.enums.LocalDbKeyEnum
 import kotlinx.android.synthetic.main.activity_first_login.*
@@ -22,6 +24,8 @@ class FirstLoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Perfavore inserisci valori corretti!", Toast.LENGTH_LONG).show()
             } else {
                 LocalDatabase.saveValue(LocalDbKeyEnum.USERNAME.toString(),username)
+                CentralDatabase.obtainRemoteDatabase()
+                //CentralDatabase.writeNewUser(User(1234))
                 sendDataBackToPreviousActivity(username)
                 finish()
             }

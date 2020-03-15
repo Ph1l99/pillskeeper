@@ -1,7 +1,5 @@
 package com.pillskeeper.data
 
-class Medicine (name:String, qty: Int) {
+import java.util.*
 
-    var name: String = name
-
-}
+data class Medicine (var name:String, var totalPills: Float, var remainingPills: Float, var reminders: LinkedList<Reminder>)

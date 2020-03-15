@@ -16,7 +16,11 @@ interface LocalDatabaseInterface {
 
     fun saveFriendList(friends: LinkedList<Friend>)
 
+    fun saveFriendList()
+
     fun saveMedicineList(medicine: LinkedList<Medicine>)
+
+    fun saveMedicineList()
 
     fun resetMemory()
 

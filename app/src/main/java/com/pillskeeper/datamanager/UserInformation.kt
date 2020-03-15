@@ -139,13 +139,13 @@ object UserInformation {
         Log.w(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
     }
 
-    @Synchronized fun flush(){
-        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Started")
+    @Synchronized fun flushAll(){
+        Log.w(Log.DEBUG.toString(),"UserInformation: flushAll() - Started")
 
         LocalDatabase.saveFriendList(friends)
         LocalDatabase.saveMedicineList(medicines)
 
-        Log.w(Log.DEBUG.toString(),"UserInformation: flush() - Ended")
+        Log.w(Log.DEBUG.toString(),"UserInformation: flushAll() - Ended")
     }
 
 }

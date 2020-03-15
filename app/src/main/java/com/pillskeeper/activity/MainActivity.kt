@@ -6,14 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.data.Friend
+import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.data.Medicine
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.RelationEnum
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -96,12 +95,6 @@ class MainActivity : AppCompatActivity() {
 
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
-
-
-        UserInformation.addNewFriend(Friend("paolo","3402323423",null,RelationEnum.Friend))
-        UserInformation.addNewFriend(Friend("Carlo","3482945679",null,RelationEnum.Doctor))
-
-        UserInformation.flush()
 
     }
 

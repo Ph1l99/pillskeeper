@@ -93,6 +93,14 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
+    override fun saveFriendList(){
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+
+        saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),UserInformation.friends)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+    }
+
     override fun saveMedicineList(medicine: LinkedList<Medicine>) {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
@@ -101,10 +109,21 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
 
+    override fun saveMedicineList() {
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+
+        saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),UserInformation.medicines)
+
+        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+    }
+
+    //TODO TEST
     override fun resetMemory(){
 
         sharedPref?.edit()?.clear()?.commit()
 
     }
+
+
 
 }

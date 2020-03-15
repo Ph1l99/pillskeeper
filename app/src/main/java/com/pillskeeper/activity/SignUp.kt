@@ -13,7 +13,7 @@ import com.pillskeeper.datamanager.DatabaseManager
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUp : AppCompatActivity() {
-    lateinit var currentUser: FirebaseUser
+    private lateinit var currentUser: FirebaseUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

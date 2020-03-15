@@ -5,8 +5,7 @@ import com.pillskeeper.enums.MedicineTypeEnum
 data class RemoteMedicine(
     var name: String,
     var type: MedicineTypeEnum,
-    var medicineId: String,
-    var photoId: String
+    var medicineId: String
 ) :
     Medicine(
         name, type,

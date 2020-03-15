@@ -4,10 +4,8 @@ import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.pillskeeper.data.Medicine
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
-import java.util.*
 
 object DatabaseManager {
 
@@ -15,6 +13,7 @@ object DatabaseManager {
     private const val MEDICINES = "Medicines"
     private const val PATH_USERS = "users"
     private const val PATH_MEDICINES = "medicines"
+    private const val ERROR_WRITING = "Errore nella scrittura,valori gia' presenti"
 
     /**
      * Metodo per ottenere il riferimento remoto del database
@@ -33,6 +32,7 @@ object DatabaseManager {
         Log.d(Log.DEBUG.toString(), "getDataFromDB()-Started")
         var map: Map<String, Any>? = null
         databaseReference.child(path).addListenerForSingleValueEvent(object : ValueEventListener {
+
             override fun onCancelled(p0: DatabaseError) {
                 Log.d(
                     Log.DEBUG.toString(),
@@ -89,6 +89,29 @@ object DatabaseManager {
             })
         Log.d(Log.DEBUG.toString(), "getUser()-Ended")
         return foundUser
+    }
+
+    /**
+     * Metodo per la scrittura di una nuova medicina
+     * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
+     */
+    fun writeNewMedicine(medicine: RemoteMedicine): Pair<String?, Boolean>? {
+        var actionCompleted: Pair<Nothing?, Boolean>? = null
+        return if (getMedicine(medicine.medicineId) != null) {
+            Pair(ERROR_WRITING, false)
+        } else {
+            databaseReference.child(PATH_MEDICINES).child(medicine.medicineId).setValue(medicine)
+                .addOnCompleteListener {
+                    Log.d(Log.DEBUG.toString(), "writeNewMedicine()-Completed")
+                    actionCompleted = Pair(null, true)
+                }
+                .addOnFailureListener {
+                    Log.d(Log.DEBUG.toString(), "writeNewMedicine()-ERROR-FIREBASE" + it.message)
+                    actionCompleted = Pair(null, false)
+                    throw it
+                }
+            actionCompleted
+        }
     }
 
     /**

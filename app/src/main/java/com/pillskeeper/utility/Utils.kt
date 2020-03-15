@@ -4,9 +4,9 @@ import android.util.Log
 
 object Utils {
 
-    var regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
-    var regexPhoneNumber : Regex = "[0-9]{10}".toRegex()
-    var regexEmail : Regex = "[A-Za-z]{2,30}@[A-Za-z]{2,30}.[A-Za-z]{2,10}".toRegex()
+    private var regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
+    private var regexPhoneNumber : Regex = "[0-9]{10}".toRegex()
+    private var regexEmail : Regex = "[A-Za-z]{2,30}@[A-Za-z]{2,30}.[A-Za-z]{2,10}".toRegex()
 
 
     fun checkName(value: String) : Boolean {

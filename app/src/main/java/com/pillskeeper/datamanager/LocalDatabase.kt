@@ -4,7 +4,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
 import com.pillskeeper.data.Friend
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.enums.LocalDbKeyEnum
 import com.pillskeeper.interfaces.LocalDatabaseInterface
 import java.util.*
@@ -60,18 +61,18 @@ object LocalDatabase : LocalDatabaseInterface{
         return LinkedList(Gson().fromJson(friendsJson, Array<Friend>::class.java).toList())
     }
 
-    override fun readMedicineList(): LinkedList<Medicine> {
+    override fun readMedicineList(): LinkedList<LocalMedicine> {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Started")
 
         val medicinesJson: String? = sharedPref?.getString(LocalDbKeyEnum.MEDICINELIST.toString(), null)
 
         if (medicinesJson.isNullOrEmpty()) {
             Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List empty")
-            return LinkedList<Medicine>()
+            return LinkedList<LocalMedicine>()
         }
 
         Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List full")
-        return LinkedList(Gson().fromJson(medicinesJson, Array<Medicine>::class.java).toList())
+        return LinkedList(Gson().fromJson(medicinesJson, Array<LocalMedicine>::class.java).toList())
     }
 
 
@@ -101,7 +102,7 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
-    override fun saveMedicineList(medicine: LinkedList<Medicine>) {
+    override fun saveMedicineList(medicine: LinkedList<LocalMedicine>) {
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),medicine)

@@ -1,7 +1,7 @@
 package com.pillskeeper.interfaces
 
 import com.pillskeeper.data.Friend
-import com.pillskeeper.data.Medicine
+import com.pillskeeper.data.LocalMedicine
 import java.util.*
 
 interface LocalDatabaseInterface {
@@ -10,7 +10,7 @@ interface LocalDatabaseInterface {
 
     fun readFriendList(): LinkedList<Friend>
 
-    fun readMedicineList(): LinkedList<Medicine>
+    fun readMedicineList(): LinkedList<LocalMedicine>
 
     fun saveUsername(username: String)
 
@@ -18,7 +18,7 @@ interface LocalDatabaseInterface {
 
     fun saveFriendList()
 
-    fun saveMedicineList(medicine: LinkedList<Medicine>)
+    fun saveMedicineList(medicine: LinkedList<LocalMedicine>)
 
     fun saveMedicineList()
 

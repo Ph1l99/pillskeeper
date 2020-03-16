@@ -15,7 +15,7 @@ object LocalDatabase : LocalDatabaseInterface{
 
     var sharedPref: SharedPreferences? = null
 
-    private fun saveValue(key: String, value: Any){
+    fun saveValue(key: String, value: Any){
         Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
 
         with (sharedPref?.edit()) {

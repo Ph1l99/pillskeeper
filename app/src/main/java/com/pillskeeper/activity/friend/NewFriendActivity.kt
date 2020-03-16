@@ -2,9 +2,13 @@ package com.pillskeeper.activity.friend
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import com.pillskeeper.R
 import com.pillskeeper.data.Friend
 import com.pillskeeper.datamanager.LocalDatabase
@@ -14,9 +18,11 @@ import com.pillskeeper.enums.RelationEnum
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_new_friend.*
 
+
 class NewFriendActivity(context: Context, private val mode: DialogModeEnum, private val friend: Friend?) : Dialog(context) {
 
     private var isEditing: Boolean = false
+    private var stdLayout: Drawable? = null
 
     init {
         setCancelable(false)
@@ -27,11 +33,11 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_new_friend)
 
-
-
+        stdLayout = editTextName.background
         if(mode == DialogModeEnum.CREATE_NEW_FRIEND){
             initSpinner()
             buttonConfirm.setOnClickListener{
+                restoreAllLayout()
                 addOrEditFriend()
             }
         } else {
@@ -56,7 +62,7 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
                 buttonConfirm.text = "Modifica"
 
                 buttonConfirm.setOnClickListener {
-
+                    restoreAllLayout()
                     if(isEditing)
                         addOrEditFriend()
                     else {
@@ -81,18 +87,22 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
     private fun addOrEditFriend(){
         var isValidInfo = true
         if(editTextPhone.text.toString() != "" )
-            if(!Utils.checkPhoneNumber(editTextPhone.text.toString()))
+            if(!Utils.checkPhoneNumber(editTextPhone.text.toString())) {
                 isValidInfo = false
-        //TODO colorare il campo di rosso
+                colorEditText(editTextPhone)
+            }
 
         if(editTextEmail.text.toString() != "")
-            if(!Utils.checkEmail(editTextEmail.text.toString()))
+            if(!Utils.checkEmail(editTextEmail.text.toString())) {
                 isValidInfo = false
-        //TODO colorare il campo di rosso
+                colorEditText(editTextEmail)
+            }
 
-        if(!Utils.checkName(editTextName.text.toString()) && !Utils.checkName(editTextSurname.text.toString()))
+        if(!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
             isValidInfo = false
-        //TODO colorare il campo di rosso
+            colorEditText(editTextName)
+            colorEditText(editTextSurname)
+        }
 
         if (isValidInfo) {
             val newFriend = Friend(
@@ -135,5 +145,18 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
         spinnerRelation.isEnabled = value
     }
 
+    private fun colorEditText(editText: EditText) {
+        val gd  = GradientDrawable()
+        gd.setColor(Color.parseColor("#00ffffff"));
+        gd.setStroke(2, Color.RED);
+        editText.background = gd
+    }
+
+    private fun restoreAllLayout(){
+        editTextName.background = stdLayout
+        editTextSurname.background = stdLayout
+        editTextPhone.background = stdLayout
+        editTextEmail.background = stdLayout
+    }
 
 }

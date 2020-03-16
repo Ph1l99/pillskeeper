@@ -37,7 +37,7 @@ class PillsFormActivity : AppCompatActivity() {
         if (requestCode == MainActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val pillName: String = data!!.getStringExtra("pillName")
-                edit_Text_Name.text = SpannableStringBuilder("")
+                //edit_Text_Name.text = SpannableStringBuilder("")
                 edit_Text_Name.text = SpannableStringBuilder(pillName)
             }
         } else {

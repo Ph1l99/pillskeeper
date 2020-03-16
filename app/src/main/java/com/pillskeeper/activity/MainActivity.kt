@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.datamanager.LocalDatabase
@@ -46,8 +47,9 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(activity,START_FIRST_LOGIN_ACTIVITY_CODE)
         } else {
             //Apro la home page
-            val it = Intent(this, HomeActivity::class.java)
+            val it = Intent(this, PillsListActivity::class.java)
             startActivity(it)
+            finish()
         }
 
 

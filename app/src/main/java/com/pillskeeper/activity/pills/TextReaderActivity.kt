@@ -13,7 +13,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.pillskeeper.R
-import kotlinx.android.synthetic.main.activity_pills.*
+import kotlinx.android.synthetic.main.activity_text_reader.*
 
 class TextReaderActivity : AppCompatActivity() {
 
@@ -23,7 +23,7 @@ class TextReaderActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pills)
+        setContentView(R.layout.activity_text_reader)
 
         val cameraView = findViewById<SurfaceView>(R.id.surface_view)
         val textView = findViewById<TextView>(R.id.text_view)

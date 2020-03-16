@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.pills.TextReaderActivity" />
+        <activity android:name=".activity.pills.PillsFormActivity" />
+        <activity android:name=".activity.pills.PillsListActivity" />
         <activity android:name=".activity.friend.NewFriendActivity" />
         <activity android:name=".activity.SignUp" />
         <activity android:name=".activity.friend.FriendListActivity" />

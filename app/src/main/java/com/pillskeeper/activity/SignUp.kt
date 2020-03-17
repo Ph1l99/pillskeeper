@@ -1,6 +1,8 @@
 package com.pillskeeper.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,30 +26,24 @@ class SignUp : AppCompatActivity() {
     }
 
     fun signUp(view: View) {
-        /*
-        AuthenticationManager.createNewUser(
+        val resultAuth = AuthenticationManager.createNewUser(
             mailField.text.toString(),
             passwordField.text.toString()
-        ).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                currentUser = AuthenticationManager.getSignedInUser()!!
-                val result = DatabaseManager.writeNewUser(
+        )
+        if (resultAuth != null) {
+            if (resultAuth.second) {
+                Log.w(Log.DEBUG.toString(), AuthenticationManager.getSignedInUser()?.email.toString())
+                val resultDB = DatabaseManager.writeNewUser(
                     User(
-                        currentUser.uid,
-                        nameField.text.toString(),
-                        surnameField.text.toString(),
+                        AuthenticationManager.getSignedInUser()?.uid.toString(),
+                        "ciao",
+                        "phil",
                         mailField.text.toString()
                     )
                 )
-                if (true) {
-                    //TODO passare utente all'activity dopo attraverso un intent e scrivere le info a DB locale + a db condiviso
-                } else {
-                    //TODO spaccare tutto e dire all'utente di reinserire i dati
-                }
             } else {
-                Toast.makeText(this, resources.getString(R.string.error_values), Toast.LENGTH_LONG)
-                    .show()
+                Toast.makeText(this, "Qualcosa è andato storto", Toast.LENGTH_LONG).show()
             }
-        }*/
+        }
     }
 }

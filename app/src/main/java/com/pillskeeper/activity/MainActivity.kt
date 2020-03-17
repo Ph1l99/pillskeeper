@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
@@ -14,14 +15,16 @@ import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
+import com.pillskeeper.datamanager.AuthenticationManager
+import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var isFirstLogin : Boolean = true
-    private var username : String? = null
+    private var isFirstLogin: Boolean = true
+    private var username: String? = null
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
+        AuthenticationManager.obtainAuthentication()
 
         UserInformation //necessario per inizializzare i componenti interni
 
@@ -42,16 +46,15 @@ class MainActivity : AppCompatActivity() {
 
         readFirstLogin()
 
-        if(isFirstLogin){
+        if (isFirstLogin) {
             val activity = Intent(this, FirstLoginActivity::class.java)
-            startActivityForResult(activity,START_FIRST_LOGIN_ACTIVITY_CODE)
+            startActivityForResult(activity, START_FIRST_LOGIN_ACTIVITY_CODE)
         } else {
             //Apro la home page
             val it = Intent(this, PillsListActivity::class.java)
             startActivity(it)
             finish()
         }
-
 
 
         //TODO for debug, to be removed
@@ -66,13 +69,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun readFirstLogin(){
+    private fun readFirstLogin() {
         val userN = LocalDatabase.readUsername()
-        if (userN != null) {
-            if(userN.isNotEmpty() || userN != "") {
+        val userR = AuthenticationManager.getSignedInUser()
+        if (userR != null) {
+            /*if(userN.isNotEmpty() || userN != "") {
                 username = userN
                 isFirstLogin = false
-            }
+            }*/
+            isFirstLogin=false
+            Toast.makeText(this, "Utente ottenuto", Toast.LENGTH_LONG).show()
+        } else {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
         }
     }
 
@@ -87,20 +96,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun funTest(){
+    private fun funTest() {
 
 
         val reminders = LinkedList<Reminder>()
-        reminders.add(Reminder(1.5F,0,19,"Lun-Mar-Mer", Date(),null))
-        reminders.add(Reminder(1F,0,19,"Ven",Date(),null))
-        UserInformation.addNewMedicine(LocalMedicine("Tachipirina",MedicineTypeEnum.Pills,24F,24F,reminders,"Tachipirina"))
+        reminders.add(Reminder(1.5F, 0, 19, "Lun-Mar-Mer", Date(), null))
+        reminders.add(Reminder(1F, 0, 19, "Ven", Date(), null))
+        UserInformation.addNewMedicine(
+            LocalMedicine(
+                "Tachipirina",
+                MedicineTypeEnum.Pills,
+                24F,
+                24F,
+                reminders,
+                "Tachipirina"
+            )
+        )
 
 
         val reminders2 = LinkedList<Reminder>()
-        reminders2.add(Reminder(1.5F,0,19,"Lun-Mer", Date(),null))
-        reminders2.add(Reminder(1F,0,19,"Wed",Date(),null))
-        UserInformation.addNewMedicine(LocalMedicine("Aulin",MedicineTypeEnum.Pills,24F,24F,null, "Aulin"))
-        UserInformation.addNewReminderList("Aulin",reminders2)
+        reminders2.add(Reminder(1.5F, 0, 19, "Lun-Mer", Date(), null))
+        reminders2.add(Reminder(1F, 0, 19, "Wed", Date(), null))
+        UserInformation.addNewMedicine(
+            LocalMedicine(
+                "Aulin",
+                MedicineTypeEnum.Pills,
+                24F,
+                24F,
+                null,
+                "Aulin"
+            )
+        )
+        UserInformation.addNewReminderList("Aulin", reminders2)
 
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)

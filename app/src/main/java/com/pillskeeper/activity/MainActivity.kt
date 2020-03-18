@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun readFirstLogin() {
         //val userN = LocalDatabase.readUsername()
-        if (FirebaseAuth.getInstance().currentUser != null) {
+        if (/*FirebaseAuth.getInstance().currentUser != null*/ true) {
             val it = Intent(this, PillsListActivity::class.java)
             startActivity(it)
             finish()

@@ -89,19 +89,19 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
         if(editTextPhone.text.toString() != "" )
             if(!Utils.checkPhoneNumber(editTextPhone.text.toString())) {
                 isValidInfo = false
-                colorEditText(editTextPhone)
+                Utils.colorEditText(editTextPhone)
             }
 
         if(editTextEmail.text.toString() != "")
             if(!Utils.checkEmail(editTextEmail.text.toString())) {
                 isValidInfo = false
-                colorEditText(editTextEmail)
+                Utils.colorEditText(editTextEmail)
             }
 
         if(!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
             isValidInfo = false
-            colorEditText(editTextName)
-            colorEditText(editTextSurname)
+            Utils.colorEditText(editTextName)
+            Utils.colorEditText(editTextSurname)
         }
 
         if (isValidInfo) {
@@ -143,13 +143,6 @@ class NewFriendActivity(context: Context, private val mode: DialogModeEnum, priv
         editTextEmail.isEnabled = value
         editTextPhone.isEnabled = value
         spinnerRelation.isEnabled = value
-    }
-
-    private fun colorEditText(editText: EditText) {
-        val gd  = GradientDrawable()
-        gd.setColor(Color.parseColor("#00ffffff"));
-        gd.setStroke(2, Color.RED);
-        editText.background = gd
     }
 
     private fun restoreAllLayout(){

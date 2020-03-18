@@ -6,17 +6,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
-import com.pillskeeper.datamanager.AuthenticationManager
-import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
@@ -70,18 +69,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun readFirstLogin() {
         val userN = LocalDatabase.readUsername()
-        val userR = AuthenticationManager.getSignedInUser()
-        if (userR != null) {
-            /*if(userN.isNotEmpty() || userN != "") {
-                username = userN
+
+            if (FirebaseAuth.getInstance().currentUser != null) {
+                /*if(userN.isNotEmpty() || userN != "") {
+                    username = userN
+                    isFirstLogin = false
+                }*/
                 isFirstLogin = false
-            }*/
-            isFirstLogin=false
-            Toast.makeText(this, "Utente ottenuto", Toast.LENGTH_LONG).show()
-        } else {
-            val intent = Intent(this, SignUp::class.java)
-            startActivity(intent)
-        }
+                Toast.makeText(this, "Utente ottenuto", Toast.LENGTH_LONG).show()
+            } else {
+                val intent = Intent(this, SignUp::class.java)
+                startActivity(intent)
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

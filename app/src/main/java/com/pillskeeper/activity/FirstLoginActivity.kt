@@ -18,7 +18,6 @@ class FirstLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_login)
         DatabaseManager.obtainRemoteDatabase()
-        AuthenticationManager.obtainAuthentication()
 
         firstLoginButton.setOnClickListener {
             val username: String = usernameEditText.text.toString()

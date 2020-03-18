@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
-        AuthenticationManager.obtainAuthentication()
 
         UserInformation //necessario per inizializzare i componenti interni
 

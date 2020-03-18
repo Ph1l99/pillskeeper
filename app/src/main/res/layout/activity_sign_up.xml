@@ -26,25 +26,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="136dp"
         android:layout_marginBottom="550dp"
         android:hint="@string/signup_email"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/signup_name" />
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="45dp"
+        android:hint="@string/signup_name"
+        app:layout_constraintBottom_toTopOf="@+id/mailField"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/surnameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/signup_surname" />
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="51dp"
+        android:hint="@string/signup_surname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwordField"

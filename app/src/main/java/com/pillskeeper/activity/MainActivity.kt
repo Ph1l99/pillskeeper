@@ -22,9 +22,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var isFirstLogin: Boolean = true
-    private var username: String? = null
-
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
     }
@@ -44,17 +41,6 @@ class MainActivity : AppCompatActivity() {
 
         readFirstLogin()
 
-        if (isFirstLogin) {
-            val activity = Intent(this, FirstLoginActivity::class.java)
-            startActivityForResult(activity, START_FIRST_LOGIN_ACTIVITY_CODE)
-        } else {
-            //Apro la home page
-            val it = Intent(this, PillsListActivity::class.java)
-            startActivity(it)
-            finish()
-        }
-
-
         //TODO for debug, to be removed
         buttonResetLocalMemory.setOnClickListener {
             LocalDatabase.resetMemory()
@@ -68,19 +54,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun readFirstLogin() {
-        val userN = LocalDatabase.readUsername()
-
-            if (FirebaseAuth.getInstance().currentUser != null) {
-                /*if(userN.isNotEmpty() || userN != "") {
-                    username = userN
-                    isFirstLogin = false
-                }*/
-                isFirstLogin = false
-                Toast.makeText(this, "Utente ottenuto", Toast.LENGTH_LONG).show()
-            } else {
-                val intent = Intent(this, SignUp::class.java)
-                startActivity(intent)
-            }
+        //val userN = LocalDatabase.readUsername()
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            val it = Intent(this, PillsListActivity::class.java)
+            startActivity(it)
+            finish()
+        } else {
+            val intent = Intent(this, SignUp::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

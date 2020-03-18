@@ -1,56 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.pills.PillsFormActivity">
-
-    <TextView
-        android:id="@+id/textViewQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="88dp"
-        android:text="Quantità"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_Text_Name" />
-
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="115dp"
-        android:text="Nome del farmaco"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextQuantity"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Inserire la quantità"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
-
-    <EditText
-        android:id="@+id/edit_Text_Name"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Inserire il nome del farmaco"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName" />
 
     <Button
         android:id="@+id/buttonCamera"
@@ -58,19 +13,125 @@
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:text="Read"
-        app:layout_constraintBottom_toTopOf="@+id/edit_Text_Name"
+        app:layout_constraintBottom_toTopOf="@+id/editTextNameMed"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/button_Confirm"
-        android:layout_width="117dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="86dp"
-        android:layout_marginEnd="144dp"
-        android:text="Conferma"
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="Nome del farmaco"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextNameMed"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Inserire il nome del farmaco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"
+        android:autofillHints="" />
+
+
+    <EditText
+        android:id="@+id/editTextTotQuantity"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="1dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Quantità totale"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotQuantity" />
+
+    <TextView
+        android:id="@+id/textViewMedType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="84dp"
+        android:text="Tipo Medicina"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
+
+    <TextView
+        android:id="@+id/textViewTotQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:minWidth="100dp"
+        android:text="Quantità totale"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
+
+    <Spinner
+        android:id="@+id/spinnerMedicineType"
+        android:layout_width="99dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="74dp"
+        android:minWidth="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMedType" />
+
+    <TextView
+        android:id="@+id/textViewRemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="Quantità Rimanente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTotQuantity" />
+
+    <EditText
+        android:id="@+id/editTextRemQuantity"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="Quantità totale"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity" />
+
+    <Button
+        android:id="@+id/buttonConfirmMed"
+        android:layout_width="117dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="54dp"
+        android:text="@string/confermaButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonDenyMed"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
+
+    <Button
+        android:id="@+id/buttonDenyMed"
+        android:layout_width="117dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="63dp"
+        android:text="@string/deleteButton"
+        app:layout_constraintEnd_toStartOf="@+id/buttonConfirmMed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

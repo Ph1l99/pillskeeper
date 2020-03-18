@@ -31,7 +31,7 @@ class PillsListActivity : AppCompatActivity() {
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray!!)
         pills_list.adapter = adapter
 
-        pills_list.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, position: Int, l: Long ->
+        pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
                 val it = Intent(this, PillsFormActivity::class.java)

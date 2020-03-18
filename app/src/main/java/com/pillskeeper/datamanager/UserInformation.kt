@@ -1,16 +1,32 @@
 package com.pillskeeper.datamanager
 
+import android.content.Context
 import android.util.Log
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.data.Reminder
+import com.pillskeeper.notifier.ServiceNotifier
 import java.util.*
 
 object UserInformation {
 
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
+    private var notifier : ServiceNotifier? = null
+    lateinit var context: Context
+
+    private const val SEC = 1000
+    private const val MIN = 60 * SEC
+    const val TIME_SERVICE = 15 * MIN
+    const val JOB_ID = 1
+
+
+    init{
+        if(notifier == null) {
+            notifier = ServiceNotifier()
+            println("notifier partitoooooooooooooooo")
+        }
+    }
 
     @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
         Log.w(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")

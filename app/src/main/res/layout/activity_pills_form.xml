@@ -34,7 +34,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Inserire la quantità"
+        android:hint="Inserire la quantità"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
@@ -47,7 +47,7 @@
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Inserire il nome del farmaco"
+        android:hint="Inserire il nome del farmaco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewName" />

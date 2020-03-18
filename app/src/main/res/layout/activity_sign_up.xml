@@ -25,33 +25,39 @@
         android:id="@+id/mailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="136dp"
-        android:layout_marginBottom="550dp"
-        android:hint="@string/signup_email"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="32dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="@string/signup_email"
+        app:layout_constraintStart_toEndOf="@+id/nameField"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/signup_name" />
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/signup_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/surnameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/signup_surname" />
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="80dp"
+        android:hint="@string/signup_surname"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="80dp"
         android:layout_marginBottom="550dp"
         android:hint="@string/signup_password"
         android:inputType="textPassword"

@@ -1,25 +1,29 @@
 package com.pillskeeper.activity
 
 import android.app.Activity
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.AbstractMedicine
-import com.pillskeeper.datamanager.LocalDatabase
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.AuthenticationManager
-import com.pillskeeper.datamanager.DatabaseManager
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.notifier.ServiceNotifier
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.system.exitProcess
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,23 +43,13 @@ class MainActivity : AppCompatActivity() {
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
         AuthenticationManager.obtainAuthentication()
 
-        UserInformation //necessario per inizializzare i componenti interni
+        //UserInformation
+        UserInformation.context = this
 
         //TODO DEBUG - to be removed
         funTest()
 
         readFirstLogin()
-
-        if (isFirstLogin) {
-            val activity = Intent(this, FirstLoginActivity::class.java)
-            startActivityForResult(activity, START_FIRST_LOGIN_ACTIVITY_CODE)
-        } else {
-            //Apro la home page
-            val it = Intent(this, PillsListActivity::class.java)
-            startActivity(it)
-            finish()
-        }
-
 
         //TODO for debug, to be removed
         buttonResetLocalMemory.setOnClickListener {
@@ -73,11 +67,9 @@ class MainActivity : AppCompatActivity() {
         val userN = LocalDatabase.readUsername()
         val userR = AuthenticationManager.getSignedInUser()
         if (userR != null) {
-            /*if(userN.isNotEmpty() || userN != "") {
-                username = userN
-                isFirstLogin = false
-            }*/
-            isFirstLogin=false
+            val it = Intent(this, PillsListActivity::class.java)
+            startActivity(it)
+            finish()
             Toast.makeText(this, "Utente ottenuto", Toast.LENGTH_LONG).show()
         } else {
             val intent = Intent(this, SignUp::class.java)
@@ -88,15 +80,29 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                val username = data!!.getStringExtra("username")
-                welcomeTextView.text = "Benvenuto $username"
+                //val username = data!!.getStringExtra("username")
+                //todo gestire con phil
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
-    private fun funTest() {
+    private fun isJobServiceOn(): Boolean {
+        Log.w(Log.DEBUG.toString(),"MainActivity: isJobServiceOn() - Started")
+        (UserInformation.context.getSystemService( Context.JOB_SCHEDULER_SERVICE ) as JobScheduler)
+            .allPendingJobs.forEach { entry ->
+                if ( entry.id == UserInformation.JOB_ID ) {
+                    Log.w(Log.DEBUG.toString(),"MainActivity: isJobServiceOn() - Ended, no service running")
+                    return true
+                }
+            }
+
+        Log.w(Log.DEBUG.toString(),"MainActivity: isJobServiceOn() - Ended, service already running")
+        return false
+    }
+
+    private fun funTest(){
 
 
         val reminders = LinkedList<Reminder>()
@@ -132,6 +138,28 @@ class MainActivity : AppCompatActivity() {
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
+        //startNotifierThread()
     }
 
+
+    private fun startNotifierThread() {
+        Log.w(Log.DEBUG.toString(),"MainActivity: startNotifierThread() - Started")
+
+        if (!isJobServiceOn()) {
+            val mComponentName = ComponentName(this, ServiceNotifier::class.java)
+
+            //Now create a JobInfo and give
+            val jobInfo = JobInfo.Builder(UserInformation.JOB_ID, mComponentName)
+                .setPeriodic(UserInformation.TIME_SERVICE.toLong()).build()
+
+            val mScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+
+            if (mScheduler.schedule(jobInfo) == JobScheduler.RESULT_SUCCESS)
+                Log.w("JOB SCHEDULER SERVICE","Job Scheduled:  ${jobInfo.id}")
+            else
+                Log.w("JOB SCHEDULER SERVICE","Job not scheduled")
+        }
+
+        Log.w(Log.DEBUG.toString(),"MainActivity: startNotifierThread() - Ended")
+    }
 }

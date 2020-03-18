@@ -19,15 +19,15 @@ class PillsFormActivity : AppCompatActivity() {
         //TODO finire il form
 
         buttonCamera.setOnClickListener{
-            val it = Intent(this, TextReaderActivity::class.java)
-            startActivityForResult(it, 0)
+            val intent = Intent(this, TextReaderActivity::class.java)
+            startActivityForResult(intent, 0)
         }
 
         button_Confirm.setOnClickListener{
-            val it = Intent(this, PillsListActivity::class.java)
-            it.putExtra("pillName", edit_Text_Name.text.toString())
-            it.putExtra("pillQuantity", editTextQuantity.text.toString())
-            setResult(Activity.RESULT_OK, it)
+            val intent = Intent(this, PillsListActivity::class.java)
+            intent.putExtra("pillName", edit_Text_Name.text.toString())
+            intent.putExtra("pillQuantity", editTextQuantity.text.toString())
+            setResult(Activity.RESULT_OK, intent)
             finish()
         }
     }

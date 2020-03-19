@@ -16,7 +16,7 @@ object LocalDatabase : LocalDatabaseInterface{
     var sharedPref: SharedPreferences? = null
 
     fun saveValue(key: String, value: Any){
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
 
         with (sharedPref?.edit()) {
             when (value) {
@@ -28,50 +28,50 @@ object LocalDatabase : LocalDatabaseInterface{
             this?.apply()
         }
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Ended - Value Saved")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Ended - Value Saved")
     }
 
 
     /*  READ Function   */
 
     override fun readUsername(): String? {
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
 
         val username: String? = sharedPref?.getString(LocalDbKeyEnum.USERNAME.toString(), null)
 
         if(username.isNullOrEmpty())
-            Log.w(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username empty or null")
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username empty or null")
         else
-            Log.w(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username full + $username")
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username full + $username")
 
         return username
     }
 
     override fun readFriendList(): LinkedList<Friend> {
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Started")
 
         val friendsJson: String? = sharedPref?.getString(LocalDbKeyEnum.FRIENDLIST.toString(),null)
 
         if (friendsJson.isNullOrEmpty()) {
-            Log.w(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Ended - List empty")
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Ended - List empty")
             return LinkedList<Friend>()
         }
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Ended - List full")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Ended - List full")
         return LinkedList(Gson().fromJson(friendsJson, Array<Friend>::class.java).toList())
     }
 
     override fun readMedicineList(): LinkedList<LocalMedicine> {
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Started")
 
         val medicinesJson: String? = sharedPref?.getString(LocalDbKeyEnum.MEDICINELIST.toString(), null)
 
         if (medicinesJson.isNullOrEmpty()) {
-            Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List empty")
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List empty")
             return LinkedList<LocalMedicine>()
         }
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List full")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Ended - List full")
         return LinkedList(Gson().fromJson(medicinesJson, Array<LocalMedicine>::class.java).toList())
     }
 
@@ -79,43 +79,43 @@ object LocalDatabase : LocalDatabaseInterface{
     /*  SAVE Function   */
 
     override fun saveUsername(username: String){
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
 
         saveValue(LocalDbKeyEnum.USERNAME.toString(), username)
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
     }
 
     override fun saveFriendList(friends: LinkedList<Friend>){
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
 
         saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),friends)
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
     override fun saveFriendList(){
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
 
         saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),UserInformation.friends)
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
     override fun saveMedicineList(medicine: LinkedList<LocalMedicine>) {
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),medicine)
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
 
     override fun saveMedicineList() {
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),UserInformation.medicines)
 
-        Log.w(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
 
     //TODO TEST

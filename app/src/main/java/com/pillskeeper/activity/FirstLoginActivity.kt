@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.pillskeeper.R
-import com.pillskeeper.datamanager.AuthenticationManager
 import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.enums.LocalDbKeyEnum
@@ -18,7 +17,6 @@ class FirstLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first_login)
         DatabaseManager.obtainRemoteDatabase()
-        AuthenticationManager.obtainAuthentication()
 
         firstLoginButton.setOnClickListener {
             val username: String = usernameEditText.text.toString()

@@ -27,58 +27,19 @@ object DatabaseManager {
     }
 
     /**
-     * Metodo per ottenere una mappa contenente gli oggetti ad un determinato path
-     * @param path Il percoso al quale estrarre i dati
-     * @param property Una stringa che indica la tipologia di mappa che si vuole recuperare
-     * ad esempio quella mappa degli utenti o delle medicine
-     */
-    private fun getDataFromDB(path: String, property: String): Any? {
-        Log.d(Log.DEBUG.toString(), "getDataFromDB()-Started")
-        var map: Map<String, Any>? = null
-        databaseReference.child(path).addListenerForSingleValueEvent(object : ValueEventListener {
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d(
-                    Log.DEBUG.toString(),
-                    "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                )
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                map = if (property == PATH_MEDICINES) {
-                    p0.value as Map<String, RemoteMedicine>
-                } else {
-                    p0.value as Map<String, User>
-                }
-            }
-        })
-        Log.d(Log.DEBUG.toString(), "getDataFromDB()-Ended")
-        return map
-    }
-
-    /**
      * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
      * @param User L'utente che deve essere aggiunto al database
      * @return True se l'inserimento è andato a buon fine, false altrimenti
      */
-    fun writeNewUser(user: User): Pair<ErrorTypeEnum?, Boolean>? {
+    fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
         Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
-        var result: Pair<ErrorTypeEnum?, Boolean>? = null
         return if (getUser(user.userId) != null) {
-            Log.d(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
+            Log.i(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
             Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
-            databaseReference.child(PATH_USERS).setValue(user)
-                .addOnCompleteListener {
-                    Log.d(Log.DEBUG.toString(), "writeNewUser()-Completed")
-                    result = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
-                }.addOnFailureListener {
-                    Log.d(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
-                    result = Pair(ErrorTypeEnum.FIREBASE_DB_READING, false)
-                    throw it
-                }
-            Log.d(Log.DEBUG.toString(), "writeNewUser()-Ended")
-            result
+            databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
+            Log.i(Log.DEBUG.toString(), "writeNewUser()-Ended")
+            Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
         }
     }
 
@@ -88,22 +49,22 @@ object DatabaseManager {
      * @return User L'oggetto che rappresenta l'utente
      */
     fun getUser(userId: String): User? {
-        Log.d(Log.DEBUG.toString(), "getUser()-Started")
+        Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundUser: User? = null
         databaseReference.child(PATH_USERS).child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    foundUser = p0.value as User
+                    foundUser = User.fromMap(p0.value as Map<String, String>)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d(
+                    Log.i(
                         Log.DEBUG.toString(),
                         "getUser()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
                 }
             })
-        Log.d(Log.DEBUG.toString(), "getUser()-Ended")
+        Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundUser
     }
 
@@ -111,22 +72,15 @@ object DatabaseManager {
      * Metodo per la scrittura di una nuova medicina
      * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
      */
-    fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum?, Boolean>? {
-        var actionCompleted: Pair<ErrorTypeEnum?, Boolean>? = null
+    fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum, Boolean> {
+        Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Started")
         return if (getMedicine(medicine.id) != null) {
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Obj exists")
             Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
             databaseReference.child(PATH_MEDICINES).child(medicine.id).setValue(medicine)
-                .addOnCompleteListener {
-                    Log.d(Log.DEBUG.toString(), "writeNewMedicine()-Completed")
-                    actionCompleted = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
-                }
-                .addOnFailureListener {
-                    Log.d(Log.DEBUG.toString(), "writeNewMedicine()-ERROR-FIREBASE" + it.message)
-                    actionCompleted = Pair(ErrorTypeEnum.FIREBASE_DB_READING, false)
-                    throw it
-                }
-            actionCompleted
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Done")
+            Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
         }
     }
 
@@ -134,9 +88,26 @@ object DatabaseManager {
      * Metodo per ottenere tutte le RemoteMedicine caricate a DB
      * @return Una Map<String,RemoteMedicine>
      */
-    fun getMedicines(): Map<String, RemoteMedicine> {
-        Log.d(Log.DEBUG.toString(), "getMedicines()-Started")
-        return getDataFromDB(PATH_MEDICINES, PATH_MEDICINES) as Map<String, RemoteMedicine>
+    fun getMedicines(): List<RemoteMedicine> {
+        Log.i(Log.DEBUG.toString(), "getMedicines()-Started")
+        lateinit var listMedicines: List<RemoteMedicine>
+        databaseReference.child(PATH_MEDICINES)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.i(
+                        Log.DEBUG.toString(),
+                        "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
+                    )
+                }
+
+                override fun onDataChange(p0: DataSnapshot) {
+                    listMedicines =
+                        RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>)
+
+                }
+            })
+        return listMedicines
     }
 
     /**
@@ -145,22 +116,23 @@ object DatabaseManager {
      * @return Un oggetto di tipo RemoteMedicine
      */
     fun getMedicine(medicineId: String): RemoteMedicine? {
-        Log.d(Log.DEBUG.toString(), "getUser()-Started")
+        Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundMedicine: RemoteMedicine? = null
         databaseReference.child(PATH_MEDICINES).child(medicineId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    foundMedicine = p0.value as RemoteMedicine
+                    foundMedicine =
+                        RemoteMedicine.getMedicineFromMap(p0.value as Map<String, String>)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d(
+                    Log.i(
                         Log.DEBUG.toString(),
                         "getUser()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
                 }
             })
-        Log.d(Log.DEBUG.toString(), "getUser()-Ended")
+        Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundMedicine
     }
 }

@@ -27,7 +27,7 @@ import kotlin.collections.ArrayList
 
 class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    var pillsArray: ArrayList<String>? = ArrayList()
+    private lateinit var pillsArray: LinkedList<String>
     var adapter: ArrayAdapter<String>? = null
 
     lateinit var toolbar: Toolbar
@@ -38,11 +38,9 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_list)
 
-        pillsArray?.add("+ new line")
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray!!)
-        pills_list.adapter = adapter
+        initList()
 
-        pills_list.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, position: Int, l: Long ->
+        pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
                 val it = Intent(this, PillsFormActivity::class.java)
@@ -50,7 +48,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             } else {
                 Toast.makeText(
                     applicationContext,
-                    "e' stato premuto " + pillsArray!![position],
+                    "e' stato premuto " + pillsArray[position],
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -71,17 +69,32 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         navView.setNavigationItemSelectedListener(this)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
 
+        initList()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == MainActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val pillName: String = data!!.getStringExtra("pillName")
-                pillsArray?.add(pillName)
+                pillsArray.add(pillName)
                 adapter!!.notifyDataSetChanged()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun initList () {
+        pillsArray = LinkedList()
+        pillsArray.add("+ nuova medicina")
+
+        UserInformation.medicines.forEach { entry -> pillsArray.add(entry.name) }
+
+        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray)
+        pills_list.adapter = adapter
     }
 
 

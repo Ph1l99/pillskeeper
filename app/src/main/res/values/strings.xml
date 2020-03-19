@@ -28,4 +28,9 @@
     <string name="phoneNumber">Numero:</string>
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
+    <string name="userSettings">Impostazioni Utente</string>
+    <string name="friends">Friends</string>
+    <string name="edit_profile">Modifica Profilo</string>
+    <string name="pharmacies">Farmacie in zona</string>
+    <string name="logout">Logout</string>
 </resources>

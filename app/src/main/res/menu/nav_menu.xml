@@ -3,23 +3,27 @@
 
     <group>
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="Profile"/>
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_friends"
+            android:title="@string/friends"/>
         <item
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/ic_message"
-            android:title="Messages"/>
+            android:id="@+id/nav_pharmacies"
+            android:icon="@drawable/ic_pharmacy"
+            android:title="@string/pharmacies"/>
 
     </group>
 
 
-    <item android:title="Account Settings">
+    <item android:title="@string/userSettings">
         <menu>
             <item
-                android:id="@+id/nav_update"
-                android:icon="@drawable/ic_update"
-                android:title="Update Profile"/>
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_profile"
+                android:title="@string/edit_profile"/>
+            <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout"/>
         </menu>
     </item>
 </menu>

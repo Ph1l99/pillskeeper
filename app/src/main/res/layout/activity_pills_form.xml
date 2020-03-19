@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginEnd="15dp"
         android:text="Tipo Medicina"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
@@ -80,7 +80,7 @@
         android:layout_width="99dp"
         android:layout_height="39dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="74dp"
+        android:layout_marginEnd="15dp"
         android:minWidth="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMedType" />
@@ -98,25 +98,22 @@
     <TextView
         android:id="@+id/textViewRemQuantity2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="16dp"
         android:text="Appuntamenti"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTotQuantity" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMedicineType" />
 
     <EditText
         android:id="@+id/editTextRemQuantity"
         android:layout_width="140dp"
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="80dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="Quantità totale"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConfirmMed2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity" />
 
@@ -124,33 +121,28 @@
         android:id="@+id/buttonConfirmMed"
         android:layout_width="117dp"
         android:layout_height="54dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="54dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="43dp"
         android:text="@string/confermaButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonDenyMed"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonConfirmMed2" />
 
     <Button
         android:id="@+id/buttonConfirmMed2"
         android:layout_width="148dp"
         android:layout_height="52dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginEnd="12dp"
         android:text="Aggiungi Appuntamento"
-        app:layout_constraintStart_toEndOf="@+id/editTextRemQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity2" />
 
     <Button
         android:id="@+id/buttonDenyMed"
         android:layout_width="117dp"
         android:layout_height="54dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="39dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="63dp"
         android:text="@string/deleteButton"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConfirmMed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
 

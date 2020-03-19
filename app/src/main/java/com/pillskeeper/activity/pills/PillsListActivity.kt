@@ -97,17 +97,21 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.adapter = adapter
     }
 
-
+    //metodo per il menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> {
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_messages -> {
-                Toast.makeText(this, "Messages clicked", Toast.LENGTH_SHORT).show()
+            R.id.nav_friends -> {
+                Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
             }
-            R.id.nav_update -> {
-                Toast.makeText(this, "Update clicked", Toast.LENGTH_SHORT).show()
+            R.id.nav_pharmacies -> {
+            Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
+                //TODO LOGOUT FIIILLL
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

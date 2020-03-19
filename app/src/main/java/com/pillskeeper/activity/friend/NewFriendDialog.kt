@@ -19,7 +19,7 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_new_friend.*
 
 
-class NewFriendActivity(context: Context, private val mode: DialogModeEnum, private val friend: Friend?) : Dialog(context) {
+class NewFriendDialog(context: Context, private val mode: DialogModeEnum, private val friend: Friend?) : Dialog(context) {
 
     private var isEditing: Boolean = false
     private var stdLayout: Drawable? = null

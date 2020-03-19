@@ -66,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //todo to be removed
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {

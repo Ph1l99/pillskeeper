@@ -37,7 +37,7 @@ class PillsListActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     applicationContext,
-                    "e' stato premuto " + pillsArray!![position],
+                    "e' stato premuto " + pillsArray[position],
                     Toast.LENGTH_LONG
                 ).show()
             }

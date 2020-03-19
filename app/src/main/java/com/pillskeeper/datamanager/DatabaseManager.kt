@@ -34,11 +34,11 @@ object DatabaseManager {
     fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
         Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
         return if (getUser(user.userId) != null) {
-            Log.w(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
+            Log.i(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
             Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
             databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
-            Log.w(Log.DEBUG.toString(), "writeNewUser()-Ended")
+            Log.i(Log.DEBUG.toString(), "writeNewUser()-Ended")
             Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
         }
     }
@@ -49,7 +49,7 @@ object DatabaseManager {
      * @return User L'oggetto che rappresenta l'utente
      */
     fun getUser(userId: String): User? {
-        Log.w(Log.DEBUG.toString(), "getUser()-Started")
+        Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundUser: User? = null
         databaseReference.child(PATH_USERS).child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -58,13 +58,13 @@ object DatabaseManager {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.w(
+                    Log.i(
                         Log.DEBUG.toString(),
                         "getUser()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
                 }
             })
-        Log.w(Log.DEBUG.toString(), "getUser()-Ended")
+        Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundUser
     }
 
@@ -73,13 +73,13 @@ object DatabaseManager {
      * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
      */
     fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum, Boolean> {
-        Log.w(Log.DEBUG.toString(), "writeNewMedicine()-Started")
+        Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Started")
         return if (getMedicine(medicine.id) != null) {
-            Log.w(Log.DEBUG.toString(), "writeNewMedicine()-Obj exists")
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Obj exists")
             Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
         } else {
             databaseReference.child(PATH_MEDICINES).child(medicine.id).setValue(medicine)
-            Log.w(Log.DEBUG.toString(), "writeNewMedicine()-Done")
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Done")
             Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
         }
     }
@@ -89,13 +89,13 @@ object DatabaseManager {
      * @return Una Map<String,RemoteMedicine>
      */
     fun getMedicines(): List<RemoteMedicine> {
-        Log.w(Log.DEBUG.toString(), "getMedicines()-Started")
+        Log.i(Log.DEBUG.toString(), "getMedicines()-Started")
         lateinit var listMedicines: List<RemoteMedicine>
         databaseReference.child(PATH_MEDICINES)
             .addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.w(
+                    Log.i(
                         Log.DEBUG.toString(),
                         "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
@@ -116,7 +116,7 @@ object DatabaseManager {
      * @return Un oggetto di tipo RemoteMedicine
      */
     fun getMedicine(medicineId: String): RemoteMedicine? {
-        Log.w(Log.DEBUG.toString(), "getUser()-Started")
+        Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundMedicine: RemoteMedicine? = null
         databaseReference.child(PATH_MEDICINES).child(medicineId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -126,13 +126,13 @@ object DatabaseManager {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.w(
+                    Log.i(
                         Log.DEBUG.toString(),
                         "getUser()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
                 }
             })
-        Log.w(Log.DEBUG.toString(), "getUser()-Ended")
+        Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundMedicine
     }
 }

@@ -23,11 +23,11 @@ class FriendListActivity : AppCompatActivity() {
         initList()
 
         addFriendFab.setOnClickListener {
-            NewFriendActivity(this, DialogModeEnum.CREATE_NEW_FRIEND, null).show()
+            NewFriendDialog(this, DialogModeEnum.CREATE_NEW_FRIEND, null).show()
         }
 
         friendListView.setOnItemClickListener { _, _, position, _ ->
-            NewFriendActivity(this, DialogModeEnum.EDIT_FRIEND,UserInformation.friends[position]).show()
+            NewFriendDialog(this, DialogModeEnum.EDIT_FRIEND,UserInformation.friends[position]).show()
         }
     }
 
@@ -38,7 +38,7 @@ class FriendListActivity : AppCompatActivity() {
     }
 
     private fun initList(){
-        Log.w(Log.DEBUG.toString(), "FriendListActivity - initList() Started")
+        Log.i(Log.DEBUG.toString(), "FriendListActivity - initList() Started")
 
         friendListView = findViewById(R.id.friendListView)
         listName = ArrayList(UserInformation.friends.size)
@@ -50,7 +50,7 @@ class FriendListActivity : AppCompatActivity() {
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listName)
         friendListView.adapter = adapter
 
-        Log.w(Log.DEBUG.toString(), "FriendListActivity - initList() Ended")
+        Log.i(Log.DEBUG.toString(), "FriendListActivity - initList() Ended")
     }
 
 }

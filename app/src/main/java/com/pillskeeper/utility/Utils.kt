@@ -12,19 +12,19 @@ object Utils {
     private val regexEmail : Regex = "[A-Za-z]{2,30}@[A-Za-z]{2,30}.[A-Za-z]{2,10}".toRegex()
 
     fun checkName(value: String) : Boolean {
-        Log.w(Log.DEBUG.toString(), "Utils: checkUsername() - Check value!")
+        Log.i(Log.DEBUG.toString(), "Utils: checkUsername() - Check value!")
 
         return (value.isNotEmpty() && value.matches(regexUsername))
     }
 
     fun checkPhoneNumber(phoneNumber: String) : Boolean {
-        Log.w(Log.DEBUG.toString(), "Utils: checkPhoneNumber() - Check value!")
+        Log.i(Log.DEBUG.toString(), "Utils: checkPhoneNumber() - Check value!")
 
         return (phoneNumber.isNotEmpty() && phoneNumber.matches(regexPhoneNumber))
     }
 
     fun checkEmail(email: String) : Boolean {
-        Log.w(Log.DEBUG.toString(), "Utils: checkEmail() - Check value!")
+        Log.i(Log.DEBUG.toString(), "Utils: checkEmail() - Check value!")
 
         return (email.isNotEmpty() && email.matches(regexEmail))
     }

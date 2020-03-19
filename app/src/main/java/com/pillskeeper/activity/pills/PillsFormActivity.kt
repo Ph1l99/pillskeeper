@@ -12,6 +12,7 @@ import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
@@ -27,6 +28,7 @@ class PillsFormActivity : AppCompatActivity() {
         const val CAMERA_REQUEST = 0
     }
 
+    private var reminderList: LinkedList<Reminder>? = null
     private lateinit var stdLayout: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +56,7 @@ class PillsFormActivity : AppCompatActivity() {
                         MedicineTypeEnum.valueOf(spinnerMedicineType.selectedItem.toString()),
                         editTextTotQuantity.text.toString().toFloat(),
                         editTextRemQuantity.text.toString().toFloat(),
-                        null, //TODO aggiungere reminder list se inserita da utente
+                        reminderList,
                         editTextNameMed.text.toString().toLowerCase(Locale.ROOT) + spinnerMedicineType.selectedItem.toString().toLowerCase(Locale.ROOT)
                     ))
                 ){
@@ -73,7 +75,7 @@ class PillsFormActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 val pillName: String = data!!.getStringExtra("pillName")
                 //edit_Text_Name.text = SpannableStringBuilder("")
-                editTextName.text = SpannableStringBuilder(pillName)
+                editTextNameMed.text = SpannableStringBuilder(pillName)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

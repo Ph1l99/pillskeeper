@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="2dp"
+        android:layout_margin="5dp"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
@@ -28,14 +28,14 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:layout_weight="1"
-                android:minWidth="80dp"
+                android:minWidth="90dp"
                 android:text="@string/nome" />
 
             <EditText
                 android:id="@+id/editTextName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
@@ -59,14 +59,14 @@
                 android:gravity="center"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:minWidth="80dp"
+                android:minWidth="90dp"
                 android:text="@string/cognome" />
 
             <EditText
                 android:id="@+id/editTextSurname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
@@ -90,14 +90,14 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:layout_weight="1"
-                android:minWidth="80dp"
+                android:minWidth="90dp"
                 android:text="@string/email" />
 
             <EditText
                 android:id="@+id/editTextEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
@@ -120,14 +120,14 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:layout_weight="1"
-                android:minWidth="80dp"
+                android:minWidth="90dp"
                 android:text="@string/phoneNumber" />
 
             <EditText
                 android:id="@+id/editTextPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
@@ -148,7 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:minWidth="80dp"
+                android:minWidth="90dp"
                 android:text="@string/relazione"
                 android:gravity="center"
                 android:textSize="20sp" />
@@ -157,6 +157,7 @@
                 android:id="@+id/spinnerRelation"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
                 android:minWidth="140dp"
                 tools:visibility="visible" />
 
@@ -164,7 +165,7 @@
 
         <LinearLayout
             android:id="@+id/btnLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
             android:layout_margin="2dp"
@@ -182,7 +183,7 @@
                 android:id="@+id/buttonDeny"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="70dp"
                 android:layout_weight="1"
                 android:text="@string/deleteButton" />
 

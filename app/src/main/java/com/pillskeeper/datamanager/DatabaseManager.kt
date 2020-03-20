@@ -29,7 +29,7 @@ object DatabaseManager {
     /**
      * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
      * @param User L'utente che deve essere aggiunto al database
-     * @return True se l'inserimento è andato a buon fine, false altrimenti
+     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
     fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
         Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
@@ -71,6 +71,7 @@ object DatabaseManager {
     /**
      * Metodo per la scrittura di una nuova medicina
      * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
+     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
     fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum, Boolean> {
         Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Started")
@@ -86,7 +87,7 @@ object DatabaseManager {
 
     /**
      * Metodo per ottenere tutte le RemoteMedicine caricate a DB
-     * @return Una Map<String,RemoteMedicine>
+     * @return Una List<RemoteMedicine>
      */
     fun getMedicines(): List<RemoteMedicine> {
         Log.i(Log.DEBUG.toString(), "getMedicines()-Started")

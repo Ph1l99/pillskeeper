@@ -19,46 +19,49 @@ object StorageManager {
      * Metodo per ottenere il riferimento all'istanza FirebaseStorage
      */
     fun obtainStorageReference() {
-        Log.d(Log.DEBUG.toString(), "obtainStorageReference()-Started")
+        Log.i(Log.DEBUG.toString(), "obtainStorageReference()-Started")
         storageReferenceRoot = Firebase.storage.reference
-        Log.d(Log.DEBUG.toString(), "obtainStorageReference()-Ended")
+        Log.i(Log.DEBUG.toString(), "obtainStorageReference()-Ended")
     }
 
     /**
      * Metodo per caricare un'immagine a DB
      * @param image L'oggetto che rappresenta l'immagine
+     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
     fun uploadImage(image: FileInputStream, imageName: String): Pair<ErrorTypeEnum?, Boolean>? {
-        Log.d(Log.DEBUG.toString(), "uploadImage()-Started")
+        Log.i(Log.DEBUG.toString(), "uploadImage()-Started")
         var resultUpload: Pair<ErrorTypeEnum?, Boolean>? = null
-        storageReferenceRoot.child("$PATH_MEDICINES_IMAGES$imageName.jpg").putStream(image)
-            .addOnFailureListener {
-                Log.d(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
-                resultUpload = Pair(ErrorTypeEnum.WRITING_COMPLETE, false)
-                throw it
-            }.addOnSuccessListener {
-                resultUpload = Pair(ErrorTypeEnum.FIREBASE_STORAGE_READING, true)
-                Log.d(Log.DEBUG.toString(), "uploadImage()-Completed")
-            }
-        Log.d(Log.DEBUG.toString(), "uploadImage()-Ended")
+        if (storageReferenceRoot.child("$PATH_MEDICINES_IMAGES$imageName.jpg")
+                .putStream(image).isComplete
+        ) {
+            resultUpload = Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
+            Log.i(Log.DEBUG.toString(), "uploadImage()-Done")
+        } else {
+            resultUpload = Pair(ErrorTypeEnum.FIREBASE_STORAGE_GENERIC_ERROR, false)
+            Log.i(Log.DEBUG.toString(), "uploadImage()-ERROR")
+        }
+        Log.i(Log.DEBUG.toString(), "uploadImage()-Ended")
         return resultUpload
     }
+
+    //TODO da rivedere download, prima controllare che funzioni upload
 
     /**
      * Metodo per ottenere l'immagine dallo storage Firebase
      * @param imageName Il nome dell'immagine
      */
     fun getImage(imageName: String): File {
-        Log.d(Log.DEBUG.toString(), "getImage()-Started")
+        Log.i(Log.DEBUG.toString(), "getImage()-Started")
         val localFile = File.createTempFile("", "jpg")
         storageReferenceRoot.child("$PATH_MEDICINES_IMAGES$imageName.jpg").getFile(localFile)
             .addOnSuccessListener {
                 //TODO
             }.addOnFailureListener {
-                Log.d(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
+                Log.i(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
                 throw it
             }
-        Log.d(Log.DEBUG.toString(), "getImage()-Ended")
+        Log.i(Log.DEBUG.toString(), "getImage()-Ended")
         return localFile
     }
 }

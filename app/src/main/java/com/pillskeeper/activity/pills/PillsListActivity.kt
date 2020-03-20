@@ -15,6 +15,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.data.LocalMedicine
@@ -29,6 +31,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     private lateinit var pillsArray: LinkedList<String>
     var adapter: ArrayAdapter<String>? = null
+    private lateinit var auth: FirebaseAuth
 
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -37,6 +40,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_list)
+        auth = FirebaseAuth.getInstance()
 
         initList()
 
@@ -87,7 +91,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
     }
 
-    private fun initList () {
+    private fun initList() {
         pillsArray = LinkedList()
         pillsArray.add("+ nuova medicina")
 
@@ -102,16 +106,17 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         when (item.itemId) {
             R.id.nav_profile -> {
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                //TODO aprire activity modifica profilo
             }
             R.id.nav_friends -> {
                 Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_pharmacies -> {
-            Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {
                 Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-                //TODO LOGOUT FIIILLL
+                auth.signOut()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

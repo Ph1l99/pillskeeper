@@ -1,7 +1,9 @@
 package com.pillskeeper.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
@@ -29,21 +31,40 @@ class SignUp : AppCompatActivity() {
             passwordField.text.toString()
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                if (DatabaseManager.writeNewUser(
-                        User(
-                            auth.currentUser?.uid.toString(),
-                            nameField.text.toString(),
-                            surnameField.text.toString(),
-                            mailField.text.toString()
-                        )
-                    ).second
-                ) {
-                    //TODO APRIRE NUOVA ACTIVITY
+                currentUser.sendEmailVerification().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(
+                            this,
+                            R.string.signup_email_confirmation.toString(),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        Log.i(Log.DEBUG.toString(), "Sent confirmation email")
+                    }
                 }
-            } else {
-                //TODO AUTH NON SUCCESSFUL
+                if (checkIfUserHasConfirmedLink()) {
+                    if (DatabaseManager.writeNewUser(
+                            User(
+                                auth.currentUser?.uid.toString(),
+                                nameField.text.toString(),
+                                surnameField.text.toString(),
+                                mailField.text.toString()
+                            )
+                        ).second
+                    ) {
+                        //TODO APRIRE NUOVA ACTIVITY
+                    }
+                } else {
+                    //TODO AUTH NON SUCCESSFUL
+                }
             }
         }
 
+    }
+
+    private fun checkIfUserHasConfirmedLink(): Boolean {
+        while (currentUser.uid == "") {
+            currentUser.reload()
+        }
+        return true
     }
 }

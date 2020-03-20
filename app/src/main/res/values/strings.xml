@@ -2,11 +2,12 @@
     <string name="app_name">PillsKeeper</string>
     <string name="title_activity_first_login">FirstLoginActivity</string>
     <string name="login_failed">"Login failed"</string>
-    <!-- Strings used for fragments for navigation -->
+
+    <!-- Strings used for fragments for navigation
     <string name="textviewFirstLogin">Benvenuto! Inserisci il tuo nome utente (non preoccuparti, potrai cambiarlo successivamente)</string>
     <string name="firstloginbutton">Avanti</string>
     <string name="username">Username</string>
-    <string name="hello_world">Hello World</string>
+    <string name="hello_world">Hello World</string>-->
 
     <!-- Strings for SignUp Activity-->
     <string name="signup_button">Registrati</string>
@@ -14,7 +15,10 @@
     <string name="signup_surname">Cognome</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
+    <string name="signup_email_confirmation">Check your email and click on the link</string>
     <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>
+
+    <!--Strings for adding Friend/Doctor-->
     <string name="nome">Nome:</string>
     <string name="cognome">Cognome:</string>
     <string name="relazione">Relazione:</string>
@@ -28,7 +32,9 @@
     <string name="phoneNumber">Numero:</string>
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
-    <string name="userSettings">Impostazioni Utente</string>
+
+    <!--Menu buttons-->
+    <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>

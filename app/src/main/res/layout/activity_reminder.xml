@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
+        android:id="@+id/radioGroup3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,111 +25,112 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWeek">
 
-        <RadioButton
-            android:id="@+id/radioButtonMonday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxMonday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/monday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonTuesday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxTuesday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/tuesday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonWednesday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxWednesday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/wednesday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonThursday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxThursday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/thursday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonFriday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxFriday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/friday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonSaturday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxSaturday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/saturday" />
 
-        <RadioButton
-            android:id="@+id/radioButtonSunday"
-            android:layout_width="wrap_content"
+        <CheckBox
+            android:id="@+id/checkBoxSunday"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
             android:text="@string/sunday" />
+
     </RadioGroup>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
 
     <Spinner
         android:id="@+id/spinnerMinutes"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="120dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewPoints"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/spinnerHours"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="96dp"
+        android:layout_width="120dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@+id/textViewPoints"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
 
     <TextView
         android:id="@+id/textViewPoints"
-        android:layout_width="5dp"
-        android:layout_height="23dp"
+        android:layout_width="10dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="128dp"
         android:text=":"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="270dp"
-        tools:layout_editor_absoluteY="96dp" />
+        app:layout_constraintEnd_toStartOf="@+id/spinnerMinutes"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/spinnerHours"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <Button
         android:id="@+id/buttonConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="125dp"
         android:text="@string/confermaButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMinutes" />
 
     <TextView
         android:id="@+id/textViewFinishDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="24dp"
         android:text="@string/espire_date"
-        tools:layout_editor_absoluteX="260dp"
-        tools:layout_editor_absoluteY="174dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText"
@@ -151,22 +153,23 @@
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextQuantity"
         android:layout_width="100dp"
         android:layout_height="45dp"
+        android:layout_marginEnd="25dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
-        tools:layout_editor_absoluteX="235dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <Button
         android:id="@+id/buttonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginTop="62dp"
         android:text="@string/deleteButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerHours" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserInfo
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
@@ -122,6 +123,8 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_friends -> {
                 Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
+                var intent = Intent(applicationContext, FriendListActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_pharmacies -> {
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()

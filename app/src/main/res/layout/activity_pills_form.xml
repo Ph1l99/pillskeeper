@@ -127,7 +127,7 @@
         android:layout_marginStart="62dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="54dp"
-        android:text="@string/confermaButton"
+        android:text="@string/confirmButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonDenyMed"
         app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />

@@ -11,11 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.pillskeeper.activity.pills.reminder.ReminderActivity"></activity>
+        <activity android:name=".activity.pills.reminder.AdvancedInfoReminderActivity"></activity>
+        <activity android:name=".activity.pills.reminder.ReminderActivity" />
         <activity android:name=".activity.pills.TextReaderActivity" />
         <activity android:name=".activity.pills.PillsFormActivity" />
-        <activity android:name=".activity.pills.PillsListActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.pills.PillsListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.friend.NewFriendActivity" />
         <activity android:name=".activity.SignUp" />
         <activity android:name=".activity.friend.FriendListActivity" />

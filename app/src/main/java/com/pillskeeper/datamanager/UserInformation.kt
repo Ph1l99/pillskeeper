@@ -119,7 +119,7 @@ object UserInformation {
         }
 
         currMedicine.reminders?.forEach { it ->
-            if(it.days == reminder.days && it.duration == reminder.duration &&
+            if(it.days == reminder.days && it.expireDate == reminder.expireDate &&
                 it.hours == reminder.hours && it.minutes == reminder.minutes && it.number_pills == reminder.number_pills){
                 Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder with same Info")
                 return false

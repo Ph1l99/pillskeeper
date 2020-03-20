@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_pills_form.*
@@ -110,6 +111,8 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_friends -> {
                 Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this,FriendListActivity::class.java))
+
             }
             R.id.nav_pharmacies -> {
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()

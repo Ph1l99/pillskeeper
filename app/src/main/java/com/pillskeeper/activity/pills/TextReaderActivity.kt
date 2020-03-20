@@ -82,7 +82,7 @@ class TextReaderActivity : AppCompatActivity() {
                                     stringBuilder.append(item.value)
                                     stringBuilder.append("\n")
                                 }
-                                textView.setText(stringBuilder.toString())
+                                textView.text = stringBuilder.toString()
                             }
                         }
                     }

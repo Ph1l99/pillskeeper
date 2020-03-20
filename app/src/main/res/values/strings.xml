@@ -15,13 +15,13 @@
     <!--Strings for adding Friend/Doctor-->
     <string name="nome">Nome:</string>
     <string name="cognome">Cognome:</string>
-    <string name="relazione">Relazione:</string>
+    <string name="relationFriend">Relazione:</string>
     <string name="yes">Yes</string>
     <string name="email">Email:</string>
-    <string name="nome_persona">Nome amico</string>
-    <string name="cognome_amico">Cognome amico</string>
-    <string name="email_amico">Email amico</string>
-    <string name="confermaButton">Conferma</string>
+    <string name="nameFriend">Nome amico</string>
+    <string name="surnameFriend">Cognome amico</string>
+    <string name="emailFriend">Email amico</string>
+    <string name="confirmButton">Conferma</string>
     <string name="deleteButton">Cancella</string>
     <string name="phoneNumber">Numero:</string>
     <string name="phoneNumberHint">Numero Cellulare</string>
@@ -41,4 +41,8 @@
     <string name="medNameHint">Inserire il nome del farmaco</string>
     <string name="medNameTitle">Nome del farmaco</string>
     <string name="camera">Fotocamera</string>
+    <string name="monthRB">Mesi</string>
+    <string name="weekRB">Settimane</string>
+    <string name="weekMonthPause">Settimane/mesi di pausa:</string>
+    <string name="weekMonthConsecutive">Settimane/mesi Consecutive:</string>
 </resources>

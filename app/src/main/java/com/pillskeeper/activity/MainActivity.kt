@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
 
@@ -80,10 +81,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun funTest() {
 
+        val days1 :LinkedList<DaysEnum> = LinkedList()
+        days1.add(DaysEnum.MON)
+        days1.add(DaysEnum.THU)
+        days1.add(DaysEnum.SUN)
+
+        val days2 :LinkedList<DaysEnum> = LinkedList()
+        days1.add(DaysEnum.MON)
 
         val reminders = LinkedList<Reminder>()
-        reminders.add(Reminder(1.5F, 0, 19, "Lun-Mar-Mer", Date(), null))
-        reminders.add(Reminder(1F, 0, 19, "Ven", Date(), null))
+        reminders.add(Reminder(1.5F, 0, 19, days1, Date(), null))
+        reminders.add(Reminder(1F, 0, 19, days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
@@ -97,8 +105,8 @@ class MainActivity : AppCompatActivity() {
 
 
         val reminders2 = LinkedList<Reminder>()
-        reminders2.add(Reminder(1.5F, 0, 19, "Lun-Mer", Date(), null))
-        reminders2.add(Reminder(1F, 0, 19, "Wed", Date(), null))
+        reminders2.add(Reminder(1.5F, 0, 19, days1, Date(), null))
+        reminders2.add(Reminder(1F, 0, 19, days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",

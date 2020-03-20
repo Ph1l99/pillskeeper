@@ -1,6 +1,7 @@
 package com.pillskeeper.data
 
+import com.pillskeeper.enums.DaysEnum
 import java.util.*
 
-data class Reminder(var number_pills: Float, var minutes: Int, var hours: Int,
-                    var days: String, var duration: Date, var additionNotes: String?)
+abstract class Reminder (minutes: Int, hours: Int, startingDay: Date,
+                         days: LinkedList<DaysEnum>?, expireDate: Date?, additionNotes: String?)

@@ -3,12 +3,6 @@
     <string name="title_activity_first_login">FirstLoginActivity</string>
     <string name="login_failed">"Login failed"</string>
 
-    <!-- Strings used for fragments for navigation
-    <string name="textviewFirstLogin">Benvenuto! Inserisci il tuo nome utente (non preoccuparti, potrai cambiarlo successivamente)</string>
-    <string name="firstloginbutton">Avanti</string>
-    <string name="username">Username</string>
-    <string name="hello_world">Hello World</string>-->
-
     <!-- Strings for SignUp Activity-->
     <string name="signup_button">Registrati</string>
     <string name="signup_name">Nome</string>

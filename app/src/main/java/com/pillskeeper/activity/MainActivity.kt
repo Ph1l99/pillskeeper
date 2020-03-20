@@ -4,10 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
@@ -15,7 +12,7 @@ import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
-import com.pillskeeper.data.Reminder
+import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
@@ -89,9 +86,9 @@ class MainActivity : AppCompatActivity() {
         val days2 :LinkedList<DaysEnum> = LinkedList()
         days1.add(DaysEnum.MON)
 
-        val reminders = LinkedList<Reminder>()
-        reminders.add(Reminder(1.5F, 0, 19, days1, Date(), null))
-        reminders.add(Reminder(1F, 0, 19, days2, Date(), null))
+        val reminders = LinkedList<ReminderMedicine>()
+        reminders.add(ReminderMedicine(1.5F, 0, 19, Date(), days1, Date(), null))
+        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
@@ -104,9 +101,9 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        val reminders2 = LinkedList<Reminder>()
-        reminders2.add(Reminder(1.5F, 0, 19, days1, Date(), null))
-        reminders2.add(Reminder(1F, 0, 19, days2, Date(), null))
+        val reminders2 = LinkedList<ReminderMedicine>()
+        reminders2.add(ReminderMedicine(1.5F, 0, 19, Date() ,days1, Date(), null))
+        reminders2.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",

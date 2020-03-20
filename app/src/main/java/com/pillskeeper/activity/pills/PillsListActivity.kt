@@ -2,41 +2,35 @@ package com.pillskeeper.activity.pills
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.friend.FriendListActivity
-import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.UserInformation
-import kotlinx.android.synthetic.main.activity_pills_form.*
-import kotlinx.android.synthetic.main.activity_pills_list.*
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var pillsArray: LinkedList<String>
-    var adapter: ArrayAdapter<String>? = null
+    private var adapter: ArrayAdapter<String>? = null
     private lateinit var auth: FirebaseAuth
 
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -4,21 +4,19 @@ package com.pillskeeper.activity.pills
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.pills.reminder.ReminderActivity
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.Reminder
+import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.activity_new_friend.*
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,7 +28,7 @@ class PillsFormActivity : AppCompatActivity() {
         const val REMINDER_INSERT_ACTIVITY = 1
     }
 
-    private var reminderList: LinkedList<Reminder>? = null
+    private var reminderList: LinkedList<ReminderMedicine>? = null
     private lateinit var stdLayout: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {

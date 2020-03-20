@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
-                MedicineTypeEnum.Pills,
+                MedicineTypeEnum.PILLS,
                 24F,
                 24F,
                 reminders,
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",
-                MedicineTypeEnum.Pills,
+                MedicineTypeEnum.PILLS,
                 24F,
                 24F,
                 null,

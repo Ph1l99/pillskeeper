@@ -11,8 +11,8 @@ data class RemoteMedicine(
 
         fun getMedicineListFromMap(medicinesMaps: Map<String, Map<String, String>>): List<RemoteMedicine> {
             var listResult = mutableListOf<RemoteMedicine>()
-            for ((k, v) in medicinesMaps) {
-                listResult.add(k.toInt(), getMedicineFromMap(v))
+            for ((_, v) in medicinesMaps) {
+                listResult.add(getMedicineFromMap(v))
             }
             return listResult
         }

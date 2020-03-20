@@ -47,7 +47,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
-                val it = Intent(this, PillsFormActivity::class.java)
+                val it = Intent(this, MedicinesListActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
                 Toast.makeText(

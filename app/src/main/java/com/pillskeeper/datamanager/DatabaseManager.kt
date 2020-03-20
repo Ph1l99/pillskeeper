@@ -15,15 +15,14 @@ object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
     private const val PATH_USERS = "users"
-    private const val PATH_MEDICINES = "medicines"
+    const val PATH_MEDICINES = "medicines"
 
     /**
      * Metodo per ottenere il riferimento remoto del database
      */
-    fun obtainRemoteDatabase() {
+    fun obtainRemoteDatabase(): DatabaseReference {
         Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Started")
-        databaseReference = Firebase.database.reference
-        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Ended")
+        return Firebase.database.reference
     }
 
     /**
@@ -89,11 +88,11 @@ object DatabaseManager {
      * Metodo per ottenere tutte le RemoteMedicine caricate a DB
      * @return Una List<RemoteMedicine>
      */
-    fun getMedicines(): List<RemoteMedicine> {
+    fun getMedicines(): List<RemoteMedicine>? {
         Log.i(Log.DEBUG.toString(), "getMedicines()-Started")
-        lateinit var listMedicines: List<RemoteMedicine>
+        var listMedicines: List<RemoteMedicine>? = null
         databaseReference.child(PATH_MEDICINES)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
+            .addValueEventListener(object : ValueEventListener {
 
                 override fun onCancelled(p0: DatabaseError) {
                     Log.i(
@@ -103,9 +102,12 @@ object DatabaseManager {
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
-                    listMedicines =
-                        RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>)
-
+                    if (p0.exists()) {
+                        listMedicines =
+                            RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>)
+                    } else {
+                        Log.i(Log.DEBUG.toString(), "getMedicines()-VALUE NOT NULL")
+                    }
                 }
             })
         return listMedicines

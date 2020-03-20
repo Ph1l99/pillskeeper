@@ -27,13 +27,16 @@
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
 
+    <!--MedicinesListActivity-->
+
+
     <!--Menu buttons-->
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
-    <string name="addReminder">Aggiungi Appuntamento</string>
+    <string name="addReminder">Aggiungi Promemoria</string>
     <string name="totalQuantity">Quantità totale</string>
     <string name="reminder">Appuntamenti</string>
     <string name="remainingQuantity">Quantità Rimanente</string>

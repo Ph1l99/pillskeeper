@@ -13,6 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.pills.MedicinesListActivity"></activity>
         <activity android:name=".activity.pills.reminder.ReminderActivity" />
+        <activity android:name=".activity.pills.reminder.AdvancedInfoReminderActivity"></activity>
+        <activity android:name=".activity.pills.reminder.ReminderActivity" />
         <activity android:name=".activity.pills.TextReaderActivity" />
         <activity android:name=".activity.pills.PillsFormActivity" />
         <activity

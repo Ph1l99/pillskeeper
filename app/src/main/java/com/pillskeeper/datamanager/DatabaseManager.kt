@@ -14,14 +14,13 @@ import com.pillskeeper.enums.ErrorTypeEnum
 object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
-    private const val PATH_USERS = "users"
+    const val PATH_USERS = "users"
     const val PATH_MEDICINES = "medicines"
 
     /**
      * Metodo per ottenere il riferimento remoto del database
      */
     fun obtainRemoteDatabase(): DatabaseReference {
-        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Started")
         return Firebase.database.reference
     }
 
@@ -84,34 +83,6 @@ object DatabaseManager {
         }
     }
 
-    /**
-     * Metodo per ottenere tutte le RemoteMedicine caricate a DB
-     * @return Una List<RemoteMedicine>
-     */
-    fun getMedicines(): List<RemoteMedicine>? {
-        Log.i(Log.DEBUG.toString(), "getMedicines()-Started")
-        var listMedicines: List<RemoteMedicine>? = null
-        databaseReference.child(PATH_MEDICINES)
-            .addValueEventListener(object : ValueEventListener {
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.i(
-                        Log.DEBUG.toString(),
-                        "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                    )
-                }
-
-                override fun onDataChange(p0: DataSnapshot) {
-                    if (p0.exists()) {
-                        listMedicines =
-                            RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>)
-                    } else {
-                        Log.i(Log.DEBUG.toString(), "getMedicines()-VALUE NOT NULL")
-                    }
-                }
-            })
-        return listMedicines
-    }
 
     /**
      * Funzione per ottenere una medicina dato il suo ID

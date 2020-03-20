@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.reminder.ReminderActivity"></activity>
+        <activity android:name="com.pillskeeper.activity.pills.reminder.ReminderActivity"></activity>
         <activity android:name=".activity.pills.TextReaderActivity" />
         <activity android:name=".activity.pills.PillsFormActivity" />
         <activity android:name=".activity.pills.PillsListActivity"

@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.reminder
+package com.pillskeeper.activity.pills.reminder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

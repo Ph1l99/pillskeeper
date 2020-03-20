@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.pills.reminder.ReminderActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.LocalDatabase
@@ -26,6 +27,7 @@ class PillsFormActivity : AppCompatActivity() {
 
     companion object {
         const val CAMERA_REQUEST = 0
+        const val REMINDER_INSERT_ACTIVITY = 1
     }
 
     private var reminderList: LinkedList<Reminder>? = null
@@ -34,7 +36,7 @@ class PillsFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
-        //TODO finire il form --- Manca bottone di aggiunta reminder in activity a parte
+
         stdLayout = editTextNameMed.background
         buttonCamera.setOnClickListener{
             val intent = Intent(this, TextReaderActivity::class.java)
@@ -43,8 +45,15 @@ class PillsFormActivity : AppCompatActivity() {
 
         initSpinner()
 
+
+
         buttonDenyMed.setOnClickListener {
             finish()
+        }
+
+        buttonAddReminder.setOnClickListener {
+            val intent = Intent(this,ReminderActivity::class.java)
+            startActivityForResult(intent,REMINDER_INSERT_ACTIVITY)
         }
 
         buttonConfirmMed.setOnClickListener{
@@ -70,15 +79,18 @@ class PillsFormActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        if (requestCode == CAMERA_REQUEST) {
-            if (resultCode == Activity.RESULT_OK) {
-                val pillName: String = data!!.getStringExtra("pillName")
-                //edit_Text_Name.text = SpannableStringBuilder("")
-                editTextNameMed.text = SpannableStringBuilder(pillName)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                 CAMERA_REQUEST -> {
+                    val pillName: String = data!!.getStringExtra("pillName")
+                    //edit_Text_Name.text = SpannableStringBuilder("")
+                    editTextNameMed.text = SpannableStringBuilder(pillName)
+                }
+                REMINDER_INSERT_ACTIVITY -> {
+                    reminderList //todo get list from data!!.get....()
+                }
+                else -> super.onActivityResult(requestCode, resultCode, data)
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

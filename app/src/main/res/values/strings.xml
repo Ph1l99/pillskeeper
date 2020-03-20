@@ -39,4 +39,12 @@
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
+    <string name="addReminder">Aggiungi Appuntamento</string>
+    <string name="totalQuantity">Quantità totale</string>
+    <string name="reminder">Appuntamenti</string>
+    <string name="remainingQuantity">Quantità Rimanente</string>
+    <string name="medType">Tipo Medicina</string>
+    <string name="medNameHint">Inserire il nome del farmaco</string>
+    <string name="medNameTitle">Nome del farmaco</string>
+    <string name="camera">Fotocamera</string>
 </resources>

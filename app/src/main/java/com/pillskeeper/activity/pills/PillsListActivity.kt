@@ -17,13 +17,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserInfo
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import kotlinx.android.synthetic.main.activity_pills_list.*
 import kotlinx.android.synthetic.main.content_pills_list.*
+import kotlinx.android.synthetic.main.nav_header.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,6 +47,9 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         initList()
 
+        createMenu()
+
+        //Listeners
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
@@ -58,19 +64,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
-        //creo il menu
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -99,6 +93,24 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray)
         pills_list.adapter = adapter
+    }
+
+    private fun createMenu(){
+        //creo il menu
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+       // username_text_view_menu.text = LocalDatabase.readUsername()+""
     }
 
     //metodo per il menu

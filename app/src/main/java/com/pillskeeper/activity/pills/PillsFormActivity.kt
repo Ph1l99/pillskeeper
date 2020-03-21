@@ -27,32 +27,31 @@ class PillsFormActivity : AppCompatActivity() {
     companion object {
         const val CAMERA_REQUEST = 0
         const val REMINDER_INSERT_ACTIVITY = 1
+        const val REMOTE_MEDICINE = "remoteMedicine"
     }
 
     private var reminderList: LinkedList<ReminderMedicine>? = null
+    private var remoteMedicine: RemoteMedicine? = null
     private lateinit var stdLayout: Drawable
-    private var medicineClicked: RemoteMedicine? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-        /*Se ho premuto il bottone per l'aggiunta di una medicina vado avanti con l'activity,
-         *altrimenti ottengo la medicina remota che mi hanno passato nell'activity precedente
-         */
 
-        if (!intent.hasExtra("BUTTON_PRESSED")) {
-            checkInput()
+        if(intent.getSerializableExtra(REMOTE_MEDICINE) != null){
+            remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
+            editTextNameMed.setText(remoteMedicine!!.name)
+            spinnerMedicineType.isEnabled = false
         }
+
+        initSpinner()
 
         stdLayout = editTextNameMed.background
         buttonCamera.setOnClickListener {
             val intent = Intent(this, TextReaderActivity::class.java)
             startActivityForResult(intent, CAMERA_REQUEST)
         }
-
-        initSpinner()
-
 
 
         buttonDenyMed.setOnClickListener {
@@ -106,10 +105,12 @@ class PillsFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSpinner() {
-        val medTypeValues: ArrayList<String> = ArrayList()
-        MedicineTypeEnum.values()
-            .forEach { medTypeEnum -> medTypeValues.add(medTypeEnum.toString()) }
+    private fun initSpinner(){
+        val medTypeValues : ArrayList<String> = ArrayList()
+        if(remoteMedicine == null)
+            MedicineTypeEnum.values().forEach { medTypeEnum -> medTypeValues.add(medTypeEnum.toString()) }
+        else
+            medTypeValues.add(remoteMedicine!!.medicineType.toString())
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -142,15 +143,6 @@ class PillsFormActivity : AppCompatActivity() {
         editTextNameMed.background = stdLayout
         editTextTotQuantity.background = stdLayout
         editTextRemQuantity.background = stdLayout
-    }
-
-    private fun checkInput() {
-        //Ottengo medicina remota da activity precedente
-        medicineClicked = intent.extras?.getSerializable("REMOTE_MEDICINE") as RemoteMedicine
-        if (medicineClicked != null) {
-            editTextNameMed.setText(medicineClicked!!.name)
-            editTextNameMed.setRawInputType(0)
-        }
     }
 
 }

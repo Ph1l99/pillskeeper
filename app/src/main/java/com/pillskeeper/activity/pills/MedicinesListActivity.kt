@@ -3,7 +3,6 @@ package com.pillskeeper.activity.pills
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,14 +11,17 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.pillskeeper.R
+import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
+import com.pillskeeper.interfaces.CallBack
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.DatabaseManager
-import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
 class MedicinesListActivity : AppCompatActivity() {
-    private lateinit var medicinesListView: ListView
+    private lateinit var listMedicines: List<RemoteMedicine>
     private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var medicinesListView: ListView
     private lateinit var arrayMedicines: ArrayList<String>
     private lateinit var databaseReference: DatabaseReference
 
@@ -31,9 +33,16 @@ class MedicinesListActivity : AppCompatActivity() {
 
         fillMedicinesList()
 
+        medicinesList.setOnItemClickListener { _, _, position, _ ->
+            val intent = Intent(this, PillsFormActivity::class.java)
+                .apply {
+                    putExtra(REMOTE_MEDICINE,listMedicines[position])
+                }
+            startActivity(intent)
+        }
+
         addMedicineButton.setOnClickListener {
             val intent = Intent(this, PillsFormActivity::class.java)
-            intent.putExtra("BUTTON_PRESSED", 1)
             startActivity(intent)
         }
     }

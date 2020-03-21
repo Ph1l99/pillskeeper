@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.UserInfo
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
@@ -13,6 +15,7 @@ import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
 import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
@@ -33,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
         UserInformation //necessario per inizializzare i componenti interni
+        UserInformation.context = this
+        FirebaseApp.initializeApp(this)
+        DatabaseManager.obtainRemoteDatabase()
 
         //TODO DEBUG - to be removed
         funTest()

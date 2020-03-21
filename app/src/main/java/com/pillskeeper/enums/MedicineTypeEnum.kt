@@ -1,7 +1,9 @@
 package com.pillskeeper.enums
 
-enum class MedicineTypeEnum(var type:String) {
-    PILLS ("Pills"),
-    SYRUP ("Syrup"),
-    SUPPOSITORY ("Suppository")
+import com.pillskeeper.R
+
+enum class MedicineTypeEnum(var type:String,var text: Int) {
+    PILLS ("Pills", R.string.Pills),
+    SYRUP ("Syrup",R.string.Syrup),
+    SUPPOSITORY ("Suppository",R.string.Suppository)
 }

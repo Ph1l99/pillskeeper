@@ -14,7 +14,7 @@ import com.pillskeeper.enums.ErrorTypeEnum
 object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
-    const val PATH_USERS = "users"
+    private const val PATH_USERS = "users"
     const val PATH_MEDICINES = "medicines"
 
     /**
@@ -26,7 +26,7 @@ object DatabaseManager {
 
     /**
      * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
-     * @param User L'utente che deve essere aggiunto al database
+     * @param user L'utente che deve essere aggiunto al database
      * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
     fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
@@ -43,10 +43,10 @@ object DatabaseManager {
 
     /**
      * Metodo per ottenere un User da DB condiviso
-     * @param userId La stringa che identifica univocamente l'utente
+     * @param userId La string che identifica univocamente l'utente
      * @return User L'oggetto che rappresenta l'utente
      */
-    fun getUser(userId: String): User? {
+    private fun getUser(userId: String): User? {
         Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundUser: User? = null
         databaseReference.child(PATH_USERS).child(userId)
@@ -89,7 +89,7 @@ object DatabaseManager {
      * @param medicineId L'identificativo della medicina
      * @return Un oggetto di tipo RemoteMedicine
      */
-    fun getMedicine(medicineId: String): RemoteMedicine? {
+    private fun getMedicine(medicineId: String): RemoteMedicine? {
         Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundMedicine: RemoteMedicine? = null
         databaseReference.child(PATH_MEDICINES).child(medicineId)

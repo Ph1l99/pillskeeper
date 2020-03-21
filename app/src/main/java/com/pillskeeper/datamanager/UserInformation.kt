@@ -1,5 +1,6 @@
 package com.pillskeeper.datamanager
 
+import android.content.Context
 import android.util.Log
 import com.pillskeeper.data.*
 import java.util.*
@@ -8,6 +9,7 @@ object UserInformation {
 
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
+    lateinit var context: Context
 
     @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")

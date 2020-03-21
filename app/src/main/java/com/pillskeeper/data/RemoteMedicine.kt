@@ -12,7 +12,7 @@ data class RemoteMedicine(
     companion object : Serializable {
 
         fun getMedicineListFromMap(medicinesMaps: Map<String, Map<String, String>>): List<RemoteMedicine> {
-            var listResult = mutableListOf<RemoteMedicine>()
+            val listResult = mutableListOf<RemoteMedicine>()
             for ((_, v) in medicinesMaps) {
                 listResult.add(getMedicineFromMap(v))
             }

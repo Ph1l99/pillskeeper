@@ -5,11 +5,9 @@ import android.util.Log
 import com.google.gson.Gson
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.AbstractMedicine
 import com.pillskeeper.enums.LocalDbKeyEnum
 import com.pillskeeper.interfaces.LocalDatabaseInterface
 import java.util.*
-import kotlin.collections.ArrayList
 
 object LocalDatabase : LocalDatabaseInterface{
 

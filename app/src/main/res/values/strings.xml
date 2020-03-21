@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">PillsKeeper</string>
     <string name="title_activity_first_login">FirstLoginActivity</string>
-    <string name="login_failed">"Login failed"</string>
 
     <!-- Strings for SignUp Activity-->
     <string name="signup_button">Registrati</string>
@@ -15,17 +14,20 @@
     <!--Strings for adding Friend/Doctor-->
     <string name="nome">Nome:</string>
     <string name="cognome">Cognome:</string>
-    <string name="relazione">Relazione:</string>
+    <string name="relationFriend">Relazione:</string>
     <string name="yes">Yes</string>
     <string name="email">Email:</string>
-    <string name="nome_persona">Nome amico</string>
-    <string name="cognome_amico">Cognome amico</string>
-    <string name="email_amico">Email amico</string>
-    <string name="confermaButton">Conferma</string>
+    <string name="nameFriend">Nome amico</string>
+    <string name="surnameFriend">Cognome amico</string>
+    <string name="emailFriend">Email amico</string>
+    <string name="confirmButton">Conferma</string>
     <string name="deleteButton">Cancella</string>
     <string name="phoneNumber">Numero:</string>
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
+
+    <!--MedicinesListActivity-->
+
 
     <!--Menu buttons-->
     <string name="username">username</string>
@@ -34,7 +36,7 @@
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
-    <string name="addReminder">Aggiungi Appuntamento</string>
+    <string name="addReminder">Aggiungi Promemoria</string>
     <string name="totalQuantity">Quantità totale</string>
     <string name="reminder">Appuntamenti</string>
     <string name="remainingQuantity">Quantità Rimanente</string>
@@ -55,5 +57,16 @@
     <string name="time">Orario</string>
     <string name="espire_date">Data Di Fine</string>
     <string name="quantity">Inserire La Quantità</string>
+
+    <string name="monthRB">Mesi</string>
+    <string name="weekRB">Settimane</string>
+    <string name="weekMonthPause">Settimane/mesi di pausa:</string>
+    <string name="weekMonthConsecutive">Settimane/mesi Consecutive:</string>
+
+    <!--  -->
+    <string name="Pills">Pillole</string>
+    <string name="Syrup">Sciroppo</string>
+    <string name="Suppository">Supposte</string>
+    <string name="Undefined">Undefined</string>
 
 </resources>

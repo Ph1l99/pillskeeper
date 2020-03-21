@@ -15,20 +15,18 @@ object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
     private const val PATH_USERS = "users"
-    private const val PATH_MEDICINES = "medicines"
+    const val PATH_MEDICINES = "medicines"
 
     /**
      * Metodo per ottenere il riferimento remoto del database
      */
-    fun obtainRemoteDatabase() {
-        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Started")
-        databaseReference = Firebase.database.reference
-        Log.d(Log.DEBUG.toString(), "obtanRemoteDatabase()-Ended")
+    fun obtainRemoteDatabase(): DatabaseReference {
+        return Firebase.database.reference
     }
 
     /**
      * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
-     * @param User L'utente che deve essere aggiunto al database
+     * @param user L'utente che deve essere aggiunto al database
      * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
     fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
@@ -45,10 +43,10 @@ object DatabaseManager {
 
     /**
      * Metodo per ottenere un User da DB condiviso
-     * @param userId La stringa che identifica univocamente l'utente
+     * @param userId La string che identifica univocamente l'utente
      * @return User L'oggetto che rappresenta l'utente
      */
-    fun getUser(userId: String): User? {
+    private fun getUser(userId: String): User? {
         Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundUser: User? = null
         databaseReference.child(PATH_USERS).child(userId)
@@ -85,38 +83,13 @@ object DatabaseManager {
         }
     }
 
-    /**
-     * Metodo per ottenere tutte le RemoteMedicine caricate a DB
-     * @return Una List<RemoteMedicine>
-     */
-    fun getMedicines(): List<RemoteMedicine> {
-        Log.i(Log.DEBUG.toString(), "getMedicines()-Started")
-        lateinit var listMedicines: List<RemoteMedicine>
-        databaseReference.child(PATH_MEDICINES)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.i(
-                        Log.DEBUG.toString(),
-                        "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                    )
-                }
-
-                override fun onDataChange(p0: DataSnapshot) {
-                    listMedicines =
-                        RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>)
-
-                }
-            })
-        return listMedicines
-    }
 
     /**
      * Funzione per ottenere una medicina dato il suo ID
      * @param medicineId L'identificativo della medicina
      * @return Un oggetto di tipo RemoteMedicine
      */
-    fun getMedicine(medicineId: String): RemoteMedicine? {
+    private fun getMedicine(medicineId: String): RemoteMedicine? {
         Log.i(Log.DEBUG.toString(), "getUser()-Started")
         var foundMedicine: RemoteMedicine? = null
         databaseReference.child(PATH_MEDICINES).child(medicineId)

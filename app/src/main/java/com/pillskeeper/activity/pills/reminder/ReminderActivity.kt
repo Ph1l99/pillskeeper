@@ -18,6 +18,7 @@ class ReminderActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminder)
+    }
 
         initSpinner()
     }
@@ -45,4 +46,5 @@ class ReminderActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         Toast.makeText(this, parent!!.getItemAtPosition(position).toString(), Toast.LENGTH_LONG).show()
     }
+
 }

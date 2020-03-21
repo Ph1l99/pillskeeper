@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/nome_persona"
+                android:hint="@string/nameFriend"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/cognome_amico"
+                android:hint="@string/surnameFriend"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -101,7 +101,7 @@
                 android:layout_weight="1"
                 android:autofillHints=""
                 android:ems="10"
-                android:hint="@string/email_amico"
+                android:hint="@string/emailFriend"
                 android:inputType="textEmailAddress" />
         </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:minWidth="95dp"
-                android:text="@string/relazione"
+                android:text="@string/relationFriend"
                 android:gravity="center"
                 android:textSize="20sp" />
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="50dp"
                 android:layout_weight="1"
-                android:text="@string/confermaButton" />
+                android:text="@string/confirmButton" />
 
             <Button
                 android:id="@+id/buttonDeny"

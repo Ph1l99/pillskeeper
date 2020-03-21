@@ -1,16 +1,15 @@
 package com.pillskeeper.datamanager
 
+import android.content.Context
 import android.util.Log
-import com.pillskeeper.data.Friend
-import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.AbstractMedicine
-import com.pillskeeper.data.Reminder
+import com.pillskeeper.data.*
 import java.util.*
 
 object UserInformation {
 
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
+    lateinit var context: Context
 
     @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
@@ -101,7 +100,7 @@ object UserInformation {
         return false
     }
 
-    @Synchronized fun addNewReminder(medicineName: String, reminder: Reminder): Boolean {
+    @Synchronized fun addNewReminder(medicineName: String, reminder: ReminderMedicine): Boolean {
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Started")
 
         var currMedicine: LocalMedicine? = null
@@ -119,8 +118,8 @@ object UserInformation {
         }
 
         currMedicine.reminders?.forEach { it ->
-            if(it.days == reminder.days && it.duration == reminder.duration &&
-                it.hours == reminder.hours && it.minutes == reminder.minutes && it.number_pills == reminder.number_pills){
+            if(it.days == reminder.days && it.expireDate == reminder.expireDate &&
+                it.hours == reminder.hours && it.minutes == reminder.minutes && it.dosage == reminder.dosage){
                 Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder with same Info")
                 return false
             }
@@ -132,7 +131,7 @@ object UserInformation {
         return true
     }
 
-    fun addNewReminderList(medicineName: String, reminderList: LinkedList<Reminder>){
+    fun addNewReminderList(medicineName: String, reminderList: LinkedList<ReminderMedicine>){
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Started")
 
         reminderList.forEach { entry -> addNewReminder(medicineName, entry) }
@@ -148,5 +147,6 @@ object UserInformation {
 
         Log.i(Log.DEBUG.toString(),"UserInformation: flushAll() - Ended")
     }
+
 
 }

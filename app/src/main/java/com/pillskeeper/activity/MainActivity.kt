@@ -4,21 +4,21 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.system.exitProcess
-import com.pillskeeper.data.Reminder
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,22 +35,14 @@ class MainActivity : AppCompatActivity() {
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
         UserInformation //necessario per inizializzare i componenti interni
+        UserInformation.context = this
+        FirebaseApp.initializeApp(this)
+        DatabaseManager.obtainRemoteDatabase()
 
         //TODO DEBUG - to be removed
         funTest()
 
         readFirstLogin()
-
-        //TODO for debug, to be removed
-        buttonResetLocalMemory.setOnClickListener {
-            LocalDatabase.resetMemory()
-            exitProcess(-1)
-        }
-
-        friendListButton.setOnClickListener {
-            val activity = Intent(this, FriendListActivity::class.java)
-            startActivity(activity)
-        }
     }
 
     private fun readFirstLogin() {
@@ -66,28 +58,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //todo to be removed
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == START_FIRST_LOGIN_ACTIVITY_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val username = data!!.getStringExtra("username")
-                welcomeTextView.text = "Benvenuto $username"
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun funTest() {
 
+        val days1 :LinkedList<DaysEnum> = LinkedList()
+        days1.add(DaysEnum.MON)
+        days1.add(DaysEnum.THU)
+        days1.add(DaysEnum.SUN)
 
-        val reminders = LinkedList<Reminder>()
-        reminders.add(Reminder(1.5F, 0, 19, "Lun-Mar-Mer", Date(), null))
-        reminders.add(Reminder(1F, 0, 19, "Ven", Date(), null))
+        val days2 :LinkedList<DaysEnum> = LinkedList()
+        days1.add(DaysEnum.MON)
+
+        val reminders = LinkedList<ReminderMedicine>()
+        reminders.add(ReminderMedicine(1.5F, 0, 19, Date(), days1, Date(), null))
+        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
-                MedicineTypeEnum.Pills,
+                MedicineTypeEnum.PILLS,
                 24F,
                 24F,
                 reminders,
@@ -96,13 +83,13 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        val reminders2 = LinkedList<Reminder>()
-        reminders2.add(Reminder(1.5F, 0, 19, "Lun-Mer", Date(), null))
-        reminders2.add(Reminder(1F, 0, 19, "Wed", Date(), null))
+        val reminders2 = LinkedList<ReminderMedicine>()
+        reminders2.add(ReminderMedicine(1.5F, 0, 19, Date() ,days1, Date(), null))
+        reminders2.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",
-                MedicineTypeEnum.Pills,
+                MedicineTypeEnum.PILLS,
                 24F,
                 24F,
                 null,

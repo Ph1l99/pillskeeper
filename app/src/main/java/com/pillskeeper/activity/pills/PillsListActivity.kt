@@ -2,27 +2,22 @@ package com.pillskeeper.activity.pills
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableStringBuilder
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserInfo
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.friend.FriendListActivity
-import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import kotlinx.android.synthetic.main.activity_pills_list.*
@@ -34,12 +29,12 @@ import kotlin.collections.ArrayList
 class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var pillsArray: LinkedList<String>
-    var adapter: ArrayAdapter<String>? = null
+    private var adapter: ArrayAdapter<String>? = null
     private lateinit var auth: FirebaseAuth
 
-    lateinit var toolbar: Toolbar
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navView: NavigationView
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +49,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
-                val it = Intent(this, PillsFormActivity::class.java)
+                val it = Intent(this, MedicinesListActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
                 Toast.makeText(
@@ -123,8 +118,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             R.id.nav_friends -> {
                 Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
-                var intent = Intent(applicationContext, FriendListActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(this,FriendListActivity::class.java))
             }
             R.id.nav_pharmacies -> {
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()

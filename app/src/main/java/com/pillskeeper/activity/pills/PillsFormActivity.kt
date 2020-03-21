@@ -41,6 +41,7 @@ class PillsFormActivity : AppCompatActivity() {
         if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
             remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
             editTextNameMed.setText(remoteMedicine!!.name)
+            editTextNameMed.setRawInputType(0)
             spinnerMedicineType.isEnabled = false
         }
 

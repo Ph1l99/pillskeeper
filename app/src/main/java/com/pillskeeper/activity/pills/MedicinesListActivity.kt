@@ -91,7 +91,6 @@ class MedicinesListActivity : AppCompatActivity() {
             val intent = Intent(this, PillsFormActivity::class.java)
             intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
             startActivityForResult(intent, LAUNCH_PILLS)
-
         }
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")
     }

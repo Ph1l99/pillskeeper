@@ -19,12 +19,15 @@ class AppointmentActivity : AppCompatActivity() {
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
+                /*
 
         button.setOnClickListener {
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 textView.text = cal.time.toString()
             }, year, month, day).show()
         }
+
+                 */
 
 
     }

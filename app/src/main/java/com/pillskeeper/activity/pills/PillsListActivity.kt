@@ -17,6 +17,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.appointment.AppointmentActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_pills_form.*
@@ -49,7 +50,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
-                val it = Intent(this, MedicinesListActivity::class.java)
+                val it = Intent(this, /*MedicinesListActivity*/AppointmentActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
                 Toast.makeText(

@@ -73,49 +73,47 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="110dp"
         android:text="@string/time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
 
     <Spinner
         android:id="@+id/spinnerMinutes"
-        android:layout_width="154dp"
-        android:layout_height="109dp"
+        android:layout_width="86dp"
+        android:layout_height="49dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/spinnerHours"
-        android:layout_width="154dp"
-        android:layout_height="109dp"
-        android:layout_marginStart="37dp"
-        android:layout_marginTop="44dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
+        android:layout_width="86dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="134dp"
+        android:layout_marginEnd="7dp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewPoints"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <TextView
         android:id="@+id/textViewPoints"
         android:layout_width="10dp"
         android:layout_height="40dp"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="139dp"
         android:layout_marginEnd="14dp"
         android:text=":"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/spinnerMinutes"
-        app:layout_constraintStart_toEndOf="@+id/spinnerHours"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <Button
         android:id="@+id/buttonConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="36dp"
         android:text="@string/confermaButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerMinutes" />
@@ -164,10 +162,10 @@
         android:id="@+id/buttonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:layout_marginTop="62dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="145dp"
         android:text="@string/deleteButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerHours" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

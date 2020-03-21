@@ -58,8 +58,8 @@
         android:id="@+id/textViewMedType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="84dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/medType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
@@ -77,10 +77,9 @@
 
     <Spinner
         android:id="@+id/spinnerMedicineType"
-        android:layout_width="99dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="15dp"
+        android:layout_width="159dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="16dp"
         android:minWidth="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMedType" />
@@ -99,11 +98,11 @@
         android:id="@+id/textViewRemQuantity2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/reminder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTotQuantity" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMedicineType" />
 
     <EditText
         android:id="@+id/editTextRemQuantity"
@@ -111,12 +110,10 @@
         android:layout_height="60dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="80dp"
         android:autofillHints=""
         android:ems="10"
         android:hint="@string/remainingQuantity"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/buttonAddReminder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity" />
 
@@ -136,10 +133,9 @@
         android:id="@+id/buttonAddReminder"
         android:layout_width="148dp"
         android:layout_height="52dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginEnd="14dp"
         android:text="@string/addReminder"
-        app:layout_constraintStart_toEndOf="@+id/editTextRemQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity2" />
 
     <Button

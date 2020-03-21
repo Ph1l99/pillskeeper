@@ -27,12 +27,12 @@ class ReminderActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
             ,"10","11","12","13","14","15","16","17","18","19","20","21","22","23")
         val minutes: ArrayList<String> = arrayListOf("00", "15", "30", "45")
 
-        val arrayAdapterHours = ArrayAdapter(applicationContext,android.R.layout.simple_spinner_item, hours)
+        val arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerHours.adapter = arrayAdapterHours
 
-        val arrayAdapterMinutes = ArrayAdapter(applicationContext,android.R.layout.simple_spinner_item, minutes)
+        val arrayAdapterMinutes = ArrayAdapter(this,android.R.layout.simple_spinner_item, minutes)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMinutes.adapter = arrayAdapterMinutes

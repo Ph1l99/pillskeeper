@@ -43,17 +43,6 @@ class MainActivity : AppCompatActivity() {
         funTest()
 
         readFirstLogin()
-
-        //TODO for debug, to be removed
-        buttonResetLocalMemory.setOnClickListener {
-            LocalDatabase.resetMemory()
-            exitProcess(-1)
-        }
-
-        friendListButton.setOnClickListener {
-            val activity = Intent(this, FriendListActivity::class.java)
-            startActivity(activity)
-        }
     }
 
     private fun readFirstLogin() {
@@ -66,18 +55,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
             finish()
-        }
-    }
-
-    //todo to be removed
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == START_FIRST_LOGIN_ACTIVITY_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val username = data!!.getStringExtra("username")
-                welcomeTextView.text = "Benvenuto $username"
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

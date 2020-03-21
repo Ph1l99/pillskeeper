@@ -1,4 +1,4 @@
-package com.pillskeeper.data
+package com.pillskeeper.data.abstracts
 
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.io.Serializable

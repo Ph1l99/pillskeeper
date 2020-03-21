@@ -1,5 +1,6 @@
 package com.pillskeeper.data
 
+import com.pillskeeper.data.abstracts.ReminderAbstract
 import com.pillskeeper.enums.DaysEnum
 import java.util.*
 
@@ -11,4 +12,4 @@ data class Appointment(
     var days: LinkedList<DaysEnum>?,
     var expireDate: Date?,
     var additionNotes: String?
-) : Reminder(minutes, hours, startingDay, days, expireDate, additionNotes)
+) : ReminderAbstract(minutes, hours, startingDay, days, expireDate, additionNotes)

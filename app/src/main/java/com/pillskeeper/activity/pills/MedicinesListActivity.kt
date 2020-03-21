@@ -12,14 +12,11 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.pillskeeper.R
 import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
-import com.pillskeeper.interfaces.CallBack
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.DatabaseManager
-import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
 class MedicinesListActivity : AppCompatActivity() {
-    private lateinit var listMedicines: List<RemoteMedicine>
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var medicinesListView: ListView
     private lateinit var arrayMedicines: ArrayList<String>
@@ -33,21 +30,12 @@ class MedicinesListActivity : AppCompatActivity() {
 
         fillMedicinesList()
 
-        medicinesList.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this, PillsFormActivity::class.java)
-                .apply {
-                    putExtra(REMOTE_MEDICINE,listMedicines[position])
-                }
-            startActivity(intent)
-        }
-
         addMedicineButton.setOnClickListener {
             val intent = Intent(this, PillsFormActivity::class.java)
             startActivity(intent)
         }
     }
 
-    //Metodo per ottenere i dati da DB
     private fun fillMedicinesList() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Started")
         databaseReference.child(DatabaseManager.PATH_MEDICINES)
@@ -71,7 +59,6 @@ class MedicinesListActivity : AppCompatActivity() {
 
     //Metodo per manipolare i dati e presentarli all'utente
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
-        lateinit var medicineClicked: RemoteMedicine
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Started")
         arrayMedicines = ArrayList(medicinesList.size)
         medicinesListView = findViewById(R.id.medicinesList)
@@ -85,15 +72,8 @@ class MedicinesListActivity : AppCompatActivity() {
         )
         medicinesListView.adapter = adapter
         medicinesListView.setOnItemClickListener { _, _, position, _ ->
-            val element = adapter.getItem(position)
-            for (medicine in medicinesList) {
-                if (element == medicine.name) {
-                    medicineClicked = medicine
-                    break
-                }
-            }
             val intent = Intent(this, PillsFormActivity::class.java)
-            intent.putExtra("REMOTE_MEDICINE", medicineClicked)
+            intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
             startActivity(intent)
         }
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")

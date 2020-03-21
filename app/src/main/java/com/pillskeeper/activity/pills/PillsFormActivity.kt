@@ -38,7 +38,6 @@ class PillsFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-
         if(intent.getSerializableExtra(REMOTE_MEDICINE) != null){
             remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
             editTextNameMed.setText(remoteMedicine!!.name)
@@ -108,9 +107,9 @@ class PillsFormActivity : AppCompatActivity() {
     private fun initSpinner(){
         val medTypeValues : ArrayList<String> = ArrayList()
         if(remoteMedicine == null)
-            MedicineTypeEnum.values().forEach { medTypeEnum -> medTypeValues.add(medTypeEnum.toString()) }
+            MedicineTypeEnum.values().forEach { medTypeEnum -> medTypeValues.add(getText(medTypeEnum.text).toString()) }
         else
-            medTypeValues.add(remoteMedicine!!.medicineType.toString())
+            medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
 
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

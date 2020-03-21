@@ -21,7 +21,9 @@
             android:name=".activity.pills.PillsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.SignUp" />
-        <activity android:name=".activity.friend.FriendListActivity" />
+        <activity
+            android:name=".activity.friend.FriendListActivity"
+            android:label="Friend List" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

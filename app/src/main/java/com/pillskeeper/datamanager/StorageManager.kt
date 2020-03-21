@@ -44,24 +44,4 @@ object StorageManager {
         Log.i(Log.DEBUG.toString(), "uploadImage()-Ended")
         return resultUpload
     }
-
-    //TODO da rivedere download, prima controllare che funzioni upload
-
-    /**
-     * Metodo per ottenere l'immagine dallo storage Firebase
-     * @param imageName Il nome dell'immagine
-     */
-    fun getImage(imageName: String): File {
-        Log.i(Log.DEBUG.toString(), "getImage()-Started")
-        val localFile = File.createTempFile("", "jpg")
-        storageReferenceRoot.child("$PATH_MEDICINES_IMAGES$imageName.jpg").getFile(localFile)
-            .addOnSuccessListener {
-                //TODO
-            }.addOnFailureListener {
-                Log.i(Log.DEBUG.toString(), "writeNewUser()-ERROR-FIREBASE" + it.message)
-                throw it
-            }
-        Log.i(Log.DEBUG.toString(), "getImage()-Ended")
-        return localFile
-    }
 }

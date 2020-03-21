@@ -73,7 +73,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="71dp"
         android:layout_marginEnd="24dp"
         android:text="@string/time"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,21 +81,18 @@
 
     <Spinner
         android:id="@+id/spinnerMinutes"
-        android:layout_width="120dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="154dp"
+        android:layout_height="109dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewPoints"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/spinnerHours"
-        android:layout_width="120dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="86dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPoints"
+        android:layout_width="154dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
 
@@ -103,12 +100,13 @@
         android:id="@+id/textViewPoints"
         android:layout_width="10dp"
         android:layout_height="40dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="172dp"
+        android:layout_marginEnd="14dp"
         android:text=":"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/spinnerMinutes"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/spinnerHours"
         app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 

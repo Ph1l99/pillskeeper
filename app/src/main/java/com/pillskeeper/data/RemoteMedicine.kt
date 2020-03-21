@@ -1,13 +1,15 @@
 package com.pillskeeper.data
 
 import com.pillskeeper.enums.MedicineTypeEnum
+import java.io.Serializable
 
 data class RemoteMedicine(
     var name: String,
     var id: String,
     var medicineType: MedicineTypeEnum
 ) : AbstractMedicine(name, id, medicineType) {
-    companion object {
+
+    companion object : Serializable {
 
         fun getMedicineListFromMap(medicinesMaps: Map<String, Map<String, String>>): List<RemoteMedicine> {
             var listResult = mutableListOf<RemoteMedicine>()

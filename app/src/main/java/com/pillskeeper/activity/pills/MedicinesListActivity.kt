@@ -33,10 +33,12 @@ class MedicinesListActivity : AppCompatActivity() {
 
         addMedicineButton.setOnClickListener {
             val intent = Intent(this, PillsFormActivity::class.java)
+            intent.putExtra("BUTTON_PRESSED", 1)
             startActivity(intent)
         }
     }
 
+    //Metodo per ottenere i dati da DB
     private fun fillMedicinesList() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Started")
         databaseReference.child(DatabaseManager.PATH_MEDICINES)
@@ -58,7 +60,9 @@ class MedicinesListActivity : AppCompatActivity() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
     }
 
+    //Metodo per manipolare i dati e presentarli all'utente
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
+        lateinit var medicineClicked: RemoteMedicine
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Started")
         arrayMedicines = ArrayList(medicinesList.size)
         medicinesListView = findViewById(R.id.medicinesList)
@@ -71,6 +75,18 @@ class MedicinesListActivity : AppCompatActivity() {
             arrayMedicines
         )
         medicinesListView.adapter = adapter
-        Log.i(Log.DEBUG.toString(), "displayListMedicines()-Started")
+        medicinesListView.setOnItemClickListener { _, _, position, _ ->
+            val element = adapter.getItem(position)
+            for (medicine in medicinesList) {
+                if (element == medicine.name) {
+                    medicineClicked = medicine
+                    break
+                }
+            }
+            val intent = Intent(this, PillsFormActivity::class.java)
+            intent.putExtra("REMOTE_MEDICINE", medicineClicked)
+            startActivity(intent)
+        }
+        Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")
     }
 }

@@ -1,8 +1,10 @@
 package com.pillskeeper.activity.pills
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,6 +32,8 @@ class PillsFormActivity : AppCompatActivity() {
         const val REMINDER_INSERT_ACTIVITY = 1
     }
 
+    val REQUEST_CAMERA_PERMISSION_ID = 1
+
     private var reminderList: LinkedList<Reminder>? = null
     private lateinit var stdLayout: Drawable
 
@@ -39,8 +43,16 @@ class PillsFormActivity : AppCompatActivity() {
 
         stdLayout = editTextNameMed.background
         buttonCamera.setOnClickListener{
-            val intent = Intent(this, TextReaderActivity::class.java)
-            startActivityForResult(intent, CAMERA_REQUEST)
+            if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                val intent = Intent(this, TextReaderActivity::class.java)
+                startActivityForResult(intent, CAMERA_REQUEST)
+            } else{
+                requestPermissions(
+                    arrayOf(Manifest.permission.CAMERA),
+                    REQUEST_CAMERA_PERMISSION_ID
+                )
+            }
+
         }
 
         initSpinner()
@@ -131,5 +143,16 @@ class PillsFormActivity : AppCompatActivity() {
         editTextTotQuantity.background = stdLayout
         editTextRemQuantity.background = stdLayout
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val intent = Intent(this, TextReaderActivity::class.java)
+        startActivityForResult(intent, CAMERA_REQUEST)
+    }
+
 
 }

@@ -1,29 +1,32 @@
 package com.pillskeeper.activity.pills
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.pillskeeper.R
+import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_text_reader.*
 
 class TextReaderActivity : AppCompatActivity() {
 
-    //TODO da controllare a cosa serve (forse per i permessi)
-    val REQUEST_CAMERA_PERMISSION_ID = 1001
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_reader)
+
+
 
         val cameraView = findViewById<SurfaceView>(R.id.surface_view)
         val textView = findViewById<TextView>(R.id.text_view)
@@ -41,6 +44,7 @@ class TextReaderActivity : AppCompatActivity() {
                 .setAutoFocusEnabled(true)
                 .build()
 
+
             cameraView.holder.addCallback(object : SurfaceHolder.Callback {
                 override fun surfaceChanged(
                     holder: SurfaceHolder?,
@@ -57,8 +61,9 @@ class TextReaderActivity : AppCompatActivity() {
 
                 override fun surfaceCreated(holder: SurfaceHolder?) {
                     try {
-                        //TODO Bisogna verificare i permessi
+
                         cameraSource.start(cameraView.holder)
+
                     } catch (e: Exception) {
                         Toast.makeText(applicationContext, "I permessiii!!!", Toast.LENGTH_LONG)
                             .show()

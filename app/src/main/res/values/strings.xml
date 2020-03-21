@@ -53,5 +53,9 @@
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
     <string name="Undefined">Undefined</string>
+    <string name="appointmentTitle">Aggingi Appuntamento</string>
+    <string name="appointmentNme">Nome Appuntamento</string>
+    <string name="timeAppointment">Orario:</string>
+    <string name="additionalNoteAppointment">Note Addizionali ...</string>
 
 </resources>

@@ -5,18 +5,17 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.appointment.AppointmentActivity"></activity>
+        <activity android:name=".activity.appointment.AppointmentActivity" />
         <activity android:name=".activity.pills.MedicinesListActivity" />
         <activity android:name=".activity.pills.reminder.ReminderActivity" />
         <activity android:name=".activity.pills.reminder.AdvancedInfoReminderActivity" />
         <activity android:name=".activity.pills.TextReaderActivity" />
-        <activity android:name=".activity.pills.MedicinesListActivity" />
         <activity android:name=".activity.pills.PillsFormActivity" />
         <activity
             android:name=".activity.pills.PillsListActivity"

@@ -17,7 +17,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.appointment.AppointmentActivity
 import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.data.Appointment
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
@@ -42,7 +44,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
-                val it = Intent(this, MedicinesListActivity::class.java)
+                val it = Intent(this, /*MedicinesListActivity*/AppointmentActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
                 Toast.makeText(
@@ -53,7 +55,6 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
         }
 
-        //creo il menu
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -96,7 +97,6 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.adapter = adapter
     }
 
-    //metodo per il menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> {
@@ -106,7 +106,6 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_friends -> {
                 Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this,FriendListActivity::class.java))
-
             }
             R.id.nav_pharmacies -> {
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()

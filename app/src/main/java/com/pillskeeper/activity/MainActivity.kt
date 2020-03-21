@@ -6,20 +6,19 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.UserInfo
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.datamanager.LocalDatabase
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.system.exitProcess
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.DatabaseManager
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 

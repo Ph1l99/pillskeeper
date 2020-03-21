@@ -33,6 +33,7 @@ class MedicinesListActivity : AppCompatActivity() {
         addMedicineButton.setOnClickListener {
             val intent = Intent(this, PillsFormActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
@@ -75,6 +76,7 @@ class MedicinesListActivity : AppCompatActivity() {
             val intent = Intent(this, PillsFormActivity::class.java)
             intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
             startActivity(intent)
+            finish()
         }
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")
     }

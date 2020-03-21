@@ -148,4 +148,5 @@ object UserInformation {
         Log.i(Log.DEBUG.toString(),"UserInformation: flushAll() - Ended")
     }
 
+
 }

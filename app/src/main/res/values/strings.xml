@@ -52,5 +52,6 @@
     <string name="Pills">Pillole</string>
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
+    <string name="Undefined">Undefined</string>
 
 </resources>

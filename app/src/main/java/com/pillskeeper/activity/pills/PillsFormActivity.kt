@@ -68,7 +68,7 @@ class PillsFormActivity : AppCompatActivity() {
                 if (UserInformation.addNewMedicine(
                         LocalMedicine(
                             editTextNameMed.text.toString().toLowerCase(Locale.ROOT),
-                            MedicineTypeEnum.valueOf(spinnerMedicineType.selectedItem.toString()),
+                            getTypeFromText(spinnerMedicineType.selectedItem.toString()),
                             editTextTotQuantity.text.toString().toFloat(),
                             editTextRemQuantity.text.toString().toFloat(),
                             reminderList,
@@ -107,7 +107,10 @@ class PillsFormActivity : AppCompatActivity() {
     private fun initSpinner(){
         val medTypeValues : ArrayList<String> = ArrayList()
         if(remoteMedicine == null)
-            MedicineTypeEnum.values().forEach { medTypeEnum -> medTypeValues.add(getText(medTypeEnum.text).toString()) }
+            MedicineTypeEnum.values().forEach { medTypeEnum ->
+                if(medTypeEnum != MedicineTypeEnum.UNDEFINED)
+                    medTypeValues.add(getText(medTypeEnum.text).toString())
+            }
         else
             medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
 
@@ -142,6 +145,15 @@ class PillsFormActivity : AppCompatActivity() {
         editTextNameMed.background = stdLayout
         editTextTotQuantity.background = stdLayout
         editTextRemQuantity.background = stdLayout
+    }
+
+    private fun getTypeFromText(text: String): MedicineTypeEnum {
+        return when(text){
+            getText(MedicineTypeEnum.PILLS.text)         -> {MedicineTypeEnum.PILLS}
+            getText(MedicineTypeEnum.SYRUP.text)         -> {MedicineTypeEnum.SYRUP}
+            getText(MedicineTypeEnum.SUPPOSITORY.text)   -> {MedicineTypeEnum.SUPPOSITORY}
+            else                                         -> MedicineTypeEnum.UNDEFINED
+        }
     }
 
 }

@@ -30,6 +30,7 @@
 
 
     <!--Menu buttons-->
+    <string name="username">username</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
@@ -43,6 +44,20 @@
     <string name="medNameHint">Inserire il nome del farmaco</string>
     <string name="medNameTitle">Nome del farmaco</string>
     <string name="camera">Fotocamera</string>
+
+    <!--Reminders-->
+    <string name="select_week">Selezionare uno o più giorni</string>
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+    <string name="sunday">Domenica</string>
+    <string name="time">Orario</string>
+    <string name="espire_date">Data Di Fine</string>
+    <string name="quantity">Inserire La Quantità</string>
+
     <string name="monthRB">Mesi</string>
     <string name="weekRB">Settimane</string>
     <string name="weekMonthPause">Settimane/mesi di pausa:</string>

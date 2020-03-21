@@ -38,7 +38,7 @@ class PillsFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-        if(intent.getSerializableExtra(REMOTE_MEDICINE) != null){
+        if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
             remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
             editTextNameMed.setText(remoteMedicine!!.name)
             spinnerMedicineType.isEnabled = false
@@ -59,6 +59,8 @@ class PillsFormActivity : AppCompatActivity() {
 
         buttonAddReminder.setOnClickListener {
             val intent = Intent(this, ReminderActivity::class.java)
+            val intentReturn = Intent()
+            setResult(Activity.RESULT_OK,intentReturn)
             startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
         }
 
@@ -104,11 +106,11 @@ class PillsFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSpinner(){
-        val medTypeValues : ArrayList<String> = ArrayList()
-        if(remoteMedicine == null)
+    private fun initSpinner() {
+        val medTypeValues: ArrayList<String> = ArrayList()
+        if (remoteMedicine == null)
             MedicineTypeEnum.values().forEach { medTypeEnum ->
-                if(medTypeEnum != MedicineTypeEnum.UNDEFINED)
+                if (medTypeEnum != MedicineTypeEnum.UNDEFINED)
                     medTypeValues.add(getText(medTypeEnum.text).toString())
             }
         else
@@ -148,11 +150,17 @@ class PillsFormActivity : AppCompatActivity() {
     }
 
     private fun getTypeFromText(text: String): MedicineTypeEnum {
-        return when(text){
-            getText(MedicineTypeEnum.PILLS.text)         -> {MedicineTypeEnum.PILLS}
-            getText(MedicineTypeEnum.SYRUP.text)         -> {MedicineTypeEnum.SYRUP}
-            getText(MedicineTypeEnum.SUPPOSITORY.text)   -> {MedicineTypeEnum.SUPPOSITORY}
-            else                                         -> MedicineTypeEnum.UNDEFINED
+        return when (text) {
+            getText(MedicineTypeEnum.PILLS.text) -> {
+                MedicineTypeEnum.PILLS
+            }
+            getText(MedicineTypeEnum.SYRUP.text) -> {
+                MedicineTypeEnum.SYRUP
+            }
+            getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
+                MedicineTypeEnum.SUPPOSITORY
+            }
+            else -> MedicineTypeEnum.UNDEFINED
         }
     }
 

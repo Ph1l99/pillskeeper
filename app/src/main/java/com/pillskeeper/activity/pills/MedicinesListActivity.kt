@@ -1,5 +1,6 @@
 package com.pillskeeper.activity.pills
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.pillskeeper.R
+import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.DatabaseManager
@@ -21,6 +23,10 @@ class MedicinesListActivity : AppCompatActivity() {
     private lateinit var medicinesListView: ListView
     private lateinit var arrayMedicines: ArrayList<String>
     private lateinit var databaseReference: DatabaseReference
+
+    companion object {
+        private const val LAUNCH_PILLS = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +64,15 @@ class MedicinesListActivity : AppCompatActivity() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LAUNCH_PILLS) {
+            if (resultCode == Activity.RESULT_OK) {
+                finish()
+            }
+        }
+    }
+
     //Metodo per manipolare i dati e presentarli all'utente
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Started")
@@ -75,8 +90,8 @@ class MedicinesListActivity : AppCompatActivity() {
         medicinesListView.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, PillsFormActivity::class.java)
             intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
-            startActivity(intent)
-            finish()
+            startActivityForResult(intent, LAUNCH_PILLS)
+
         }
         Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")
     }

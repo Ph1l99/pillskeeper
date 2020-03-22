@@ -3,6 +3,7 @@ package com.pillskeeper.datamanager
 import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
+import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.enums.LocalDbKeyEnum
@@ -13,7 +14,7 @@ object LocalDatabase : LocalDatabaseInterface{
 
     var sharedPref: SharedPreferences? = null
 
-    fun saveValue(key: String, value: Any){
+    private fun saveValue(key: String, value: Any){
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveValue() - Started")
 
         with (sharedPref?.edit()) {
@@ -73,6 +74,20 @@ object LocalDatabase : LocalDatabaseInterface{
         return LinkedList(Gson().fromJson(medicinesJson, Array<LocalMedicine>::class.java).toList())
     }
 
+    override fun readAppointmentList(): LinkedList<Appointment>{
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readAppointmentList() - Started")
+
+        val appointmentJson: String? = sharedPref?.getString(LocalDbKeyEnum.APPOINTMENTLIST.toString(), null)
+
+        if (appointmentJson.isNullOrEmpty()) {
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readAppointmentList() - Ended - List empty")
+            return LinkedList<Appointment>()
+        }
+
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readAppointmentList() - Ended - List full")
+        return LinkedList(Gson().fromJson(appointmentJson, Array<Appointment>::class.java).toList())
+    }
+
 
     /*  SAVE Function   */
 
@@ -115,6 +130,23 @@ object LocalDatabase : LocalDatabaseInterface{
 
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
+
+    override fun saveAppointmentList(appointments: LinkedList<Appointment>){
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+
+        saveValue(LocalDbKeyEnum.APPOINTMENTLIST.toString(),appointments)
+
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+    }
+
+    override fun saveAppointmentList(){
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+
+        saveValue(LocalDbKeyEnum.APPOINTMENTLIST.toString(),UserInformation.appointments)
+
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+    }
+
 
     //TODO TEST
     override fun resetMemory(){

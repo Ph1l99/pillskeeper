@@ -9,7 +9,12 @@ object UserInformation {
 
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
+    var appointments: LinkedList<Appointment> = LocalDatabase.readAppointmentList()
+
     lateinit var context: Context
+
+
+    /*******  GET FUNCTION   *******/
 
     @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
@@ -38,6 +43,10 @@ object UserInformation {
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificFriend() - Ended - Friend not found")
         return null
     }
+
+
+
+    /*******  ADD  FUNCTION   *******/
 
     @Synchronized fun addNewFriend(friend: Friend): Boolean {
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewFriend() - Started")
@@ -68,36 +77,6 @@ object UserInformation {
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Ended - Medicine inserted")
         return true
-    }
-
-    @Synchronized fun editMedicine(oldName: String, medicine: LocalMedicine): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Started")
-
-        for(i in medicines.indices){
-            if(medicines[i].name == oldName){
-                Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine modified")
-                medicines[i] = medicine
-                return true
-            }
-        }
-
-        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine not found")
-        return false
-    }
-
-    @Synchronized fun editFriend(oldName: String, friend: Friend): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Started")
-
-        for(i in friends.indices){
-            if(friends[i].name == oldName){
-                Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend modified")
-                friends[i] = friend
-                return true
-            }
-        }
-
-        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend not found")
-        return false
     }
 
     @Synchronized fun addNewReminder(medicineName: String, reminder: ReminderMedicine): Boolean {
@@ -137,6 +116,71 @@ object UserInformation {
         reminderList.forEach { entry -> addNewReminder(medicineName, entry) }
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
+    }
+
+    fun addNewAppointment(appointment: Appointment): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Started")
+
+        appointments.forEach {
+            entry -> if(entry.name == appointment.name){
+                Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Ended - Appointment already present")
+                return false
+            }
+        }
+
+        appointments.add(appointment)
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Ended - Appointment inserted")
+        return true
+    }
+
+
+
+    /*******  EDIT FUNCTION   *******/
+
+    fun editAppointment(oldName: String, appointment: Appointment): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Started")
+
+        for(i in appointments.indices){
+            if(appointments[i].name == oldName){
+                Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Ended - Appointment modified")
+                appointments[i] = appointment
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Ended - Appointment not found")
+        return false
+    }
+
+    @Synchronized fun editMedicine(oldName: String, medicine: LocalMedicine): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Started")
+
+        for(i in medicines.indices){
+            if(medicines[i].name == oldName){
+                Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine modified")
+                medicines[i] = medicine
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine not found")
+        return false
+    }
+
+    @Synchronized fun editFriend(oldName: String, friend: Friend): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Started")
+
+        for(i in friends.indices){
+            if(friends[i].name == oldName){
+                Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend modified")
+                friends[i] = friend
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend not found")
+        return false
     }
 
     @Synchronized fun flushAll(){

@@ -1,13 +1,12 @@
 package com.pillskeeper.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -16,9 +15,8 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
-import kotlinx.android.synthetic.main.activity_main.*
+import com.pillskeeper.utility.Utils
 import java.util.*
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +25,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
@@ -38,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
         DatabaseManager.obtainRemoteDatabase()
+
+        Utils.stdLayout = EditText(this).background
 
         //TODO DEBUG - to be removed
         funTest()

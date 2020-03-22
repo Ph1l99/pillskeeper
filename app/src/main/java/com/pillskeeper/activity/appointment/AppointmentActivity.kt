@@ -5,17 +5,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.RelativeLayout
+import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.activity.pills.reminder.ReminderActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_appointment.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 class AppointmentActivity : AppCompatActivity() {
 
-    private lateinit var appointment: Appointment
     private lateinit var minuteArray: LinkedList<String>
+    private var dateSelected: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +36,10 @@ class AppointmentActivity : AppCompatActivity() {
 
 
 
+
         buttonDate.setOnClickListener {
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                buttonDate.text = "$dayOfMonth/${monthOfYear+1}/$year"
+                buttonDate.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear+1)
@@ -42,28 +49,55 @@ class AppointmentActivity : AppCompatActivity() {
                 cal.set(Calendar.SECOND, 0)
                 cal.set(Calendar.MILLISECOND, 0)
 
+                dateSelected = cal.time
+
             }, year, month, day).show()
         }
+
+        println(cal.time)
 
         buttonDeleteAppointment.setOnClickListener { finish() }
 
         buttonConfirmAppointment.setOnClickListener {
-            appointment = Appointment(
-                appointmentNameTV.text.toString(),
-                minuteArray[minuteSpinner.selectedItemPosition].toInt(),
-                ReminderActivity.hours[hourSpinner.selectedItemPosition].toInt(),
-                cal.time,
-                additionalNoteAppointment.text.toString()
-            )
-
-            println(appointment)
-
-            //todo inserire il metodo di scrittura dell'appointment
-            //todo fare i vari controlli sugli input
+            resetEditText()
+            if(checkValues()) {
+                if(UserInformation.addNewAppointment(Appointment(
+                        appointmentNameTV.text.toString(),
+                        minuteArray[minuteSpinner.selectedItemPosition].toInt(),
+                        ReminderActivity.hours[hourSpinner.selectedItemPosition].toInt(),
+                        cal.time,
+                        additionalNoteAppointment.text.toString()
+                    ))
+                ) {
+                    LocalDatabase.saveAppointmentList()
+                    finish()
+                } else {
+                    Toast.makeText(this,"Appuntamento già presente!",Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
     }
 
+    private fun checkValues(): Boolean {
+        var result = true
+
+        if(appointmentNameTV.text.toString().isEmpty()){
+            Utils.colorEditText(appointmentNameTV)
+            result= false
+        }
+
+        if(dateSelected == null || dateSelected!!.compareTo(Date(System.currentTimeMillis())) == -1){
+            Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
+            result = false
+        }
+
+        return result
+    }
+
+    private fun resetEditText(){
+        Utils.colorEditText(appointmentNameTV,false)
+    }
 
     private fun initSpinner(){
         minuteArray = LinkedList()

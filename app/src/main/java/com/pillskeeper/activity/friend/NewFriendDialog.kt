@@ -86,13 +86,13 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
 
     private fun addOrEditFriend(){
         var isValidInfo = true
-        if(editTextPhone.text.toString() != "" )
+        if(editTextPhone.text.toString().isNotEmpty())
             if(!Utils.checkPhoneNumber(editTextPhone.text.toString())) {
                 isValidInfo = false
                 Utils.colorEditText(editTextPhone)
             }
 
-        if(editTextEmail.text.toString() != "")
+        if(editTextEmail.text.toString().isNotEmpty())
             if(!Utils.checkEmail(editTextEmail.text.toString())) {
                 isValidInfo = false
                 Utils.colorEditText(editTextEmail)
@@ -146,10 +146,10 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
     }
 
     private fun restoreAllLayout(){
-        editTextName.background = stdLayout
-        editTextSurname.background = stdLayout
-        editTextPhone.background = stdLayout
-        editTextEmail.background = stdLayout
+        Utils.colorEditText(editTextName,false)
+        Utils.colorEditText(editTextSurname,false)
+        Utils.colorEditText(editTextPhone,false)
+        Utils.colorEditText(editTextEmail,false)
     }
 
 }

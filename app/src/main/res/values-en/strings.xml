@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PillsKeeper</string>
+    <string name="signup_button">Sign Up</string>
+    <string name="signup_name">Name</string>
+    <string name="signup_surname">Surname</string>
+    <string name="signup_email">Email</string>
+    <string name="signup_password">Password</string>
+    <string name="yes">Yes</string>
+    <string name="weekRB">Weeks</string>
+    <string name="weekMonthPause">"Weeks/Months of stop: "</string>
+    <string name="weekMonthConsecutive">"Consecutive Weeks/Months: "</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="username">Username</string>
+    <string name="user_settings">Users Settings</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="totalQuantity">"Total Quantity: "</string>
+    <string name="timeAppointment">"Time: "</string>
+    <string name="time">Time</string>
+    <string name="thursday">Thursday</string>
+    <string name="textReaderActivityTitle">Camera</string>
+    <string name="Syrup">Syrup</string>
+    <string name="surnameFriend">Surname Friend:</string>
+    <string name="Suppository">Suppository</string>
+</resources>

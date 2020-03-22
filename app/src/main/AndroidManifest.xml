@@ -11,20 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.appointment.AppointmentActivity" />
-        <activity android:name=".activity.pills.MedicinesListActivity" />
+        <activity android:name=".activity.appointment.AppointmentActivity"
+            android:label="@string/appointmentTitle"/>
+        <activity android:name=".activity.pills.MedicinesListActivity"
+            android:label="@string/medicineListTitle"/>
         <activity android:name=".activity.pills.reminder.ReminderActivity" />
         <activity android:name=".activity.pills.reminder.AdvancedInfoReminderActivity" />
-        <activity android:name=".activity.pills.TextReaderActivity" />
-        <activity android:name=".activity.pills.PillsFormActivity" />
+        <activity android:name=".activity.pills.TextReaderActivity"
+            android:label="@string/textReaderActivityTitle"/>
+        <activity android:name=".activity.pills.PillsFormActivity"
+            android:label="@string/pillsFormActivityTitle"/>
         <activity
             android:name=".activity.pills.PillsListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SignUp" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/pillsListActivityTitle"/>
+        <activity android:name=".activity.SignUp"
+            android:label="@string/singUpTitle"/>
         <activity
             android:name=".activity.friend.FriendListActivity"
-            android:label="Friend List" />
-        <activity android:name=".activity.MainActivity">
+            android:label="@string/friendListActivityTitle" />
+        <activity android:name=".activity.MainActivity"
+            android:label="@string/mainActivityTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

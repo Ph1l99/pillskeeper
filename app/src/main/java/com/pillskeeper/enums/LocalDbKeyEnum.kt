@@ -4,6 +4,7 @@ enum class LocalDbKeyEnum(key: String) {
 
     USERNAME            ("Username"),
     FRIENDLIST          ("FriendList"),
-    MEDICINELIST        ("MedicineList")
+    MEDICINELIST        ("MedicineList"),
+    APPOINTMENTLIST     ("AppointmentList")
 
 }

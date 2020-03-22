@@ -15,7 +15,7 @@
     <string name="nome">Nome:</string>
     <string name="cognome">Cognome:</string>
     <string name="relationFriend">Relazione:</string>
-    <string name="yes">Yes</string>
+    <string name="yes">Si</string>
     <string name="email">Email:</string>
     <string name="nameFriend">Nome amico</string>
     <string name="surnameFriend">Cognome amico</string>
@@ -30,7 +30,7 @@
 
 
     <!--Menu buttons-->
-    <string name="username">username</string>
+    <string name="username">Nome Utente</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
@@ -68,11 +68,23 @@
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
     <string name="Undefined">Undefined</string>
-    <string name="appointmentTitle">Aggiungi Appuntamento:</string>
-    <string name="appointmentNme">Nome Appuntamento</string>
+    <string name="appointmentNme">Titolo</string>
     <string name="timeAppointment">Orario:</string>
     <string name="additionalNoteAppointment">Note Addizionali …</string>
     <string name="dateButton">dd/mm/yyyy</string>
+    <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona Una data:</string>
+
+
+    <!-- Titoli android Manifest-->
+    <string name="appointmentTitle">Aggiungi Appuntamento:</string>
+    <string name="medicineListTitle">Lista Medicine</string>
+    <string name="textReaderActivityTitle">Fotocamera</string>
+    <string name="pillsFormActivityTitle">Nuova Medicina</string>
+    <string name="pillsListActivityTitle">Lista Medicine</string>
+    <string name="singUpTitle">Registrazione</string>
+    <string name="friendListActivityTitle">Lista Amici</string>
+    <string name="mainActivityTitle">Scadenze</string>
+
 
 </resources>

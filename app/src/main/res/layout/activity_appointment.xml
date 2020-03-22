@@ -8,17 +8,6 @@
     android:padding="5dp"
     tools:context=".activity.appointment.AppointmentActivity">
 
-
-    <TextView
-        android:layout_weight="1"
-        android:id="@+id/appointmentTitleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:text="@string/appointmentTitle" />
-
     <LinearLayout
         android:layout_weight="1"
         android:padding="3dp"

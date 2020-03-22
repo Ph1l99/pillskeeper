@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
+import com.pillskeeper.activity.ChemistsActivity
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.appointment.AppointmentActivity
 import com.pillskeeper.activity.friend.FriendListActivity
@@ -120,6 +121,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
+                startActivity(Intent(this,ChemistsActivity::class.java))
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {

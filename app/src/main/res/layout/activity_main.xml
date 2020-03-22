@@ -8,6 +8,7 @@
     tools:context=".activity.MainActivity">
 
     <ListView
+        android:id="@+id/reminderList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -16,6 +17,7 @@
     </ListView>
 
     <ListView
+        android:id="@+id/appointmentList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"

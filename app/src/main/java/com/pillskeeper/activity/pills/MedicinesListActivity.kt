@@ -12,7 +12,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.pillskeeper.R
-import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.DatabaseManager

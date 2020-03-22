@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PillsKeeper</string>
-    <string name="title_activity_first_login">FirstLoginActivity</string>
 
     <!-- Strings for SignUp Activity-->
     <string name="signup_button">Registrati</string>
@@ -85,6 +84,8 @@
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
     <string name="mainActivityTitle">Scadenze</string>
+
+
 
 
 </resources>

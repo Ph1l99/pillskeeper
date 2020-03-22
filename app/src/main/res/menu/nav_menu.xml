@@ -6,6 +6,12 @@
             android:id="@+id/nav_friends"
             android:icon="@drawable/ic_friends"
             android:title="@string/friends"/>
+
+        <item
+            android:id="@+id/nav_medicines"
+            android:icon="@drawable/ic_friends"
+            android:title="@string/medicineListTitle"/>
+
         <item
             android:id="@+id/nav_pharmacies"
             android:icon="@drawable/ic_pharmacy"

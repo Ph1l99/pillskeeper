@@ -50,7 +50,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
-                val it = Intent(this, /*MedicinesListActivity*/AppointmentActivity::class.java)
+                val it = Intent(this, MedicinesListActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
                 Toast.makeText(
@@ -117,10 +117,8 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
                 //TODO aprire activity modifica profilo
             }
-            R.id.nav_friends -> {
-                Toast.makeText(this, "Friends clicked", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this,FriendListActivity::class.java))
-            }
+            R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
+            R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }

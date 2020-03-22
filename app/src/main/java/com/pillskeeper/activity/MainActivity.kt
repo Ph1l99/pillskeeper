@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         readFirstLogin()
     }
 
+    //TODO risolvere questa parte @Phil
     private fun readFirstLogin() {
         //val userN = LocalDatabase.readUsername()
         if (/*FirebaseAuth.getInstance().currentUser != null*/ true) {

@@ -76,6 +76,7 @@
 
 
     <!-- Titoli android Manifest-->
+    <string name="chemistsTitle">Farmacie in zona</string>
     <string name="appointmentTitle">Aggiungi Appuntamento:</string>
     <string name="medicineListTitle">Lista Medicine</string>
     <string name="textReaderActivityTitle">Fotocamera</string>
@@ -84,8 +85,6 @@
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
     <string name="mainActivityTitle">Scadenze</string>
-
-
 
 
 </resources>

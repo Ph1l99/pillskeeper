@@ -3,11 +3,13 @@ package com.pillskeeper.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
 import com.pillskeeper.activity.pills.PillsListActivity
+import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.DatabaseManager
@@ -16,7 +18,9 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Utils
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
@@ -42,19 +47,19 @@ class MainActivity : AppCompatActivity() {
         funTest()
 
         readFirstLogin()
+
+
     }
 
     //TODO risolvere questa parte @Phil
     private fun readFirstLogin() {
         //val userN = LocalDatabase.readUsername()
-        if (/*FirebaseAuth.getInstance().currentUser != null*/ true) {
-            val it = Intent(this, PillsListActivity::class.java)
-            startActivity(it)
-            finish()
-        } else {
+        if (/*FirebaseAuth.getInstance().currentUser == null*/ false) {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
             finish()
+        } else {
+            initLists()
         }
     }
 
@@ -100,6 +105,24 @@ class MainActivity : AppCompatActivity() {
 
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
+
+    }
+
+    private fun initLists(){
+
+        /*Appointment list*/
+        UserInformation.appointments.sortWith(compareBy<Appointment> {it.date}.thenBy { it.hours }.thenBy { it.minutes })
+        val arrayAdapterAppointments = LinkedList<String>()
+        UserInformation.appointments.forEach { arrayAdapterAppointments.add(it.name) }
+        appointmentList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+
+        /*Reminder List*/
+        val reminderList: HashMap<String,ReminderMedicine> = HashMap()
+        UserInformation.medicines.forEach { it.reminders?.forEach { rem -> reminderList[it.name] = rem } }
+
+
+
+        .adapter = adapter
 
     }
 

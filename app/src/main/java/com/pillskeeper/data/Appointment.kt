@@ -6,6 +6,6 @@ data class Appointment(
     var name: String,
     var minutes: Int,
     var hours: Int,
-    var date: Date?,
+    var date: Date,
     var additionNotes: String?
 )

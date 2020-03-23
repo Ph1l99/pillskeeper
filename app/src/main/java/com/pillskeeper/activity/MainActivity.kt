@@ -8,7 +8,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -20,10 +19,9 @@ import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
-import java.time.DayOfWeek
+import java.time.Period
 import java.util.*
 import kotlin.collections.HashMap
-import kotlin.collections.LinkedHashMap
 
 class MainActivity : AppCompatActivity() {
 
@@ -131,8 +129,18 @@ class MainActivity : AppCompatActivity() {
         val list: HashMap<String,ReminderMedicine> = HashMap()
         UserInformation.medicines.forEach { it.reminders?.forEach { rem -> list[it.name] = rem } }
 
+
+        val dayVisualized: Long = (System.currentTimeMillis() - filterDate.time) / (24 * 60 * 60 * 1000) //0 is today,  >=1 next day
+
         //riduzione lista basandosi su startDate ed DAY OF WEEK!!!!!!!!
-        //RENDENDOLO DINAMICO IN BASE AD UN GIORNO PASSATO COME PARAMENTRO
+        for(entry in list){
+            if(entry.value.startingDay > filterDate)
+                list.remove(entry.key)
+            else if(entry.value.startingDay != entry.value.expireDate)
+                if (!getDateFromSequence(entry.value, dayVisualized))
+                    list.remove(entry.key)
+
+        }
 
         val sortedList: LinkedList<RemoteMedicineSort> = LinkedList()
 
@@ -149,49 +157,74 @@ class MainActivity : AppCompatActivity() {
                     //3. sequence            <---->    data
                     //4. sequence            <---->    sequence
 
-                    if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay == sortedList[pos].reminder.expireDate) {/*Date() to Date()*/
+       /* 1 */      if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay == sortedList[pos].reminder.expireDate) {/*Date() to Date()*/
 
                         if(entry.value.startingDay.before(sortedList[pos].reminder.startingDay)) //insert Before[samePosition]
-
                             sortedList.add(pos, RemoteMedicineSort(entry.key,entry.value))
 
                         else //insert After + check if is last position
 
                            if(sortedList.lastIndex == pos)
-
                                sortedList.addLast(RemoteMedicineSort(entry.key,entry.value))
 
-                    } else if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay != sortedList[pos].reminder.expireDate) { /*data to sequence*/
-                        var questoMomento = Date(System.currentTimeMillis())
-                        //questoMomento >>>>>>>>>  prossimoReminder(ora,minuto lun)
-                        /*lun-mar-sab, ora e min*/
+       /* 2 */      } else if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay != sortedList[pos].reminder.expireDate) { /*data to sequence*/
+                        /*
+                        * 1. converto la seq, nella data più prossima della seq. stessa
+                        * 2. comparo
+                        * 3. eseguro di conseguenza
+                        * */
+
+                        var nextRem = Date()
+
+                        if(entry.value.startingDay.before(sortedList[pos].reminder.startingDay)) //insert Before[samePosition]
+                            sortedList.add(pos, RemoteMedicineSort(entry.key,entry.value))
+
+                        else //insert After + check if is last position
+
+                            if(sortedList.lastIndex == pos)
+                                sortedList.addLast(RemoteMedicineSort(entry.key,entry.value))
+
+                        /*ricopio il compare fatto sopra tra data a data*/
 
 
+       /* 3 */      } /*else if (/*data to sequence*/) {
 
-                    } /*else if (/*data to sequence*/) {
-
-                    } else { /*SEQ to SEQ*/
+       /* 4 */      } else { /*SEQ to SEQ*/
 
                     }*/
                 }
             }
-
-
-
-        }
-
+         }
 
 
         return sortedList
     }
 
-    private fun getDateFromSequence(): Date{
 
-        return Date()
+    private fun getDateFromSequence(reminderMedicine: ReminderMedicine, dayVisualized: Long = 0): Boolean{
+
+        /* conversione SEQ a data*/
+        val calCurrent = Calendar.getInstance()
+        calCurrent.time = Date(System.currentTimeMillis())
+        val currentDay = calCurrent[Calendar.DAY_OF_WEEK]
+
+        reminderMedicine.days?.forEach { it -> //todo rivedere l'if con più attentione @Richi    V == 6  -> +2 = 1 e non 8... ma a questo punto 1 non è compreso dio can  nell'intervallo
+            if(it.dayNumber == currentDay ||
+                (currentDay <= it.dayNumber && (currentDay + dayVisualized) >= (it.dayNumber)) ) {
+                return true
+            }
+        }
+
+        return false
     }
-
-
 }
+
+/*val c = Calendar.getInstance()
+c.time = date
+val dayOfWeek = c[Calendar.DAY_OF_WEEK]
+return Date()*/
+
+
 /*if (entry.value.startingDay == sortedList[elem].reminder.startingDay) {
 //1. sono completamente uguali...
 //2. A > B (controllo ora e minuti)

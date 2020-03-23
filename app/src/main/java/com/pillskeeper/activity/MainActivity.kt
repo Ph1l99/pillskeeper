@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
+import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.Appointment
@@ -136,11 +137,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Appointment("Visita Urologo",12,8,Date(),"")
         )
 
-
-
-
-
-
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
     }
@@ -160,7 +156,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         reminderList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
-
 
     private fun getSortedListReminders(filterDate: Date = Date()): LinkedList<ReminderMedicineSort> {
         filterDate.time = dataNormalizationLimit(filterDate)
@@ -284,6 +279,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
+            R.id.nav_appointments -> startActivity(Intent(this, AppointmentListActivity::class.java))
             R.id.nav_pharmacies -> {
                 //openMaps()
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()

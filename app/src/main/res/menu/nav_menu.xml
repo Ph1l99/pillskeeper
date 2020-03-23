@@ -8,6 +8,10 @@
                 android:icon="@drawable/ic_friends"
                 android:title="@string/friends"/>
             <item
+                android:id="@+id/nav_appointments"
+                android:icon="@drawable/ic_friends"
+                android:title="@string/appointmentMenu"/>
+            <item
                 android:id="@+id/nav_medicines"
                 android:icon="@drawable/ic_friends"
                 android:title="@string/medicineListTitle"/>

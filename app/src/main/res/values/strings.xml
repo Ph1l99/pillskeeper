@@ -30,11 +30,14 @@
 
     <!--Menu buttons-->
     <string name="username">Nome Utente</string>
+    <string name="appointmentMenu">Appuntamenti</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
+
+
     <string name="addReminder">Aggiungi Promemoria</string>
     <string name="totalQuantity">Quantità totale</string>
     <string name="reminder">Appuntamenti</string>

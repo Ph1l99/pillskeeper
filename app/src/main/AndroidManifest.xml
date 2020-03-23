@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.appointment.AppointmentListActivity"></activity>
         <activity
-            android:name=".activity.appointment.AppointmentActivity"
+            android:name=".activity.appointment.AppointmentFormActivity"
             android:label="@string/appointmentTitle" />
         <activity
             android:name=".activity.pills.MedicinesListActivity"

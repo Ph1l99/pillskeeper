@@ -1,7 +1,10 @@
 package com.pillskeeper.activity.pills
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -11,22 +14,19 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.ChemistsActivity
 import com.pillskeeper.activity.MainActivity
-import com.pillskeeper.activity.appointment.AppointmentActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.datamanager.UserInformation
-import kotlinx.android.synthetic.main.activity_pills_form.*
-import kotlinx.android.synthetic.main.activity_pills_list.*
 import kotlinx.android.synthetic.main.content_pills_list.*
-import kotlinx.android.synthetic.main.nav_header.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,6 +37,8 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+
+    val REQUEST_POSITION_PERMISSION_ID = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,7 +95,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.adapter = adapter
     }
 
-    private fun createMenu(){
+    private fun createMenu() {
         //creo il menu
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -108,7 +110,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         toggle.syncState()
         navView.setNavigationItemSelectedListener(this)
 
-       // username_text_view_menu.text = LocalDatabase.readUsername()+""
+        // username_text_view_menu.text = LocalDatabase.readUsername()+""
     }
 
     //metodo per il menu
@@ -121,7 +123,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
-                startActivity(Intent(this,ChemistsActivity::class.java))
+                openMaps()
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {
@@ -131,5 +133,28 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun openMaps() {
+        lateinit var fusedLocationClient: FusedLocationProviderClient
+        val searchUrl = "https://www.google.com/maps/search/?api=1&query=farmacie"
+        val permissionAccessCoarseLocationApproved = ActivityCompat
+            .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
+        if (permissionAccessCoarseLocationApproved) {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
+                intent.setPackage("com.google.android.apps.maps")
+                startActivity(intent)
+            }
+        } else {
+            // Make a request for foreground-only location access.
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
+            )
+        }
     }
 }

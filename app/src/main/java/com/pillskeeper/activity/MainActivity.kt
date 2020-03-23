@@ -84,15 +84,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val days1: LinkedList<DaysEnum> = LinkedList()
         days1.add(DaysEnum.MON)
+        days1.add(DaysEnum.FRI)
+        days1.add(DaysEnum.SAT)
+        days1.add(DaysEnum.TUE)
         days1.add(DaysEnum.THU)
         days1.add(DaysEnum.SUN)
+        days1.add(DaysEnum.WED)
 
         val days2: LinkedList<DaysEnum> = LinkedList()
-        days1.add(DaysEnum.MON)
+        days2.add(DaysEnum.MON)
+        days2.add(DaysEnum.FRI)
+        days2.add(DaysEnum.SAT)
+        days2.add(DaysEnum.TUE)
+        days2.add(DaysEnum.THU)
+        days2.add(DaysEnum.SUN)
+        days2.add(DaysEnum.WED)
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 0, 19, Date(), days1, Date(), null))
-        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
+        reminders.add(ReminderMedicine(1.5F, 0, 20, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
@@ -105,9 +115,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
 
+
         val reminders2 = LinkedList<ReminderMedicine>()
-        reminders2.add(ReminderMedicine(1.5F, 0, 19, Date(), days1, Date(), null))
-        reminders2.add(ReminderMedicine(1F, 0, 19, Date(), days2, Date(), null))
+        reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
+        reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days2, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",
@@ -119,7 +130,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             )
         )
         UserInformation.addNewReminderList("Aulin", reminders2)
-
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
@@ -136,24 +146,36 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         /*Reminder List*/
         val reminderListSorted: LinkedList<ReminderMedicineSort> = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
-        reminderListSorted.forEach { arrayAdapterAppointments.add("${it.medName}  -  ${it.reminder.dosage} - ${it.reminder.startingDay}") }
-        appointmentList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListSorted.forEach { arrayAdapterReminders.add("${it.medName}  -  ${it.reminder.dosage} - ${it.reminder.startingDay}") }
+        reminderList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 
 
-    private fun getSortedListReminders(filterDate: Date = Date(System.currentTimeMillis())): LinkedList<ReminderMedicineSort> {
+    private fun getSortedListReminders(filterDate: Date = Date()): LinkedList<ReminderMedicineSort> {
+        val inizio = System.currentTimeMillis()
+
+        println("inizio = $inizio")
+        filterDate.time = dataNormalizationLimit(filterDate)
+
         var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         UserInformation.medicines.forEach {
             it.reminders?.forEach { reminder ->
                 randomList.add(ReminderMedicineSort(it.name, reminder))
             }
         }
-
         randomList = convertSeqToDate(randomList)
 
-        randomList.filter { it.reminder.startingDay <  filterDate }
+        randomList.filter { it.reminder.startingDay <=  filterDate }
         randomList.sortBy { it.reminder.startingDay }
+
+
+        val fine = System.currentTimeMillis()
+
+        println("Fine = $fine")
+
+        println("Tempo impiegato in millis-secondi: " + (fine-inizio))
+        println("Tempo impiegato in secondi: " + (fine-inizio)/1000)
 
         return randomList
     }
@@ -201,6 +223,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return returnedList
     }
 
+    private fun dataNormalizationLimit(date: Date) : Long{
+        val cal: Calendar = Calendar.getInstance()
+        cal.time = date
+
+        cal.set(Calendar.HOUR_OF_DAY, 23)
+        cal.set(Calendar.MINUTE, 59)
+        cal.set(Calendar.SECOND, 59)
+
+        return cal.time.time
+    }
+
     private fun createMenu() {
         //creo il menu
         toolbar = findViewById(R.id.toolbar)
@@ -242,134 +275,3 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
 }
-/*private fun getSortedListReminders___FAKE(filterDate: Date = Date(System.currentTimeMillis())): LinkedList<ReminderMedicineSort>{
-    val list: HashMap<String,ReminderMedicine> = HashMap()
-    UserInformation.medicines.forEach { it.reminders?.forEach { rem -> list[it.name] = rem } }
-
-
-    val dayVisualized: Long = (System.currentTimeMillis() - filterDate.time) / (24 * 60 * 60 * 1000) //0 is today,  >=1 next day
-
-    //riduzione lista basandosi su startDate e DAY OF WEEK!!!!!!!!
-    for(entry in list){
-        if(entry.value.startingDay > filterDate)
-            list.remove(entry.key)
-        else if(entry.value.startingDay != entry.value.expireDate)
-                if (!getDateFromSequence(entry.value, dayVisualized))
-                    list.remove(entry.key)
-
-    }
-
-
-    /*      FASE ORDINAMENTO         */
-
-    val sortedList: LinkedList<ReminderMedicineSort> = LinkedList()
-
-    for(entry in list){
-
-        if(sortedList.isEmpty()) //se lista vuota
-            sortedList[0] = ReminderMedicineSort(entry.key, entry.value)
-        else {
-            for (pos in 0..sortedList.size) {
-
-                //controllo che tipo di check devo fare!
-                //1. giorno specifico    <---->    giorno specifico (semplice compareTo con anche ora e minuti)   OK
-                //2. giorno specifico    <---->    sequence -- > n Day_Specifici
-                //3. sequence            <---->    data
-                //4. sequence            <---->    sequence
-
-   /* 1 */      if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay == sortedList[pos].reminder.expireDate) {/*Date() to Date()*/
-
-                    if(entry.value.startingDay.before(sortedList[pos].reminder.startingDay)) //insert Before[samePosition]
-                        sortedList.add(pos, ReminderMedicineSort(entry.key,entry.value))
-
-                    else //insert After + check if is last position
-
-                       if(sortedList.lastIndex == pos)
-                           sortedList.addLast(ReminderMedicineSort(entry.key,entry.value))
-
-   /* 2 */      } else if (entry.value.startingDay == entry.value.expireDate && sortedList[pos].reminder.startingDay != sortedList[pos].reminder.expireDate) { /*SEQ to Data()*/
-                    /*
-                    * 1. converto la seq, nella data più prossima della seq. stessa
-                    * 2. comparo
-                    * 3. eseguro di conseguenza
-                    * */
-
-                    var nextRem = Date()
-
-                    if(entry.value.startingDay.before(sortedList[pos].reminder.startingDay)) //insert Before[samePosition]
-                        sortedList.add(pos, ReminderMedicineSort(entry.key,entry.value))
-
-                    else //insert After + check if is last position
-
-                        if(sortedList.lastIndex == pos)
-                            sortedList.addLast(ReminderMedicineSort(entry.key,entry.value))
-
-                    /*ricopio il compare fatto sopra tra data a data*/
-
-
-   /* 3 */      } /*else if (/*data to sequence*/) {
-
-   /* 4 */      } else { /*SEQ to SEQ*/
-
-                }*/
-            }
-        }
-     }
-
-
-    return sortedList
-}
-
-
-private fun getDateFromSequence(reminderMedicine: ReminderMedicine, dayVisualized: Long = 0): Boolean{
-
-    /* conversione SEQ a data*/
-    val calCurrent = Calendar.getInstance()
-    calCurrent.time = Date(System.currentTimeMillis())
-    val currentDay = calCurrent[Calendar.DAY_OF_WEEK]
-
-    reminderMedicine.days?.forEach { it -> //todo rivedere l'if con più attentione @Richi    V == 6  -> +2 = 1 e non 8... ma a questo punto 1 non è compreso dio can  nell'intervallo
-        if(it.dayNumber == currentDay ||
-            (currentDay <= it.dayNumber && (currentDay + dayVisualized) >= (it.dayNumber)) ) {
-            return true
-        }
-    }
-
-    return false
-}
-}
-
-/*val c = Calendar.getInstance()
-c.time = date
-val dayOfWeek = c[Calendar.DAY_OF_WEEK]
-return Date()*/
-
-
-/*if (entry.value.startingDay == sortedList[elem].reminder.startingDay) {
-//1. sono completamente uguali...
-//2. A > B (controllo ora e minuti)
-//3. A < b (controllo ora e minuti)
-if(entry.value.hours == sortedList[elem].reminder.hours){
-if(entry.value.minutes == sortedList[elem].reminder.minutes) {
-    //è uguale dove lo piazzo (se prima o dopo)
-} else if (entry.value.minutes < sortedList[elem].reminder.minutes){
-    //entry va prima dell'elemento attuale nella sortedList
-} else {
-    //1. - entry va dopo dell'elemento attuale nella sortedList
-    //2. - controllo se sono nell'ultima posizione, se si inserisco subito after altrimenti non faccio nulla e proseguo con il ciclo
-}
-} else if(entry.value.hours < sortedList[elem].reminder.hours){
-//entry va prima in sortedlist dell'elemento attuale
-} else {
-//entry va dopo in sortedlist dell'elemento attuale
-}
-
-
-
-
-
-} else if (entry.value.startingDay < sortedList[elem].reminder.startingDay){
-//metti prima
-} else {
-if(){}
-}*/

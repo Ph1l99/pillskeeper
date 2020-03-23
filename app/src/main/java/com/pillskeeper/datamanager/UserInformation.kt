@@ -104,6 +104,9 @@ object UserInformation {
             }
         }
 
+        if(currMedicine.reminders == null)
+            currMedicine.reminders = LinkedList()
+
         currMedicine.reminders?.add(reminder)
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder inserted")

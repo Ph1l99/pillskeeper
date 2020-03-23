@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Appointment("prelieo",30,20,Date(),"")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo",30,20,Date(),"")
+            Appointment("Visita Urologo",12,8,Date(),"")
         )
 
 
@@ -150,22 +150,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         /*Appointment list*/
         UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
         val arrayAdapterAppointments = LinkedList<String>()
-        UserInformation.appointments.forEach {
-            val cal = Calendar.getInstance()
-            cal.time = it.date
-            arrayAdapterAppointments.add("${it.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}/${cal.get(Calendar.YEAR)}")
-        }
+        UserInformation.appointments.forEach {arrayAdapterAppointments.add(formatOutputString(it))}
         appointmentList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         val reminderListSorted: LinkedList<ReminderMedicineSort> = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
-        reminderListSorted.forEach {
-            val cal: Calendar = Calendar.getInstance()
-            cal.time = it.reminder.startingDay
-            arrayAdapterReminders.add("${it.medName}  -  ${it.reminder.dosage} ${getText(it.medType.text)} - " +
-                    "${it.reminder.hours}:${it.reminder.minutes}  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
-        }
+        reminderListSorted.forEach {arrayAdapterReminders.add(formatOutputString(it))}
         reminderList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
@@ -240,6 +231,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         cal.set(Calendar.SECOND, 59)
 
         return cal.time.time
+    }
+
+    private fun formatOutputString(item: Any): String{
+        val cal: Calendar = Calendar.getInstance()
+        when(item){
+            is ReminderMedicineSort -> {
+                cal.time = item.reminder.startingDay
+                var text ="${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
+                text += if(item.reminder.hours < 10)   "0${item.reminder.hours}"  else item.reminder.hours
+                text += ":"
+                text += if(item.reminder.minutes < 10)   "0${item.reminder.minutes}" else item.reminder.minutes
+                text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}"
+                return text
+            }
+            is Appointment -> {
+                cal.time = item.date
+                var text = "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}  "
+                text += "${item.hours}:"
+                text += if(item.minutes < 10) "0${item.minutes}" else item.minutes
+                return text
+            }
+            else -> return ""
+        }
+
     }
 
     private fun createMenu() {

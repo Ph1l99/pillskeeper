@@ -112,90 +112,90 @@ class PillsFormActivity : AppCompatActivity() {
         }
     }
 
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            if (resultCode == Activity.RESULT_OK) {
-                when (requestCode) {
-                    CAMERA_REQUEST -> {
-                        val pillName: String = data!!.getStringExtra("pillName")
-                        //edit_Text_Name.text = SpannableStringBuilder("")
-                        editTextNameMed.text = SpannableStringBuilder(pillName)
-                    }
-                    REMINDER_INSERT_ACTIVITY -> {
-                        reminderList //todo get list from data!!.get....()
-                    }
-                    else -> super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                CAMERA_REQUEST -> {
+                    val pillName: String = data!!.getStringExtra("pillName")
+                    //edit_Text_Name.text = SpannableStringBuilder("")
+                    editTextNameMed.text = SpannableStringBuilder(pillName)
                 }
+                REMINDER_INSERT_ACTIVITY -> {
+                    reminderList //todo get list from data!!.get....()
+                }
+                else -> super.onActivityResult(requestCode, resultCode, data)
             }
         }
-
-        private fun initSpinner() {
-            val medTypeValues: ArrayList<String> = ArrayList()
-            if (remoteMedicine == null)
-                MedicineTypeEnum.values().forEach { medTypeEnum ->
-                    if (medTypeEnum != MedicineTypeEnum.UNDEFINED)
-                        medTypeValues.add(getText(medTypeEnum.text).toString())
-                }
-            else
-                medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
-
-            val arrayAdapter =
-                ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-            spinnerMedicineType.adapter = arrayAdapter
-        }
-
-        private fun checkValuesValidity(): Boolean {
-            var validity = true
-
-            if (editTextNameMed.text.toString().toLowerCase(Locale.ROOT) == "") {
-                validity = false
-                Utils.colorEditText(editTextNameMed)
-            }
-
-            if (editTextTotQuantity.text.toString().toFloatOrNull() == null) {
-                validity = false
-                Utils.colorEditText(editTextTotQuantity)
-            }
-
-            if (editTextRemQuantity.text.toString().toFloatOrNull() == null) {
-                validity = false
-                Utils.colorEditText(editTextRemQuantity)
-            }
-
-            return validity
-        }
-
-        private fun restoreAllBg() {
-            editTextNameMed.background = stdLayout
-            editTextTotQuantity.background = stdLayout
-            editTextRemQuantity.background = stdLayout
-        }
-
-        private fun getTypeFromText(text: String): MedicineTypeEnum {
-            return when (text) {
-                getText(MedicineTypeEnum.PILLS.text) -> {
-                    MedicineTypeEnum.PILLS
-                }
-                getText(MedicineTypeEnum.SYRUP.text) -> {
-                    MedicineTypeEnum.SYRUP
-                }
-                getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
-                    MedicineTypeEnum.SUPPOSITORY
-                }
-                else -> MedicineTypeEnum.UNDEFINED
-            }
-        }
-
-        override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
-        ) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            val intent = Intent(this, TextReaderActivity::class.java)
-            startActivityForResult(intent, CAMERA_REQUEST)
-        }
-
-
     }
+
+    private fun initSpinner() {
+        val medTypeValues: ArrayList<String> = ArrayList()
+        if (remoteMedicine == null)
+            MedicineTypeEnum.values().forEach { medTypeEnum ->
+                if (medTypeEnum != MedicineTypeEnum.UNDEFINED)
+                    medTypeValues.add(getText(medTypeEnum.text).toString())
+            }
+        else
+            medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
+
+        val arrayAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinnerMedicineType.adapter = arrayAdapter
+    }
+
+    private fun checkValuesValidity(): Boolean {
+        var validity = true
+
+        if (editTextNameMed.text.toString().toLowerCase(Locale.ROOT) == "") {
+            validity = false
+            Utils.colorEditText(editTextNameMed)
+        }
+
+        if (editTextTotQuantity.text.toString().toFloatOrNull() == null) {
+            validity = false
+            Utils.colorEditText(editTextTotQuantity)
+        }
+
+        if (editTextRemQuantity.text.toString().toFloatOrNull() == null) {
+            validity = false
+            Utils.colorEditText(editTextRemQuantity)
+        }
+
+        return validity
+    }
+
+    private fun restoreAllBg() {
+        editTextNameMed.background = stdLayout
+        editTextTotQuantity.background = stdLayout
+        editTextRemQuantity.background = stdLayout
+    }
+
+    private fun getTypeFromText(text: String): MedicineTypeEnum {
+        return when (text) {
+            getText(MedicineTypeEnum.PILLS.text) -> {
+                MedicineTypeEnum.PILLS
+            }
+            getText(MedicineTypeEnum.SYRUP.text) -> {
+                MedicineTypeEnum.SYRUP
+            }
+            getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
+                MedicineTypeEnum.SUPPOSITORY
+            }
+            else -> MedicineTypeEnum.UNDEFINED
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        val intent = Intent(this, TextReaderActivity::class.java)
+        startActivityForResult(intent, CAMERA_REQUEST)
+    }
+
+
+}

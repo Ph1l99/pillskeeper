@@ -3,11 +3,20 @@ package com.pillskeeper.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
+import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.activity.pills.PillsListActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -23,11 +32,15 @@ import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 import kotlin.collections.HashMap
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
     }
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +56,9 @@ class MainActivity : AppCompatActivity() {
         DatabaseManager.obtainRemoteDatabase()
 
         Utils.stdLayout = EditText(this).background
+
+        createMenu()
+
 
         //TODO DEBUG - to be removed
         funTest()
@@ -183,6 +199,46 @@ class MainActivity : AppCompatActivity() {
         }
 
         return returnedList
+    }
+
+    private fun createMenu() {
+        //creo il menu
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+
+        // username_text_view_menu.text = LocalDatabase.readUsername()+""
+    }
+
+    //metodo per il menu
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_profile -> {
+                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                //TODO aprire activity modifica profilo
+            }
+            R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
+            R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
+            R.id.nav_pharmacies -> {
+                //openMaps()
+                Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.nav_logout -> {
+                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
+                //auth.signOut()
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
 }

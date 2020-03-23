@@ -123,7 +123,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
-                openMaps()
+                //openMaps()
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {
@@ -134,6 +134,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
 
     private fun openMaps() {
         lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -157,4 +158,6 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             )
         }
     }
+
+
 }

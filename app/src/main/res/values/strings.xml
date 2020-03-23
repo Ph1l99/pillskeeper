@@ -85,6 +85,7 @@
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
     <string name="mainActivityTitle">Scadenze</string>
+    <string name="functionalities">Funzionalità</string>
 
 
 </resources>

@@ -27,10 +27,8 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
-import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -131,6 +129,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
         UserInformation.addNewReminderList("Aulin", reminders2)
 
+        UserInformation.addNewAppointment(
+            Appointment("prelieo",30,20,Date(),"")
+        )
+        UserInformation.addNewAppointment(
+            Appointment("Visita Urologo",30,20,Date(),"")
+        )
+
+
+
+
+
+
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
     }
@@ -140,42 +150,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         /*Appointment list*/
         UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
         val arrayAdapterAppointments = LinkedList<String>()
-        UserInformation.appointments.forEach { arrayAdapterAppointments.add(it.name) }
+        UserInformation.appointments.forEach {
+            val cal = Calendar.getInstance()
+            cal.time = it.date
+            arrayAdapterAppointments.add("${it.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}/${cal.get(Calendar.YEAR)}")
+        }
         appointmentList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         val reminderListSorted: LinkedList<ReminderMedicineSort> = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
-        reminderListSorted.forEach { arrayAdapterReminders.add("${it.medName}  -  ${it.reminder.dosage} - ${it.reminder.startingDay}") }
+        reminderListSorted.forEach {
+            val cal: Calendar = Calendar.getInstance()
+            cal.time = it.reminder.startingDay
+            arrayAdapterReminders.add("${it.medName}  -  ${it.reminder.dosage} ${getText(it.medType.text)} - " +
+                    "${it.reminder.hours}:${it.reminder.minutes}  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
+        }
         reminderList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 
 
     private fun getSortedListReminders(filterDate: Date = Date()): LinkedList<ReminderMedicineSort> {
-        val inizio = System.currentTimeMillis()
-
-        println("inizio = $inizio")
         filterDate.time = dataNormalizationLimit(filterDate)
 
         var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         UserInformation.medicines.forEach {
             it.reminders?.forEach { reminder ->
-                randomList.add(ReminderMedicineSort(it.name, reminder))
+                randomList.add(ReminderMedicineSort(it.name,it.medicineType ,reminder))
             }
         }
         randomList = convertSeqToDate(randomList)
 
-        randomList.filter { it.reminder.startingDay <=  filterDate }
+        randomList = LinkedList(randomList.filter { it.reminder.startingDay <=  filterDate })
         randomList.sortBy { it.reminder.startingDay }
-
-
-        val fine = System.currentTimeMillis()
-
-        println("Fine = $fine")
-
-        println("Tempo impiegato in millis-secondi: " + (fine-inizio))
-        println("Tempo impiegato in secondi: " + (fine-inizio)/1000)
 
         return randomList
     }
@@ -186,9 +194,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         list.forEach {
             if (it.reminder.startingDay == it.reminder.expireDate)
                 convertedList.add(it)
-            else {
+            else
                 convertedList.addAll(getDataListFromDays(it))
-            }
         }
 
         return convertedList
@@ -207,6 +214,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             returnedList.add(
                 ReminderMedicineSort(
                     entry.medName,
+                    entry.medType,
                     ReminderMedicine(
                         entry.reminder.dosage,
                         entry.reminder.minutes,

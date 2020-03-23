@@ -32,7 +32,7 @@ class PillsFormActivity : AppCompatActivity() {
         const val REMOTE_MEDICINE = "remoteMedicine"
     }
 
-    val REQUEST_CAMERA_PERMISSION_ID = 1
+    private val REQUEST_CAMERA_PERMISSION_ID = 1
 
     private var reminderList: LinkedList<ReminderMedicine>? = null
     private var remoteMedicine: RemoteMedicine? = null

@@ -1,3 +1,5 @@
 package com.pillskeeper.data
 
-class ReminderMedicineSort(var medName: String, var reminder : ReminderMedicine)
+import com.pillskeeper.enums.MedicineTypeEnum
+
+class ReminderMedicineSort(var medName: String, var medType:MedicineTypeEnum, var reminder : ReminderMedicine)

@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUp : AppCompatActivity() {
 
-    private lateinit var currentUser: FirebaseUser
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,12 +45,5 @@ class SignUp : AppCompatActivity() {
             }
         }
 
-    }
-
-    private fun checkIfUserHasConfirmedLink(): Boolean {
-        while (currentUser.uid == "") {
-            currentUser.reload()
-        }
-        return true
     }
 }

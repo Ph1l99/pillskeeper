@@ -65,7 +65,6 @@ class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: Navigat
                 activity.applicationContext.startActivity(intent)
             }
             R.id.nav_logout -> {
-                Toast.makeText(activity.applicationContext, "Logout clicked", Toast.LENGTH_SHORT).show()
                 auth.signOut()
             }
         }

@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GetTokenResult
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
@@ -28,13 +29,13 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
     }
 
-    private lateinit var appointmentListSorted : LinkedList<Appointment>
+    private lateinit var appointmentListSorted: LinkedList<Appointment>
     private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
 
     private lateinit var toolbar: Toolbar
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(){
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
 
             val intent = Intent(this, AppointmentFormActivity::class.java)
-                .putExtra(APPOINTMENT_VALUE,appointmentListSorted[position])
+                .putExtra(APPOINTMENT_VALUE, appointmentListSorted[position])
             startActivity(intent)
         }
     }
@@ -156,17 +157,20 @@ class MainActivity : AppCompatActivity(){
 
         /*Appointment list*/
         //todo cosa facciamo filtriamo anche per gli appuntamenti??
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
+        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
+            .thenBy { it.minutes })
         appointmentListSorted = UserInformation.appointments
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        appointmentListMain.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         reminderListSorted = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 

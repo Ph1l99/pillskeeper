@@ -1,7 +1,10 @@
 package com.pillskeeper.activity
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -10,10 +13,14 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
@@ -39,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +60,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
         DatabaseManager.obtainRemoteDatabase()
+        auth = FirebaseAuth.getInstance()
 
         Utils.stdLayout = EditText(this).background
 
@@ -113,7 +122,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         )
 
 
-
         val reminders2 = LinkedList<ReminderMedicine>()
         reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
         reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days2, null, null))
@@ -130,10 +138,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         UserInformation.addNewReminderList("Aulin", reminders2)
 
         UserInformation.addNewAppointment(
-            Appointment("prelieo",30,20,Date(),"")
+            Appointment("prelieo", 30, 20, Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo",12,8,Date(),"")
+            Appointment("Visita Urologo", 12, 8, Date(), "")
         )
 
 
@@ -148,16 +156,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun initLists() {
 
         /*Appointment list*/
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
+        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
+            .thenBy { it.minutes })
         val arrayAdapterAppointments = LinkedList<String>()
-        UserInformation.appointments.forEach {arrayAdapterAppointments.add(formatOutputString(it))}
-        appointmentList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        UserInformation.appointments.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
+        appointmentList.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         val reminderListSorted: LinkedList<ReminderMedicineSort> = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
-        reminderListSorted.forEach {arrayAdapterReminders.add(formatOutputString(it))}
-        reminderList.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
+        reminderList.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 
@@ -168,12 +179,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         UserInformation.medicines.forEach {
             it.reminders?.forEach { reminder ->
-                randomList.add(ReminderMedicineSort(it.name,it.medicineType ,reminder))
+                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
             }
         }
         randomList = convertSeqToDate(randomList)
 
-        randomList = LinkedList(randomList.filter { it.reminder.startingDay <=  filterDate })
+        randomList = LinkedList(randomList.filter { it.reminder.startingDay <= filterDate })
         randomList.sortBy { it.reminder.startingDay }
 
         return randomList
@@ -222,7 +233,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return returnedList
     }
 
-    private fun dataNormalizationLimit(date: Date) : Long{
+    private fun dataNormalizationLimit(date: Date): Long {
         val cal: Calendar = Calendar.getInstance()
         cal.time = date
 
@@ -233,23 +244,25 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return cal.time.time
     }
 
-    private fun formatOutputString(item: Any): String{
+    private fun formatOutputString(item: Any): String {
         val cal: Calendar = Calendar.getInstance()
-        when(item){
+        when (item) {
             is ReminderMedicineSort -> {
                 cal.time = item.reminder.startingDay
-                var text ="${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
-                text += if(item.reminder.hours < 10)   "0${item.reminder.hours}"  else item.reminder.hours
+                var text =
+                    "${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
+                text += if (item.reminder.hours < 10) "0${item.reminder.hours}" else item.reminder.hours
                 text += ":"
-                text += if(item.reminder.minutes < 10)   "0${item.reminder.minutes}" else item.reminder.minutes
+                text += if (item.reminder.minutes < 10) "0${item.reminder.minutes}" else item.reminder.minutes
                 text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}"
                 return text
             }
             is Appointment -> {
                 cal.time = item.date
-                var text = "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}  "
+                var text =
+                    "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}  "
                 text += "${item.hours}:"
-                text += if(item.minutes < 10) "0${item.minutes}" else item.minutes
+                text += if (item.minutes < 10) "0${item.minutes}" else item.minutes
                 return text
             }
             else -> return ""
@@ -285,16 +298,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
-                //openMaps()
-                Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LocationActivity::class.java))
             }
             R.id.nav_logout -> {
                 Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-                //auth.signOut()
+                auth.signOut()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
 }

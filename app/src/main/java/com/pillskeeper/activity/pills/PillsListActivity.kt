@@ -1,10 +1,7 @@
 package com.pillskeeper.activity.pills
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -14,11 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
@@ -32,18 +26,14 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
     private lateinit var pillsArray: LinkedList<String>
     private var adapter: ArrayAdapter<String>? = null
-    private lateinit var auth: FirebaseAuth
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
 
-    val REQUEST_POSITION_PERMISSION_ID = 1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_list)
-        auth = FirebaseAuth.getInstance()
 
         initList()
 
@@ -123,41 +113,13 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
             R.id.nav_pharmacies -> {
-                //openMaps()
                 Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
             }
             R.id.nav_logout -> {
                 Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-                auth.signOut()
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
-
-    private fun openMaps() {
-        lateinit var fusedLocationClient: FusedLocationProviderClient
-        val searchUrl = "https://www.google.com/maps/search/?api=1&query=farmacie"
-        val permissionAccessCoarseLocationApproved = ActivityCompat
-            .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED
-
-        if (permissionAccessCoarseLocationApproved) {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
-                intent.setPackage("com.google.android.apps.maps")
-                startActivity(intent)
-            }
-        } else {
-            // Make a request for foreground-only location access.
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
-            )
-        }
-    }
-
-
 }

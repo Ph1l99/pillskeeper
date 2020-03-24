@@ -19,10 +19,11 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
 
-class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class PillsListActivity : AppCompatActivity() {
 
     private lateinit var pillsArray: LinkedList<String>
     private var adapter: ArrayAdapter<String>? = null
@@ -34,10 +35,18 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_list)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        //set toolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         initList()
 
-        createMenu()
+        val menu = Menu(toolbar, drawerLayout, navView, this)
+        menu.createMenu()
+
 
         //Listeners
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
@@ -85,10 +94,10 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         pills_list.adapter = adapter
     }
 
+/*
     private fun createMenu() {
         //creo il menu
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
@@ -102,6 +111,7 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         // username_text_view_menu.text = LocalDatabase.readUsername()+""
     }
+
 
     //metodo per il menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -122,4 +132,8 @@ class PillsListActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+
+ */
+
+
 }

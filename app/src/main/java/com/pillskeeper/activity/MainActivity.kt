@@ -28,11 +28,12 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(){
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
@@ -41,12 +42,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-    private lateinit var auth: FirebaseAuth
+    //private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
 
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
@@ -55,12 +59,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
         DatabaseManager.obtainRemoteDatabase()
-        auth = FirebaseAuth.getInstance()
+       //auth = FirebaseAuth.getInstance()
 
         Utils.stdLayout = EditText(this).background
 
-        createMenu()
-
+        val menu = Menu(toolbar, drawerLayout, navView, this)
+        menu.createMenu()
 
         //TODO DEBUG - to be removed
         funTest()
@@ -259,43 +263,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 
-    private fun createMenu() {
-        //creo il menu
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
-
-        // username_text_view_menu.text = LocalDatabase.readUsername()+""
-    }
-
-    //metodo per il menu
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                //TODO aprire activity modifica profilo
-            }
-            R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
-            R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
-            R.id.nav_appointments -> startActivity(Intent(this, AppointmentListActivity::class.java))
-            R.id.nav_pharmacies -> {
-                startActivity(Intent(this, LocationActivity::class.java))
-            }
-            R.id.nav_logout -> {
-                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-                auth.signOut()
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
 }

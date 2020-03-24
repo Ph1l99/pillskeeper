@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.PersonalInfoActivity"
-            android:label="@string/user_settings"/>
+            android:label="@string/user_settingsActivity"/>
         <activity
             android:name=".activity.LocationActivity"
             android:label="@string/search_chemist" />

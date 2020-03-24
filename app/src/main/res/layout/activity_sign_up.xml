@@ -11,13 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="161dp"
-        android:layout_marginTop="333dp"
+        android:layout_marginTop="524dp"
         android:layout_marginEnd="162dp"
-        android:layout_marginBottom="351dp"
         android:onClick="signUp"
         android:text="@string/signup_button"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +24,8 @@
         android:id="@+id/mailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginBottom="550dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="428dp"
         android:hint="@string/signup_email"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,8 +46,8 @@
         android:id="@+id/surnameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="51dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="56dp"
         android:hint="@string/signup_surname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,14 +56,11 @@
         android:id="@+id/passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="550dp"
+        android:layout_marginTop="256dp"
+        android:layout_marginEnd="56dp"
         android:hint="@string/signup_password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

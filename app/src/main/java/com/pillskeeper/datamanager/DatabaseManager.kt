@@ -21,7 +21,25 @@ object DatabaseManager {
      * Metodo per ottenere il riferimento remoto del database
      */
     fun obtainRemoteDatabase(): DatabaseReference {
-        return Firebase.database.reference
+        databaseReference = Firebase.database.reference
+        return databaseReference
+    }
+
+    /**
+     * Metodo per la scrittura di una nuova medicina
+     * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
+     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
+     */
+    fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum, Boolean> {
+        Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Started")
+        return if (getMedicine(medicine.id) != null) {
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Obj exists")
+            Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
+        } else {
+            databaseReference.child(PATH_MEDICINES).child(medicine.id).setValue(medicine)
+            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Done")
+            Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
+        }
     }
 
     /**
@@ -64,23 +82,6 @@ object DatabaseManager {
             })
         Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundUser
-    }
-
-    /**
-     * Metodo per la scrittura di una nuova medicina
-     * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
-     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
-     */
-    fun writeNewMedicine(medicine: RemoteMedicine): Pair<ErrorTypeEnum, Boolean> {
-        Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Started")
-        return if (getMedicine(medicine.id) != null) {
-            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Obj exists")
-            Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
-        } else {
-            databaseReference.child(PATH_MEDICINES).child(medicine.id).setValue(medicine)
-            Log.i(Log.DEBUG.toString(), "writeNewMedicine()-Done")
-            Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
-        }
     }
 
 

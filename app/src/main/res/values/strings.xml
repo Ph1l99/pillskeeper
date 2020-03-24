@@ -82,6 +82,14 @@
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
     <string name="query_location">farmacie</string>
+    
+    <!--Personal Info Activity-->
+    <string name="name">Nome:</string>
+    <string name="surname">Cognome:</string>
+    <string name="name_hint">Nome</string>
+    <string name="surname_hint">Cognome</string>
+    <string name="email_hint">Email</string>
+
 
     <!-- Titoli android Manifest-->
     <string name="chemistsTitle">Farmacie in zona</string>
@@ -95,7 +103,7 @@
     <string name="mainActivityTitle">PillsKeeper</string>
     <string name="functionalities">Funzionalità</string>
     <string name="search_chemist">Riceca Farmacie</string>
-    <string name="user_settings">Modifica dati personali</string>
+    <string name="user_settingsActivity">Modifica dati personali</string>
 
 
 </resources>

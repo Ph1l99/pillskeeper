@@ -73,10 +73,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     //TODO risolvere questa parte @Phil
     private fun readFirstLogin() {
         //val userN = LocalDatabase.readUsername()
-        if (/*FirebaseAuth.getInstance().currentUser == null*/ false) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
-            finish()
         } else {
             initLists()
         }
@@ -281,17 +280,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                //TODO aprire activity modifica profilo
+                auth.currentUser?.uid?.let { PersonalInfoActivity(this, it).show() }
             }
             R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
             R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
-            R.id.nav_appointments -> startActivity(Intent(this, AppointmentListActivity::class.java))
+            R.id.nav_appointments -> startActivity(
+                Intent(
+                    this,
+                    AppointmentListActivity::class.java
+                )
+            )
             R.id.nav_pharmacies -> {
                 startActivity(Intent(this, LocationActivity::class.java))
             }
             R.id.nav_logout -> {
-                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
                 auth.signOut()
             }
         }

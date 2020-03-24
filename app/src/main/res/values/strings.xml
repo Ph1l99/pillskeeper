@@ -70,7 +70,7 @@
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
     <string name="Undefined">Undefined</string>
-    <string name="appointmentNme">Titolo</string>
+    <string name="appointmentName">Titolo</string>
     <string name="timeAppointment">Orario:</string>
     <string name="additionalNoteAppointment">Note Addizionali …</string>
     <string name="dateButton">dd/mm/yyyy</string>
@@ -78,11 +78,18 @@
     <string name="dateSelectionLabel">Seleziona Una data:</string>
 
     <!--Location Activity-->
-    <string name="latitude">Latitudine</string>
-    <string name="longitude">Longitudine</string>
+    <string name="label">Assicurati di avere il GPS attivo e seleziona CERCA</string>
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
     <string name="query_location">farmacie</string>
+    
+    <!--Personal Info Activity-->
+    <string name="name">Nome:</string>
+    <string name="surname">Cognome:</string>
+    <string name="name_hint">Nome</string>
+    <string name="surname_hint">Cognome</string>
+    <string name="email_hint">Email</string>
+
 
     <!-- Titoli android Manifest-->
     <string name="chemistsTitle">Farmacie in zona</string>
@@ -93,9 +100,10 @@
     <string name="pillsListActivityTitle">Lista Medicine</string>
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
-    <string name="mainActivityTitle">Scadenze</string>
+    <string name="mainActivityTitle">PillsKeeper</string>
     <string name="functionalities">Funzionalità</string>
     <string name="search_chemist">Riceca Farmacie</string>
+    <string name="user_settingsActivity">Modifica dati personali</string>
 
 
 </resources>

@@ -13,12 +13,10 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.LocationActivity
+import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
-
-
-
 
 class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: NavigationView, activity: AppCompatActivity) :  NavigationView.OnNavigationItemSelectedListener {
 
@@ -42,9 +40,7 @@ class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: Navigat
 
         when (item.itemId) {
             R.id.nav_profile -> {
-                Toast.makeText(activity.applicationContext, "Profile clicked", Toast.LENGTH_SHORT)
-                    .show()
-                //TODO aprire activity modifica profilo
+                PersonalInfoActivity(activity, auth.currentUser?.uid.toString()).show()
             }
             R.id.nav_friends -> {
                 val intent = Intent(activity.applicationContext, FriendListActivity::class.java)

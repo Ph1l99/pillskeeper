@@ -14,7 +14,7 @@ import com.pillskeeper.datamanager.DatabaseManager
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUp : AppCompatActivity() {
-    private lateinit var currentUser: FirebaseUser
+
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,40 +31,19 @@ class SignUp : AppCompatActivity() {
             passwordField.text.toString()
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                currentUser.sendEmailVerification().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(
-                            this,
-                            R.string.signup_email_confirmation.toString(),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        Log.i(Log.DEBUG.toString(), "Sent confirmation email")
-                    }
-                }
-                if (checkIfUserHasConfirmedLink()) {
-                    if (DatabaseManager.writeNewUser(
-                            User(
-                                auth.currentUser?.uid.toString(),
-                                nameField.text.toString(),
-                                surnameField.text.toString(),
-                                mailField.text.toString()
-                            )
-                        ).second
-                    ) {
-                        //TODO APRIRE NUOVA ACTIVITY
-                    }
-                } else {
-                    //TODO AUTH NON SUCCESSFUL
+                if (DatabaseManager.writeNewUser(
+                        User(
+                            auth.currentUser?.uid.toString(),
+                            nameField.text.toString(),
+                            surnameField.text.toString(),
+                            mailField.text.toString()
+                        )
+                    ).second
+                ) {
+                    finish()
                 }
             }
         }
 
-    }
-
-    private fun checkIfUserHasConfirmedLink(): Boolean {
-        while (currentUser.uid == "") {
-            currentUser.reload()
-        }
-        return true
     }
 }

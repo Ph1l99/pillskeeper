@@ -6,15 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.activity_appointment_list.*
+import kotlinx.android.synthetic.main.content_appointement_list.*
 
 class AppointmentListActivity : AppCompatActivity() {
 
     private lateinit var appointmentListView : ListView
     private lateinit var listAppointmentName : ArrayList<String>
     private lateinit var adapter : ArrayAdapter<String>
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     companion object {
         const val APPOINTMENT_VALUE = "AppointmentMode"
@@ -23,6 +32,14 @@ class AppointmentListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointment_list)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        //set toolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        //set menu
+        val menu = Menu(toolbar, drawerLayout, navView, this)
+        menu.createMenu()
 
         initList()
 

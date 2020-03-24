@@ -5,10 +5,15 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
+import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.activity_friend_list.*
+import kotlinx.android.synthetic.main.content_friend_list.*
 
 class FriendListActivity : AppCompatActivity() {
 
@@ -16,9 +21,21 @@ class FriendListActivity : AppCompatActivity() {
     private lateinit var listName : ArrayList<String>
     private lateinit var adapter : ArrayAdapter<String>
 
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_friend_list)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+        //set toolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        //set menu
+        val menu = Menu(toolbar, drawerLayout, navView, this)
+        menu.createMenu()
 
         initList()
 

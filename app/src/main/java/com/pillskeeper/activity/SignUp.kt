@@ -1,13 +1,10 @@
 package com.pillskeeper.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.DatabaseManager
@@ -20,6 +17,7 @@ class SignUp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
         FirebaseApp.initializeApp(this)
         auth = FirebaseAuth.getInstance()
         DatabaseManager.obtainRemoteDatabase()

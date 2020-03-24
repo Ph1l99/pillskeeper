@@ -34,6 +34,7 @@ class AppointmentFormActivity : AppCompatActivity() {
             appointment = intent.getSerializableExtra(APPOINTMENT_VALUE) as Appointment
             appointmentNameTV.setText(appointment!!.name)
             appointmentNameTV.setRawInputType(0)
+            dateSelected = appointment!!.date
             cal.time = appointment!!.date
             buttonDate.text = getString(R.string.dateButtonFormatted, cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))
             additionalNoteAppointment.setText(appointment!!.additionNotes)

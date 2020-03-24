@@ -10,35 +10,31 @@
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginTop="524dp"
-        android:layout_marginEnd="162dp"
+        android:layout_marginTop="70dp"
         android:onClick="signUp"
         android:text="@string/signup_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/passwordField"
+        app:layout_constraintStart_toStartOf="@+id/mailField"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <EditText
         android:id="@+id/mailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="428dp"
         android:hint="@string/signup_email"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/passwordField"
+        app:layout_constraintEnd_toEndOf="@+id/nameField"
+        app:layout_constraintStart_toStartOf="@+id/nameField"
+        app:layout_constraintTop_toTopOf="@+id/passwordField" />
 
     <EditText
         android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="70dp"
         android:hint="@string/signup_name"
-        app:layout_constraintBottom_toTopOf="@+id/mailField"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,21 +42,25 @@
         android:id="@+id/surnameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="48dp"
         android:hint="@string/signup_surname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/nameField"
+        app:layout_constraintStart_toEndOf="@+id/nameField"
+        app:layout_constraintTop_toTopOf="@+id/nameField"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/passwordField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="256dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="60dp"
         android:hint="@string/signup_password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/surnameField"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/surnameField"
+        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

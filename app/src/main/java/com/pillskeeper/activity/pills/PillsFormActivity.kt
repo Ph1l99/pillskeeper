@@ -116,7 +116,6 @@ class PillsFormActivity : AppCompatActivity() {
             when (requestCode) {
                 CAMERA_REQUEST -> {
                     val pillName: String = data!!.getStringExtra("pillName")
-                    //edit_Text_Name.text = SpannableStringBuilder("")
                     editTextNameMed.text = SpannableStringBuilder(pillName)
                 }
                 REMINDER_INSERT_ACTIVITY -> {

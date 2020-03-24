@@ -16,7 +16,10 @@
         <activity
             android:name=".activity.LocationActivity"
             android:label="@string/search_chemist" />
-        <activity android:name=".activity.appointment.AppointmentListActivity"></activity>
+        <activity
+            android:name=".activity.appointment.AppointmentListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".activity.appointment.AppointmentFormActivity"
             android:label="@string/appointmentTitle" />
@@ -40,7 +43,8 @@
             android:label="@string/singUpTitle" />
         <activity
             android:name=".activity.friend.FriendListActivity"
-            android:label="@string/friendListActivityTitle" />
+            android:label="@string/friendListActivityTitle"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"

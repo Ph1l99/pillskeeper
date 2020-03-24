@@ -57,7 +57,6 @@ class MainActivity : AppCompatActivity(){
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
         DatabaseManager.obtainRemoteDatabase()
-       //auth = FirebaseAuth.getInstance()
 
         Utils.stdLayout = EditText(this).background
 

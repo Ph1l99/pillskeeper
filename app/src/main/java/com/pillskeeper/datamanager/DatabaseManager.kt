@@ -70,7 +70,7 @@ object DatabaseManager {
         databaseReference.child(PATH_USERS).child(userId)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    foundUser = User.fromMap(p0.value as Map<String, String>)
+                    foundUser = getUserFromResultSet(p0.value as Map<String, String>)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -109,5 +109,9 @@ object DatabaseManager {
             })
         Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundMedicine
+    }
+
+    fun getUserFromResultSet(rs: Map<String, String>): User {
+        return User.fromMap(rs)
     }
 }

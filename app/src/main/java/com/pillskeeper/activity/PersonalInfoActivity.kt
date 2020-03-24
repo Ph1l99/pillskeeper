@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.pillskeeper.R
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.DatabaseManager
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_personal_info.*
 
@@ -95,6 +96,7 @@ class PersonalInfoActivity(context: Context,private val userId: String) : Dialog
                             editTextEmail.text.toString()
                         )
                     )
+
                 }
             } else {
                 auth.currentUser?.uid?.let {

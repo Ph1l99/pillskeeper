@@ -16,23 +16,20 @@ class LocationActivity : AppCompatActivity() {
 
     val REQUEST_POSITION_PERMISSION_ID = 1
     private val searchUrl =
-        "https://www.google.com/maps/search/?api=1&query=" + R.string.query_location
+        "https://www.google.com/maps/search/?api=1&query="
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location)
 
         search_location.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
-            intent.setPackage("com.google.android.apps.maps")
-            startActivity(intent)
+            openMaps()
             finish()
         }
         back_location_button.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
-        openMaps()
     }
 
     private fun openMaps() {
@@ -44,8 +41,10 @@ class LocationActivity : AppCompatActivity() {
         if (permissionAccessCoarseLocationApproved) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation.addOnSuccessListener {
-                latitude.text = it.latitude.toString()
-                longitude.text = it.longitude.toString()
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl+R.string.query_location))
+                intent.setPackage("com.google.android.apps.maps")
+                startActivity(intent)
+
             }
         } else {
             // Make a request for foreground-only location access.

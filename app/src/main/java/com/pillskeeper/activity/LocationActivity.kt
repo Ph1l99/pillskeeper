@@ -28,7 +28,10 @@ class LocationActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
+        back_location_button.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
         openMaps()
     }
 

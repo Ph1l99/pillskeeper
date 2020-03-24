@@ -33,18 +33,13 @@ class AppointmentFormActivity : AppCompatActivity() {
         if (intent.getSerializableExtra(APPOINTMENT_VALUE) != null) {
             appointment = intent.getSerializableExtra(APPOINTMENT_VALUE) as Appointment
             appointmentNameTV.setText(appointment!!.name)
-            appointmentNameTV.isEnabled = false
             appointmentNameTV.setRawInputType(0)
-            hourSpinner.isEnabled = false
-            minuteSpinner.isEnabled = false
-            buttonDate.isEnabled = false
             cal.time = appointment!!.date
-            buttonDate.text = getString(R.string.dateButtonFormatted,
-            cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH),cal.get(Calendar.YEAR))
-            additionalNoteAppointment.isEnabled = false
+            buttonDate.text = getString(R.string.dateButtonFormatted, cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))
             additionalNoteAppointment.setText(appointment!!.additionNotes)
             buttonDeleteAppointment.text = "Chiudi"
             buttonConfirmAppointment.text = "Modifica"
+            setAllEnable(false)
         }
 
         initSpinner()
@@ -58,7 +53,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                 buttonDate.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear+1)
+                cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 cal.set(Calendar.HOUR_OF_DAY, 0)
                 cal.set(Calendar.MINUTE, 0)
@@ -72,20 +67,21 @@ class AppointmentFormActivity : AppCompatActivity() {
 
         buttonDeleteAppointment.setOnClickListener { finish() }
 
-        if(appointment == null) {
-            buttonConfirmAppointment.setOnClickListener {
+        buttonConfirmAppointment.setOnClickListener {
+            if (appointment == null) {
                 resetEditText()
                 addOrEditAppointment(cal)
-            }
-        } else {
-            if(isEditing)
-                addOrEditAppointment(cal)
-            else {
-                isEditing = !isEditing
-                setAllEnable(true)
-                initSpinner()
-                buttonDeleteAppointment.text = "Annulla"
-                buttonConfirmAppointment.text = "Salva"
+
+            } else {
+                if (isEditing)
+                    addOrEditAppointment(cal)
+                else {
+                    isEditing = !isEditing
+                    setAllEnable(true)
+                    initSpinner()
+                    buttonDeleteAppointment.text = "Annulla"
+                    buttonConfirmAppointment.text = "Salva"
+                }
             }
         }
 
@@ -99,7 +95,17 @@ class AppointmentFormActivity : AppCompatActivity() {
             result= false
         }
 
-        if(dateSelected == null || dateSelected!!.compareTo(Date(System.currentTimeMillis())) == -1){
+        if(dateSelected != null){
+            val calCurrent = Calendar.getInstance()
+            val calSelected = Calendar.getInstance()
+            calCurrent.time = Date(System.currentTimeMillis())
+            calSelected.time = dateSelected
+            if(calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(Calendar.MONTH) > calSelected.get(Calendar.MONTH) ||
+                calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)){
+                Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
+                result = false
+            }
+        } else {
             Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
             result = false
         }
@@ -114,12 +120,9 @@ class AppointmentFormActivity : AppCompatActivity() {
     private fun initSpinner(){
         minuteArray = LinkedList()
         val arrayAdapterHours: Any
-        if(appointment == null) {
+        if(appointment == null || isEditing) {
             arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, ReminderActivity.hours)
-            for (i in 0..1)
-                minuteArray.add("0${i * 5}")
-            for (i in 2..12)
-                minuteArray.add("${i * 5}")
+            minuteArray = LinkedList(ReminderActivity.minutes)
         } else {
             val hour = LinkedList<String>()
             hour.add(appointment!!.hours.toString())
@@ -129,39 +132,52 @@ class AppointmentFormActivity : AppCompatActivity() {
 
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        hourSpinner.adapter = arrayAdapterHours
+        hourSpinnerAppointment.adapter = arrayAdapterHours
 
         val arrayAdapterMinutes = ArrayAdapter(this,android.R.layout.simple_spinner_item, minuteArray)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        minuteSpinner.adapter = arrayAdapterMinutes
+        minuteSpinnerAppointment.adapter = arrayAdapterMinutes
+
+        if(isEditing){
+            hourSpinnerAppointment.setSelection(appointment!!.hours)
+            minuteSpinnerAppointment.setSelection(appointment!!.minutes / 15)
+        }
 
     }
 
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
-            if (UserInformation.addNewAppointment(
-                    Appointment(
-                        appointmentNameTV.text.toString(),
-                        minuteArray[minuteSpinner.selectedItemPosition].toInt(),
-                        ReminderActivity.hours[hourSpinner.selectedItemPosition].toInt(),
-                        cal.time,
-                        additionalNoteAppointment.text.toString()
-                    )
-                )
-            ) {
-                LocalDatabase.saveAppointmentList()
-                finish()
+            val newAppointment = Appointment(
+                appointmentNameTV.text.toString(),
+                minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt(),
+                ReminderActivity.hours[hourSpinnerAppointment.selectedItemPosition].toInt(),
+                cal.time,
+                additionalNoteAppointment.text.toString()
+            )
+            if(appointment == null){
+                if (UserInformation.addNewAppointment(newAppointment)) {
+                    LocalDatabase.saveAppointmentList()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Appuntamento già presente!", Toast.LENGTH_LONG).show()
+                }
             } else {
-                Toast.makeText(this, "Appuntamento già presente!", Toast.LENGTH_LONG).show()
+                if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
+                    LocalDatabase.saveAppointmentList()
+                    finish()
+                } else {
+                    Toast.makeText(this, "Appuntamento non modificato!", Toast.LENGTH_LONG).show()
+                }
             }
+
         }
     }
 
     private fun setAllEnable(flag: Boolean){
         appointmentNameTV.isEnabled = flag
-        hourSpinner.isEnabled = flag
-        minuteSpinner.isEnabled = flag
+        hourSpinnerAppointment.isEnabled = flag
+        minuteSpinnerAppointment.isEnabled = flag
         buttonDate.isEnabled = flag
         additionalNoteAppointment.isEnabled = flag
     }

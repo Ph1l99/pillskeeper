@@ -3,22 +3,16 @@ package com.pillskeeper.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.appointment.AppointmentListActivity
-import com.pillskeeper.activity.friend.FriendListActivity
-import com.pillskeeper.activity.pills.PillsListActivity
+import com.pillskeeper.activity.appointment.AppointmentFormActivity
+import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -38,6 +32,9 @@ class MainActivity : AppCompatActivity(){
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
     }
+
+    private lateinit var appointmentListSorted : LinkedList<Appointment>
+    private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
@@ -71,7 +68,12 @@ class MainActivity : AppCompatActivity(){
 
         readFirstLogin()
 
+        appointmentListMain.setOnItemClickListener { _, _, position, _ ->
 
+            val intent = Intent(this, AppointmentFormActivity::class.java)
+                .putExtra(APPOINTMENT_VALUE,appointmentListSorted[position])
+            startActivity(intent)
+        }
     }
 
     //TODO risolvere questa parte @Phil
@@ -140,29 +142,34 @@ class MainActivity : AppCompatActivity(){
             Appointment("prelieo", 30, 20, Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo", 12, 8, Date(), "")
+            Appointment("Visita Urologo", 15, 8, Date(), "")
         )
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        initLists()
+    }
+
     private fun initLists() {
 
         /*Appointment list*/
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
-            .thenBy { it.minutes })
+        //todo cosa facciamo filtriamo anche per gli appuntamenti??
+        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
+        appointmentListSorted = UserInformation.appointments
         val arrayAdapterAppointments = LinkedList<String>()
-        UserInformation.appointments.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentList.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
+        appointmentListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
-        val reminderListSorted: LinkedList<ReminderMedicineSort> = getSortedListReminders()
+        reminderListSorted = getSortedListReminders()
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderList.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 

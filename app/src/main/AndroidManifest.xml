@@ -16,8 +16,9 @@
         <activity
             android:name=".activity.LocationActivity"
             android:label="@string/search_chemist" />
+        <activity android:name=".activity.appointment.AppointmentListActivity"></activity>
         <activity
-            android:name=".activity.appointment.AppointmentActivity"
+            android:name=".activity.appointment.AppointmentFormActivity"
             android:label="@string/appointmentTitle" />
         <activity
             android:name=".activity.pills.MedicinesListActivity"

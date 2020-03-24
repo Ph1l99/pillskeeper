@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
-class AppointmentActivity : AppCompatActivity() {
+class AppointmentFormActivity : AppCompatActivity() {
 
     private lateinit var minuteArray: LinkedList<String>
     private var dateSelected: Date? = null
@@ -33,9 +33,6 @@ class AppointmentActivity : AppCompatActivity() {
         val year = cal.get(Calendar.YEAR)
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
-
-
-
 
         buttonDate.setOnClickListener {
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->

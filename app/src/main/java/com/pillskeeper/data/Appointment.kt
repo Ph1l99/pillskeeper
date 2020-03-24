@@ -1,5 +1,6 @@
 package com.pillskeeper.data
 
+import java.io.Serializable
 import java.util.*
 
 data class Appointment(
@@ -8,4 +9,4 @@ data class Appointment(
     var hours: Int,
     var date: Date,
     var additionNotes: String?
-)
+): Serializable

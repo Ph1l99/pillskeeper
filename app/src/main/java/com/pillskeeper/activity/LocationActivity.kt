@@ -16,7 +16,7 @@ class LocationActivity : AppCompatActivity() {
 
     private val REQUEST_POSITION_PERMISSION_ID = 1
     private val searchUrl =
-        "https://www.google.com/maps/search/?api=1&query="
+        "https://www.google.com/maps/search/?api=1&query=farmacie"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class LocationActivity : AppCompatActivity() {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl + R.string.query_location))
+                    Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
                 intent.setPackage("com.google.android.apps.maps")
                 startActivity(intent)
 

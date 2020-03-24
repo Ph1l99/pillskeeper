@@ -76,9 +76,7 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    //TODO risolvere questa parte @Phil
     private fun readFirstLogin() {
-        //val userN = LocalDatabase.readUsername()
         if (FirebaseAuth.getInstance().currentUser == null) {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)

@@ -254,13 +254,13 @@ class MainActivity : AppCompatActivity(){
                 text += if (item.reminder.hours < 10) "0${item.reminder.hours}" else item.reminder.hours
                 text += ":"
                 text += if (item.reminder.minutes < 10) "0${item.reminder.minutes}" else item.reminder.minutes
-                text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}"
+                text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}"
                 return text
             }
             is Appointment -> {
                 cal.time = item.date
                 var text =
-                    "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}  "
+                    "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
                 text += "${item.hours}:"
                 text += if (item.minutes < 10) "0${item.minutes}" else item.minutes
                 return text

@@ -21,17 +21,15 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:gravity="start|center"
-            android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="@string/appointmentTitle" />
 
         <EditText
             android:id="@+id/appointmentNameTV"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
             android:layout_margin="3dp"
-            android:layout_weight="3"
             android:textSize="18sp"
             android:hint="@string/appointmentName"
             android:autofillHints="" />

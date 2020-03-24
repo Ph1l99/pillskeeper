@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_location.*
 
 class LocationActivity : AppCompatActivity() {
 
-    val REQUEST_POSITION_PERMISSION_ID = 1
+    private val REQUEST_POSITION_PERMISSION_ID = 1
     private val searchUrl =
         "https://www.google.com/maps/search/?api=1&query="
 
@@ -41,7 +41,8 @@ class LocationActivity : AppCompatActivity() {
         if (permissionAccessCoarseLocationApproved) {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
             fusedLocationClient.lastLocation.addOnSuccessListener {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl+R.string.query_location))
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl + R.string.query_location))
                 intent.setPackage("com.google.android.apps.maps")
                 startActivity(intent)
 

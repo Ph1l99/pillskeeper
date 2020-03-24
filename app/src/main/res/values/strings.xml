@@ -78,8 +78,7 @@
     <string name="dateSelectionLabel">Seleziona Una data:</string>
 
     <!--Location Activity-->
-    <string name="latitude">Latitudine</string>
-    <string name="longitude">Longitudine</string>
+    <string name="label">Assicurati di avere il GPS attivo e seleziona CERCA</string>
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
     <string name="query_location">farmacie</string>
@@ -93,9 +92,10 @@
     <string name="pillsListActivityTitle">Lista Medicine</string>
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
-    <string name="mainActivityTitle">Scadenze</string>
+    <string name="mainActivityTitle">PillsKeeper</string>
     <string name="functionalities">Funzionalità</string>
     <string name="search_chemist">Riceca Farmacie</string>
+    <string name="user_settings">Modifica dati personali</string>
 
 
 </resources>

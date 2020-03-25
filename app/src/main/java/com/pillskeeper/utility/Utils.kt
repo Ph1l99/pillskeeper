@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.widget.EditText
+import java.util.*
 
 object Utils {
 
@@ -36,12 +37,24 @@ object Utils {
         if(isError){
             stdLayout = editText.background
             val gd  = GradientDrawable()
-            gd.setColor(Color.parseColor("#00ffffff"));
-            gd.setStroke(2, Color.RED);
+            gd.setColor(Color.parseColor("#00ffffff"))
+            gd.setStroke(2, Color.RED)
             editText.background = gd
         } else {
             editText.background = stdLayout
         }
     }
+
+    fun dataNormalizationLimit(date: Date): Long {
+        val cal: Calendar = Calendar.getInstance()
+        cal.time = date
+
+        cal.set(Calendar.HOUR_OF_DAY, 23)
+        cal.set(Calendar.MINUTE, 59)
+        cal.set(Calendar.SECOND, 59)
+
+        return cal.time.time
+    }
+
 
 }

@@ -146,15 +146,4 @@ object LocalDatabase : LocalDatabaseInterface{
 
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
-
-
-    //TODO TEST
-    override fun resetMemory(){
-
-        sharedPref?.edit()?.clear()?.commit()
-
-    }
-
-
-
 }

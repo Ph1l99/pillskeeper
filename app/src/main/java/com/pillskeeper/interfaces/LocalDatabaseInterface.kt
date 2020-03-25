@@ -29,6 +29,4 @@ interface LocalDatabaseInterface {
 
     fun saveAppointmentList()
 
-    fun resetMemory()
-
 }

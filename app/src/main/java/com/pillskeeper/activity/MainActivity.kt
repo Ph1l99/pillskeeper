@@ -51,10 +51,8 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
-        UserInformation //necessario per inizializzare i componenti interni
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
         DatabaseManager.obtainRemoteDatabase()
@@ -87,8 +85,6 @@ class MainActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser == null) {
             val intent = Intent(this, SignUp::class.java)
             startActivity(intent)
-        } else {
-            initLists()
         }
     }
 
@@ -126,6 +122,19 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
+        reminders.add(ReminderMedicine(1.5F, 0, 20, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, null, null))
+        UserInformation.addNewMedicine(
+            LocalMedicine(
+                "Tachipirina2",
+                MedicineTypeEnum.PILLS,
+                24F,
+                24F,
+                reminders,
+                "Tachipirina2"
+            )
+        )
+
 
         val reminders2 = LinkedList<ReminderMedicine>()
         reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
@@ -148,40 +157,52 @@ class MainActivity : AppCompatActivity() {
         UserInformation.addNewAppointment(
             Appointment("Visita Urologo", 15, 8, Date(), "")
         )
+        UserInformation.addNewAppointment(
+            Appointment("Visita Urologo1", 15, 8, Date(), "")
+        )
+        UserInformation.addNewAppointment(
+            Appointment("Visita Urologo2", 15, 8, Date(), "")
+        )
+        UserInformation.addNewAppointment(
+            Appointment("Visita Urologo3", 15, 8, Date(), "")
+        )
+        UserInformation.addNewAppointment(
+            Appointment("Visita Urologo4", 15, 8, Date(), "")
+        )
 
         LocalDatabase.saveMedicineList(UserInformation.medicines)
 
     }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-
+    override fun onResume() {
+        super.onResume()
         initLists()
     }
 
-    private fun initLists() {
+    private fun initLists(filterDate: Date = Date()) {
+        val start = System.currentTimeMillis()
+
+        filterDate.time = Utils.dataNormalizationLimit(filterDate)
 
         /*Appointment list*/
-        //todo cosa facciamo filtriamo anche per gli appuntamenti??
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
-            .thenBy { it.minutes })
+        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
         appointmentListSorted = UserInformation.appointments
+        appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentListMain.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        appointmentListMain.adapter =           ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
-        reminderListSorted = getSortedListReminders()
+        reminderListSorted = getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+
+        println((System.currentTimeMillis()- start).toString() + "sono passato quiiiiiiiiiii")
 
     }
 
-    private fun getSortedListReminders(filterDate: Date = Date()): LinkedList<ReminderMedicineSort> {
-        filterDate.time = dataNormalizationLimit(filterDate)
+    private fun getSortedListReminders(filterDate: Date): LinkedList<ReminderMedicineSort> {
 
         var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         UserInformation.medicines.forEach {
@@ -240,17 +261,6 @@ class MainActivity : AppCompatActivity() {
         return returnedList
     }
 
-    private fun dataNormalizationLimit(date: Date): Long {
-        val cal: Calendar = Calendar.getInstance()
-        cal.time = date
-
-        cal.set(Calendar.HOUR_OF_DAY, 23)
-        cal.set(Calendar.MINUTE, 59)
-        cal.set(Calendar.SECOND, 59)
-
-        return cal.time.time
-    }
-
     private fun formatOutputString(item: Any): String {
         val cal: Calendar = Calendar.getInstance()
         when (item) {
@@ -276,6 +286,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
 }

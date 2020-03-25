@@ -10,6 +10,8 @@ data class RemoteMedicine(
     var medicineType: MedicineTypeEnum
 ) : AbstractMedicine(name, id, medicineType) {
 
+    constructor(remMed: RemoteMedicine) : this(remMed.name,remMed.id,remMed.medicineType)
+
     companion object : Serializable {
 
         fun getMedicineListFromMap(medicinesMaps: Map<String, Map<String, String>>): List<RemoteMedicine> {

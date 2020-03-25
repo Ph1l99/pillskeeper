@@ -3,21 +3,15 @@ package com.pillskeeper.activity.pills
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.MainActivity
-import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*
@@ -55,11 +49,9 @@ class PillsListActivity : AppCompatActivity() {
                 val it = Intent(this, MedicinesListActivity::class.java)
                 startActivityForResult(it, 0)
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    "e' stato premuto " + pillsArray[position],
-                    Toast.LENGTH_LONG
-                ).show()
+                val it = Intent(this, PillsFormActivity::class.java)
+                    .putExtra(PillsFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position])
+                startActivityForResult(it, 0)
             }
         }
 

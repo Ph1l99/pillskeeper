@@ -25,6 +25,7 @@
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
     <string name="abortButton">Annulla</string>
+    <string name="closeButton">Chiudi</string>
 
 
 
@@ -85,7 +86,8 @@
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
     <string name="query_location">farmacie</string>
-    
+
+
     <!--Personal Info Activity-->
     <string name="name">Nome:</string>
     <string name="surname">Cognome:</string>

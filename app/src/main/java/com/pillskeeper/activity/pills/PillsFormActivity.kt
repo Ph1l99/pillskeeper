@@ -30,18 +30,32 @@ class PillsFormActivity : AppCompatActivity() {
         const val CAMERA_REQUEST = 0
         const val REMINDER_INSERT_ACTIVITY = 1
         const val REMOTE_MEDICINE = "remoteMedicine"
+        const val LOCAL_MEDICINE = "localMedicine"
+        const val REMINDER = "reminder"
         const val REQUEST_CAMERA_PERMISSION_ID = 1
     }
 
+    private var isEditing: Boolean = false
     private var reminderList: LinkedList<ReminderMedicine>? = null
     private var remoteMedicine: RemoteMedicine? = null
+    private var localMedicine: LocalMedicine? = null
     private lateinit var stdLayout: Drawable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-        if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
+        if(intent.getSerializableExtra(LOCAL_MEDICINE) != null){
+            localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
+            editTextNameMed.setText(localMedicine!!.name)
+            editTextNameMed.setRawInputType(0)
+            setAllEnable(false)
+            reminderList = localMedicine!!.reminders
+            editTextTotQuantity.setText(if(localMedicine!!.totalPills != 0F) localMedicine!!.totalPills.toString() else "0")
+            editTextRemQuantity.setText(if(localMedicine!!.remainingPills != 0F) localMedicine!!.remainingPills.toString() else "0")
+            buttonDenyMed.text = getText(R.string.closeButton)
+            buttonConfirmMed.text = getText(R.string.editButton)
+        } else if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
             remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
             editTextNameMed.setText(remoteMedicine!!.name)
             editTextNameMed.setRawInputType(0)
@@ -61,55 +75,77 @@ class PillsFormActivity : AppCompatActivity() {
                     REQUEST_CAMERA_PERMISSION_ID
                 )
             }
-
-            buttonCamera.setOnClickListener {
+            //TODO credo sia da cancellare visto che già scritto prima uguale
+            /*buttonCamera.setOnClickListener {
                 val intent = Intent(this, TextReaderActivity::class.java)
                 startActivityForResult(intent, CAMERA_REQUEST)
-            }
+            }*/
+        }
 
+        buttonDenyMed.setOnClickListener {
+            finish()
+        }
 
-            buttonDenyMed.setOnClickListener {
-                finish()
-            }
+        buttonAddReminder.setOnClickListener {
+            val intent = Intent(this, ReminderActivity::class.java)
+            val intentReturn = Intent()
+            setResult(Activity.RESULT_OK, intentReturn)
+            startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
+        }
 
-            buttonAddReminder.setOnClickListener {
-                val intent = Intent(this, ReminderActivity::class.java)
-                val intentReturn = Intent()
-                setResult(Activity.RESULT_OK, intentReturn)
-                startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
-            }
+        buttonConfirmMed.setOnClickListener {
+            restoreAllBg()
 
-            buttonConfirmMed.setOnClickListener {
-                restoreAllBg()
-                if (checkValuesValidity()) {
-                    if (UserInformation.addNewMedicine(
-                            LocalMedicine(
-                                editTextNameMed.text.toString().toLowerCase(Locale.ROOT),
-                                getTypeFromText(spinnerMedicineType.selectedItem.toString()),
-                                editTextTotQuantity.text.toString().toFloat(),
-                                editTextRemQuantity.text.toString().toFloat(),
-                                reminderList,
-                                editTextNameMed.text.toString()
-                                    .toLowerCase(Locale.ROOT) + spinnerMedicineType.selectedItem.toString()
-                                    .toLowerCase(Locale.ROOT)
-                            )
-                        )
-                    ) {
-                        LocalDatabase.saveMedicineList()
-                        finish()
-                    } else {
-                        Toast.makeText(
-                                this,
-                                "Attenzione, Medicina già presente!",
-                                Toast.LENGTH_LONG
-                            )
-                            .show()
-                    }
+            if(localMedicine == null) {
+                addOrEditMedicine()
+            } else {
+                if (isEditing)
+                    addOrEditMedicine()
+                else{
+                    isEditing = !isEditing
+                    setAllEnable(true)
+                    initSpinner()
+                    buttonDenyMed.text = "Annulla"
+                    buttonConfirmMed.text = "Salva"
                 }
             }
+        }
 
+    }
+
+    private fun addOrEditMedicine(){
+        if (checkValuesValidity()) {
+            val result: Boolean
+            val newMed = LocalMedicine(
+                editTextNameMed.text.toString().toLowerCase(Locale.ROOT),
+                getTypeFromText(spinnerMedicineType.selectedItem.toString()),
+                editTextTotQuantity.text.toString().toFloat(),
+                editTextRemQuantity.text.toString().toFloat(),
+                reminderList,
+                editTextNameMed.text.toString()
+                    .toLowerCase(Locale.ROOT) + spinnerMedicineType.selectedItem.toString()
+                    .toLowerCase(Locale.ROOT)
+            )
+            result = if(localMedicine == null) {
+                UserInformation.addNewMedicine(newMed)
+            } else {
+                UserInformation.editMedicine(localMedicine!!.name,newMed)
+            }
+
+            if (result){
+                LocalDatabase.saveMedicineList()
+                finish()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Attenzione, Medicina già presente!",
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
@@ -119,7 +155,9 @@ class PillsFormActivity : AppCompatActivity() {
                     editTextNameMed.text = SpannableStringBuilder(pillName)
                 }
                 REMINDER_INSERT_ACTIVITY -> {
-                    reminderList //todo get list from data!!.get....()
+                    if(reminderList == null)
+                        reminderList = LinkedList()
+                    reminderList!!.add(data!!.getSerializableExtra(REMINDER) as ReminderMedicine)
                 }
                 else -> super.onActivityResult(requestCode, resultCode, data)
             }
@@ -128,19 +166,36 @@ class PillsFormActivity : AppCompatActivity() {
 
     private fun initSpinner() {
         val medTypeValues: ArrayList<String> = ArrayList()
-        if (remoteMedicine == null)
-            MedicineTypeEnum.values().forEach { medTypeEnum ->
-                if (medTypeEnum != MedicineTypeEnum.UNDEFINED)
-                    medTypeValues.add(getText(medTypeEnum.text).toString())
+        var pos: Short = 0
+        when {
+            remoteMedicine != null -> {
+                medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
             }
-        else
-            medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
+            localMedicine == null || isEditing -> {
+                var counter = 0
+                MedicineTypeEnum.values().forEach { medTypeEnum ->
+                    if (medTypeEnum != MedicineTypeEnum.UNDEFINED) {
+                        medTypeValues.add(getText(medTypeEnum.text).toString())
+                        if(isEditing && medTypeEnum.type == localMedicine?.medicineType?.type)
+                            pos = counter.toShort()
+                        counter++
+                    }
+                }
+            }
+            else -> {
+                medTypeValues.add(getText(localMedicine!!.medicineType.text).toString())
+            }
+        }
 
         val arrayAdapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMedicineType.adapter = arrayAdapter
+
+        if(isEditing){
+            spinnerMedicineType.setSelection(pos.toInt())
+        }
     }
 
     private fun checkValuesValidity(): Boolean {
@@ -168,6 +223,16 @@ class PillsFormActivity : AppCompatActivity() {
         editTextNameMed.background = stdLayout
         editTextTotQuantity.background = stdLayout
         editTextRemQuantity.background = stdLayout
+    }
+
+    private fun setAllEnable(flag: Boolean){
+        editTextNameMed.isEnabled = flag
+        editTextTotQuantity.isEnabled = flag
+        editTextRemQuantity.isEnabled = flag
+        editTextNameMed.isEnabled = flag
+        buttonAddReminder.isEnabled = flag
+        buttonCamera.isEnabled = flag
+        spinnerMedicineType.isEnabled = flag
     }
 
     private fun getTypeFromText(text: String): MedicineTypeEnum {

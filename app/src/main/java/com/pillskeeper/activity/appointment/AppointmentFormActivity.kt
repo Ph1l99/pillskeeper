@@ -26,9 +26,7 @@ class AppointmentFormActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_appointment)
 
-
         val cal = Calendar.getInstance()
-
 
         if (intent.getSerializableExtra(APPOINTMENT_VALUE) != null) {
             appointment = intent.getSerializableExtra(APPOINTMENT_VALUE) as Appointment
@@ -38,8 +36,8 @@ class AppointmentFormActivity : AppCompatActivity() {
             cal.time = appointment!!.date
             buttonDate.text = getString(R.string.dateButtonFormatted, cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))
             additionalNoteAppointment.setText(appointment!!.additionNotes)
-            buttonDeleteAppointment.text = "Chiudi"
-            buttonConfirmAppointment.text = "Modifica"
+            buttonDeleteAppointment.text = getText(R.string.closeButton)
+            buttonConfirmAppointment.text = getText(R.string.editButton)
             setAllEnable(false)
         }
 
@@ -74,6 +72,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                 addOrEditAppointment(cal)
 
             } else {
+
                 if (isEditing)
                     addOrEditAppointment(cal)
                 else {
@@ -83,6 +82,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                     buttonDeleteAppointment.text = "Annulla"
                     buttonConfirmAppointment.text = "Salva"
                 }
+
             }
         }
 

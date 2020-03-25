@@ -2,7 +2,10 @@ package com.pillskeeper.datamanager
 
 import android.content.Context
 import android.util.Log
-import com.pillskeeper.data.*
+import com.pillskeeper.data.Appointment
+import com.pillskeeper.data.Friend
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.ReminderMedicine
 import java.util.*
 
 object UserInformation {
@@ -16,7 +19,7 @@ object UserInformation {
 
     /*******  GET FUNCTION   *******/
 
-    @Synchronized fun getSpecificMedicine(name: String): LocalMedicine?{
+    @Synchronized fun getSpecificMedicine(name: String) : LocalMedicine?{
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
         
         medicines.forEach {
@@ -113,7 +116,7 @@ object UserInformation {
         return true
     }
 
-    fun addNewReminderList(medicineName: String, reminderList: LinkedList<ReminderMedicine>){
+    @Synchronized fun addNewReminderList(medicineName: String, reminderList: LinkedList<ReminderMedicine>){
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Started")
 
         reminderList.forEach { entry -> addNewReminder(medicineName, entry) }
@@ -121,7 +124,7 @@ object UserInformation {
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
     }
 
-    fun addNewAppointment(appointment: Appointment): Boolean{
+    @Synchronized fun addNewAppointment(appointment: Appointment): Boolean{
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Started")
 
         appointments.forEach {
@@ -141,7 +144,7 @@ object UserInformation {
 
     /*******  EDIT FUNCTION   *******/
 
-    fun editAppointment(oldName: String, appointment: Appointment): Boolean{
+    @Synchronized fun editAppointment(oldName: String, appointment: Appointment): Boolean{
         Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Started")
 
         for(i in appointments.indices){
@@ -186,14 +189,86 @@ object UserInformation {
         return false
     }
 
-    @Synchronized fun flushAll(){
-        Log.i(Log.DEBUG.toString(),"UserInformation: flushAll() - Started")
+    @Synchronized fun editReminder(medName: String, oldReminder: ReminderMedicine, newReminder: ReminderMedicine): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Started")
 
-        LocalDatabase.saveFriendList(friends)
-        LocalDatabase.saveMedicineList(medicines)
+        var medicine: LocalMedicine? = null
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: flushAll() - Ended")
+        for(i in medicines.indices){
+            if(medicines[i].name == medName){
+                medicine = medicines[i]
+                break
+            }
+        }
+
+        if(medicine == null){
+            Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Medicine not found")
+            return false
+        }
+
+        for(i in medicine.reminders?.indices!!){
+            if (medicine.reminders!![i].isEquals(oldReminder)){
+                medicine.reminders!![i] = newReminder
+                Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder edited")
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder not found")
+        return false
     }
+
+
+
+
+    /*******  DELETE FUNCTION   *******/
+
+    @Synchronized fun deleteAppointment(name: String): Boolean {
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Started")
+
+        for(i in appointments.indices){
+            if(appointments[i].name == name){
+                Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Ended - Appointment Deleted")
+                appointments.removeAt(i)
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Ended - Appointment not found")
+        return false
+    }
+
+    @Synchronized fun deleteMedicine(name: String): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Started")
+
+        for(i in medicines.indices){
+            if(medicines[i].name == name){
+                medicines.removeAt(i)
+                Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Ended - Medicine Deleted")
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Ended - Medicine not found")
+        return false
+    }
+
+    @Synchronized fun deleteFriend(name: String): Boolean{
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Started")
+
+        for(i in friends.indices){
+            if(friends[i].name == name){
+                friends.removeAt(i)
+                Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Ended - Friend Removed")
+                return true
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Ended - Friend not found")
+        return false
+    }
+
+
 
 
 }

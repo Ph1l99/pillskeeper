@@ -2,13 +2,10 @@ package com.pillskeeper.activity.friend
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Window
 import android.widget.ArrayAdapter
-import android.widget.EditText
 import com.pillskeeper.R
 import com.pillskeeper.data.Friend
 import com.pillskeeper.datamanager.LocalDatabase
@@ -16,7 +13,7 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.RelationEnum
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.activity_new_friend.*
+import kotlinx.android.synthetic.main.dialog_new_friend.*
 
 
 class NewFriendDialog(context: Context, private val mode: DialogModeEnum, private val friend: Friend?) : Dialog(context) {
@@ -31,7 +28,7 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.activity_new_friend)
+        setContentView(R.layout.dialog_new_friend)
 
         stdLayout = editTextName.background
         if(mode == DialogModeEnum.CREATE_NEW_FRIEND){

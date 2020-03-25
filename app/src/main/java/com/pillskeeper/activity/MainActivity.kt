@@ -11,8 +11,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GetTokenResult
 import com.pillskeeper.R
+import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.data.Appointment
@@ -70,11 +70,17 @@ class MainActivity : AppCompatActivity() {
         readFirstLogin()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
-
             val intent = Intent(this, AppointmentFormActivity::class.java)
                 .putExtra(APPOINTMENT_VALUE, appointmentListSorted[position])
             startActivity(intent)
         }
+
+        appointmentListMain.setOnItemLongClickListener { _, _, position, _ ->
+            AppointmentDialog(this, appointmentListSorted[position].name).show()
+
+            return@setOnItemLongClickListener true
+        }
+
     }
 
     private fun readFirstLogin() {

@@ -24,6 +24,9 @@
     <string name="phoneNumber">Numero:</string>
     <string name="phoneNumberHint">Numero Cellulare</string>
     <string name="editButton">Modifica</string>
+    <string name="abortButton">Annulla</string>
+
+
 
     <!--MedicinesListActivity-->
 

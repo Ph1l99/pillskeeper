@@ -11,6 +11,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
@@ -31,13 +33,12 @@ class MedicinesListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medicines_list)
 
-        databaseReference = DatabaseManager.obtainRemoteDatabase()
+        databaseReference = Firebase.database.reference
 
         fillMedicinesList()
 
         addMedicineButton.setOnClickListener {
-            val intent = Intent(this, PillsFormActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, PillsFormActivity::class.java))
             finish()
         }
     }

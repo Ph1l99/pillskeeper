@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
-    //private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +64,6 @@ class MainActivity : AppCompatActivity() {
         //TODO DEBUG - to be removed
         funTest()
 
-        readFirstLogin()
-
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
                 .putExtra(APPOINTMENT_VALUE, appointmentListSorted[position])
@@ -79,13 +76,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemLongClickListener true
         }
 
-    }
-
-    private fun readFirstLogin() {
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            val intent = Intent(this, SignUp::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun funTest() {

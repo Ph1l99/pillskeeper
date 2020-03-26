@@ -28,7 +28,6 @@
     <string name="closeButton">Chiudi</string>
 
 
-
     <!--MedicinesListActivity-->
 
 
@@ -95,6 +94,10 @@
     <string name="surname_hint">Cognome</string>
     <string name="email_hint">Email</string>
 
+    <!--Login-->
+    <string name="login_button">Accedi</string>
+    <string name="signup_activity">Registrati</string>
+
 
     <!-- Titoli android Manifest-->
     <string name="chemistsTitle">Farmacie in zona</string>
@@ -109,6 +112,6 @@
     <string name="functionalities">Funzionalità</string>
     <string name="search_chemist">Riceca Farmacie</string>
     <string name="user_settingsActivity">Modifica dati personali</string>
-
+    <string name="login_activity">Login</string>
 
 </resources>

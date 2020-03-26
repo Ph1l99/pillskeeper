@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -56,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun checkLogin() {
-        if (FirebaseAuth.getInstance().currentUser != null && isNetworkAvailable(this)) {
+        if (FirebaseAuth.getInstance().currentUser != null) {
             FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnSuccessListener {
                 if (it.token != null) {
                     startActivity(Intent(this, MainActivity::class.java))
@@ -65,9 +66,6 @@ class LoginActivity : AppCompatActivity() {
                     FirebaseAuth.getInstance().signOut()
                 }
             }
-        } else {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
         }
     }
 

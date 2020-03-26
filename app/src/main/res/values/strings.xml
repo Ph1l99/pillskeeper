@@ -97,6 +97,8 @@
     <!--Login-->
     <string name="login_button">Accedi</string>
     <string name="signup_activity">Registrati</string>
+    <string name="login_text">Benvenuto su Pillskeeper! Esegui l\'accesso oppure registrati per utilizzare l\'applicazione</string>
+    <string name="error_login">Username o password errati, riprova</string>
 
 
     <!-- Titoli android Manifest-->

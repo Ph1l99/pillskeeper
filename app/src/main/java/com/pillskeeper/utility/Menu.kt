@@ -13,12 +13,18 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.LocationActivity
+import com.pillskeeper.activity.LoginActivity
 import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
 
-class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: NavigationView, activity: AppCompatActivity) :  NavigationView.OnNavigationItemSelectedListener {
+class Menu(
+    toolbar: Toolbar,
+    drawerLayout: DrawerLayout,
+    navigationView: NavigationView,
+    activity: AppCompatActivity
+) : NavigationView.OnNavigationItemSelectedListener {
 
     val toolbar = toolbar
     val drawerLayout = drawerLayout
@@ -27,7 +33,7 @@ class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: Navigat
     var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
-    fun createMenu(){
+    fun createMenu() {
         val toggle = ActionBarDrawerToggle(
             activity, drawerLayout, toolbar, 0, 0
         )
@@ -44,28 +50,34 @@ class Menu(toolbar: Toolbar, drawerLayout: DrawerLayout, navigationView: Navigat
             }
             R.id.nav_friends -> {
                 val intent = Intent(activity.applicationContext, FriendListActivity::class.java)
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
                 activity.applicationContext.startActivity(intent)
             }
             R.id.nav_medicines -> {
                 val intent = Intent(activity.applicationContext, PillsListActivity::class.java)
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
                 activity.applicationContext.startActivity(intent)
             }
             R.id.nav_appointments -> {
                 val intent =
                     Intent(activity.applicationContext, AppointmentListActivity::class.java)
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
                 activity.applicationContext.startActivity(intent)
             }
 
             R.id.nav_pharmacies -> {
                 val intent = Intent(activity.applicationContext, LocationActivity::class.java)
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
                 activity.applicationContext.startActivity(intent)
             }
             R.id.nav_logout -> {
                 auth.signOut()
+                activity.applicationContext.startActivity(
+                    Intent(
+                        activity.applicationContext,
+                        LoginActivity::class.java
+                    )
+                )
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -16,7 +16,6 @@ object UserInformation {
 
     lateinit var context: Context
 
-
     /*******  GET FUNCTION   *******/
 
     @Synchronized fun getSpecificMedicine(name: String) : LocalMedicine?{

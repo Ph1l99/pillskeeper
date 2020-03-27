@@ -1,5 +1,6 @@
 package com.pillskeeper.activity
 
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
@@ -24,6 +24,7 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.notifier.ServiceStarter
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.toolbar)
@@ -72,9 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         appointmentListMain.setOnItemLongClickListener { _, _, position, _ ->
             AppointmentDialog(this, appointmentListSorted[position].name).show()
-
             return@setOnItemLongClickListener true
         }
+
+        ServiceStarter.startNotifierThread(this)
 
     }
 
@@ -170,8 +173,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLists(filterDate: Date = Date()) {
-        val start = System.currentTimeMillis()
-
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
 
         /*Appointment list*/
@@ -180,15 +181,13 @@ class MainActivity : AppCompatActivity() {
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentListMain.adapter =           ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        //appointmentListMain.adapter =           ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         reminderListSorted = getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
         reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
-
-        println((System.currentTimeMillis()- start).toString() + "sono passato quiiiiiiiiiii")
 
     }
 
@@ -276,5 +275,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 }

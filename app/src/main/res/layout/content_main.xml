@@ -50,6 +50,16 @@
 
         </ListView>
 
+        <!--<androidx.viewpager.widget.ViewPager
+            android:id="@+id/appointmentListMain"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/reminderListMain"
+            app:layout_constraintStart_toStartOf="@+id/reminderListMain"
+            app:layout_constraintTop_toBottomOf="@+id/reminderListMain"/>-->
+
+
         <ListView
             android:id="@+id/appointmentListMain"
             android:layout_width="wrap_content"

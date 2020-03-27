@@ -14,7 +14,7 @@ import com.pillskeeper.enums.ErrorTypeEnum
 object DatabaseManager {
 
     private lateinit var databaseReference: DatabaseReference
-    private const val PATH_USERS = "users"
+
     const val PATH_MEDICINES = "medicines"
 
     /**

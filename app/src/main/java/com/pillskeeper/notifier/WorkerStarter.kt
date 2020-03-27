@@ -15,12 +15,11 @@ class WorkerStarter : BroadcastReceiver() {
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
 
         if (intent != null) {
+            if(intent.action == Intent.ACTION_BOOT_COMPLETED){
+                startNotifierThread(context)
+            }
             println(intent.action)
         }
-        /*if (intent != null) {
-            if(intent.action == Intent.ACTION_BOOT_COMPLETED)*/
-        startNotifierThread(context)
-        //}
 
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Service started")
     }
@@ -29,10 +28,10 @@ class WorkerStarter : BroadcastReceiver() {
         fun startNotifierThread(context: Context?) {
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Started")
 
-            if (context != null)
+            if (context != null) {
                 WorkerNotifier.context = context
 
-            /*if (!isJobServiceOn(context)) {
+                /*if (!isJobServiceOn(context)) {
                 val mComponentName = context?.let {
                     ComponentName(it, WorkerNotifier::class.java)
                 }
@@ -60,12 +59,14 @@ class WorkerStarter : BroadcastReceiver() {
             }*/
 
 
-            val periodicReq: PeriodicWorkRequest = PeriodicWorkRequest.Builder(WorkerNotifier::class.java,
-                PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS,TimeUnit.MILLISECONDS)
-                .build()
+                val periodicReq: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
+                    WorkerNotifier::class.java,
+                    PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS
+                ).build()
 
-            WorkManager.getInstance().enqueue(periodicReq)
 
+                WorkManager.getInstance().enqueue(periodicReq)
+            }
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Ended")
         }
 

@@ -61,6 +61,9 @@ dependencies {
     //TextRecognizer
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
 
+    //Worker
+    implementation "android.arch.work:work-runtime:1.0.1"
+
     //Material design
     implementation 'com.google.android.material:material:1.1.0'
 

@@ -63,17 +63,18 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".notifier.ServiceStarter"
+        <receiver android:name=".notifier.WorkerStarter"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <service
-            android:name=".notifier.ServiceNotifier"
+        <!--<service
+            android:name=".notifier.WorkerNotifier"
             android:enabled="true"
-            android:permission="android.permission.BIND_JOB_SERVICE"/>
+            android:permission="android.permission.BIND_JOB_SERVICE"/>-->
 
     </application>
 

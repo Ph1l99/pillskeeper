@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -31,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        if (emailLogin.text.toString().isNullOrEmpty() || passwordLogin.text.toString()
-                .isNullOrEmpty()
+        if (emailLogin.text.toString().isEmpty() || passwordLogin.text.toString()
+                .isEmpty()
         ) {
             Utils.colorEditText(emailLogin)
             Utils.colorEditText(passwordLogin)

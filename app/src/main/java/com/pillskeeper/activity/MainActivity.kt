@@ -24,7 +24,6 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
-import com.pillskeeper.notifier.ServiceStarter
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
@@ -76,9 +75,6 @@ class MainActivity : AppCompatActivity() {
             AppointmentDialog(this, appointmentListSorted[position].name).show()
             return@setOnItemLongClickListener true
         }
-
-        ServiceStarter.startNotifierThread(this)
-
     }
 
     private fun funTest() {

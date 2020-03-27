@@ -42,11 +42,11 @@ object DatabaseManager {
         }
     }
 
-    /**
+    /*
      * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
      * @param user L'utente che deve essere aggiunto al database
      * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
-     */
+
     fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
         Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
         return if (getUser(user.userId) != null) {
@@ -82,7 +82,7 @@ object DatabaseManager {
             })
         Log.i(Log.DEBUG.toString(), "getUser()-Ended")
         return foundUser
-    }
+    }*/
 
 
     /**

@@ -3,19 +3,20 @@ package com.pillskeeper.activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
-import com.pillskeeper.datamanager.DatabaseManager
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_personal_info.*
 
-class PersonalInfoActivity(context: Context,private val userId: String) : Dialog(context) {
+class PersonalInfoActivity(context: Context, private val userId: String) : Dialog(context) {
 
     companion object {
         const val PATH_USERS = "users"
@@ -29,7 +30,7 @@ class PersonalInfoActivity(context: Context,private val userId: String) : Dialog
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_info)
         auth = FirebaseAuth.getInstance()
-        databaseReference = DatabaseManager.obtainRemoteDatabase()
+        databaseReference = Firebase.database.reference
 
 
         getUser(userId)
@@ -61,7 +62,7 @@ class PersonalInfoActivity(context: Context,private val userId: String) : Dialog
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(context, "Dati non scaricati", Toast.LENGTH_LONG).show()
                 }
             })
 
@@ -88,7 +89,7 @@ class PersonalInfoActivity(context: Context,private val userId: String) : Dialog
             if (updateAuth) {
                 auth.currentUser?.updateEmail(editTextEmail.text.toString())
                 auth.currentUser?.uid?.let {
-                    DatabaseManager.writeNewUser(
+                    databaseReference.child(PATH_USERS).child(userId).setValue(
                         User(
                             it,
                             editTextName.text.toString(),
@@ -96,11 +97,10 @@ class PersonalInfoActivity(context: Context,private val userId: String) : Dialog
                             editTextEmail.text.toString()
                         )
                     )
-
                 }
             } else {
                 auth.currentUser?.uid?.let {
-                    DatabaseManager.writeNewUser(
+                    databaseReference.child(PATH_USERS).child(userId).setValue(
                         User(
                             it,
                             editTextName.text.toString(),

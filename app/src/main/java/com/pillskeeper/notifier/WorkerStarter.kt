@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import java.util.concurrent.TimeUnit
@@ -53,12 +55,24 @@ class WorkerStarter : BroadcastReceiver() {
                 println(mScheduler.allPendingJobs[0].isPeriodic)
             }*/
 
+                val constraints = Constraints.Builder()
+                    .setRequiresDeviceIdle(false)
+                    .setRequiresBatteryNotLow(false)
+                    .setRequiresCharging(false)
+                    .setRequiresStorageNotLow(false)
+                    .build()
+
+
                 val periodicReq = PeriodicWorkRequest.Builder(
                     WorkerNotifier::class.java,
                     PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS
-                ).build()
+                ).setConstraints(constraints).build()
 
-                WorkManager.getInstance().enqueue(periodicReq)
+                WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+                    "notifier",
+                    ExistingPeriodicWorkPolicy.KEEP,
+                    periodicReq)
+                Log.i(Log.DEBUG.toString(), WorkManager.getInstance(context).getWorkInfoById(periodicReq.id).toString())
             }
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Ended")
         }

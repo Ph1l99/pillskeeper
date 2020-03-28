@@ -22,9 +22,10 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.enums.RelationEnum
+import com.pillskeeper.notifier.WorkerStarter
+import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
-import com.pillskeeper.utility.Mail
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         //TODO DEBUG - to be removed
         funTest()
-        sendMail()
+        sendMailTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -75,6 +76,8 @@ class MainActivity : AppCompatActivity() {
             AppointmentDialog(this, appointmentListSorted[position].name).show()
             return@setOnItemLongClickListener true
         }
+
+        WorkerStarter.startNotifierThread(this)
     }
 
     private fun funTest() {
@@ -169,7 +172,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //TODO funzione di test per invio mail
-    private fun sendMail() {
+    private fun sendMailTest() {
         val completeMail = Mail.composeMail(
             RemoteMedicine("Tacchipirina", "1234", MedicineTypeEnum.PILLS),
             User("1234", "filippo", "ciao", "filippo.ciao@ciao.com"),

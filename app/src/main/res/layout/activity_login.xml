@@ -77,6 +77,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/pills_ico" />
+        android:src="@drawable/pills_ico" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

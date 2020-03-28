@@ -15,17 +15,16 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
-import com.pillskeeper.data.Appointment
-import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.data.ReminderMedicineSort
+import com.pillskeeper.data.*
 import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.enums.RelationEnum
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
+import com.pillskeeper.utility.Mail
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
@@ -64,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         //TODO DEBUG - to be removed
         funTest()
+        sendMail()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -168,11 +168,30 @@ class MainActivity : AppCompatActivity() {
         initLists()
     }
 
+    //TODO funzione di test per invio mail
+    private fun sendMail() {
+        val completeMail = Mail.composeMail(
+            RemoteMedicine("Tacchipirina", "1234", MedicineTypeEnum.PILLS),
+            User("1234", "filippo", "ciao", "filippo.ciao@ciao.com"),
+            Friend("friend01", "friend02", null, "pippo.coglio@gmail.com", RelationEnum.Doctor)
+        )
+        var i = Intent(Intent.ACTION_SEND)
+
+        if (completeMail != null) {
+            i.type = "message/rfc822"
+            i.putExtra(Intent.EXTRA_EMAIL, completeMail.mailto)
+            i.putExtra(Intent.EXTRA_SUBJECT, completeMail.mailsubject)
+            i.putExtra(Intent.EXTRA_TEXT, completeMail.mailBody)
+        }
+        startActivity(Intent.createChooser(i, "Invia mail..."))
+    }
+
     private fun initLists(filterDate: Date = Date()) {
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
 
         /*Appointment list*/
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }.thenBy { it.minutes })
+        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
+            .thenBy { it.minutes })
         appointmentListSorted = UserInformation.appointments
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
@@ -183,7 +202,8 @@ class MainActivity : AppCompatActivity() {
         reminderListSorted = getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 

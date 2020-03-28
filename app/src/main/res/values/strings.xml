@@ -100,6 +100,9 @@
     <string name="login_text">Benvenuto su Pillskeeper! Esegui l\'accesso oppure registrati per utilizzare l\'applicazione</string>
     <string name="error_login">Username o password errati, riprova</string>
 
+    <!--Mail-->
+    <string name="mailsubject">Richiesta ricetta farmaco: </string>
+    <string name="mailtext">Salve, la presente per richiedere la prescizione del seguente farmaco: </string>
 
     <!-- Titoli android Manifest-->
     <string name="chemistsTitle">Farmacie in zona</string>

@@ -14,12 +14,9 @@ class WorkerStarter : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
 
-        if (intent != null) {
-            if(intent.action == Intent.ACTION_BOOT_COMPLETED){
+        if (intent != null)
+            if(intent.action == Intent.ACTION_BOOT_COMPLETED)
                 startNotifierThread(context)
-            }
-            println(intent.action)
-        }
 
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Service started")
     }
@@ -29,8 +26,6 @@ class WorkerStarter : BroadcastReceiver() {
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Started")
 
             if (context != null) {
-                WorkerNotifier.context = context
-
                 /*if (!isJobServiceOn(context)) {
                 val mComponentName = context?.let {
                     ComponentName(it, WorkerNotifier::class.java)
@@ -58,20 +53,24 @@ class WorkerStarter : BroadcastReceiver() {
                 println(mScheduler.allPendingJobs[0].isPeriodic)
             }*/
 
-
-                val periodicReq: PeriodicWorkRequest = PeriodicWorkRequest.Builder(
+                val periodicReq = PeriodicWorkRequest.Builder(
                     WorkerNotifier::class.java,
                     PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS
                 ).build()
-
 
                 WorkManager.getInstance().enqueue(periodicReq)
             }
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Ended")
         }
-
-
-        /*private fun isJobServiceOn(context: Context?): Boolean {
+    }
+}
+/*val intent = Intent(context, ServiceNotifier::class.java)
+if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+    context!!.startForegroundService(intent)
+else
+    context!!.startService(intent)
+*/
+/*private fun isJobServiceOn(context: Context?): Boolean {
             Log.i(Log.DEBUG.toString(), "MainActivity: isJobServiceOn() - Started")
             if (context != null) {
                 (context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler)
@@ -92,12 +91,3 @@ class WorkerStarter : BroadcastReceiver() {
             )
             return false
         }*/
-    }
-
-}
-/*val intent = Intent(context, ServiceNotifier::class.java)
-if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-    context!!.startForegroundService(intent)
-else
-    context!!.startService(intent)
-*/

@@ -1,4 +1,4 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.medicine
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

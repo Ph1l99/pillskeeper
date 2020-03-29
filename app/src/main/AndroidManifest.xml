@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.FinishedMedicinesActivity"
+            android:name=".activity.medicine.FinishedMedicinesActivity"
             android:label="@string/expiredMedicines" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>

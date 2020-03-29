@@ -9,12 +9,12 @@
                 android:title="@string/friends"/>
             <item
                 android:id="@+id/nav_appointments"
-                android:icon="@drawable/ic_friends"
-                android:title="@string/appointmentMenu"/>
+                android:icon="@drawable/calendar"
+                android:title="@string/appointmentMenu" />
             <item
                 android:id="@+id/nav_medicines"
-                android:icon="@drawable/ic_friends"
-                android:title="@string/medicineListTitle"/>
+                android:icon="@drawable/records_medicines"
+                android:title="@string/medicineListTitle" />
             <item
                 android:id="@+id/nav_pharmacies"
                 android:icon="@drawable/ic_pharmacy"
@@ -23,7 +23,7 @@
     </item>
 
 
-    <item android:title="ciao">
+    <item android:title="@string/settingsMenu">
         <menu>
             <item
                 android:id="@+id/nav_profile"

@@ -20,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
+
         checkLogin()
 
         signupButton.setOnClickListener {
@@ -54,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    //TODO controllare utente locale
     private fun checkLogin() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnSuccessListener {

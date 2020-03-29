@@ -117,8 +117,10 @@
     <string name="mainActivityTitle">PillsKeeper</string>
     <string name="functionalities">Funzionalità</string>
     <string name="settingsMenu">Impostazioni</string>
+    <string name="expiryMenu">Medicine terminate</string>
     <string name="search_chemist">Riceca Farmacie</string>
     <string name="user_settingsActivity">Modifica dati personali</string>
     <string name="login_activity">Login</string>
+    <string name="expiredMedicines">Farmaci in esaurimento</string>
 
 </resources>

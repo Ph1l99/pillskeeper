@@ -12,6 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
+import com.pillskeeper.activity.FinishedMedicinesActivity
 import com.pillskeeper.activity.LocationActivity
 import com.pillskeeper.activity.LoginActivity
 import com.pillskeeper.activity.PersonalInfoActivity
@@ -49,6 +50,12 @@ class Menu(
         when (item.itemId) {
             R.id.nav_profile -> {
                 PersonalInfoActivity(activity, auth.currentUser?.uid.toString()).show()
+            }
+            R.id.nav_expiry_med -> {
+                val intent =
+                    Intent(activity.applicationContext, FinishedMedicinesActivity::class.java)
+                intent.flags = FLAG_ACTIVITY_NEW_TASK
+                activity.applicationContext.startActivity(intent)
             }
             R.id.nav_friends -> {
                 val intent = Intent(activity.applicationContext, FriendListActivity::class.java)

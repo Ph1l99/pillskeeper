@@ -16,6 +16,10 @@
                 android:icon="@drawable/records_medicines"
                 android:title="@string/medicineListTitle" />
             <item
+                android:id="@+id/nav_expiry_med"
+                android:icon="@drawable/expiry_med"
+                android:title="@string/expiryMenu"/>
+            <item
                 android:id="@+id/nav_pharmacies"
                 android:icon="@drawable/ic_pharmacy"
                 android:title="@string/pharmacies"/>

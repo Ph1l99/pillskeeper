@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.toolbar)
@@ -61,7 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
-        DatabaseManager.obtainRemoteDatabase()
 
         Utils.stdLayout = EditText(this).background
 
@@ -79,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //TODO DEBUG - to be removed
-            funTest()
+        funTest()
         sendMailTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->

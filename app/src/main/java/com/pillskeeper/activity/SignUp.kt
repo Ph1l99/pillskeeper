@@ -33,9 +33,9 @@ class SignUp : AppCompatActivity() {
     }
 
     fun signUp() {
-        if (mailField.text.toString().isNullOrEmpty() || passwordField.text.toString()
-                .isNullOrEmpty() || nameField.text.toString()
-                .isNullOrEmpty() || surnameField.text.toString().isNullOrEmpty()
+        if (mailField.text.toString().isEmpty() || passwordField.text.toString()
+                .isEmpty() || nameField.text.toString()
+                .isEmpty() || surnameField.text.toString().isEmpty()
         ) {
             Utils.colorEditText(mailField)
             Utils.colorEditText(nameField)

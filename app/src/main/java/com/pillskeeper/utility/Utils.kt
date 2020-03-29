@@ -1,12 +1,13 @@
 package com.pillskeeper.utility
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.LocalDatabase
@@ -39,7 +40,28 @@ object Utils {
         return (email.isNotEmpty() && email.matches(regexEmail))
     }
 
-    fun colorEditText(editText: EditText, isError: Boolean = true) {
+    fun checkDate(dateSelected: Date, context: Context): Boolean{
+        val calCurrent = Calendar.getInstance()
+        val calSelected = Calendar.getInstance()
+        calCurrent.time = Date(System.currentTimeMillis())
+        calSelected.time = dateSelected
+        if(calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(Calendar.MONTH) > calSelected.get(Calendar.MONTH) ||
+            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)){
+            Toast.makeText(context,"Perfavore inserire una data corretta", Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
+    }
+
+    fun errorEditText(editText: EditText){
+        colorEditText(editText,true)
+    }
+
+    fun validEditText(editText: EditText){
+        colorEditText(editText, false)
+    }
+
+    private fun colorEditText(editText: EditText, isError: Boolean) {
         if (isError) {
             stdLayout = editText.background
             val gd = GradientDrawable()

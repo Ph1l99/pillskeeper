@@ -40,18 +40,18 @@
             android:name=".activity.appointment.AppointmentFormActivity"
             android:label="@string/appointmentTitle" />
         <activity
-            android:name=".activity.pills.MedicinesListActivity"
+            android:name=".activity.medicine.MedicinesListActivity"
             android:label="@string/medicineListTitle" />
-        <activity android:name=".activity.pills.reminder.ReminderActivity" />
-        <activity android:name=".activity.pills.reminder.AdvancedInfoReminderActivity" />
+        <activity android:name=".activity.medicine.reminder.ReminderActivity" />
+        <activity android:name=".activity.medicine.reminder.AdvancedInfoReminderActivity" />
         <activity
-            android:name=".activity.pills.TextReaderActivity"
+            android:name=".activity.medicine.TextReaderActivity"
             android:label="@string/textReaderActivityTitle" />
         <activity
-            android:name=".activity.pills.PillsFormActivity"
+            android:name=".activity.medicine.PillsFormActivity"
             android:label="@string/pillsFormActivityTitle" />
         <activity
-            android:name=".activity.pills.PillsListActivity"
+            android:name=".activity.medicine.PillsListActivity"
             android:label="@string/pillsListActivityTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

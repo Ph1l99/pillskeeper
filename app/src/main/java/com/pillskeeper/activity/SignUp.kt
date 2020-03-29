@@ -1,10 +1,8 @@
 package com.pillskeeper.activity
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -39,10 +37,10 @@ class SignUp : AppCompatActivity() {
                 .isEmpty() || nameField.text.toString()
                 .isEmpty() || surnameField.text.toString().isEmpty()
         ) {
-            Utils.colorEditText(mailField)
-            Utils.colorEditText(nameField)
-            Utils.colorEditText(surnameField)
-            Utils.colorEditText(passwordField)
+            Utils.errorEditText(mailField)
+            Utils.errorEditText(nameField)
+            Utils.errorEditText(surnameField)
+            Utils.errorEditText(passwordField)
         }
         auth.createUserWithEmailAndPassword(
             mailField.text.toString(),
@@ -64,10 +62,10 @@ class SignUp : AppCompatActivity() {
                             finish()
                         }
                         .addOnFailureListener {
-                            Utils.colorEditText(mailField)
-                            Utils.colorEditText(nameField)
-                            Utils.colorEditText(surnameField)
-                            Utils.colorEditText(passwordField)
+                            Utils.errorEditText(mailField)
+                            Utils.errorEditText(nameField)
+                            Utils.errorEditText(surnameField)
+                            Utils.errorEditText(passwordField)
                             Toast.makeText(this, R.string.error_values, Toast.LENGTH_LONG).show()
                         }
                 }

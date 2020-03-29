@@ -3,7 +3,6 @@ package com.pillskeeper.utility
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,8 +17,7 @@ import com.pillskeeper.activity.LoginActivity
 import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
-import com.pillskeeper.activity.pills.PillsListActivity
-import kotlinx.android.synthetic.main.nav_header.*
+import com.pillskeeper.activity.medicine.PillsListActivity
 
 class Menu(
     toolbar: Toolbar,

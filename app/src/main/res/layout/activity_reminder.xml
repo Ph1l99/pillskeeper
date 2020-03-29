@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.pills.reminder.ReminderActivity">
+    tools:context=".activity.medicine.reminder.ReminderActivity">
 
     <TextView
         android:id="@+id/textViewWeek"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
-        android:id="@+id/radioGroup3"
+        android:id="@+id/radioGroupDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -74,67 +74,66 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="110dp"
         android:text="@string/time"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity" />
+        app:layout_constraintStart_toStartOf="@+id/editTextQuantityRem"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantityRem" />
 
     <Spinner
         android:id="@+id/spinnerMinutes"
         android:layout_width="86dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Spinner
         android:id="@+id/spinnerHours"
         android:layout_width="86dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewPoints"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textViewPoints"
         android:layout_width="10dp"
         android:layout_height="40dp"
-        android:layout_marginTop="139dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="14dp"
         android:text=":"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/spinnerMinutes"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/buttonConfirm"
+        android:id="@+id/buttonConfirmRem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
         android:layout_marginEnd="36dp"
         android:text="@string/confirmButton"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonDeleteRem"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMinutes" />
+        app:layout_constraintStart_toEndOf="@+id/spinnerHours"
+        app:layout_constraintTop_toTopOf="@+id/buttonDeleteRem" />
 
     <TextView
         android:id="@+id/textViewFinishDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="24dp"
         android:text="@string/espire_date"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewWeek"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textViewWeek"
+        app:layout_constraintTop_toTopOf="@+id/textViewWeek" />
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="125dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="25dp"
-        android:ems="10"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
+    <Button
+        android:id="@+id/buttonDateEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:minWidth="110dp"
+        android:minHeight="46dp"
+        android:text="@string/dateButton"
+        app:layout_constraintEnd_toEndOf="@+id/textViewFinishDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate" />
 
     <TextView
@@ -142,29 +141,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="25dp"
         android:text="@string/quantity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewFinishDate"
+        app:layout_constraintTop_toBottomOf="@+id/buttonDateEnd" />
 
     <EditText
-        android:id="@+id/editTextQuantity"
+        android:id="@+id/editTextQuantityRem"
         android:layout_width="100dp"
         android:layout_height="45dp"
-        android:layout_marginEnd="25dp"
-        android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
+        android:autofillHints="" />
 
     <Button
-        android:id="@+id/buttonDelete"
+        android:id="@+id/buttonDeleteRem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="100dp"
         android:text="@string/deleteButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerHours"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup3" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupDays" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

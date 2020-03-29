@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.pills
+package com.pillskeeper.activity.medicine
 
 import android.app.Activity
 import android.content.Intent
@@ -14,7 +14,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.pills.PillsFormActivity.Companion.REMOTE_MEDICINE
+import com.pillskeeper.activity.medicine.PillsFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.DatabaseManager
 import kotlinx.android.synthetic.main.activity_medicines_list.*

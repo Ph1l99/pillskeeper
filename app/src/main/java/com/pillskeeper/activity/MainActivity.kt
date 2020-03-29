@@ -64,20 +64,10 @@ class MainActivity : AppCompatActivity() {
 
         val menu = Menu(toolbar, drawerLayout, navView, this)
         menu.createMenu()
-        val nav: NavigationView = findViewById(R.id.nav_view)
-        val header: View = nav.getHeaderView(0)
-        var username = header.findViewById<TextView>(R.id.username_text_view_menu)
-        val user = LocalDatabase.readUser()
-        //TODO FILIPPO SISTEMA QUESTO
-        if (user == null) {
-            username.text = "Utente non settato!!!"
-        } else {
-            username.text = user.name + " " + user.surname
-        }
+        Utils.insertNameMenu(findViewById(R.id.nav_view))
 
         //TODO DEBUG - to be removed
         funTest()
-        sendMailTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)

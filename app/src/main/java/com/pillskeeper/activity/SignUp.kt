@@ -1,5 +1,6 @@
 package com.pillskeeper.activity
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -49,15 +51,16 @@ class SignUp : AppCompatActivity() {
             if (task.isSuccessful) {
                 val databaseReference = Firebase.database.reference
                 auth.currentUser?.uid?.let {
-                    databaseReference.child(PATH_USERS).child(it).setValue(
-                        User(
-                            auth.currentUser!!.uid,
-                            nameField.text.toString(),
-                            surnameField.text.toString(),
-                            mailField.text.toString()
-                        )
+                    val userToBeWritten = User(
+                        auth.currentUser!!.uid,
+                        nameField.text.toString(),
+                        surnameField.text.toString(),
+                        mailField.text.toString()
                     )
+
+                    databaseReference.child(PATH_USERS).child(it).setValue(userToBeWritten)
                         .addOnCompleteListener {
+                            LocalDatabase.saveUser(userToBeWritten)
                             finish()
                         }
                         .addOnFailureListener {

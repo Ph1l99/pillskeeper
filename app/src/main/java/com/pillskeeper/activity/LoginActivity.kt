@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -18,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
         checkLogin()
 
         signupButton.setOnClickListener {

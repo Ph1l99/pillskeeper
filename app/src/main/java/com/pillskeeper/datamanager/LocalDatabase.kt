@@ -93,9 +93,7 @@ object LocalDatabase : LocalDatabaseInterface{
 
     override fun saveUser(user: User){
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
-
         saveValue(LocalDbKeyEnum.USER.toString(), user)
-
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
     }
 

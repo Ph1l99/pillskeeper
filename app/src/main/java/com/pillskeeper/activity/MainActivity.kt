@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
@@ -68,12 +67,12 @@ class MainActivity : AppCompatActivity() {
         val nav: NavigationView = findViewById(R.id.nav_view)
         val header: View = nav.getHeaderView(0)
         var username = header.findViewById<TextView>(R.id.username_text_view_menu)
-        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        val user = LocalDatabase.readUser()
         //TODO FILIPPO SISTEMA QUESTO
-        if(user == null){
+        if (user == null) {
             username.text = "Utente non settato!!!"
         } else {
-            username.text = "Diocane"
+            username.text = user.name + " " + user.surname
         }
 
         //TODO DEBUG - to be removed

@@ -29,9 +29,9 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_personal_info)
+
         auth = FirebaseAuth.getInstance()
         databaseReference = Firebase.database.reference
-
 
         getUser(userId)
 

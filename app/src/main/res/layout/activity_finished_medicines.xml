@@ -15,12 +15,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/nothing_box"
-            android:layout_width="250sp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Ciao" />
     </ListView>
+
+    <TextView
+        android:id="@+id/nothing_box"
+        android:layout_width="250sp"
+        android:layout_height="wrap_content" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

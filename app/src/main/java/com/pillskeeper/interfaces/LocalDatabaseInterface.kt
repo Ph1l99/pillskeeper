@@ -8,7 +8,7 @@ import java.util.*
 
 interface LocalDatabaseInterface {
 
-    fun readUser(): User
+    fun readUser(): User?
 
     fun readFriendList(): LinkedList<Friend>
 

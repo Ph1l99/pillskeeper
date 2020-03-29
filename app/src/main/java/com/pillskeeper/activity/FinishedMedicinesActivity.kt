@@ -7,6 +7,7 @@ import android.widget.ListView
 import com.pillskeeper.R
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.LocalDatabase
+import kotlinx.android.synthetic.main.activity_finished_medicines.*
 import java.util.*
 
 class FinishedMedicinesActivity : AppCompatActivity() {
@@ -31,7 +32,9 @@ class FinishedMedicinesActivity : AppCompatActivity() {
             it.remainingPills <= MINIMUM_PILLS
         })
         if (outputList.isEmpty()) {
-            //TODO fare qualcosa
+            medicinesListView = findViewById(R.id.finishedMedicinesList)
+            medicinesListView.emptyView = findViewById(R.id.nothing_box)
+            nothing_box.text = "Ciaociao"
         } else {
             displayMedicines(outputList)
         }

@@ -80,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
     private fun checkUserOnLocalDB(userId: String) {
         if (LocalDatabase.readUser() == null) {
             val databaseReference = Firebase.database.reference
-            databaseReference.child(PersonalInfoActivity.PATH_USERS).child(userId)
+            databaseReference.child("users").child(userId)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         LocalDatabase.saveUser(User.fromMap(p0.value as Map<String, String>))

@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.pills
+package com.pillskeeper.activity.medicine
 
 
 import android.Manifest
@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.pills.reminder.ReminderActivity
+import com.pillskeeper.activity.medicine.reminder.ReminderActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
@@ -198,17 +198,17 @@ class PillsFormActivity : AppCompatActivity() {
 
         if (editTextNameMed.text.toString().toLowerCase(Locale.ROOT) == "") {
             validity = false
-            Utils.colorEditText(editTextNameMed)
+            Utils.errorEditText(editTextNameMed)
         }
 
         if (editTextTotQuantity.text.toString().toFloatOrNull() == null) {
             validity = false
-            Utils.colorEditText(editTextTotQuantity)
+            Utils.errorEditText(editTextTotQuantity)
         }
 
         if (editTextRemQuantity.text.toString().toFloatOrNull() == null) {
             validity = false
-            Utils.colorEditText(editTextRemQuantity)
+            Utils.errorEditText(editTextRemQuantity)
         }
 
         return validity

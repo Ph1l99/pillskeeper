@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.pills.reminder.AdvancedInfoReminderActivity">
+    tools:context=".activity.medicine.reminder.AdvancedInfoReminderActivity">
 
     <Spinner
         android:id="@+id/spinnerPause"

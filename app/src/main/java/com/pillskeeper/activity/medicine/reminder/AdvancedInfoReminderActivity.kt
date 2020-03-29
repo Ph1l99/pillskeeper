@@ -1,10 +1,10 @@
-package com.pillskeeper.activity.pills.reminder
+package com.pillskeeper.activity.medicine.reminder
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import kotlinx.android.synthetic.main.activity_advanced_info_reminder.*
 

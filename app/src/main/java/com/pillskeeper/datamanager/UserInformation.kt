@@ -10,7 +10,7 @@ object UserInformation {
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
     var appointments: LinkedList<Appointment> = LocalDatabase.readAppointmentList()
-    var user:User = LocalDatabase.readUser()
+    var user: User = LocalDatabase.readUser()
     lateinit var context: Context
 
     /*******  GET FUNCTION   *******/

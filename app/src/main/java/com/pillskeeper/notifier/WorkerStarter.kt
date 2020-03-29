@@ -56,7 +56,7 @@ class WorkerStarter : BroadcastReceiver() {
 
                 Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - ora attuale: ${Date()}")
                 for(int in pendingIntent) {
-                    triggerCal.set(Calendar.MINUTE,triggerCal.get(Calendar.MINUTE) + 15)
+
                     if (Build.VERSION.SDK_INT >= 23)
                         alarmManager.setExactAndAllowWhileIdle(
                             AlarmManager.RTC_WAKEUP,
@@ -69,6 +69,7 @@ class WorkerStarter : BroadcastReceiver() {
                             triggerCal.timeInMillis,
                             int
                         )
+                    triggerCal.set(Calendar.MINUTE,triggerCal.get(Calendar.MINUTE) + 15)
                     Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Timer " +
                             "settato alle ${triggerCal.time}")
                 }

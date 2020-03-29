@@ -33,8 +33,8 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login() {
         if (emailLogin.text.toString().isEmpty() || passwordLogin.text.toString().isEmpty()) {
-            Utils.colorEditText(emailLogin)
-            Utils.colorEditText(passwordLogin)
+            Utils.errorEditText(emailLogin)
+            Utils.errorEditText(passwordLogin)
             Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()
         } else {
             FirebaseAuth.getInstance()
@@ -47,8 +47,8 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(Intent(this, MainActivity::class.java))
                         finish()
                     } else {
-                        Utils.colorEditText(emailLogin)
-                        Utils.colorEditText(passwordLogin)
+                        Utils.errorEditText(emailLogin)
+                        Utils.errorEditText(passwordLogin)
                         Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()
                     }
                 }

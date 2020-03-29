@@ -73,13 +73,13 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
         var updateAuth = false
         if (!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
             isValidInfo = false
-            Utils.colorEditText(editTextName)
-            Utils.colorEditText(editTextSurname)
+            Utils.errorEditText(editTextName)
+            Utils.errorEditText(editTextSurname)
         }
         if (editTextEmail.text.toString().isNotEmpty()) {
             if (!Utils.checkEmail(editTextEmail.text.toString())) {
                 isValidInfo = false
-                Utils.colorEditText(editTextEmail)
+                Utils.errorEditText(editTextEmail)
             }
         }
         //TODO scrivere a db le info cambbiate

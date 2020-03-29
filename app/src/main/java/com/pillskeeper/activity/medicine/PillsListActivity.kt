@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.pills
+package com.pillskeeper.activity.medicine
 
 import android.app.Activity
 import android.content.Intent

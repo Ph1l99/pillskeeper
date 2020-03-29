@@ -1,24 +1,18 @@
-package com.pillskeeper.activity.pills
+package com.pillskeeper.activity.medicine
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.pillskeeper.R
-import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_text_reader.*
 
 class TextReaderActivity : AppCompatActivity() {

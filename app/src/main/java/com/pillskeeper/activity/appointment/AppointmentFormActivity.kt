@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
-import com.pillskeeper.activity.pills.reminder.ReminderActivity
+import com.pillskeeper.activity.medicine.reminder.ReminderActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
@@ -92,20 +92,13 @@ class AppointmentFormActivity : AppCompatActivity() {
         var result = true
 
         if(appointmentNameTV.text.toString().isEmpty()){
-            Utils.colorEditText(appointmentNameTV)
-            result= false
+            Utils.errorEditText(appointmentNameTV)
+            result = false
         }
 
-        if(dateSelected != null){
-            val calCurrent = Calendar.getInstance()
-            val calSelected = Calendar.getInstance()
-            calCurrent.time = Date(System.currentTimeMillis())
-            calSelected.time = dateSelected
-            if(calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(Calendar.MONTH) > calSelected.get(Calendar.MONTH) ||
-                calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)){
-                Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
+        if(dateSelected != null) {
+            if (!Utils.checkDate(dateSelected!!, this))
                 result = false
-            }
         } else {
             Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
             result = false
@@ -115,7 +108,7 @@ class AppointmentFormActivity : AppCompatActivity() {
     }
 
     private fun resetEditText(){
-        Utils.colorEditText(appointmentNameTV,false)
+        Utils.validEditText(appointmentNameTV)
     }
 
     private fun initSpinner(){

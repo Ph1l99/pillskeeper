@@ -30,7 +30,11 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         val outputList = LinkedList(list.filter {
             it.remainingPills <= MINIMUM_PILLS
         })
-        displayMedicines(outputList)
+        if (outputList.isEmpty()) {
+            //TODO fare qualcosa
+        } else {
+            displayMedicines(outputList)
+        }
         return outputList
     }
 

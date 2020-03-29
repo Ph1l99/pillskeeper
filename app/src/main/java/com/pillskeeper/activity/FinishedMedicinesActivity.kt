@@ -34,7 +34,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         if (outputList.isEmpty()) {
             medicinesListView = findViewById(R.id.finishedMedicinesList)
             medicinesListView.emptyView = findViewById(R.id.nothing_box)
-            nothing_box.text = "Ciaociao"
+            nothing_box.text = R.string.nothingToDoHere.toString()
         } else {
             displayMedicines(outputList)
         }

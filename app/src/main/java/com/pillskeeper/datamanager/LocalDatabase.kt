@@ -35,20 +35,20 @@ object LocalDatabase : LocalDatabaseInterface {
     /*  READ Function   */
 
     override fun readUser(): User? {
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: readUser() - Started")
 
         val userString: String? = sharedPref?.getString(LocalDbKeyEnum.USER.toString(), null)
 
         return if (userString.isNullOrEmpty()) {
             Log.i(
                 Log.DEBUG.toString(),
-                "LocalDatabase: readUsername() - Ended - Username empty or null"
+                "LocalDatabase: readUser() - Ended - Username empty or null"
             )
             null
         } else {
             Log.i(
                 Log.DEBUG.toString(),
-                "LocalDatabase: readUsername() - Ended - Username full + $userString"
+                "LocalDatabase: readUser() - Ended"
             )
             Gson().fromJson(userString, User::class.java)
         }
@@ -102,9 +102,9 @@ object LocalDatabase : LocalDatabaseInterface {
     /*  SAVE Function   */
 
     override fun saveUser(user: User) {
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUser() - Started")
         saveValue(LocalDbKeyEnum.USER.toString(), user)
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUser() - Started")
     }
 
     override fun saveFriendList() {

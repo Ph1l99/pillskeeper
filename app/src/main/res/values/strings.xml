@@ -80,6 +80,7 @@
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona Una data:</string>
+    <string name="nothingToDoHere">Nessun risultato trovato!</string>
 
     <!--Location Activity-->
     <string name="label">Assicurati di avere il GPS attivo e seleziona CERCA</string>

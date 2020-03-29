@@ -18,15 +18,9 @@ interface LocalDatabaseInterface {
 
     fun saveUser(user: User)
 
-    fun saveFriendList(friends: LinkedList<Friend>)
-
     fun saveFriendList()
 
-    fun saveMedicineList(medicine: LinkedList<LocalMedicine>)
-
     fun saveMedicineList()
-
-    fun saveAppointmentList(appointments: LinkedList<Appointment>)
 
     fun saveAppointmentList()
 

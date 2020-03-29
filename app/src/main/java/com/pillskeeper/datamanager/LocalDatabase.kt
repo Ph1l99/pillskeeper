@@ -97,14 +97,6 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
     }
 
-    override fun saveFriendList(friends: LinkedList<Friend>){
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
-
-        saveValue(LocalDbKeyEnum.FRIENDLIST.toString(),friends)
-
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
-    }
-
     override fun saveFriendList(){
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
 
@@ -113,26 +105,10 @@ object LocalDatabase : LocalDatabaseInterface{
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
-    override fun saveMedicineList(medicine: LinkedList<LocalMedicine>) {
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
-
-        saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),medicine)
-
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
-    }
-
     override fun saveMedicineList() {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(),UserInformation.medicines)
-
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
-    }
-
-    override fun saveAppointmentList(appointments: LinkedList<Appointment>){
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
-
-        saveValue(LocalDbKeyEnum.APPOINTMENTLIST.toString(),appointments)
 
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }

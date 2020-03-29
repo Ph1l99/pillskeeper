@@ -1,14 +1,13 @@
 package com.pillskeeper.notifier
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
-import androidx.work.Constraints
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
-import java.util.concurrent.TimeUnit
+import java.util.*
 
 
 class WorkerStarter : BroadcastReceiver() {
@@ -17,62 +16,63 @@ class WorkerStarter : BroadcastReceiver() {
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
 
         if (intent != null)
-            if(intent.action == Intent.ACTION_BOOT_COMPLETED)
-                startNotifierThread(context)
+            if(intent.action == RESTART_ALARM_ACTION || intent.action == Intent.ACTION_BOOT_COMPLETED){
+                startNotifier(context)
+                WorkerNotifier.showNotification("Test","Ripartenza nuovo ciclo")
+            }
+            else if (intent.action == START_ALARM_ACTION) {
+                WorkerNotifier.context = context!!
+                WorkerNotifier.showNotification("ciao","ciao")
+            }
 
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Service started")
     }
 
     companion object {
-        fun startNotifierThread(context: Context?) {
+
+        const val RESTART_ALARM_ACTION = "RestartAlarmAction"
+        private const val START_ALARM_ACTION = "StartAlarmAction"
+
+        fun startNotifier(context: Context?) {
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Started")
 
             if (context != null) {
-                /*if (!isJobServiceOn(context)) {
-                val mComponentName = context?.let {
-                    ComponentName(it, WorkerNotifier::class.java)
+
+                val alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+                val intent = Intent(context,WorkerStarter::class.java)
+                intent.action = START_ALARM_ACTION
+
+                val intentR = Intent(context,WorkerStarter::class.java)
+                intentR.action = RESTART_ALARM_ACTION
+
+                val pendingIntent: LinkedList<PendingIntent> = LinkedList()
+                pendingIntent.add(PendingIntent.getBroadcast(context,1, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                pendingIntent.add(PendingIntent.getBroadcast(context,2, intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                pendingIntent.add(PendingIntent.getBroadcast(context,3, intentR, PendingIntent.FLAG_UPDATE_CURRENT))
+
+                val triggerCal = Calendar.getInstance()
+                triggerCal.time = Date()
+
+                Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - ora attuale: ${Date()}")
+                for(int in pendingIntent) {
+                    triggerCal.set(Calendar.MINUTE,triggerCal.get(Calendar.MINUTE) + 5)
+                    if (Build.VERSION.SDK_INT >= 23)
+                        alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            triggerCal.timeInMillis,
+                            int
+                        )
+                    else
+                        alarmManager.setExact(
+                            AlarmManager.RTC_WAKEUP,
+                            triggerCal.timeInMillis,
+                            int
+                        )
+                    Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Timer " +
+                            "settato alle ${triggerCal.time}")
                 }
-
-                //Now create a JobInfo and give
-                val jobInfo = mComponentName?.let {
-                    JobInfo.Builder(WorkerNotifier.JOB_NOTIFIER_ID, it)
-                        .setPeriodic(WorkerNotifier.TIME_SERVICE).build()
-                }
-
-                val mScheduler =
-                    context?.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-
-                if (jobInfo?.let { mScheduler.schedule(it) } == JobScheduler.RESULT_SUCCESS) {
-                    WorkerNotifier().showNotification(
-                        "Servizio schedulato!" + mScheduler.allPendingJobs[0].intervalMillis,
-                        "partitooooo vedremo tra 15 minuti"
-                    )//todo remove
-                    Log.i(Log.DEBUG.toString(), "ALL IS FINEEEEEEEEEEEEEEEEEE")
-                } else {
-                    Log.i(Log.DEBUG.toString(), "NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-                }
-
-                println(mScheduler.allPendingJobs[0].isPeriodic)
-            }*/
-
-                val constraints = Constraints.Builder()
-                    .setRequiresDeviceIdle(false)
-                    .setRequiresBatteryNotLow(false)
-                    .setRequiresCharging(false)
-                    .setRequiresStorageNotLow(false)
-                    .build()
-
-
-                val periodicReq = PeriodicWorkRequest.Builder(
-                    WorkerNotifier::class.java,
-                    PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS, TimeUnit.MILLISECONDS
-                ).setConstraints(constraints).build()
-
-                WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-                    "notifier",
-                    ExistingPeriodicWorkPolicy.KEEP,
-                    periodicReq)
-                Log.i(Log.DEBUG.toString(), WorkManager.getInstance(context).getWorkInfoById(periodicReq.id).toString())
+                Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Timer Settati")
             }
             Log.i(Log.DEBUG.toString(), "MainActivity: startNotifierThread() - Ended")
         }

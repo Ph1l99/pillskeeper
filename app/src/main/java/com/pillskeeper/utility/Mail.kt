@@ -9,9 +9,9 @@ data class Mail(var mailto: String, var mailsubject: String, var mailBody: Strin
 
     companion object {
         fun composeMail(medicine: RemoteMedicine, user: User, friend: Friend): Mail? {
-            var msubject: String = R.string.mailsubject.toString() + medicine.name
-            var mtext: String = R.string.mailtext.toString() + "aggiungere le info della medicina"
-            return friend.email?.let { Mail(it, msubject, mtext) }
+            val mSubject: String = R.string.mailsubject.toString() + medicine.name
+            val mText: String = R.string.mailtext.toString() + "aggiungere le info della medicina"
+            return friend.email?.let { Mail(it, mSubject, mText) }
         }
     }
 }

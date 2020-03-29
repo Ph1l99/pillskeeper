@@ -1,27 +1,20 @@
 package com.pillskeeper.activity
 
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.data.*
-import com.pillskeeper.datamanager.DatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
@@ -32,7 +25,6 @@ import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.nav_header.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -80,7 +72,7 @@ class MainActivity : AppCompatActivity() {
             return@setOnItemLongClickListener true
         }
 
-        WorkerStarter.startNotifierThread(this)
+        WorkerStarter.startNotifier(this)
     }
 
     private fun funTest() {
@@ -165,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             Appointment("Visita Urologo4", 15, 8, Date(), "")
         )
 
-        LocalDatabase.saveMedicineList(UserInformation.medicines)
+        LocalDatabase.saveMedicineList()
 
     }
 
@@ -181,7 +173,7 @@ class MainActivity : AppCompatActivity() {
             User("1234", "filippo", "ciao", "filippo.ciao@ciao.com"),
             Friend("friend01", "friend02", null, "pippo.coglio@gmail.com", RelationEnum.Doctor)
         )
-        var i = Intent(Intent.ACTION_SEND)
+        val i = Intent(Intent.ACTION_SEND)
 
         if (completeMail != null) {
             i.type = "message/rfc822"
@@ -202,7 +194,7 @@ class MainActivity : AppCompatActivity() {
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        //appointmentListMain.adapter =           ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        appointmentListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         reminderListSorted = getSortedListReminders(filterDate)

@@ -19,50 +19,50 @@ class WorkerNotifier(context: Context, workerParams: WorkerParameters) : Worker(
         WorkerNotifier.context = context
     }
 
-    companion object{
+    companion object {
         lateinit var context: Context
-    }
 
-    private fun showNotification(title: String, text: String) {
-        /*val intent = Intent(context, MainActivity::class.java)
+
+        fun showNotification(title: String, text: String) {
+            /*val intent = Intent(context, MainActivity::class.java)
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     val pendingIntent = PendingIntent.getActivity(
         context, 0, intent,
         PendingIntent.FLAG_ONE_SHOT
     )*/
-        createNotificationChannel()
+            createNotificationChannel()
 
-        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(context)
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(title)
-            .setContentText("$text ${Date()}")
-            .setAutoCancel(false)
-            .setSound(soundUri)
-        //.setContentIntent(pendingIntent)
+            val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val notificationBuilder = NotificationCompat.Builder(context)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText("$text - ${Date()}")
+                .setAutoCancel(false)
+                .setSound(soundUri)
+            //.setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(context, NotificationManager::class.java)
-        val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
-        notificationManager?.notify(id, notificationBuilder.build())
-    }
+            val notificationManager = getSystemService(context, NotificationManager::class.java)
+            val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
+            notificationManager?.notify(id, notificationBuilder.build())
+        }
 
-    private fun createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "caneee"
-            val descriptionText = "descrizioneeee"
-            val importance = NotificationManager.IMPORTANCE_HIGH//IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(3.toString(), name, importance).apply {
-                description = descriptionText
-                lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+        private fun createNotificationChannel() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val name = "caneee"
+                val descriptionText = "descrizioneeee"
+                val importance = NotificationManager.IMPORTANCE_HIGH//IMPORTANCE_DEFAULT
+                val channel = NotificationChannel(3.toString(), name, importance).apply {
+                    description = descriptionText
+                    lockscreenVisibility = Notification.VISIBILITY_PUBLIC
+                }
+                val notificationManager = getSystemService(context, NotificationManager::class.java)
+                notificationManager?.createNotificationChannel(channel)
             }
-            val notificationManager = getSystemService(context,NotificationManager::class.java)
-            notificationManager?.createNotificationChannel(channel)
         }
     }
 
     override fun doWork(): Result {
         showNotification("ciao","ciao")
-
         return Result.success()
     }
 

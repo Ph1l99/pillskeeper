@@ -75,11 +75,6 @@ class PillsFormActivity : AppCompatActivity() {
                     REQUEST_CAMERA_PERMISSION_ID
                 )
             }
-            //TODO credo sia da cancellare visto che già scritto prima uguale
-            /*buttonCamera.setOnClickListener {
-                val intent = Intent(this, TextReaderActivity::class.java)
-                startActivityForResult(intent, CAMERA_REQUEST)
-            }*/
         }
 
         buttonDenyMed.setOnClickListener {
@@ -105,8 +100,8 @@ class PillsFormActivity : AppCompatActivity() {
                     isEditing = !isEditing
                     setAllEnable(true)
                     initSpinner()
-                    buttonDenyMed.text = "Annulla"
-                    buttonConfirmMed.text = "Salva"
+                    buttonDenyMed.text = getText(R.string.abortButton)
+                    buttonConfirmMed.text = getText(R.string.saveButton)
                 }
             }
         }

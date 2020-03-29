@@ -82,6 +82,7 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
                 Utils.colorEditText(editTextEmail)
             }
         }
+        //TODO scrivere a db le info cambbiate
         if (isValidInfo) {
             if (auth.currentUser?.email != editTextEmail.text.toString()) {
                 updateAuth = true

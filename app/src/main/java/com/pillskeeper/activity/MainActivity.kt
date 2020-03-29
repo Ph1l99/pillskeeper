@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
 

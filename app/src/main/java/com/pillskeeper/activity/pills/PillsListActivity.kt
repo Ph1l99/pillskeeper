@@ -44,7 +44,6 @@ class PillsListActivity : AppCompatActivity() {
 
         //Listeners
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
-            //TODO scrivere cosa fare sul click degli itemssss
             if (position == 0) {
                 val it = Intent(this, MedicinesListActivity::class.java)
                 startActivityForResult(it, 0)

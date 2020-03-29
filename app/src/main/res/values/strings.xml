@@ -26,6 +26,7 @@
     <string name="editButton">Modifica</string>
     <string name="abortButton">Annulla</string>
     <string name="closeButton">Chiudi</string>
+    <string name="saveButton">Salva</string>
 
 
     <!--MedicinesListActivity-->

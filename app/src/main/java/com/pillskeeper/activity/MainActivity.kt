@@ -11,6 +11,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
@@ -27,6 +29,7 @@ import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -45,7 +48,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
         toolbar = findViewById(R.id.toolbar)
@@ -55,7 +57,6 @@ class MainActivity : AppCompatActivity() {
 
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
-        DatabaseManager.obtainRemoteDatabase()
 
         Utils.stdLayout = EditText(this).background
 

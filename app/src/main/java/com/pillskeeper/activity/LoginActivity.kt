@@ -21,6 +21,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
+        emailLogin.requestFocus()
+
         checkLogin()
 
         signupButton.setOnClickListener {

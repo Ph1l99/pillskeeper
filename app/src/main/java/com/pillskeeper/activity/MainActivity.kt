@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         if(user == null){
             username.text = "Utente non settato!!!"
         } else {
-            username.text = "Utente dovrebbe essere settato"
+            username.text = "Diocane"
         }
 
         //TODO DEBUG - to be removed

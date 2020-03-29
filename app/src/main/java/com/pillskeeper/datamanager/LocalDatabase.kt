@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.User
 import com.pillskeeper.enums.LocalDbKeyEnum
 import com.pillskeeper.interfaces.LocalDatabaseInterface
 import java.util.*
@@ -33,17 +34,16 @@ object LocalDatabase : LocalDatabaseInterface{
 
     /*  READ Function   */
 
-    override fun readUsername(): String? {
+    override fun readUser(): User {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Started")
 
-        val username: String? = sharedPref?.getString(LocalDbKeyEnum.USERNAME.toString(), null)
-
-        if(username.isNullOrEmpty())
+        val userString: String? = sharedPref?.getString(LocalDbKeyEnum.USER.toString(), null)
+        if(userString.isNullOrEmpty())
             Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username empty or null")
         else
-            Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username full + $username")
+            Log.i(Log.DEBUG.toString(), "LocalDatabase: readUsername() - Ended - Username full + $userString")
 
-        return username
+        return Gson().fromJson(userString, User::class.java)
     }
 
     override fun readFriendList(): LinkedList<Friend> {
@@ -91,10 +91,10 @@ object LocalDatabase : LocalDatabaseInterface{
 
     /*  SAVE Function   */
 
-    override fun saveUsername(username: String){
+    override fun saveUser(user: User){
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
 
-        saveValue(LocalDbKeyEnum.USERNAME.toString(), username)
+        saveValue(LocalDbKeyEnum.USER.toString(), user)
 
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUsername() - Started")
     }

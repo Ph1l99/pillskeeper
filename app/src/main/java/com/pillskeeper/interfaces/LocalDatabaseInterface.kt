@@ -3,11 +3,12 @@ package com.pillskeeper.interfaces
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.User
 import java.util.*
 
 interface LocalDatabaseInterface {
 
-    fun readUsername(): String?
+    fun readUser(): User
 
     fun readFriendList(): LinkedList<Friend>
 
@@ -15,7 +16,7 @@ interface LocalDatabaseInterface {
 
     fun readAppointmentList(): LinkedList<Appointment>
 
-    fun saveUsername(username: String)
+    fun saveUser(user: User)
 
     fun saveFriendList(friends: LinkedList<Friend>)
 

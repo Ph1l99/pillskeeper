@@ -2,10 +2,7 @@ package com.pillskeeper.datamanager
 
 import android.content.Context
 import android.util.Log
-import com.pillskeeper.data.Appointment
-import com.pillskeeper.data.Friend
-import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.data.*
 import java.util.*
 
 object UserInformation {
@@ -13,14 +10,14 @@ object UserInformation {
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
     var appointments: LinkedList<Appointment> = LocalDatabase.readAppointmentList()
-
+    var user:User = LocalDatabase.readUser()
     lateinit var context: Context
 
     /*******  GET FUNCTION   *******/
 
     @Synchronized fun getSpecificMedicine(name: String) : LocalMedicine?{
         Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
-        
+
         medicines.forEach {
             entry -> if (entry.name == name){
                 Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Ended - Medicine found")

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.TextView
@@ -39,7 +40,7 @@ class TextReaderActivity : AppCompatActivity() {
         } else {
             val cameraSource = CameraSource.Builder(applicationContext, textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
-                .setRequestedPreviewSize(1280, 1024) //TODO Controllare se li tocchi si sputtanano le cose non si sa il perche' ma va be
+                .setRequestedPreviewSize(1280, 1024)
                 .setRequestedFps(2.0f)
                 .setAutoFocusEnabled(true)
                 .build()
@@ -87,7 +88,8 @@ class TextReaderActivity : AppCompatActivity() {
                                     stringBuilder.append(item.value)
                                     stringBuilder.append("\n")
                                 }
-                                textView.text = stringBuilder.toString()
+
+                                textView.text = formatText(stringBuilder.toString())
                             }
                         }
                     }
@@ -102,5 +104,44 @@ class TextReaderActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun formatText(str: String): String{
+        var result: String = str
+        result.contains('|', false)
+        result.replace('|', '\b')
+
+        return result
+        /*
+        for(c in str){
+             when (c) {
+                '\\' -> Log.d("TextReader", "prova format")
+                '|' -> Log.d("TextReader", "prova format")
+                '!' -> Log.d("TextReader", "prova format")
+                '"' -> Log.d("TextReader", "prova format")
+                '£' -> Log.d("TextReader", "prova format")
+                '$' -> Log.d("TextReader", "prova format")
+                '%' -> Log.d("TextReader", "prova format")
+                '&' -> Log.d("TextReader", "prova format")
+                '/' -> Log.d("TextReader", "prova format")
+                '(' -> Log.d("TextReader", "prova format")
+                ')' -> Log.d("TextReader", "prova format")
+                '=' -> Log.d("TextReader", "prova format")
+                '?' -> Log.d("TextReader", "prova format")
+                '^' -> Log.d("TextReader", "prova format")
+                '[' -> Log.d("TextReader", "prova format")
+                ']' -> Log.d("TextReader", "prova format")
+                '§' -> Log.d("TextReader", "prova format")
+                '#' -> Log.d("TextReader", "prova format")
+                '_' -> Log.d("TextReader", "prova format")
+                '<' -> Log.d("TextReader", "prova format")
+                '>' -> Log.d("TextReader", "prova format")
+                '°' -> Log.d("TextReader", "prova format")
+                'ç' -> str.
+                 else ->
+            }
+        }
+
+         */
     }
 }

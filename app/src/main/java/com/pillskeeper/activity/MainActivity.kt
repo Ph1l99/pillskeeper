@@ -4,13 +4,18 @@ package com.pillskeeper.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
@@ -27,6 +32,7 @@ import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -61,9 +67,19 @@ class MainActivity : AppCompatActivity() {
 
         val menu = Menu(toolbar, drawerLayout, navView, this)
         menu.createMenu()
+        val nav: NavigationView = findViewById(R.id.nav_view)
+        val header: View = nav.getHeaderView(0)
+        var username = header.findViewById<TextView>(R.id.username_text_view_menu)
+        val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
+        //TODO FILIPPO SISTEMA QUESTO
+        if(user == null){
+            username.text = "Utente non settato"
+        } else {
+            username.text = "Utente dovrebbe essere settato"
+        }
 
         //TODO DEBUG - to be removed
-        funTest()
+            funTest()
         sendMailTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->

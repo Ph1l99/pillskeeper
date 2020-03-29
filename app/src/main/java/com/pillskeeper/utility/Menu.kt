@@ -18,6 +18,7 @@ import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.pills.PillsListActivity
+import kotlinx.android.synthetic.main.nav_header.*
 
 class Menu(
     toolbar: Toolbar,
@@ -34,6 +35,7 @@ class Menu(
 
 
     fun createMenu() {
+
         val toggle = ActionBarDrawerToggle(
             activity, drawerLayout, toolbar, 0, 0
         )

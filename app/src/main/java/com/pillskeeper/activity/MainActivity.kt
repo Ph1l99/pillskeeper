@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         val user: FirebaseUser? = FirebaseAuth.getInstance().currentUser
         //TODO FILIPPO SISTEMA QUESTO
         if(user == null){
-            username.text = "Utente non settato"
+            username.text = "Utente non settato!!!"
         } else {
             username.text = "Utente dovrebbe essere settato"
         }

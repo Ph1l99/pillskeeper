@@ -53,7 +53,7 @@ class TextReaderActivity : AppCompatActivity() {
                     width: Int,
                     height: Int
                 ) {
-                    //questo metodo non deve fare nulla e va bene così
+                    //TODO questo metodo non deve fare nulla e va bene così
                 }
 
                 override fun surfaceDestroyed(holder: SurfaceHolder?) {

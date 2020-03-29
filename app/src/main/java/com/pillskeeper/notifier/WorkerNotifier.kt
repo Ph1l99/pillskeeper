@@ -34,7 +34,7 @@ class WorkerNotifier(context: Context, workerParams: WorkerParameters) : Worker(
 
             val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val notificationBuilder = NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.pills_icon)
                 .setContentTitle(title)
                 .setContentText("$text - ${Date()}")
                 .setAutoCancel(false)

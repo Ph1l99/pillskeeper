@@ -31,9 +31,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        if (emailLogin.text.toString().isEmpty() || passwordLogin.text.toString()
-                .isEmpty()
-        ) {
+        if (emailLogin.text.toString().isEmpty() || passwordLogin.text.toString().isEmpty()) {
             Utils.colorEditText(emailLogin)
             Utils.colorEditText(passwordLogin)
             Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()

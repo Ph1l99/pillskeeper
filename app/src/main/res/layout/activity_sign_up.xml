@@ -6,61 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".activity.SignUp">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="133dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/pills_icon"
+        app:layout_constraintEnd_toEndOf="@+id/nameField"
+        app:layout_constraintStart_toStartOf="@+id/nameField"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/signupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:onClick="signUp"
+        android:layout_marginStart="154dp"
+        android:layout_marginEnd="155dp"
         android:text="@string/signup_button"
-        app:layout_constraintEnd_toEndOf="@+id/passwordField"
-        app:layout_constraintStart_toStartOf="@+id/mailField"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <EditText
         android:id="@+id/mailField"
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:hint="@string/signup_email"
 
-        app:layout_constraintBottom_toBottomOf="@+id/passwordField"
-        app:layout_constraintEnd_toEndOf="@+id/nameField"
-        app:layout_constraintStart_toStartOf="@+id/nameField"
-        app:layout_constraintTop_toTopOf="@+id/passwordField" />
+        android:hint="@string/signup_email"
+        app:layout_constraintBottom_toTopOf="@+id/passwordField"
+        app:layout_constraintEnd_toEndOf="@+id/passwordField"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/passwordField"
+        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
 
     <EditText
         android:id="@+id/nameField"
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="70dp"
         android:hint="@string/signup_name"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/surnameField"
+        app:layout_constraintEnd_toEndOf="@+id/surnameField"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/surnameField"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/surnameField"
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="48dp"
         android:hint="@string/signup_surname"
-        app:layout_constraintBottom_toBottomOf="@+id/nameField"
-        app:layout_constraintStart_toEndOf="@+id/nameField"
-        app:layout_constraintTop_toTopOf="@+id/nameField"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/mailField"
+        app:layout_constraintEnd_toEndOf="@+id/mailField"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/mailField"
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/passwordField"
-        android:layout_width="wrap_content"
+        android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="60dp"
         android:hint="@string/signup_password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/surnameField"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/surnameField"
-        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
+        app:layout_constraintBottom_toTopOf="@+id/signupButton"
+        app:layout_constraintEnd_toEndOf="@+id/signupButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/signupButton"
+        app:layout_constraintTop_toBottomOf="@+id/mailField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

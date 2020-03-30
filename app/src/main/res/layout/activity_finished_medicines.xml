@@ -21,6 +21,8 @@
         android:id="@+id/nothing_box"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:gravity="center"
+        app:layout_constraintEnd_toStartOf="@+id/finishedMedicinesList"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

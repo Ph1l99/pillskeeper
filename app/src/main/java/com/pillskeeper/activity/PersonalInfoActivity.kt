@@ -13,6 +13,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_personal_info.*
 
@@ -90,31 +91,31 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
             if (updateAuth) {
                 auth.currentUser?.updateEmail(editTextEmail.text.toString())
                 auth.currentUser?.uid?.let {
-                    databaseReference.child(PATH_USERS).child(userId).setValue(
-                        User(
-                            it,
-                            editTextName.text.toString(),
-                            editTextSurname.text.toString(),
-                            editTextEmail.text.toString()
-                        )
+                    val userToBeWritten = User(
+                        it,
+                        editTextName.text.toString(),
+                        editTextSurname.text.toString(),
+                        editTextEmail.text.toString()
                     )
+                    databaseReference.child(PATH_USERS).child(userId).setValue(userToBeWritten)
+                    LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
                 auth.currentUser?.uid?.let {
-                    databaseReference.child(PATH_USERS).child(userId).setValue(
-                        User(
-                            it,
-                            editTextName.text.toString(),
-                            editTextSurname.text.toString(),
-                            editTextEmail.text.toString()
-                        )
+                    val userToBeWritten = User(
+                        it,
+                        editTextName.text.toString(),
+                        editTextSurname.text.toString(),
+                        editTextEmail.text.toString()
                     )
+                    databaseReference.child(PATH_USERS).child(userId).setValue(userToBeWritten)
+                    LocalDatabase.saveUser(userToBeWritten)
                 }
             }
-            dismiss()
         }
-
+        dismiss()
     }
+
 
     private fun displayUser(user: User) {
         editTextEmail.setText(user.email)

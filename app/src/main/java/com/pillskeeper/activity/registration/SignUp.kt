@@ -1,4 +1,4 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.registration
 
 import android.os.Bundle
 import android.widget.Toast

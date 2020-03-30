@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
 import com.pillskeeper.activity.LocationActivity
-import com.pillskeeper.activity.LoginActivity
+import com.pillskeeper.activity.registration.LoginActivity
 import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity

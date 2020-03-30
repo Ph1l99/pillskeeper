@@ -20,7 +20,7 @@
         <activity
             android:name=".activity.medicine.FinishedMedicinesActivity"
             android:label="@string/expiredMedicines" />
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.registration.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +55,7 @@
             android:label="@string/pillsListActivityTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.SignUp"
+            android:name=".activity.registration.SignUp"
             android:label="@string/singUpTitle" />
         <activity
             android:name=".activity.friend.FriendListActivity"

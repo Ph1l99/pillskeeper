@@ -1,4 +1,4 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.registration
 
 import android.content.Context
 import android.content.Intent
@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
+import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils

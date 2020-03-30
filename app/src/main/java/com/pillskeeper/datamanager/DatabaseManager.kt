@@ -42,49 +42,6 @@ object DatabaseManager {
         }
     }
 
-    /*
-     * Metodo che permette l'aggiunta di un nuovo utente al database Firebase
-     * @param user L'utente che deve essere aggiunto al database
-     * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
-
-    fun writeNewUser(user: User): Pair<ErrorTypeEnum, Boolean> {
-        Log.d(Log.DEBUG.toString(), "writeNewUser()-Started")
-        return if (getUser(user.userId) != null) {
-            Log.i(Log.DEBUG.toString(), "writeNewUser()-Obj exists")
-            Pair(ErrorTypeEnum.FIREBASE_OBJECT_ALREADY_EXISTS, false)
-        } else {
-            databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
-            Log.i(Log.DEBUG.toString(), "writeNewUser()-Ended")
-            Pair(ErrorTypeEnum.WRITING_COMPLETE, true)
-        }
-    }
-
-    /**
-     * Metodo per ottenere un User da DB condiviso
-     * @param userId La string che identifica univocamente l'utente
-     * @return User L'oggetto che rappresenta l'utente
-     */
-    private fun getUser(userId: String): User? {
-        Log.i(Log.DEBUG.toString(), "getUser()-Started")
-        var foundUser: User? = null
-        databaseReference.child(PATH_USERS).child(userId)
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    foundUser = getUserFromResultSet(p0.value as Map<String, String>)
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.i(
-                        Log.DEBUG.toString(),
-                        "getUser()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                    )
-                }
-            })
-        Log.i(Log.DEBUG.toString(), "getUser()-Ended")
-        return foundUser
-    }*/
-
-
     /**
      * Funzione per ottenere una medicina dato il suo ID
      * @param medicineId L'identificativo della medicina

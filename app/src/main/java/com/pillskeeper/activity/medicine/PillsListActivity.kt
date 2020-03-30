@@ -84,47 +84,4 @@ class PillsListActivity : AppCompatActivity() {
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray)
         pills_list.adapter = adapter
     }
-
-/*
-    private fun createMenu() {
-        //creo il menu
-
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
-
-        // username_text_view_menu.text = LocalDatabase.readUsername()+""
-    }
-
-
-    //metodo per il menu
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                //TODO aprire activity modifica profilo
-            }
-            R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
-            R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
-            R.id.nav_pharmacies -> {
-                Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_logout -> {
-                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
- */
-
-
 }

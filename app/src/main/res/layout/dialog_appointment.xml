@@ -6,51 +6,51 @@
     android:layout_margin="6dp">
 
     <TextView
-        android:id="@+id/appointmentTitleDeleteTV"
+        android:id="@+id/titleDeleteTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="3dp"
-        android:text="Cancellare Appuntamento?"
+        android:text=""
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/appointmentNameTitleTV"
+        android:id="@+id/nameTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:textStyle="bold"
         android:text=""
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/deleteAppoitConfirm"
-        app:layout_constraintStart_toStartOf="@+id/deleteAppoitDeny"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentTitleDeleteTV" />
+        app:layout_constraintEnd_toEndOf="@+id/deleteConfirm"
+        app:layout_constraintStart_toStartOf="@+id/deleteDeny"
+        app:layout_constraintTop_toBottomOf="@+id/titleDeleteTV" />
 
     <Button
-        android:id="@+id/deleteAppoitConfirm"
+        android:id="@+id/deleteConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/deleteButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/deleteAppoitDeny"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentNameTitleTV" />
+        app:layout_constraintStart_toEndOf="@+id/deleteDeny"
+        app:layout_constraintTop_toBottomOf="@+id/nameTitleTV" />
 
     <Button
-        android:id="@+id/deleteAppoitDeny"
+        android:id="@+id/deleteDeny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/abortButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAppoitConfirm"
+        app:layout_constraintEnd_toStartOf="@+id/deleteConfirm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appointmentNameTitleTV" />
+        app:layout_constraintTop_toBottomOf="@+id/nameTitleTV" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

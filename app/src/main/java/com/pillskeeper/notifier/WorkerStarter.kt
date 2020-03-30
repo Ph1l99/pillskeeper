@@ -19,8 +19,7 @@ class WorkerStarter : BroadcastReceiver() {
             if(intent.action == RESTART_ALARM_ACTION || intent.action == Intent.ACTION_BOOT_COMPLETED){
                 startNotifier(context)
                 WorkerNotifier.showNotification("Test","Ripartenza nuovo ciclo")
-            }
-            else if (intent.action == START_ALARM_ACTION) {
+            } else if (intent.action == START_ALARM_ACTION) {
                 WorkerNotifier.context = context!!
                 WorkerNotifier.showNotification("ciao","ciao")
             }
@@ -47,9 +46,9 @@ class WorkerStarter : BroadcastReceiver() {
                 intentR.action = RESTART_ALARM_ACTION
 
                 val pendingIntent: LinkedList<PendingIntent> = LinkedList()
-                pendingIntent.add(PendingIntent.getBroadcast(context,1, intent, PendingIntent.FLAG_UPDATE_CURRENT))
-                pendingIntent.add(PendingIntent.getBroadcast(context,2, intent, PendingIntent.FLAG_UPDATE_CURRENT))
-                pendingIntent.add(PendingIntent.getBroadcast(context,3, intentR, PendingIntent.FLAG_UPDATE_CURRENT))
+                pendingIntent.add(PendingIntent.getBroadcast(context,((Date().time / 1000L) % Int.MAX_VALUE).toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                pendingIntent.add(PendingIntent.getBroadcast(context,((Date().time / 999L) % Int.MAX_VALUE).toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT))
+                pendingIntent.add(PendingIntent.getBroadcast(context,((Date().time / 998L) % Int.MAX_VALUE).toInt(), intentR, PendingIntent.FLAG_UPDATE_CURRENT))
 
                 val triggerCal = Calendar.getInstance()
                 triggerCal.time = Date()

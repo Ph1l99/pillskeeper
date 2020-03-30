@@ -10,7 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_appointement_list.*
 
@@ -54,7 +56,11 @@ class AppointmentListActivity : AppCompatActivity() {
         }
 
         appointmentListView.setOnItemLongClickListener { _, _, position, _ ->
-            AppointmentDialog(this,UserInformation.appointments[position].name).show()
+            GenericDeleteDialog(
+                this,
+                UserInformation.appointments[position].name,
+                DialogModeEnum.DELETE_APPOINTMENT
+            ).show()
             return@setOnItemLongClickListener true
         }
     }

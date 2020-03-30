@@ -11,13 +11,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.activity.appointment.AppointmentDialog
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.data.*
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
+import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.enums.RelationEnum
 import com.pillskeeper.notifier.WorkerStarter
@@ -67,10 +67,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         appointmentListMain.setOnItemLongClickListener { _, _, position, _ ->
-            AppointmentDialog(this, appointmentListSorted[position].name).show()
+            GenericDeleteDialog(
+                this,
+                appointmentListSorted[position].name,
+                DialogModeEnum.DELETE_APPOINTMENT
+            ).show()
             return@setOnItemLongClickListener true
         }
 
+        //TODO surrund with check if ti already exist
         WorkerStarter.startNotifier(this)
     }
 

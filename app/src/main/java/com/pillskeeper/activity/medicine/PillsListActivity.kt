@@ -11,8 +11,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
@@ -46,12 +48,23 @@ class PillsListActivity : AppCompatActivity() {
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             if (position == 0) {
                 val it = Intent(this, MedicinesListActivity::class.java)
-                startActivityForResult(it, 0)
+                startActivity(it)
             } else {
                 val it = Intent(this, PillsFormActivity::class.java)
-                    .putExtra(PillsFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position])
-                startActivityForResult(it, 0)
+                    .putExtra(PillsFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
+                startActivity(it)
             }
+        }
+
+        pills_list.setOnItemLongClickListener { _, _, position, _ ->
+            if(position > 0)
+                GenericDeleteDialog(
+                    this,
+                    pillsArray[position - 1],
+                    DialogModeEnum.DELETE_MEDICINE
+                ).show()
+
+            return@setOnItemLongClickListener true
         }
 
 
@@ -67,8 +80,8 @@ class PillsListActivity : AppCompatActivity() {
         if (requestCode == MainActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val pillName: String = data!!.getStringExtra("pillName")
-                pillsArray.add(pillName)
-                adapter!!.notifyDataSetChanged()
+                /*pillsArray.add(pillName)
+                adapter!!.notifyDataSetChanged()*/
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -84,47 +97,4 @@ class PillsListActivity : AppCompatActivity() {
         adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray)
         pills_list.adapter = adapter
     }
-
-/*
-    private fun createMenu() {
-        //creo il menu
-
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navView = findViewById(R.id.nav_view)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout, toolbar, 0, 0
-        )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        navView.setNavigationItemSelectedListener(this)
-
-        // username_text_view_menu.text = LocalDatabase.readUsername()+""
-    }
-
-
-    //metodo per il menu
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_profile -> {
-                Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
-                //TODO aprire activity modifica profilo
-            }
-            R.id.nav_friends -> startActivity(Intent(this, FriendListActivity::class.java))
-            R.id.nav_medicines -> startActivity(Intent(this, PillsListActivity::class.java))
-            R.id.nav_pharmacies -> {
-                Toast.makeText(this, "Pharmacies clicked", Toast.LENGTH_SHORT).show()
-            }
-            R.id.nav_logout -> {
-                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show()
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
- */
-
-
 }

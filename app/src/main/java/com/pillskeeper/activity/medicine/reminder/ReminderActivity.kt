@@ -1,10 +1,16 @@
 package com.pillskeeper.activity.medicine.reminder
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
+import com.pillskeeper.activity.medicine.PillsFormActivity
+import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_reminder.*
 import java.util.*
@@ -17,7 +23,8 @@ class ReminderActivity : AppCompatActivity()  {
         val minutes: ArrayList<String> = arrayListOf("00", "15", "30", "45")
     }
 
-    private var dateSelected: Date? = null
+    private var isEditing = false
+    private var expDateSelected: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +34,6 @@ class ReminderActivity : AppCompatActivity()  {
 
         initSpinner()
 
-        buttonDeleteRem.setOnClickListener { finish() }
-
-        buttonConfirmRem.setOnClickListener {
-
-        }
 
 
         val year = cal.get(Calendar.YEAR)
@@ -50,25 +52,72 @@ class ReminderActivity : AppCompatActivity()  {
                 cal.set(Calendar.SECOND, 0)
                 cal.set(Calendar.MILLISECOND, 0)
 
-                dateSelected = cal.time
+                expDateSelected = cal.time
 
             }, year, month, day).show()
         }
 
+        buttonDeleteRem.setOnClickListener { finish() }
+
+        buttonConfirmRem.setOnClickListener {
+            addOrEditReminder()
+        }
     }
 
     private fun addOrEditReminder(){
+        val days: LinkedList<DaysEnum> = buildDaysArray()
 
+        if(checkValue(days)){
 
+            val cal = Calendar.getInstance()
+            cal.time = Date()
+            cal.set(Calendar.MINUTE,0)
+            cal.set(Calendar.SECOND,0)
+            cal.set(Calendar.MILLISECOND,0)
+            cal.set(Calendar.HOUR_OF_DAY,0)
 
+            val reminder = ReminderMedicine(
+                editTextQuantityRem.text.toString().toFloat(),
+                spinnerMinutesRem.selectedItem.toString().toInt(),
+                spinnerHoursRem.selectedItem.toString().toInt(),
+                cal.time,
+                days,
+                expDateSelected,
+                editTextAddNotesRem.text.toString()
+            )
+
+            val it = Intent(this, PillsFormActivity::class.java)
+            it.putExtra(PillsFormActivity.REMINDER, reminder)
+            setResult(Activity.RESULT_OK, it)
+            finish()
+        }
     }
 
-    private fun checkValue(): Boolean{
+    private fun buildDaysArray(): LinkedList<DaysEnum>{
+        val days: LinkedList<DaysEnum> = LinkedList()
+        if (checkBoxMonday.isChecked)
+            days.add(DaysEnum.MON)
+        if (checkBoxTuesday.isChecked)
+            days.add(DaysEnum.TUE)
+        if (checkBoxWednesday.isChecked)
+            days.add(DaysEnum.WED)
+        if (checkBoxThursday.isChecked)
+            days.add(DaysEnum.THU)
+        if (checkBoxFriday.isChecked)
+            days.add(DaysEnum.FRI)
+        if (checkBoxSaturday.isChecked)
+            days.add(DaysEnum.SAT)
+        if (checkBoxSunday.isChecked)
+            days.add(DaysEnum.SUN)
+        return days
+    }
+
+    private fun checkValue(days: LinkedList<DaysEnum>): Boolean{
         var result = true
 
 
-        if(dateSelected != null)
-            if (!Utils.checkDate(dateSelected!!, this))
+        if(expDateSelected != null)
+            if (!Utils.checkDate(expDateSelected!!, this))
                 result = false
 
 
@@ -77,7 +126,10 @@ class ReminderActivity : AppCompatActivity()  {
             Utils.errorEditText(editTextQuantityRem)
         }
 
-        //if (radioGroup)
+        if (days.size == 0){
+            result = false
+            Toast.makeText(this,"Perfavore selezionare almeno un giorno della settimana",Toast.LENGTH_LONG).show()
+        }
 
         return result
     }
@@ -87,12 +139,12 @@ class ReminderActivity : AppCompatActivity()  {
         val arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        spinnerHours.adapter = arrayAdapterHours
+        spinnerHoursRem.adapter = arrayAdapterHours
 
         val arrayAdapterMinutes = ArrayAdapter(this,android.R.layout.simple_spinner_item, minutes)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        spinnerMinutes.adapter = arrayAdapterMinutes
+        spinnerMinutesRem.adapter = arrayAdapterMinutes
     }
 
 }

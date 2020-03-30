@@ -85,7 +85,7 @@ object Utils {
     }
 
     fun insertNameMenu(view: NavigationView) {
-        var username = view.getHeaderView(0).findViewById<TextView>(R.id.username_text_view_menu)
+        val username = view.getHeaderView(0).findViewById<TextView>(R.id.username_text_view_menu)
         username.text = LocalDatabase.readUser()?.name
     }
 

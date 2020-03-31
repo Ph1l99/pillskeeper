@@ -30,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
 
         emailLogin.requestFocus()
 
-        checkLogin()
-
         signupButton.setOnClickListener {
             startActivity(Intent(this, SignUp::class.java))
         }
@@ -62,19 +60,6 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()
                     }
                 }
-        }
-    }
-
-    private fun checkLogin() {
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnSuccessListener {
-                if (it.token != null) {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-                    FirebaseAuth.getInstance().signOut()
-                }
-            }
         }
     }
 
@@ -115,9 +100,10 @@ class LoginActivity : AppCompatActivity() {
             return nwInfo.isConnected
         }
     }
-
+    /*
     override fun onResume() {
         super.onResume()
-        checkLogin()
+        //checkLogin()
     }
+     */
 }

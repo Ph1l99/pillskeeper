@@ -124,4 +124,6 @@
     <string name="login_activity">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
 
+    <!-- String for WelcomeActivity-->
+    <string name="welcome">Benvenuto!</string>
 </resources>

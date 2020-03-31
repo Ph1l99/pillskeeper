@@ -17,16 +17,17 @@
         android:roundIcon="@drawable/pills_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activity.medicine.FinishedMedicinesActivity"
-            android:label="@string/expiredMedicines" />
-        <activity android:name=".activity.registration.LoginActivity">
+        <activity android:name=".activity.WelcomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.medicine.FinishedMedicinesActivity"
+            android:label="@string/expiredMedicines" />
+        <activity android:name=".activity.registration.LoginActivity"> </activity>
         <activity
             android:name=".activity.PersonalInfoActivity"
             android:label="@string/user_settingsActivity" />

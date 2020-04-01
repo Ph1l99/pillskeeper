@@ -1,6 +1,7 @@
 package com.pillskeeper.datamanager
 
 import android.content.SharedPreferences
+import android.text.method.TextKeyListener.clear
 import android.util.Log
 import com.google.gson.Gson
 import com.pillskeeper.data.Appointment

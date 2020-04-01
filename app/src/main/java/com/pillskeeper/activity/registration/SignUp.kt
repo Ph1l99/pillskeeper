@@ -32,7 +32,7 @@ class SignUp : AppCompatActivity() {
 
     }
 
-    fun signUp() {
+    private fun signUp() {
         if (mailField.text.toString().isEmpty() || passwordField.text.toString()
                 .isEmpty() || nameField.text.toString()
                 .isEmpty() || surnameField.text.toString().isEmpty()

@@ -109,6 +109,7 @@ class PillsFormActivity : AppCompatActivity() {
     }
 
     private fun addOrEditMedicine(){
+        //TODO remote medicine
         if (checkValuesValidity()) {
             val result: Boolean
             val newMed = LocalMedicine(

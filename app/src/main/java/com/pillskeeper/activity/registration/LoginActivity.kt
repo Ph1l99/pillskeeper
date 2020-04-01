@@ -19,6 +19,10 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    companion object {
+        private const val PATH_USERS = "users"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -61,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
     private fun checkUserOnLocalDB(userId: String) {
         if (LocalDatabase.readUser() == null) {
             val databaseReference = Firebase.database.reference
-            databaseReference.child("users").child(userId)
+            databaseReference.child(PATH_USERS).child(userId)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         LocalDatabase.saveUser(User.fromMap(p0.value as Map<String, String>))

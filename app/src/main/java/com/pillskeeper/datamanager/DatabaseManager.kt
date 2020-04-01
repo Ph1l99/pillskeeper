@@ -18,14 +18,6 @@ object DatabaseManager {
     const val PATH_MEDICINES = "medicines"
 
     /**
-     * Metodo per ottenere il riferimento remoto del database
-     */
-    fun obtainRemoteDatabase(): DatabaseReference {
-        databaseReference = Firebase.database.reference
-        return databaseReference
-    }
-
-    /**
      * Metodo per la scrittura di una nuova medicina
      * @param medicine L'oggetto corrispondente alla medicina che si vuole inserire
      * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto

@@ -1,4 +1,4 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.registration
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.os.Bundle
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.registration.LoginActivity
+import com.pillskeeper.activity.MainActivity
 import com.pillskeeper.datamanager.LocalDatabase
 
 class WelcomeActivity : AppCompatActivity() {

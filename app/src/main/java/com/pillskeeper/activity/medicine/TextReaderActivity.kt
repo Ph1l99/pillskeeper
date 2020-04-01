@@ -17,6 +17,8 @@ import kotlinx.android.synthetic.main.activity_text_reader.*
 
 class TextReaderActivity : AppCompatActivity() {
 
+    val MAX_STRING_LENGTH: Int = 30
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_reader)
@@ -102,40 +104,28 @@ class TextReaderActivity : AppCompatActivity() {
 
     private fun formatText(str: String): String{
         var result: String = str
-        result.contains('|', false)
-        result.replace('|', '\b')
 
-        return result
-        /*
-        for(c in str){
-             when (c) {
-                '\\' -> Log.d("TextReader", "prova format")
-                '|' -> Log.d("TextReader", "prova format")
-                '!' -> Log.d("TextReader", "prova format")
-                '"' -> Log.d("TextReader", "prova format")
-                '£' -> Log.d("TextReader", "prova format")
-                '$' -> Log.d("TextReader", "prova format")
-                '%' -> Log.d("TextReader", "prova format")
-                '&' -> Log.d("TextReader", "prova format")
-                '/' -> Log.d("TextReader", "prova format")
-                '(' -> Log.d("TextReader", "prova format")
-                ')' -> Log.d("TextReader", "prova format")
-                '=' -> Log.d("TextReader", "prova format")
-                '?' -> Log.d("TextReader", "prova format")
-                '^' -> Log.d("TextReader", "prova format")
-                '[' -> Log.d("TextReader", "prova format")
-                ']' -> Log.d("TextReader", "prova format")
-                '§' -> Log.d("TextReader", "prova format")
-                '#' -> Log.d("TextReader", "prova format")
-                '_' -> Log.d("TextReader", "prova format")
-                '<' -> Log.d("TextReader", "prova format")
-                '>' -> Log.d("TextReader", "prova format")
-                '°' -> Log.d("TextReader", "prova format")
-                'ç' -> str.
-                 else ->
-            }
+        if(str.length > MAX_STRING_LENGTH) {
+            result = str.subSequence(0, MAX_STRING_LENGTH) as String
         }
 
-         */
+        /*ACCENTI*/
+
+        result = Regex("à").replace(result, "a")
+        result = Regex("è").replace(result, "e")
+        result = Regex("é").replace(result, "e")
+        result = Regex("ì").replace(result, "i")
+        result = Regex("ò").replace(result, "o")
+        result = Regex("ù").replace(result, "u")
+
+
+        /*CARATTERI SPECIALI*/
+
+        //result = Regex("$").replace(result, "s")
+        result = Regex("§").replace(result, "s")
+        result = Regex("ç").replace(result, "c")
+
+
+        return result.toLowerCase()
     }
 }

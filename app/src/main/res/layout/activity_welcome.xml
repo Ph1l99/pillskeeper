@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_gravity="center"
         app:srcCompat="@drawable/pills_icon" />
 
     <TextView
@@ -27,5 +28,6 @@
         android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
 </LinearLayout>

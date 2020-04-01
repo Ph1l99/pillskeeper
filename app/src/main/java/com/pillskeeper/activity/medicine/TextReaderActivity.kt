@@ -118,7 +118,6 @@ class TextReaderActivity : AppCompatActivity() {
         result = Regex("ò").replace(result, "o")
         result = Regex("ù").replace(result, "u")
 
-
         /*CARATTERI SPECIALI*/
 
         //result = Regex("$").replace(result, "s")

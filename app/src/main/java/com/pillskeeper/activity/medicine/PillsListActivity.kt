@@ -12,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.activity.GenericDeleteDialog
-import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
@@ -77,7 +77,7 @@ class PillsListActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == MainActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
+        if (requestCode == HomepageActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 val pillName: String = data!!.getStringExtra("pillName")
                 /*pillsArray.add(pillName)

@@ -27,7 +27,7 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class HomepageActivity : AppCompatActivity() {
 
     companion object {
         const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
         //TODO DEBUG - to be removed
-        funTest()
+        //funTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -143,22 +143,22 @@ class MainActivity : AppCompatActivity() {
         UserInformation.addNewReminderList("Aulin", reminders2)
 
         UserInformation.addNewAppointment(
-            Appointment("prelieo", 30, 20, Date(), "")
+            Appointment("prelieo", Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo", 15, 8, Date(), "")
+            Appointment("Visita Urologo", Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo1", 15, 8, Date(), "")
+            Appointment("Visita Urologo1", Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo2", 15, 8, Date(), "")
+            Appointment("Visita Urologo2", Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo3", 15, 8, Date(), "")
+            Appointment("Visita Urologo3", Date(), "")
         )
         UserInformation.addNewAppointment(
-            Appointment("Visita Urologo4", 15, 8, Date(), "")
+            Appointment("Visita Urologo4", Date(), "")
         )
 
         LocalDatabase.saveMedicineList()
@@ -192,8 +192,7 @@ class MainActivity : AppCompatActivity() {
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
 
         /*Appointment list*/
-        UserInformation.appointments.sortWith(compareBy<Appointment> { it.date }.thenBy { it.hours }
-            .thenBy { it.minutes })
+        UserInformation.appointments.sortWith(compareBy { it.date })
         appointmentListSorted = UserInformation.appointments
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
@@ -201,71 +200,12 @@ class MainActivity : AppCompatActivity() {
         appointmentListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
-        reminderListSorted = getSortedListReminders(filterDate)
+        reminderListSorted = Utils.getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
         reminderListMain.adapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
-    }
-
-    private fun getSortedListReminders(filterDate: Date): LinkedList<ReminderMedicineSort> {
-
-        var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
-        UserInformation.medicines.forEach {
-            it.reminders?.forEach { reminder ->
-                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
-            }
-        }
-        randomList = convertSeqToDate(randomList)
-
-        randomList = LinkedList(randomList.filter { it.reminder.startingDay <= filterDate })
-        randomList.sortBy { it.reminder.startingDay }
-
-        return randomList
-    }
-
-    private fun convertSeqToDate(list: LinkedList<ReminderMedicineSort>): LinkedList<ReminderMedicineSort> {
-        val convertedList: LinkedList<ReminderMedicineSort> = LinkedList()
-
-        list.forEach {
-            if (it.reminder.startingDay == it.reminder.expireDate)
-                convertedList.add(it)
-            else
-                convertedList.addAll(getDataListFromDays(it))
-        }
-
-        return convertedList
-    }
-
-    private fun getDataListFromDays(entry: ReminderMedicineSort): Collection<ReminderMedicineSort> {
-        val returnedList: LinkedList<ReminderMedicineSort> = LinkedList()
-
-        entry.reminder.days?.forEach {
-            val calendar = Calendar.getInstance()
-            calendar.time = Date(System.currentTimeMillis())
-
-            while (calendar[Calendar.DAY_OF_WEEK] != it.dayNumber) {
-                calendar.add(Calendar.DAY_OF_MONTH, 1)
-            }
-            returnedList.add(
-                ReminderMedicineSort(
-                    entry.medName,
-                    entry.medType,
-                    ReminderMedicine(
-                        entry.reminder.dosage,
-                        entry.reminder.minutes,
-                        entry.reminder.hours,
-                        calendar.time,
-                        null,
-                        calendar.time,
-                        entry.reminder.additionNotes
-                    )
-                )
-            )
-        }
-
-        return returnedList
     }
 
     private fun formatOutputString(item: Any): String {
@@ -285,8 +225,8 @@ class MainActivity : AppCompatActivity() {
                 cal.time = item.date
                 var text =
                     "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
-                text += "${item.hours}:"
-                text += if (item.minutes < 10) "0${item.minutes}" else item.minutes
+                text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
+                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MONTH)}" else cal.get(Calendar.MONTH)
                 return text
             }
             else -> return ""

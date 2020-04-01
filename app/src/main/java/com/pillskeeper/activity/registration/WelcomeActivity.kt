@@ -2,12 +2,12 @@ package com.pillskeeper.activity.registration
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.datamanager.LocalDatabase
 
 class WelcomeActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class WelcomeActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             FirebaseAuth.getInstance().currentUser?.getIdToken(true)?.addOnSuccessListener {
                 if (it.token != null) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomepageActivity::class.java))
                     finish()
                 } else {
                     FirebaseAuth.getInstance().signOut()

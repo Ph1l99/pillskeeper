@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.MainActivity
+import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         FirebaseAuth.getInstance().currentUser?.uid?.let { checkUserOnLocalDB(it) }
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, HomepageActivity::class.java))
                         finish()
                     } else {
                         Utils.errorEditText(emailLogin)

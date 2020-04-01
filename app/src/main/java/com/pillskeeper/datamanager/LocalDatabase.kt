@@ -1,7 +1,6 @@
 package com.pillskeeper.datamanager
 
 import android.content.SharedPreferences
-import android.text.method.TextKeyListener.clear
 import android.util.Log
 import com.google.gson.Gson
 import com.pillskeeper.data.Appointment
@@ -125,10 +124,10 @@ object LocalDatabase : LocalDatabaseInterface {
     }
 
     override fun saveAppointmentList() {
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveAppointmentList() - Started")
 
         saveValue(LocalDbKeyEnum.APPOINTMENTLIST.toString(), UserInformation.appointments)
 
-        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
+        Log.i(Log.DEBUG.toString(), "LocalDatabase: saveAppointmentList() - Ended")
     }
 }

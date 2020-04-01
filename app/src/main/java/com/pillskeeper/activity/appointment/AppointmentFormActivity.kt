@@ -112,6 +112,7 @@ class AppointmentFormActivity : AppCompatActivity() {
     }
 
     private fun initSpinner(){
+        val cal = Calendar.getInstance()
         minuteArray = LinkedList()
         val arrayAdapterHours: Any
         if(appointment == null || isEditing) {
@@ -119,9 +120,10 @@ class AppointmentFormActivity : AppCompatActivity() {
             minuteArray = LinkedList(ReminderActivity.minutes)
         } else {
             val hour = LinkedList<String>()
-            hour.add(appointment!!.hours.toString())
+            cal.time = appointment!!.date
+            hour.add(cal.get(Calendar.HOUR_OF_DAY).toString())
             arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, hour)
-            minuteArray.add(appointment!!.minutes.toString())
+            minuteArray.add(cal.get(Calendar.MINUTE).toString())
         }
 
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -134,23 +136,25 @@ class AppointmentFormActivity : AppCompatActivity() {
         minuteSpinnerAppointment.adapter = arrayAdapterMinutes
 
         if(isEditing){
-            hourSpinnerAppointment.setSelection(appointment!!.hours)
-            minuteSpinnerAppointment.setSelection(appointment!!.minutes / 15)
+            cal.time = appointment!!.date
+            hourSpinnerAppointment.setSelection(cal.get(Calendar.HOUR_OF_DAY))
+            minuteSpinnerAppointment.setSelection(cal.get(Calendar.MINUTE) / 15)
         }
 
     }
 
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
+            cal.set(Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
+            cal.set(Calendar.HOUR_OF_DAY,ReminderActivity.hours[hourSpinnerAppointment.selectedItemPosition].toInt())
             val newAppointment = Appointment(
                 appointmentNameTV.text.toString(),
-                minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt(),
-                ReminderActivity.hours[hourSpinnerAppointment.selectedItemPosition].toInt(),
                 cal.time,
                 additionalNoteAppointment.text.toString()
             )
             if(appointment == null){
                 if (UserInformation.addNewAppointment(newAppointment)) {
+                    LocalDatabase.saveAppointmentList()
                     LocalDatabase.saveAppointmentList()
                     finish()
                 } else {

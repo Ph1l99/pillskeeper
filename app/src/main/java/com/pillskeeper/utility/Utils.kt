@@ -10,15 +10,17 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.datamanager.UserInformation
 import java.util.*
 
 object Utils {
 
     private val regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
     private val regexPhoneNumber: Regex = "[0-9]{10}".toRegex()
-    private val regexEmail: Regex =
-        "[A-Za-z0-9.]{2,30}.[A-Za-z0-9]{2,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
+    private val regexEmail: Regex = "[A-Za-z0-9.]{2,30}.[A-Za-z0-9]{2,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
 
     lateinit var stdLayout: Drawable
 
@@ -89,5 +91,63 @@ object Utils {
         username.text = LocalDatabase.readUser()?.name
     }
 
+    fun getSortedListReminders(filterDate: Date): LinkedList<ReminderMedicineSort> {
+
+        var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
+        UserInformation.medicines.forEach {
+            it.reminders?.forEach { reminder ->
+                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
+            }
+        }
+        randomList = convertSeqToDate(randomList)
+
+        randomList = LinkedList(randomList.filter { it.reminder.startingDay <= filterDate })
+        randomList.sortBy { it.reminder.startingDay }
+
+        return randomList
+    }
+
+    private fun convertSeqToDate(list: LinkedList<ReminderMedicineSort>): LinkedList<ReminderMedicineSort> {
+        val convertedList: LinkedList<ReminderMedicineSort> = LinkedList()
+
+        list.forEach {
+            if (it.reminder.startingDay == it.reminder.expireDate)
+                convertedList.add(it)
+            else
+                convertedList.addAll(getDataListFromDays(it))
+        }
+
+        return convertedList
+    }
+
+    private fun getDataListFromDays(entry: ReminderMedicineSort): Collection<ReminderMedicineSort> {
+        val returnedList: LinkedList<ReminderMedicineSort> = LinkedList()
+
+        entry.reminder.days?.forEach {
+            val calendar = Calendar.getInstance()
+            calendar.time = Date(System.currentTimeMillis())
+
+            while (calendar[Calendar.DAY_OF_WEEK] != it.dayNumber) {
+                calendar.add(Calendar.DAY_OF_MONTH, 1)
+            }
+            returnedList.add(
+                ReminderMedicineSort(
+                    entry.medName,
+                    entry.medType,
+                    ReminderMedicine(
+                        entry.reminder.dosage,
+                        entry.reminder.minutes,
+                        entry.reminder.hours,
+                        calendar.time,
+                        null,
+                        calendar.time,
+                        entry.reminder.additionNotes
+                    )
+                )
+            )
+        }
+
+        return returnedList
+    }
 
 }

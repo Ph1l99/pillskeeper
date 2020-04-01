@@ -123,6 +123,7 @@ class TextReaderActivity : AppCompatActivity() {
         //result = Regex("$").replace(result, "s")
         result = Regex("§").replace(result, "s")
         result = Regex("ç").replace(result, "c")
+        result = Regex("\n").replace(result," ")
 
 
         return result.toLowerCase()

@@ -14,6 +14,10 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.util.*
 
 object Utils {
@@ -130,6 +134,12 @@ object Utils {
             while (calendar[Calendar.DAY_OF_WEEK] != it.dayNumber) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1)
             }
+
+            calendar.set(Calendar.MINUTE,entry.reminder.minutes)
+            calendar.set(Calendar.HOUR_OF_DAY,entry.reminder.hours)
+            calendar.set(Calendar.SECOND,0)
+            calendar.set(Calendar.MILLISECOND,0)
+
             returnedList.add(
                 ReminderMedicineSort(
                     entry.medName,
@@ -146,8 +156,20 @@ object Utils {
                 )
             )
         }
-
         return returnedList
+    }
+
+    fun serialize(obj: Any): ByteArray? {
+        val out = ByteArrayOutputStream()
+        val os = ObjectOutputStream(out)
+        os.writeObject(obj)
+        return out.toByteArray()
+    }
+
+    fun deserialize(data: ByteArray): Any? {
+        val `in` = ByteArrayInputStream(data)
+        val `is` = ObjectInputStream(`in`)
+        return `is`.readObject()
     }
 
 }

@@ -20,7 +20,7 @@ import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.enums.RelationEnum
-import com.pillskeeper.notifier.WorkerStarter
+import com.pillskeeper.notifier.EventBroadcastReceiver
 import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
@@ -58,7 +58,7 @@ class HomepageActivity : AppCompatActivity() {
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
         //TODO DEBUG - to be removed
-        //funTest()
+        funTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -74,9 +74,6 @@ class HomepageActivity : AppCompatActivity() {
             ).show()
             return@setOnItemLongClickListener true
         }
-
-        //TODO surrund with check if ti already exist
-        WorkerStarter.startNotifier(this)
     }
 
     private fun funTest() {
@@ -90,18 +87,10 @@ class HomepageActivity : AppCompatActivity() {
         days1.add(DaysEnum.SUN)
         days1.add(DaysEnum.WED)
 
-        val days2: LinkedList<DaysEnum> = LinkedList()
-        days2.add(DaysEnum.MON)
-        days2.add(DaysEnum.FRI)
-        days2.add(DaysEnum.SAT)
-        days2.add(DaysEnum.TUE)
-        days2.add(DaysEnum.THU)
-        days2.add(DaysEnum.SUN)
-        days2.add(DaysEnum.WED)
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 0, 20, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, null, null))
+        reminders.add(ReminderMedicine(1.5F, 51, 16, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 49, 16, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
@@ -113,23 +102,9 @@ class HomepageActivity : AppCompatActivity() {
             )
         )
 
-        reminders.add(ReminderMedicine(1.5F, 0, 20, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days2, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Tachipirina2",
-                MedicineTypeEnum.PILLS,
-                24F,
-                24F,
-                reminders,
-                "Tachipirina2"
-            )
-        )
-
-
-        val reminders2 = LinkedList<ReminderMedicine>()
+        /*val reminders2 = LinkedList<ReminderMedicine>()
         reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
-        reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days2, null, null))
+        reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Aulin",
@@ -159,7 +134,7 @@ class HomepageActivity : AppCompatActivity() {
         )
         UserInformation.addNewAppointment(
             Appointment("Visita Urologo4", Date(), "")
-        )
+        )*/
 
         LocalDatabase.saveMedicineList()
 
@@ -168,6 +143,9 @@ class HomepageActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         initLists()
+        val event = EventBroadcastReceiver()
+        event.planAlarmDay(this)
+        event.planNextDayPlanner(this)
     }
 
     //TODO funzione di test per invio mail
@@ -203,8 +181,7 @@ class HomepageActivity : AppCompatActivity() {
         reminderListSorted = Utils.getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter =
-            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 
@@ -226,7 +203,7 @@ class HomepageActivity : AppCompatActivity() {
                 var text =
                     "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
                 text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
-                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MONTH)}" else cal.get(Calendar.MONTH)
+                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(Calendar.MINUTE)
                 return text
             }
             else -> return ""

@@ -24,10 +24,17 @@
         android:id="@+id/text_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
         android:text="@string/welcome"
         android:textColor="#FFFFFF"
         android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp"
-        android:gravity="center"/>
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"/>
 </LinearLayout>

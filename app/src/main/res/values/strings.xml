@@ -81,13 +81,13 @@
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona Una data:</string>
     <string name="nothingToDoHere">Nessun risultato trovato!</string>
+    <string name="medicineAlreadyExists">Attenzione, Medicina già presente!</string>
 
     <!--Location Activity-->
     <string name="label">Assicurati di avere il GPS attivo e seleziona CERCA</string>
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
     <string name="query_location">farmacie</string>
-
 
     <!--Personal Info Activity-->
     <string name="name">Nome:</string>

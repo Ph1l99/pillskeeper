@@ -16,7 +16,6 @@ import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.PillsFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.datamanager.DatabaseManager
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
 class MedicinesListActivity : AppCompatActivity() {
@@ -27,6 +26,7 @@ class MedicinesListActivity : AppCompatActivity() {
 
     companion object {
         private const val LAUNCH_PILLS = 1
+        private const val PATH_MEDICINES = "medicines"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class MedicinesListActivity : AppCompatActivity() {
 
     private fun fillMedicinesList() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Started")
-        databaseReference.child(DatabaseManager.PATH_MEDICINES)
+        databaseReference.child(PATH_MEDICINES)
             .addValueEventListener(object : ValueEventListener {
 
                 override fun onCancelled(p0: DatabaseError) {

@@ -18,20 +18,23 @@ object Notifier {
     fun showNotification(context: Context, it: Any?) {
         createNotificationChannel(context)
 
+        val icon: Int
         val title: String
         var text = "Buongiorno! "
         if(it is ReminderMedicineSort) {
             title = "Medicina!"
             text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)}"
+            icon = R.drawable.calendar
         } else {
             (it as Appointment)
             title = "Appuntamento!"
             text += "Ha un appuntamento: ${it.name}"
+            icon = R.drawable.records_medicines
         }
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM/*TYPE_NOTIFICATION*/)
         val notificationBuilder = NotificationCompat.Builder(context)
-            .setSmallIcon(R.drawable.pills_icon)
+            .setSmallIcon(icon)
             .setContentTitle(title)
             .setContentText("$text - ${Date()}")
             .setAutoCancel(false)

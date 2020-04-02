@@ -1,28 +1,17 @@
 package com.pillskeeper.activity.medicine
 
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.reminder.ReminderActivity
+import com.pillskeeper.activity.medicine.formfragments.FormAdapter
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.MedicineTypeEnum
-import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PillsFormActivity : AppCompatActivity() {
 
@@ -41,10 +30,20 @@ class PillsFormActivity : AppCompatActivity() {
     private var localMedicine: LocalMedicine? = null
     private lateinit var stdLayout: Drawable
 
+
+
+    lateinit var viewPager: ViewPager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
+        viewPager = findViewById(R.id.ViewPager)
+        var introAdapter = FormAdapter(supportFragmentManager, intent)
+        viewPager.adapter = introAdapter
+
+
+        /*
         if(intent.getSerializableExtra(LOCAL_MEDICINE) != null){
             localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
             editTextNameMed.setText(localMedicine!!.name)
@@ -61,6 +60,7 @@ class PillsFormActivity : AppCompatActivity() {
             editTextNameMed.setRawInputType(0)
             spinnerMedicineType.isEnabled = false
         }
+
 
         initSpinner()
 
@@ -106,8 +106,11 @@ class PillsFormActivity : AppCompatActivity() {
             }
         }
 
+         */
+
     }
 
+    /*
     private fun addOrEditMedicine(){
         //TODO remote medicine
         if (checkValuesValidity()) {
@@ -255,6 +258,8 @@ class PillsFormActivity : AppCompatActivity() {
         val intent = Intent(this, TextReaderActivity::class.java)
         startActivityForResult(intent, CAMERA_REQUEST)
     }
+
+     */
 
 
 }

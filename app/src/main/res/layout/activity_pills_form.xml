@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,147 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".activity.medicine.PillsFormActivity">
 
-    <Button
-        android:id="@+id/buttonCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/camera"
-        app:layout_constraintBottom_toTopOf="@+id/editTextNameMed"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:text="@string/medNameTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextNameMed"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/ViewPager"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="@string/medNameHint"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewName"
-        android:autofillHints="" />
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
 
 
-    <EditText
-        android:id="@+id/editTextTotQuantity"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/totalQuantity"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTotQuantity" />
 
-    <TextView
-        android:id="@+id/textViewMedType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/medType"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
 
-    <TextView
-        android:id="@+id/textViewTotQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:minWidth="100dp"
-        android:text="@string/totalQuantity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNameMed" />
-
-    <Spinner
-        android:id="@+id/spinnerMedicineType"
-        android:layout_width="159dp"
-        android:layout_height="46dp"
-        android:layout_marginEnd="16dp"
-        android:minWidth="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMedType" />
-
-    <TextView
-        android:id="@+id/textViewRemQuantity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/remainingQuantity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTotQuantity" />
-
-    <TextView
-        android:id="@+id/textViewRemQuantity2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/reminder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMedicineType" />
-
-    <EditText
-        android:id="@+id/editTextRemQuantity"
-        android:layout_width="140dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="1dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:hint="@string/remainingQuantity"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity" />
-
-    <Button
-        android:id="@+id/buttonConfirmMed"
-        android:layout_width="117dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="54dp"
-        android:text="@string/confirmButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonDenyMed"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
-
-    <Button
-        android:id="@+id/buttonAddReminder"
-        android:layout_width="148dp"
-        android:layout_height="52dp"
-        android:layout_marginEnd="14dp"
-        android:text="@string/addReminder"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewRemQuantity2" />
-
-    <Button
-        android:id="@+id/buttonDenyMed"
-        android:layout_width="117dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="63dp"
-        android:text="@string/deleteButton"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConfirmMed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextRemQuantity" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

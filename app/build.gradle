@@ -56,6 +56,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //Cardview implementation
+    implementation "androidx.cardview:cardview:1.0.0"
+
+    //Guava library for hash functions
     implementation group: 'com.google.guava', name: 'guava', version: '27.1-android'
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 

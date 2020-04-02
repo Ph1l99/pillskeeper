@@ -23,9 +23,10 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finished_medicines)
-        checkAlmostFinishedMedicines()
+        //checkAlmostFinishedMedicines()
     }
 
+    /*
     private fun checkAlmostFinishedMedicines(): LinkedList<LocalMedicine> {
         val list = LocalDatabase.readMedicineList()
         val outputList = LinkedList(list.filter {
@@ -53,5 +54,5 @@ class FinishedMedicinesActivity : AppCompatActivity() {
             arrayMedicines
         )
         medicinesListView.adapter = adapter
-    }
+    }*/
 }

@@ -148,7 +148,7 @@ class PillsFormActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     this,
-                    "Attenzione, Medicina già presente!",
+                    R.string.medicineAlreadyExists,
                     Toast.LENGTH_LONG
                 )
                     .show()
@@ -157,7 +157,8 @@ class PillsFormActivity : AppCompatActivity() {
     }
 
     private fun hashValue(name: String, typeEnum: MedicineTypeEnum): String {
-        return (Hashing.goodFastHash(64)).newHasher().putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
+        return (Hashing.goodFastHash(64)).newHasher()
+            .putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
     }
 
     private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {

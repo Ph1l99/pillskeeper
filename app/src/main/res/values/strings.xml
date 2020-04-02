@@ -105,6 +105,7 @@
     <!--Mail-->
     <string name="mailsubject">Richiesta ricetta farmaco: </string>
     <string name="mailtext">Salve, la presente per richiedere la prescizione del seguente farmaco: </string>
+    <string name="sendMail">Invia Mail</string>
 
     <!-- Titoli android Manifest-->
     <string name="chemistsTitle">Farmacie in zona</string>

@@ -162,23 +162,7 @@ class HomepageActivity : AppCompatActivity() {
         event.planNextDayPlanner(this)
     }
 
-    //TODO funzione di test per invio mail
-    private fun sendMailTest() {
-        val completeMail = Mail.composeMail(
-            RemoteMedicine("Tacchipirina", "1234", MedicineTypeEnum.PILLS),
-            User("1234", "filippo", "ciao", "filippo.ciao@ciao.com"),
-            Friend("friend01", "friend02", null, "pippo.coglio@gmail.com", RelationEnum.Doctor)
-        )
-        val i = Intent(Intent.ACTION_SEND)
 
-        if (completeMail != null) {
-            i.type = "message/rfc822"
-            i.putExtra(Intent.EXTRA_EMAIL, completeMail.mailto)
-            i.putExtra(Intent.EXTRA_SUBJECT, completeMail.mailsubject)
-            i.putExtra(Intent.EXTRA_TEXT, completeMail.mailBody)
-        }
-        startActivity(Intent.createChooser(i, "Invia mail..."))
-    }
 
     private fun initLists(filterDate: Date = Date()) {
         filterDate.time = Utils.dataNormalizationLimit(filterDate)

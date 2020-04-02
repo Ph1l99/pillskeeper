@@ -130,6 +130,10 @@ object Utils {
             while (calendar[Calendar.DAY_OF_WEEK] != it.dayNumber) {
                 calendar.add(Calendar.DAY_OF_MONTH, 1)
             }
+
+            calendar.set(Calendar.MINUTE,entry.reminder.minutes)
+            calendar.set(Calendar.HOUR_OF_DAY,entry.reminder.hours)
+
             returnedList.add(
                 ReminderMedicineSort(
                     entry.medName,

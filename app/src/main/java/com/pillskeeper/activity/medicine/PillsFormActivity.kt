@@ -150,8 +150,7 @@ class PillsFormActivity : AppCompatActivity() {
                     this,
                     R.string.medicineAlreadyExists,
                     Toast.LENGTH_LONG
-                )
-                    .show()
+                ).show()
             }
         }
     }

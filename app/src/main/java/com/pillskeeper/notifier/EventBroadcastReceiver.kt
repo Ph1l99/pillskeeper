@@ -27,57 +27,62 @@ class EventBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
-        if (intent != null )
-            if(intent.action == Intent.ACTION_BOOT_COMPLETED){
+        if (intent != null) {
+            if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
                 planAlarmDay(context)
                 planNextDayPlanner(context)
             } else if (intent.getStringExtra(TYPE_INTENT) != null) {
-                if(intent.getSerializableExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY){
+                if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString()) {
+                    val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT))
                     if (context != null)
-                        Notifier.showNotification("ciao","ciao",context)
+                        Notifier.showNotification(context, item)
                 } else {
                     planAlarmDay(context)
                     planNextDayPlanner(context)
                 }
             }
+            println(println(intent.extras.toString()))
+        }
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function ended")
     }
 
 
     fun planAlarmDay(context: Context?){
-        Log.i(Log.DEBUG.toString(), "MainActivity: planAlarmDay() - Started")
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Started")
 
         if (context != null) {
             val listAlarm = getDailyList()
             listAlarm.forEach {
-                if(it is ReminderMedicineSort) println(it.reminder.toString()) else it.toString()
+                if(it is ReminderMedicineSort) println(it.reminder.toString()) else println(it.toString())//TODO remove
             }
 
+            println()
             if (!listAlarm.isEmpty()) {
                 val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
                 listAlarm.forEach {
                     val intent = Intent(context,EventBroadcastReceiver::class.java)
-                        .apply {
-                            putExtra(VALUE_INTENT,
-                                when(it) {
-                                    it is ReminderMedicineSort -> { it as ReminderMedicineSort }
-                                    it is Appointment -> { it as Appointment }
-                                    else -> { null }
-                                })
-                            putExtra(TYPE_INTENT,TypeIntentWorker.SHOW_NOTIFY)
-                            action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-                        }
-                    val itTime = getDateFromItem(it)
-                    if(PendingIntent.getBroadcast(
-                        context, ((itTime.time / 1000L) % Int.MAX_VALUE).toInt(),
-                        intent,
-                        PendingIntent.FLAG_NO_CREATE) == null){
 
-                        println("CREANDOOOOOO $itTime")
+
+
+                    val item = Utils.serialize(
+                    if(it is ReminderMedicineSort) {
+                        it
+                    } else {
+                        (it as Appointment)
+                    })
+
+
+                    intent.putExtra(TYPE_INTENT,TypeIntentWorker.SHOW_NOTIFY.toString())
+                    intent.putExtra(VALUE_INTENT, item)
+                    intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+
+                    val itTime = getDateFromItem(it)
+                    val itID = generateIdForItem(it,itTime)
+                    if(!isAlreadyExistingIntent(context,itID,intent)){
                         val pendingIntent = PendingIntent.getBroadcast(
                             context,
-                            ((itTime.time / 1000L) % Int.MAX_VALUE).toInt(),
+                            itID,
                             intent,
                             PendingIntent.FLAG_UPDATE_CURRENT
                         )
@@ -100,7 +105,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                 }
             }
         }
-        Log.i(Log.DEBUG.toString(), "MainActivity: planAlarmDay() - Ended")
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Ended")
     }
 
     fun planNextDayPlanner(context: Context?) {
@@ -110,32 +115,48 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val intent = Intent(context,EventBroadcastReceiver::class.java)
                 .apply {
-                    putExtra(TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM)
+                    putExtra(TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM.toString())
                     action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
                 }
-            val pendingIntent = PendingIntent.getBroadcast(context,((Date().time / 1000L) % Int.MAX_VALUE).toInt(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-            val cal = Calendar.getInstance()
-            cal.time = Date()
-            cal.set(Calendar.MINUTE, 0)
-            cal.set(Calendar.SECOND, 0)
-            cal.set(Calendar.MILLISECOND, 0)
-            cal.set(Calendar.HOUR_OF_DAY, 7)
-            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
-
-            if (Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    cal.timeInMillis,
-                    pendingIntent
+            val itID = 0
+            if(!isAlreadyExistingIntent(context,itID,intent)) {
+                val pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
                 )
-            else
-                alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    cal.timeInMillis,
-                    pendingIntent
+
+                val cal = Calendar.getInstance()
+                cal.time = Date()
+                cal.set(Calendar.MINUTE, 0)
+                cal.set(Calendar.SECOND, 0)
+                cal.set(Calendar.MILLISECOND, 0)
+                cal.set(Calendar.HOUR_OF_DAY, 7)
+                cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
+
+                if (Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        cal.timeInMillis,
+                        pendingIntent
+                    )
+                else
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        cal.timeInMillis,
+                        pendingIntent
+                    )
+                Log.i(
+                    Log.DEBUG.toString(),
+                    "MainActivity: planNextDayPlanner() - Next Day planned... ${cal.time}"
                 )
-            Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Next Day planned... ${cal.time}")
+            } else {
+                Log.i(
+                    Log.DEBUG.toString(),
+                    "MainActivity: planNextDayPlanner() - Next already planned!!!"
+                )
+            }
         }
         Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Ended")
     }
@@ -145,7 +166,8 @@ class EventBroadcastReceiver : BroadcastReceiver() {
     private fun getDailyList(): LinkedList<Any> {
         val filterDate = Date(Utils.dataNormalizationLimit(Date()))
         val nowDate = Date()
-        val orderedReminderList = Utils.getSortedListReminders(filterDate)
+        var orderedReminderList = Utils.getSortedListReminders(filterDate)
+        orderedReminderList = LinkedList(orderedReminderList.filter { it.reminder.startingDay > nowDate && it.reminder.startingDay <= filterDate })
 
         var appointmentListSorted = UserInformation.appointments
         appointmentListSorted = LinkedList(appointmentListSorted.filter {  it.date > nowDate && it.date <= filterDate })
@@ -176,6 +198,25 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             is Appointment -> { item.date }
             else -> { Date() }
         }
+    }
+
+    private fun isAlreadyExistingIntent(context: Context,itID: Int,intent: Intent): Boolean{
+        return PendingIntent.getBroadcast(
+            context,
+            itID,
+            intent,
+            PendingIntent.FLAG_NO_CREATE) != null
+    }
+
+    private fun generateIdForItem(item: Any, itTime: Date): Int{
+        var stdValue: Int =
+            when (item){
+                is ReminderMedicineSort -> (item.medName.length - item.medName.indexOf("c",0,true) - item.medName.indexOf("e",0,true))
+                is Appointment -> (item.name.length - item.name.indexOf("c",0,true) - item.name.indexOf("e",0,true))
+                else -> Random().nextInt(10)
+            }
+        if (stdValue <= 0) stdValue = 1
+        return ((itTime.time * stdValue / 1000L) % Int.MAX_VALUE).toInt()
     }
 
 }

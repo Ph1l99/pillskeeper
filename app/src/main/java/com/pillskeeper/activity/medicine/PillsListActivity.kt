@@ -60,7 +60,7 @@ class PillsListActivity : AppCompatActivity() {
             if(position > 0)
                 GenericDeleteDialog(
                     this,
-                    pillsArray[position - 1],
+                    UserInformation.medicines[position - 1].name,
                     DialogModeEnum.DELETE_MEDICINE
                 ).show()
 

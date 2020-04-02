@@ -126,6 +126,7 @@ class PillsFormActivity : AppCompatActivity() {
                     .toLowerCase(Locale.ROOT) + spinnerMedicineType.selectedItem.toString()
                     .toLowerCase(Locale.ROOT)
             )
+
             result = if (localMedicine == null) {
                 UserInformation.addNewMedicine(newMed)
             } else {

@@ -1,10 +1,10 @@
 package com.pillskeeper.data
 
-import java.io.Serializable
+import com.pillskeeper.interfaces.CastInterfaceCommon
 import java.util.*
 
 data class Appointment(
     var name: String,
     var date: Date,
     var additionNotes: String?
-): Serializable
+): CastInterfaceCommon

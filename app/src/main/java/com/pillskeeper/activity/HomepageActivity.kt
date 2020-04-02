@@ -58,7 +58,7 @@ class HomepageActivity : AppCompatActivity() {
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
         //TODO DEBUG - to be removed
-        //funTest()
+        funTest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -89,8 +89,8 @@ class HomepageActivity : AppCompatActivity() {
 
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 0, 20, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 0, 19, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1.5F, 38, 16, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 40, 16, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
@@ -102,21 +102,7 @@ class HomepageActivity : AppCompatActivity() {
             )
         )
 
-        reminders.add(ReminderMedicine(1.5F, 15, 7, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 30, 8, Date(), days1, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Tachipirina2",
-                MedicineTypeEnum.PILLS,
-                24F,
-                24F,
-                reminders,
-                "Tachipirina2"
-            )
-        )
-
-
-        val reminders2 = LinkedList<ReminderMedicine>()
+        /*val reminders2 = LinkedList<ReminderMedicine>()
         reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
         reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days1, null, null))
         UserInformation.addNewMedicine(
@@ -148,7 +134,7 @@ class HomepageActivity : AppCompatActivity() {
         )
         UserInformation.addNewAppointment(
             Appointment("Visita Urologo4", Date(), "")
-        )
+        )*/
 
         LocalDatabase.saveMedicineList()
 

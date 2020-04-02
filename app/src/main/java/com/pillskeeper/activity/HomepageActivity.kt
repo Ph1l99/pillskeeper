@@ -203,7 +203,7 @@ class HomepageActivity : AppCompatActivity() {
                 var text =
                     "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
                 text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
-                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MONTH)}" else cal.get(Calendar.MONTH)
+                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(Calendar.MINUTE)
                 return text
             }
             else -> return ""

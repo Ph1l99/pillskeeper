@@ -43,9 +43,9 @@
 
 
     <string name="addReminder">Aggiungi Promemoria</string>
-    <string name="totalQuantity">Quantità totale</string>
+    <string name="totalQuantity">Inserire la quantità totale contenuta nella confezione</string>
     <string name="reminder">Appuntamenti</string>
-    <string name="remainingQuantity">Quantità Rimanente</string>
+    <string name="remainingQuantity">Inserire la quantità rimanente nella confezione</string>
     <string name="medType">Tipo Medicina</string>
     <string name="medNameHint">Inserire il nome del farmaco</string>
     <string name="medNameTitle">Nome del farmaco</string>
@@ -132,4 +132,7 @@
     <string name="FormOneTitle">Quale farmaco vuoi inserire?</string>
     <string name="FormOneTitle2">Seleziona la tipologia del farmaco</string>
     <string name="next">Avanti</string>
+    <string name="quantityexample">Es: 16</string>
+    <string name="reminderTitle">Vuoi aggiungere un promemoria per la medicina inserita?</string>
+    <string name="confirmText">Continua senza promemoria</string>
 </resources>

@@ -15,6 +15,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.viewpager.widget.ViewPager
 
 import com.pillskeeper.R
 import com.pillskeeper.R.id.spinnerMedicineType
@@ -32,7 +33,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FormOneFragment(intent: Intent) : Fragment() {
+class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
 
     companion object {
         const val FORM_ONE = 0
@@ -43,9 +44,10 @@ class FormOneFragment(intent: Intent) : Fragment() {
     private var localMedicine: LocalMedicine? = null
     private var isEditing: Boolean = false
     private val intent = intent
-
+    private val viewPager: ViewPager = viewPager
 
     private var reminderList: LinkedList<ReminderMedicine>? = null
+
 
     lateinit var spinnerMedicineType: Spinner
     lateinit var buttonCamera: Button
@@ -92,7 +94,7 @@ class FormOneFragment(intent: Intent) : Fragment() {
         }
 
         textViewNext.setOnClickListener {
-
+            viewPager.setCurrentItem(FORM_TWO)
         }
 
         return view

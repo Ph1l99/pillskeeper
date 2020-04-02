@@ -1,12 +1,16 @@
 package com.pillskeeper.activity.medicine
 
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.formfragments.FormAdapter
+import com.pillskeeper.activity.medicine.formfragments.PillsViewPager
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
@@ -22,6 +26,7 @@ class PillsFormActivity : AppCompatActivity() {
         const val LOCAL_MEDICINE = "localMedicine"
         const val REMINDER = "reminder"
         const val REQUEST_CAMERA_PERMISSION_ID = 1
+        const val VIEW_PAGER_ID = 2020
     }
 
     private var isEditing: Boolean = false
@@ -32,14 +37,17 @@ class PillsFormActivity : AppCompatActivity() {
 
 
 
-    lateinit var viewPager: ViewPager
+    lateinit var viewPager: PillsViewPager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-        viewPager = findViewById(R.id.ViewPager)
-        var introAdapter = FormAdapter(supportFragmentManager, intent)
+        viewPager = PillsViewPager(this)
+        viewPager.id = VIEW_PAGER_ID
+        relativeLayout.addView(viewPager)
+        var introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
         viewPager.adapter = introAdapter
 
 

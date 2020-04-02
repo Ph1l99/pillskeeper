@@ -22,7 +22,7 @@ object Notifier {
         var text = "Buongiorno! "
         if(it is ReminderMedicineSort) {
             title = "Medicina!"
-            text += "Hai una nuova medicina da prendere. \n ${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)}"
+            text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)}"
         } else {
             (it as Appointment)
             title = "Appuntamento!"

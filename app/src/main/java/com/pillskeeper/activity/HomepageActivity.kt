@@ -89,8 +89,8 @@ class HomepageActivity : AppCompatActivity() {
 
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 38, 16, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 40, 16, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1.5F, 51, 16, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 49, 16, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",

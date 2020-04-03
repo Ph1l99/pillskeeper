@@ -115,7 +115,7 @@
     <string name="pillsListActivityTitle">Lista Medicine</string>
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
-    <string name="mainActivityTitle" translatable="false">PillsKeeper</string>
+    <string name="homeActivityTitle" translatable="false">Home</string>
     <string name="functionalities">Funzionalità</string>
     <string name="settingsMenu">Impostazioni</string>
     <string name="expiryMenu">Medicine terminate</string>

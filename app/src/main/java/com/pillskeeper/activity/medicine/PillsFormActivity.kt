@@ -157,7 +157,7 @@ class PillsFormActivity : AppCompatActivity() {
     }
 
     private fun hashValue(name: String, typeEnum: MedicineTypeEnum): String {
-        return (Hashing.goodFastHash(64)).newHasher()
+        return (Hashing.sha1()).newHasher()
             .putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
     }
 

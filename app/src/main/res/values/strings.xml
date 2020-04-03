@@ -29,6 +29,7 @@
 
 
     <!--MedicinesListActivity-->
+    <string name="nothingToSee">Nessuna Medicina trovata!</string>
 
 
     <!--Menu buttons-->
@@ -79,7 +80,6 @@
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona una data:</string>
-    <string name="nothingToDoHere">Nessun risultato trovato!</string>
     <string name="medicineAlreadyExists">Attenzione, Medicina già presente!</string>
 
     <!--Location Activity-->

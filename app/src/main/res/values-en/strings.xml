@@ -92,4 +92,7 @@
     <string name="search_chemist">Pharmacies Search</string>
     <string name="user_settingsActivity">Change personal settings</string>
     <string name="welcome">Welcome!</string>
+    <string name="expiredMedicines">Finished Medicines</string>
+    <string name="functionalities">Functionalities</string>
+    <string name="nothingToSee">No Medicine Found</string>
 </resources>

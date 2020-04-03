@@ -1,7 +1,7 @@
 package com.pillskeeper.utility
 
+import android.app.Application
 import com.pillskeeper.R
-import com.pillskeeper.data.Friend
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
 

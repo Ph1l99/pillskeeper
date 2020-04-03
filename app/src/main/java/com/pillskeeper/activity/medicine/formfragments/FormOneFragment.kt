@@ -6,17 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-
 import com.pillskeeper.R
-import com.pillskeeper.R.id.spinnerMedicineType
 import com.pillskeeper.activity.medicine.PillsFormActivity
 import com.pillskeeper.activity.medicine.PillsFormActivity.Companion.CAMERA_REQUEST
 import com.pillskeeper.activity.medicine.PillsFormActivity.Companion.REMINDER
@@ -26,12 +24,11 @@ import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.enums.MedicineTypeEnum
-import kotlinx.android.synthetic.main.fragment_form_one.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
+class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : Fragment() {
 
     companion object {
         const val FORM_TWO = 1
@@ -40,17 +37,16 @@ class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
     private var remoteMedicine: RemoteMedicine? = null
     private var localMedicine: LocalMedicine? = null
     private var isEditing: Boolean = false
-    private val intent = intent
     private val viewPager: ViewPager = viewPager
 
     private var reminderList: LinkedList<ReminderMedicine>? = null
 
 
-    lateinit var spinnerMedicineType: Spinner
-    lateinit var buttonCamera: Button
-    lateinit var textViewNext: TextView
-    lateinit var editTextNameMed: EditText
-    lateinit var spinner: Spinner
+    private lateinit var spinnerMedicineType: Spinner
+    private lateinit var buttonCamera: Button
+    private lateinit var textViewNext: TextView
+    private lateinit var editTextNameMed: EditText
+    private lateinit var spinner: Spinner
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment

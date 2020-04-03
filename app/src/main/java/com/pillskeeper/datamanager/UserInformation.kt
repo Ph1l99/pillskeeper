@@ -57,6 +57,7 @@ object UserInformation {
         }
 
         friends.add(friend)
+        LocalDatabase.saveFriendList()
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewFriend() - Ended - Friend inserted")
         return true
@@ -73,6 +74,7 @@ object UserInformation {
         }
 
         medicines.add(medicine)
+        LocalDatabase.saveMedicineList()
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Ended - Medicine inserted")
         return true
@@ -131,6 +133,7 @@ object UserInformation {
         }
 
         appointments.add(appointment)
+        LocalDatabase.saveAppointmentList()
 
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Ended - Appointment inserted")
         return true
@@ -147,6 +150,7 @@ object UserInformation {
             if(appointments[i].name == oldName){
                 Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Ended - Appointment modified")
                 appointments[i] = appointment
+                LocalDatabase.saveAppointmentList()
                 return true
             }
         }
@@ -162,6 +166,7 @@ object UserInformation {
             if(medicines[i].name == oldName){
                 Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine modified")
                 medicines[i] = medicine
+                LocalDatabase.saveMedicineList()
                 return true
             }
         }
@@ -177,6 +182,7 @@ object UserInformation {
             if(friends[i].name == oldName){
                 Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend modified")
                 friends[i] = friend
+                LocalDatabase.saveFriendList()
                 return true
             }
         }
@@ -226,6 +232,7 @@ object UserInformation {
             if(appointments[i].name == name){
                 Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Ended - Appointment Deleted")
                 appointments.removeAt(i)
+                LocalDatabase.saveAppointmentList()
                 return true
             }
         }
@@ -240,6 +247,7 @@ object UserInformation {
         for(i in medicines.indices){
             if(medicines[i].name == name){
                 medicines.removeAt(i)
+                LocalDatabase.saveMedicineList()
                 Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Ended - Medicine Deleted")
                 return true
             }
@@ -255,6 +263,7 @@ object UserInformation {
         for(i in friends.indices){
             if(friends[i].name == name){
                 friends.removeAt(i)
+                LocalDatabase.saveFriendList()
                 Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Ended - Friend Removed")
                 return true
             }

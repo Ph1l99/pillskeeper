@@ -13,7 +13,7 @@ import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
 import java.util.*
 
-object Notifier {
+object NotificationBuilder {
 
     fun showNotification(context: Context, it: Any?) {
         createNotificationChannel(context)

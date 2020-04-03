@@ -12,7 +12,7 @@ import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.MedCardAdapter
 import kotlinx.android.synthetic.main.activity_finished_medicines.*
@@ -34,7 +34,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
 
 
     private fun checkAlmostFinishedMedicines() {
-        val list = LocalDatabase.readMedicineList()
+        val list = UserInformation.medicines
 
         val outputList = LinkedList(list.filter {
             it.remainingPills <= MINIMUM_PILLS
@@ -62,13 +62,13 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     }
 
     private fun openDialog(localMedicine: LocalMedicine) {
-        var listFriends: LinkedList<String> = LinkedList()
+        val listFriends: LinkedList<String> = LinkedList()
 
         lateinit var selectableFriends: Array<String>
 
-        var chosenFriends: LinkedList<String> = LinkedList()
+        val chosenFriends: LinkedList<String> = LinkedList()
 
-        val localFriendList = LocalDatabase.readFriendList()
+        val localFriendList = UserInformation.friends
 
         for (friend in localFriendList) {
             listFriends.add(friend.name + " " + friend.surname)

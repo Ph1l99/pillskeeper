@@ -2,24 +2,21 @@ package com.pillskeeper.activity.medicine.formfragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import com.google.common.hash.Hashing
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.PillsListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.nio.charset.StandardCharsets
-import java.text.Normalizer
 import java.util.*
 
 class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
@@ -76,7 +73,6 @@ class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
                 FormAdapter.medicineType
             )
         )
-        LocalDatabase.saveMedicineList()
     }
 
 

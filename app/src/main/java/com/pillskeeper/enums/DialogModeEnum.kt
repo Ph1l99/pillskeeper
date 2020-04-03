@@ -6,6 +6,7 @@ enum class DialogModeEnum {
     CREATE_NEW_FRIEND,
 
     DELETE_MEDICINE,
-    DELETE_APPOINTMENT
+    DELETE_APPOINTMENT,
+    DELETE_FRIEND
 
 }

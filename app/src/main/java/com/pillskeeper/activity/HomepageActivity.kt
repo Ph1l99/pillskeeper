@@ -13,15 +13,14 @@ import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
-import com.pillskeeper.data.*
-import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.data.Appointment
+import com.pillskeeper.data.LocalMedicine
+import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
-import com.pillskeeper.enums.RelationEnum
-import com.pillskeeper.notifier.EventBroadcastReceiver
-import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
@@ -136,16 +135,11 @@ class HomepageActivity : AppCompatActivity() {
             Appointment("Visita Urologo4", Date(), "")
         )*/
 
-        LocalDatabase.saveMedicineList()
-
     }
 
     override fun onResume() {
         super.onResume()
         initLists()
-        val event = EventBroadcastReceiver()
-        event.planAlarmDay(this)
-        event.planNextDayPlanner(this)
     }
 
 

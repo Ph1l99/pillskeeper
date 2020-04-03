@@ -9,10 +9,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
-import kotlinx.android.synthetic.main.activity_friend_list.*
 import kotlinx.android.synthetic.main.content_friend_list.*
 
 class FriendListActivity : AppCompatActivity() {
@@ -41,6 +41,11 @@ class FriendListActivity : AppCompatActivity() {
 
         addFriendFab.setOnClickListener {
             NewFriendDialog(this, DialogModeEnum.CREATE_NEW_FRIEND, null).show()
+        }
+
+        friendListView.setOnItemLongClickListener { _, _, position, _ ->
+            GenericDeleteDialog(this,UserInformation.friends[position].name,DialogModeEnum.DELETE_FRIEND).show()
+            return@setOnItemLongClickListener true
         }
 
         friendListView.setOnItemClickListener { _, _, position, _ ->

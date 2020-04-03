@@ -1,6 +1,8 @@
 package com.pillskeeper.utility
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
@@ -14,6 +16,7 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.notifier.NotifyPlanner
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -170,6 +173,21 @@ object Utils {
         val `in` = ByteArrayInputStream(data)
         val `is` = ObjectInputStream(`in`)
         return `is`.readObject()
+    }
+
+    fun isAlreadyExistingIntent(context: Context,itID: Int,intent: Intent): Boolean{
+        return PendingIntent.getBroadcast(
+            context,
+            itID,
+            intent,
+            PendingIntent.FLAG_NO_CREATE) != null
+    }
+
+    fun startNotifyService(context: Context){
+        Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function started")
+        val service = Intent(context, NotifyPlanner::class.java)
+        context.startService(service)
+        Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function ended")
     }
 
 }

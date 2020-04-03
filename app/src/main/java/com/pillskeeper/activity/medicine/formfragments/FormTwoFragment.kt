@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import androidx.viewpager.widget.ViewPager
 
 import com.pillskeeper.R
@@ -21,9 +20,11 @@ class FormTwoFragment(viewPager: PillsViewPager) : Fragment() {
     }
 
     private val viewPager = viewPager
-
     lateinit var textViewNext: TextView
     lateinit var textViewBack: TextView
+    lateinit var editTextTotalQuantity: EditText
+    lateinit var editTextRemainingQuantity: EditText
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -31,16 +32,33 @@ class FormTwoFragment(viewPager: PillsViewPager) : Fragment() {
 
         textViewNext = view!!.findViewById(R.id.textViewNext)
         textViewBack = view!!.findViewById(R.id.textViewBack)
-
+        editTextTotalQuantity = view.findViewById(R.id.editTextTotalQuantity)
+        editTextRemainingQuantity = view.findViewById(R.id.editTextRemainingQuantity)
 
 
         /*LISTENERS*/
-        textViewNext.setOnClickListener{
-            viewPager.setCurrentItem(FORM_THREE)
+        textViewNext.setOnClickListener {
+            if ( Integer.parseInt(editTextRemainingQuantity.text.toString()) > Integer.parseInt(editTextTotalQuantity.text.toString()) ) {
+               Toast.makeText(context, "La quantità rimanente non può essere maggiore di quella totale!", Toast.LENGTH_LONG).show()
+            } else {
+                FormAdapter.totalQuantity = editTextTotalQuantity.text.toString().toFloat()
+                FormAdapter.remainingQuantity = editTextRemainingQuantity.text.toString().toFloat()
+                viewPager.currentItem = FORM_THREE
+            }
         }
 
         textViewBack.setOnClickListener{
-            viewPager.setCurrentItem(FORM_ONE)
+            viewPager.currentItem = FORM_ONE
+        }
+
+        editTextTotalQuantity.addTextChangedListener {
+            editTextRemainingQuantity.text = editTextTotalQuantity.text
+
+            if(editTextTotalQuantity.text.isNotEmpty() && editTextRemainingQuantity.text.isNotEmpty()){
+                textViewNext.visibility = View.VISIBLE
+            } else {
+                textViewNext.visibility = View.INVISIBLE
+            }
         }
 
         return view

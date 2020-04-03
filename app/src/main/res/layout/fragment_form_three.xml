@@ -8,8 +8,6 @@
     android:padding="16dp">
 
     <!-- TODO: Update blank fragment layout -->
-
-
     <TextView
         android:id="@+id/textViewTitleReminder"
         android:layout_width="match_parent"

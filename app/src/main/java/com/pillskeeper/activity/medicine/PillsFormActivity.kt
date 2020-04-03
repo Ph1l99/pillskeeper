@@ -14,6 +14,7 @@ import com.pillskeeper.activity.medicine.formfragments.PillsViewPager
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.enums.MedicineTypeEnum
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import java.util.*
 
@@ -38,6 +39,11 @@ class PillsFormActivity : AppCompatActivity() {
 
 
     lateinit var viewPager: PillsViewPager
+    lateinit var pillName: String
+    lateinit var medicineType: MedicineTypeEnum
+    var totalQuanty: Int = 0
+    var remainingQuantity = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -242,20 +248,7 @@ class PillsFormActivity : AppCompatActivity() {
         spinnerMedicineType.isEnabled = flag
     }
 
-    private fun getTypeFromText(text: String): MedicineTypeEnum {
-        return when (text) {
-            getText(MedicineTypeEnum.PILLS.text) -> {
-                MedicineTypeEnum.PILLS
-            }
-            getText(MedicineTypeEnum.SYRUP.text) -> {
-                MedicineTypeEnum.SYRUP
-            }
-            getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
-                MedicineTypeEnum.SUPPOSITORY
-            }
-            else -> MedicineTypeEnum.UNDEFINED
-        }
-    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

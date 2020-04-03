@@ -10,11 +10,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.widget.addTextChangedListener
 import androidx.viewpager.widget.ViewPager
 
 import com.pillskeeper.R
@@ -36,7 +34,6 @@ import kotlin.collections.ArrayList
 class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
 
     companion object {
-        const val FORM_ONE = 0
         const val FORM_TWO = 1
     }
 
@@ -52,6 +49,8 @@ class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
     lateinit var spinnerMedicineType: Spinner
     lateinit var buttonCamera: Button
     lateinit var textViewNext: TextView
+    lateinit var editTextNameMed: EditText
+    lateinit var spinner: Spinner
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -60,6 +59,8 @@ class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
         spinnerMedicineType = view.findViewById(R.id.spinnerMedicineType)
         buttonCamera = view.findViewById(R.id.buttonCamera)
         textViewNext = view.findViewById(R.id.textViewNext)
+        editTextNameMed = view.findViewById(R.id.editTextNameMed)
+        spinner = view.findViewById(R.id.spinnerMedicineType)
 
         if(intent.getSerializableExtra(PillsFormActivity.LOCAL_MEDICINE) != null){
             localMedicine = intent.getSerializableExtra(PillsFormActivity.LOCAL_MEDICINE) as LocalMedicine
@@ -93,8 +94,16 @@ class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
             }
         }
 
+        editTextNameMed.addTextChangedListener {
+            if(editTextNameMed.text.isNotEmpty()){
+                textViewNext.visibility = View.VISIBLE
+            }
+        }
+
         textViewNext.setOnClickListener {
-            viewPager.setCurrentItem(FORM_TWO)
+            FormAdapter.pillName = editTextNameMed.text.toString()
+            FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
+            viewPager.currentItem = FORM_TWO
         }
 
         return view
@@ -153,6 +162,21 @@ class FormOneFragment(intent: Intent, viewPager: PillsViewPager) : Fragment() {
                 }
                 else -> super.onActivityResult(requestCode, resultCode, data)
             }
+        }
+    }
+
+    private fun getTypeFromText(text: String): MedicineTypeEnum {
+        return when (text) {
+            getText(MedicineTypeEnum.PILLS.text) -> {
+                MedicineTypeEnum.PILLS
+            }
+            getText(MedicineTypeEnum.SYRUP.text) -> {
+                MedicineTypeEnum.SYRUP
+            }
+            getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
+                MedicineTypeEnum.SUPPOSITORY
+            }
+            else -> MedicineTypeEnum.UNDEFINED
         }
     }
 

@@ -48,7 +48,7 @@
     <string name="remainingQuantity">Inserire la quantità rimanente nella confezione</string>
     <string name="medType">Tipo Medicina</string>
     <string name="medNameHint">Inserire il nome del farmaco</string>
-    <string name="medNameTitle">Nome del farmaco</string>
+    <string name="medNameTitle">Leggi il nome del farmaco cliccando qui -></string>
     <string name="camera">Fotocamera</string>
 
     <!--Reminders-->

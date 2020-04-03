@@ -13,4 +13,5 @@ class PillsViewPager(context: Context) : ViewPager(context) {
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
         return false
     }
+
 }

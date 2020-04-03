@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
+import kotlin.collections.ArrayList
 
 class FormAdapter(fm: FragmentManager, intent: Intent, viewPager: PillsViewPager): FragmentPagerAdapter(fm) {
 
@@ -12,10 +14,22 @@ class FormAdapter(fm: FragmentManager, intent: Intent, viewPager: PillsViewPager
         const val FORM_ONE = 0
         const val FORM_TWO = 1
         const val FORM_THREE = 2
+
+        lateinit var pillName: String
+        lateinit var medicineType: MedicineTypeEnum
+        var totalQuantity: Float = 0.0F
+        var remainingQuantity: Float = 0.0F
     }
 
     private val intent: Intent = intent
     private val viewPager = viewPager
+
+  /*  lateinit var pillName: String
+    lateinit var medicineType: MedicineTypeEnum
+    var totalQuantity: Float = 0.0F
+    var remainingQuantity: Float = 0.0F
+   */
+
     override fun getItem(position: Int): Fragment {
         return when(position) {
             FORM_ONE -> FormOneFragment(intent, viewPager)
@@ -29,5 +43,33 @@ class FormAdapter(fm: FragmentManager, intent: Intent, viewPager: PillsViewPager
         return 3
     }
 
+    /*
+    public fun addPillName(name: String){
+        pillName = name
+    }
+    public fun pillName(): String{
+        return pillName
+    }
 
+    public fun addMedicineType(type: MedicineTypeEnum){
+        medicineType = type
+    }
+    fun medicineType(): MedicineTypeEnum{
+        return medicineType
+    }
+
+    fun addtotalQuantity(quantity: Float){
+        totalQuantity = quantity
+    }
+    fun totalQuantity(): Float{
+        return totalQuantity
+    }
+
+    fun addRemainingQuantity(quantity: Float){
+        remainingQuantity = quantity
+    }
+    fun remainingQuantity(): Float {
+        return remainingQuantity
+    }
+     */
 }

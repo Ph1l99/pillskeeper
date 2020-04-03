@@ -31,8 +31,9 @@
         <TextView
             android:id="@+id/textViewNameTitle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textAlignment="textEnd"
             android:text="@string/medNameTitle"
             />
 
@@ -54,7 +55,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/medNameHint"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:id="@+id/textViewType"
@@ -87,11 +88,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="bottom|end"
             android:text="@string/next"
             android:textSize="20sp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:visibility="invisible"/>
     </LinearLayout>
-
 </LinearLayout>

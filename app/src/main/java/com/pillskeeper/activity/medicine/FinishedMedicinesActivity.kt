@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.navigation.NavigationView
 import com.google.common.base.Splitter
 import com.pillskeeper.R
 import com.pillskeeper.data.Friend
@@ -25,10 +28,25 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     }
 
     private lateinit var mAdapter: MedCardAdapter
+    private lateinit var toolbar: Toolbar
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finished_medicines)
+        //TODO ADD menu!!!!!!!!!!!!
+        /*drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        //set toolbar
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val menu = Menu(toolbar, drawerLayout, navView, this)
+        menu.createMenu()*/
+
+
         checkAlmostFinishedMedicines()
     }
 

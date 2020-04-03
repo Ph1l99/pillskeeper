@@ -1,32 +1,22 @@
 package com.pillskeeper.activity.medicine
 
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.view.MotionEvent
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.google.common.hash.Hashing
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.reminder.ReminderActivity
+import com.pillskeeper.activity.medicine.formfragments.FormAdapter
+import com.pillskeeper.activity.medicine.formfragments.PillsViewPager
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
-import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_pills_form.*
-import java.nio.charset.StandardCharsets
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PillsFormActivity : AppCompatActivity() {
 
@@ -36,8 +26,8 @@ class PillsFormActivity : AppCompatActivity() {
         const val REMOTE_MEDICINE = "remoteMedicine"
         const val LOCAL_MEDICINE = "localMedicine"
         const val REMINDER = "reminder"
-        const val PATH_MEDICINES = "medicines"
         const val REQUEST_CAMERA_PERMISSION_ID = 1
+        const val VIEW_PAGER_ID = 2020
     }
 
     private var isEditing: Boolean = false
@@ -46,18 +36,36 @@ class PillsFormActivity : AppCompatActivity() {
     private var localMedicine: LocalMedicine? = null
     private lateinit var stdLayout: Drawable
 
+
+
+    lateinit var viewPager: PillsViewPager
+    lateinit var pillName: String
+    lateinit var medicineType: MedicineTypeEnum
+    var totalQuanty: Int = 0
+    var remainingQuantity = 0
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
 
-        if (intent.getSerializableExtra(LOCAL_MEDICINE) != null) {
+        viewPager = PillsViewPager(this)
+        viewPager.id = VIEW_PAGER_ID
+        relativeLayout.addView(viewPager)
+        var introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
+        viewPager.adapter = introAdapter
+
+
+        /*
+        if(intent.getSerializableExtra(LOCAL_MEDICINE) != null){
             localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
             editTextNameMed.setText(localMedicine!!.name)
             editTextNameMed.setRawInputType(0)
             setAllEnable(false)
             reminderList = localMedicine!!.reminders
-            editTextTotQuantity.setText(if (localMedicine!!.totalPills != 0F) localMedicine!!.totalPills.toString() else "0")
-            editTextRemQuantity.setText(if (localMedicine!!.remainingPills != 0F) localMedicine!!.remainingPills.toString() else "0")
+            editTextTotQuantity.setText(if(localMedicine!!.totalPills != 0F) localMedicine!!.totalPills.toString() else "0")
+            editTextRemQuantity.setText(if(localMedicine!!.remainingPills != 0F) localMedicine!!.remainingPills.toString() else "0")
             buttonDenyMed.text = getText(R.string.closeButton)
             buttonConfirmMed.text = getText(R.string.editButton)
         } else if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
@@ -66,6 +74,7 @@ class PillsFormActivity : AppCompatActivity() {
             editTextNameMed.setRawInputType(0)
             spinnerMedicineType.isEnabled = false
         }
+
 
         initSpinner()
 
@@ -96,12 +105,12 @@ class PillsFormActivity : AppCompatActivity() {
         buttonConfirmMed.setOnClickListener {
             restoreAllBg()
 
-            if (localMedicine == null) {
+            if(localMedicine == null) {
                 addOrEditMedicine()
             } else {
                 if (isEditing)
                     addOrEditMedicine()
-                else {
+                else{
                     isEditing = !isEditing
                     setAllEnable(true)
                     initSpinner()
@@ -111,9 +120,13 @@ class PillsFormActivity : AppCompatActivity() {
             }
         }
 
+         */
+
     }
 
-    private fun addOrEditMedicine() {
+    /*
+    private fun addOrEditMedicine(){
+        //TODO remote medicine
         if (checkValuesValidity()) {
             val result: Boolean
             val newMed = LocalMedicine(
@@ -126,45 +139,24 @@ class PillsFormActivity : AppCompatActivity() {
                     .toLowerCase(Locale.ROOT) + spinnerMedicineType.selectedItem.toString()
                     .toLowerCase(Locale.ROOT)
             )
-
-            result = if (localMedicine == null) {
+            result = if(localMedicine == null) {
                 UserInformation.addNewMedicine(newMed)
             } else {
-                UserInformation.editMedicine(localMedicine!!.name, newMed)
+                UserInformation.editMedicine(localMedicine!!.name,newMed)
             }
 
-            if (result) {
-                writeMedOnDB(
-                    RemoteMedicine(
-                        editTextNameMed.text.toString(),
-                        hashValue(
-                            editTextNameMed.text.toString(),
-                            getTypeFromText(spinnerMedicineType.selectedItem.toString())
-                        ),
-                        getTypeFromText(spinnerMedicineType.selectedItem.toString())
-                    )
-                )
+            if (result){
                 LocalDatabase.saveMedicineList()
                 finish()
             } else {
                 Toast.makeText(
                     this,
-                    R.string.medicineAlreadyExists,
+                    "Attenzione, Medicina già presente!",
                     Toast.LENGTH_LONG
-                ).show()
+                )
+                    .show()
             }
         }
-    }
-
-    private fun hashValue(name: String, typeEnum: MedicineTypeEnum): String {
-        return (Hashing.sha1()).newHasher()
-            .putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
-    }
-
-    private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
-        val databaseReference = Firebase.database.reference
-        databaseReference.child(PATH_MEDICINES).child(remoteMedicine.id)
-            .setValue(remoteMedicine)
     }
 
 
@@ -176,7 +168,7 @@ class PillsFormActivity : AppCompatActivity() {
                     editTextNameMed.text = SpannableStringBuilder(pillName)
                 }
                 REMINDER_INSERT_ACTIVITY -> {
-                    if (reminderList == null)
+                    if(reminderList == null)
                         reminderList = LinkedList()
                     reminderList!!.add(data!!.getSerializableExtra(REMINDER) as ReminderMedicine)
                 }
@@ -197,7 +189,7 @@ class PillsFormActivity : AppCompatActivity() {
                 MedicineTypeEnum.values().forEach { medTypeEnum ->
                     if (medTypeEnum != MedicineTypeEnum.UNDEFINED) {
                         medTypeValues.add(getText(medTypeEnum.text).toString())
-                        if (isEditing && medTypeEnum.type == localMedicine?.medicineType?.type)
+                        if(isEditing && medTypeEnum.type == localMedicine?.medicineType?.type)
                             pos = counter.toShort()
                         counter++
                     }
@@ -214,7 +206,7 @@ class PillsFormActivity : AppCompatActivity() {
 
         spinnerMedicineType.adapter = arrayAdapter
 
-        if (isEditing) {
+        if(isEditing){
             spinnerMedicineType.setSelection(pos.toInt())
         }
     }
@@ -246,7 +238,7 @@ class PillsFormActivity : AppCompatActivity() {
         editTextRemQuantity.background = stdLayout
     }
 
-    private fun setAllEnable(flag: Boolean) {
+    private fun setAllEnable(flag: Boolean){
         editTextNameMed.isEnabled = flag
         editTextTotQuantity.isEnabled = flag
         editTextRemQuantity.isEnabled = flag
@@ -256,20 +248,7 @@ class PillsFormActivity : AppCompatActivity() {
         spinnerMedicineType.isEnabled = flag
     }
 
-    private fun getTypeFromText(text: String): MedicineTypeEnum {
-        return when (text) {
-            getText(MedicineTypeEnum.PILLS.text) -> {
-                MedicineTypeEnum.PILLS
-            }
-            getText(MedicineTypeEnum.SYRUP.text) -> {
-                MedicineTypeEnum.SYRUP
-            }
-            getText(MedicineTypeEnum.SUPPOSITORY.text) -> {
-                MedicineTypeEnum.SUPPOSITORY
-            }
-            else -> MedicineTypeEnum.UNDEFINED
-        }
-    }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -280,6 +259,8 @@ class PillsFormActivity : AppCompatActivity() {
         val intent = Intent(this, TextReaderActivity::class.java)
         startActivityForResult(intent, CAMERA_REQUEST)
     }
+
+     */
 
 
 }

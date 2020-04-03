@@ -22,6 +22,7 @@
     <string name="Syrup">Syrup</string>
     <string name="surnameFriend">Surname Friend:</string>
     <string name="Suppository">Suppository</string>
+    <string name="quantityexample">Es: 16</string>
     <string name="error_values">One or more values are incorrect. Please insert the infos again</string>
     <string name="nome">Name:</string>
     <string name="cognome">Surname:</string>

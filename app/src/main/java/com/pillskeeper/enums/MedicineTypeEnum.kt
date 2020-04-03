@@ -7,4 +7,5 @@ enum class MedicineTypeEnum(var type:String,var text: Int) {
     SYRUP           ("Syrup",R.string.Syrup),
     SUPPOSITORY     ("Suppository",R.string.Suppository),
     UNDEFINED       ("Undefined",R.string.Undefined)
+
 }

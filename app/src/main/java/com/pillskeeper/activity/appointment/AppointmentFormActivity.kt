@@ -154,7 +154,7 @@ class AppointmentFormActivity : AppCompatActivity() {
             )
             if(appointment == null){
                 if (UserInformation.addNewAppointment(newAppointment)) {
-                    NotifyPlanner().planSingleAlarm(
+                    NotifyPlanner.planSingleAlarm(
                         this,
                         getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                         newAppointment
@@ -166,9 +166,8 @@ class AppointmentFormActivity : AppCompatActivity() {
             } else {
                 if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
                     Utils.startNotifyService(this)
-                    val notifyPlanner = NotifyPlanner()
-                    notifyPlanner.remove(appointment!!)
-                    notifyPlanner.planSingleAlarm(
+                    NotifyPlanner.remove(this,appointment!!)
+                    NotifyPlanner.planSingleAlarm(
                         this,
                         getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                         newAppointment

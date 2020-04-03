@@ -2,11 +2,9 @@ package com.pillskeeper.notifier
 
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import android.provider.Settings
 import android.util.Log
 import com.pillskeeper.data.Appointment
@@ -16,9 +14,9 @@ import com.pillskeeper.enums.TypeIntentWorker
 import com.pillskeeper.utility.Utils
 import java.util.*
 
-class NotifyPlanner: Service() {
+object NotifyPlanner{
 
-    private fun planAlarmDay(context: Context?){
+    fun planAlarmDay(context: Context?){
         Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Started")
 
         if (context != null) {
@@ -36,7 +34,7 @@ class NotifyPlanner: Service() {
     }
 
     fun planSingleAlarm(context: Context, alarmManager: AlarmManager, it: Any){
-        val intent = buildIntent(it)
+        val intent = buildIntent(context, it)
 
         val itTime = getDateFromItem(it)
         val itID = generateIdForItem(it,itTime)
@@ -65,8 +63,8 @@ class NotifyPlanner: Service() {
 
     }
 
-    private fun buildIntent(it: Any): Intent{
-        val intent = Intent(applicationContext,EventBroadcastReceiver::class.java)
+    private fun buildIntent(context: Context, it: Any): Intent{
+        val intent = Intent(context,EventBroadcastReceiver::class.java)
 
         val item = Utils.serialize(
             if(it is ReminderMedicineSort) {
@@ -129,26 +127,21 @@ class NotifyPlanner: Service() {
         return ((itTime.time * stdValue / 1000L) % Int.MAX_VALUE).toInt()
     }
 
-    fun remove(it: Any){
+    fun remove(context: Context, it: Any){
 
-        val alarmManager = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        val intent = buildIntent(it)
+        val intent = buildIntent(context, it)
         val itTime = getDateFromItem(it)
         val itID = generateIdForItem(it,itTime)
         val pendingIntent = PendingIntent.getBroadcast(
-            applicationContext,
+            context,
             itID,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
         alarmManager.cancel(pendingIntent)
 
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        planAlarmDay(applicationContext)
-        return null
     }
 
 

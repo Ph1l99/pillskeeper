@@ -24,7 +24,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
         if (intent != null) {
             if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-                context?.startService(Intent(context,NotifyPlanner::class.java))
+                NotifyPlanner.planAlarmDay(context)
                 planNextDayPlanner(context)
             } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                 if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString()) {
@@ -32,7 +32,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                     if (context != null)
                         NotificationBuilder.showNotification(context, item)
                 } else {
-                    context?.startService(Intent(context,NotifyPlanner::class.java))
+                    NotifyPlanner.planAlarmDay(context)
                     planNextDayPlanner(context)
                 }
             }
@@ -42,7 +42,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
     }
 
 
-    fun planNextDayPlanner(context: Context?) {
+    private fun planNextDayPlanner(context: Context?) {
         Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Started")
 
         if (context != null) {

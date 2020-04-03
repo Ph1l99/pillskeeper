@@ -24,12 +24,12 @@ object NotificationBuilder {
         if(it is ReminderMedicineSort) {
             title = "Medicina!"
             text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)}"
-            icon = R.drawable.calendar
+            icon = R.drawable.records_medicines
         } else {
             (it as Appointment)
             title = "Appuntamento!"
             text += "Ha un appuntamento: ${it.name}"
-            icon = R.drawable.records_medicines
+            icon = R.drawable.calendar
         }
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM/*TYPE_NOTIFICATION*/)

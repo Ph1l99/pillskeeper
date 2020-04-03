@@ -7,7 +7,6 @@
     <string name="signup_surname">Cognome</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
-    <string name="signup_email_confirmation">Check your email and click on the link</string>
     <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>
 
     <!--Strings for adding Friend/Doctor-->
@@ -62,7 +61,7 @@
     <string name="sunday">Domenica</string>
     <string name="time">Orario</string>
     <string name="espire_date">Data Di Fine (opzionale)</string>
-    <string name="quantity">Inserire La Quantità</string>
+    <string name="quantity">Inserire la quantità</string>
 
     <string name="monthRB">Mesi</string>
     <string name="weekRB">Settimane</string>
@@ -73,13 +72,13 @@
     <string name="Pills">Pillole</string>
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
-    <string name="Undefined">Undefined</string>
+    <string name="Undefined">Non definito</string>
     <string name="appointmentName">Titolo</string>
     <string name="timeAppointment">Orario:</string>
     <string name="additionalNoteAppointment">Note Addizionali …</string>
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
-    <string name="dateSelectionLabel">Seleziona Una data:</string>
+    <string name="dateSelectionLabel">Seleziona una data:</string>
     <string name="nothingToDoHere">Nessun risultato trovato!</string>
     <string name="medicineAlreadyExists">Attenzione, Medicina già presente!</string>
 
@@ -116,13 +115,13 @@
     <string name="pillsListActivityTitle">Lista Medicine</string>
     <string name="singUpTitle">Registrazione</string>
     <string name="friendListActivityTitle">Lista Amici</string>
-    <string name="mainActivityTitle">PillsKeeper</string>
+    <string name="mainActivityTitle" translatable="false">PillsKeeper</string>
     <string name="functionalities">Funzionalità</string>
     <string name="settingsMenu">Impostazioni</string>
     <string name="expiryMenu">Medicine terminate</string>
     <string name="search_chemist">Riceca Farmacie</string>
     <string name="user_settingsActivity">Modifica dati personali</string>
-    <string name="login_activity">Login</string>
+    <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
 
     <!-- String for WelcomeActivity-->

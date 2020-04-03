@@ -3,6 +3,7 @@ package com.pillskeeper.activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -71,23 +72,27 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
 
     private fun changeInfo() {
         var isValidInfo = true
+        println(isValidInfo)
         var updateAuth = false
         if (!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
-            isValidInfo = false
             Utils.errorEditText(editTextName)
             Utils.errorEditText(editTextSurname)
+            isValidInfo = false
         }
         if (editTextEmail.text.toString().isNotEmpty()) {
             if (!Utils.checkEmail(editTextEmail.text.toString())) {
-                isValidInfo = false
                 Utils.errorEditText(editTextEmail)
+                isValidInfo = false
             }
         }
+        println(isValidInfo)
         if (isValidInfo) {
+            Log.i(Log.DEBUG.toString(), "valid info vero ")
             if (auth.currentUser?.email != editTextEmail.text.toString()) {
                 updateAuth = true
             }
             if (updateAuth) {
+                Log.i(Log.DEBUG.toString(), "updateAuth vero ")
                 auth.currentUser?.updateEmail(editTextEmail.text.toString())
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
@@ -100,6 +105,7 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
+                Log.i(Log.DEBUG.toString(), "updateAuth falso ")
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
                         it,
@@ -111,8 +117,8 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             }
+            dismiss()
         }
-        dismiss()
     }
 
 

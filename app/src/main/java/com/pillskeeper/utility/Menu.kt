@@ -90,6 +90,4 @@ class Menu(
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
-
-
 }

@@ -36,8 +36,8 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
 
         getUser(userId)
 
-        buttonDenyInfo.text = "Chiudi"
-        buttonConfirmInfo.text = "Modifica"
+        buttonDenyInfo.text = context.getText(R.string.closeButton)
+        buttonConfirmInfo.text = context.getText(R.string.editButton)
 
         buttonConfirmInfo.setOnClickListener {
             if (isEditing)
@@ -45,8 +45,8 @@ class PersonalInfoActivity(context: Context, private val userId: String) : Dialo
             else {
                 isEditing = !isEditing
                 setAllEnable(true)
-                buttonDenyInfo.text = "Annulla"
-                buttonConfirmInfo.text = "Salva"
+                buttonDenyInfo.text = context.getText(R.string.abortButton)
+                buttonConfirmInfo.text = context.getText(R.string.saveButton)
             }
         }
         buttonDenyInfo.setOnClickListener {

@@ -10,6 +10,7 @@ import com.pillskeeper.data.User
 import com.pillskeeper.enums.LocalDbKeyEnum
 import java.util.*
 
+@Deprecated("Use UserInformation class instead")
 object LocalDatabase {
 
     var sharedPref: SharedPreferences? = null

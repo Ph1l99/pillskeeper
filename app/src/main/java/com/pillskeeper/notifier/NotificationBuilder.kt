@@ -10,12 +10,13 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
+import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import java.util.*
 
 object NotificationBuilder {
 
-    fun showNotification(context: Context, it: Any?) {
+    fun showNotificationReminder(context: Context, it: Any?) {
         createNotificationChannel(context)
 
         val icon: Int
@@ -45,6 +46,30 @@ object NotificationBuilder {
         val notificationManager = getSystemService(context, NotificationManager::class.java)
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
+    }
+
+    fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
+        createNotificationChannel(context)
+
+        val icon = R.drawable.records_medicines
+        val title = "Medicina in esaurimento"
+        val text = "Attenzione, la seguente medicina si sta esaurendo! \n${med.name} ${med.remainingQty} ${context.getText(med.medicineType.text)}"
+
+
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationBuilder = NotificationCompat.Builder(context)
+            .setSmallIcon(icon)
+            .setContentTitle(title)
+            .setContentText("$text - ${Date()}")
+            .setAutoCancel(false)
+            .setSound(soundUri)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(text))
+
+        val notificationManager = getSystemService(context, NotificationManager::class.java)
+        val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
+        notificationManager?.notify(id, notificationBuilder.build())
+
     }
 
     private fun createNotificationChannel(context: Context) {

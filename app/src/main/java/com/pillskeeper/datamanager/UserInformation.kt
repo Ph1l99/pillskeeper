@@ -220,6 +220,23 @@ object UserInformation {
         return false
     }
 
+    @Synchronized fun subMedicineQuantity(nameMedicine: String, subQty: Float ): LocalMedicine? {
+        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Started")
+        val medicine = getSpecificMedicine(nameMedicine)
+
+        if(medicine != null){
+            medicine.remainingQty -= subQty
+            if(medicine.remainingQty < 0)
+                medicine.remainingQty = 0F
+
+            LocalDatabase.saveMedicineList()
+            Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Qty decreased")
+            return medicine
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Medicine not found")
+        return null
+    }
 
 
 

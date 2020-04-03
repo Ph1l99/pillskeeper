@@ -7,8 +7,8 @@ import java.util.*
 data class LocalMedicine(
     var name: String,
     var medicineType: MedicineTypeEnum,
-    var totalPills: Float,
-    var remainingPills: Float,
+    var totalQty: Float,
+    var remainingQty: Float,
     var reminders: LinkedList<ReminderMedicine>?,
     var id :String
 ) : AbstractMedicine(name, id, medicineType)

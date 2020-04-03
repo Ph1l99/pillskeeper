@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import com.pillskeeper.data.ReminderMedicineSort
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.TypeIntentWorker
 import com.pillskeeper.utility.Utils
 import java.util.*
@@ -29,8 +31,17 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                 if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString()) {
                     val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT))
-                    if (context != null)
-                        NotificationBuilder.showNotification(context, item)
+                    if (context != null) {
+                        if (item is ReminderMedicineSort) {
+                            val medicine = UserInformation.subMedicineQuantity(
+                                item.medName,
+                                item.reminder.dosage
+                            )
+                            if (medicine != null && medicine.remainingQty < 5F)
+                                NotificationBuilder.showNotificationLowQuantity(context, medicine)
+                        }
+                        NotificationBuilder.showNotificationReminder(context, item)
+                    }
                 } else {
                     NotifyPlanner.planAlarmDay(context)
                     planNextDayPlanner(context)

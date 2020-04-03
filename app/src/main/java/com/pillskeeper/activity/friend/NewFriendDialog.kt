@@ -8,7 +8,6 @@ import android.view.Window
 import android.widget.ArrayAdapter
 import com.pillskeeper.R
 import com.pillskeeper.data.Friend
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.RelationEnum
@@ -111,13 +110,11 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
             )
 
             if (mode == DialogModeEnum.CREATE_NEW_FRIEND){
-                if (UserInformation.addNewFriend(newFriend)) {
-                    LocalDatabase.saveFriendList()
-                }
+                UserInformation.addNewFriend(newFriend)
             } else {
-                if (friend != null && UserInformation.editFriend(friend.name, newFriend)) {
-                    LocalDatabase.saveFriendList()
-                }
+                if (friend != null)
+                    UserInformation.editFriend(friend.name, newFriend)
+
             }
 
             dismiss()

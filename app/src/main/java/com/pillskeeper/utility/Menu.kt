@@ -11,26 +11,23 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
+import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.activity.LocationActivity
-import com.pillskeeper.activity.registration.LoginActivity
 import com.pillskeeper.activity.PersonalInfoActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
+import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
 import com.pillskeeper.activity.medicine.PillsListActivity
+import com.pillskeeper.activity.registration.LoginActivity
 
 class Menu(
-    toolbar: Toolbar,
-    drawerLayout: DrawerLayout,
-    navigationView: NavigationView,
-    activity: AppCompatActivity
+    private val toolbar: Toolbar,
+    private val drawerLayout: DrawerLayout,
+    private val navigationView: NavigationView,
+    val activity: AppCompatActivity
 ) : NavigationView.OnNavigationItemSelectedListener {
 
-    val toolbar = toolbar
-    val drawerLayout = drawerLayout
-    val navigationView = navigationView
-    val activity = activity
-    var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     fun createMenu() {
@@ -87,6 +84,8 @@ class Menu(
                 )
             }
         }
+        if(activity !is HomepageActivity)
+            activity.finish()
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

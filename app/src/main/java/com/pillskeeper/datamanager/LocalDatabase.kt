@@ -8,10 +8,9 @@ import com.pillskeeper.data.Friend
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.User
 import com.pillskeeper.enums.LocalDbKeyEnum
-import com.pillskeeper.interfaces.LocalDatabaseInterface
 import java.util.*
 
-object LocalDatabase : LocalDatabaseInterface {
+object LocalDatabase {
 
     var sharedPref: SharedPreferences? = null
 
@@ -32,9 +31,10 @@ object LocalDatabase : LocalDatabaseInterface {
     }
 
 
+
     /*  READ Function   */
 
-    override fun readUser(): User? {
+    fun readUser(): User? {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: readUser() - Started")
 
         val userString: String? = sharedPref?.getString(LocalDbKeyEnum.USER.toString(), null)
@@ -54,7 +54,7 @@ object LocalDatabase : LocalDatabaseInterface {
         }
     }
 
-    override fun readFriendList(): LinkedList<Friend> {
+    fun readFriendList(): LinkedList<Friend> {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: readFriendList() - Started")
 
         val friendsJson: String? = sharedPref?.getString(LocalDbKeyEnum.FRIENDLIST.toString(), null)
@@ -68,7 +68,7 @@ object LocalDatabase : LocalDatabaseInterface {
         return LinkedList(Gson().fromJson(friendsJson, Array<Friend>::class.java).toList())
     }
 
-    override fun readMedicineList(): LinkedList<LocalMedicine> {
+    fun readMedicineList(): LinkedList<LocalMedicine> {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: readMedicineList() - Started")
 
         val medicinesJson: String? =
@@ -83,7 +83,7 @@ object LocalDatabase : LocalDatabaseInterface {
         return LinkedList(Gson().fromJson(medicinesJson, Array<LocalMedicine>::class.java).toList())
     }
 
-    override fun readAppointmentList(): LinkedList<Appointment> {
+    fun readAppointmentList(): LinkedList<Appointment> {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: readAppointmentList() - Started")
 
         val appointmentJson: String? =
@@ -99,15 +99,16 @@ object LocalDatabase : LocalDatabaseInterface {
     }
 
 
+
     /*  SAVE Function   */
 
-    override fun saveUser(user: User) {
+    fun saveUser(user: User) {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUser() - Started")
         saveValue(LocalDbKeyEnum.USER.toString(), user)
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveUser() - Started")
     }
 
-    override fun saveFriendList() {
+    fun saveFriendList() {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
 
         saveValue(LocalDbKeyEnum.FRIENDLIST.toString(), UserInformation.friends)
@@ -115,7 +116,7 @@ object LocalDatabase : LocalDatabaseInterface {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveFriendList() - Started")
     }
 
-    override fun saveMedicineList() {
+    fun saveMedicineList() {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Started")
 
         saveValue(LocalDbKeyEnum.MEDICINELIST.toString(), UserInformation.medicines)
@@ -123,7 +124,7 @@ object LocalDatabase : LocalDatabaseInterface {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveMedicineList() - Ended")
     }
 
-    override fun saveAppointmentList() {
+    fun saveAppointmentList() {
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveAppointmentList() - Started")
 
         saveValue(LocalDbKeyEnum.APPOINTMENTLIST.toString(), UserInformation.appointments)

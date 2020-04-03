@@ -1,6 +1,8 @@
 package com.pillskeeper.activity.appointment
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -9,8 +11,8 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.activity.medicine.reminder.ReminderActivity
 import com.pillskeeper.data.Appointment
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_appointment.*
 import java.util.*
@@ -70,17 +72,15 @@ class AppointmentFormActivity : AppCompatActivity() {
             if (appointment == null) {
                 resetEditText()
                 addOrEditAppointment(cal)
-
             } else {
-
                 if (isEditing)
                     addOrEditAppointment(cal)
                 else {
                     isEditing = !isEditing
                     setAllEnable(true)
                     initSpinner()
-                    buttonDeleteAppointment.text = "Annulla"
-                    buttonConfirmAppointment.text = "Salva"
+                    buttonDeleteAppointment.text = getText(R.string.abortButton)
+                    buttonConfirmAppointment.text = getText(R.string.saveButton)
                 }
 
             }
@@ -154,15 +154,25 @@ class AppointmentFormActivity : AppCompatActivity() {
             )
             if(appointment == null){
                 if (UserInformation.addNewAppointment(newAppointment)) {
-                    LocalDatabase.saveAppointmentList()
-                    LocalDatabase.saveAppointmentList()
+                    NotifyPlanner().planSingleAlarm(
+                        this,
+                        getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                        newAppointment
+                    )
                     finish()
                 } else {
                     Toast.makeText(this, "Appuntamento già presente!", Toast.LENGTH_LONG).show()
                 }
             } else {
                 if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
-                    LocalDatabase.saveAppointmentList()
+                    Utils.startNotifyService(this)
+                    val notifyPlanner = NotifyPlanner()
+                    notifyPlanner.remove(appointment!!)
+                    notifyPlanner.planSingleAlarm(
+                        this,
+                        getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                        newAppointment
+                    )
                     finish()
                 } else {
                     Toast.makeText(this, "Appuntamento non modificato!", Toast.LENGTH_LONG).show()

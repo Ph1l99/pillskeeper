@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
 import com.pillskeeper.R
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
+import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_appointment.*
 
 class GenericDeleteDialog (context: Context, private val itemName: String, private val dialogModeEnum: DialogModeEnum) : Dialog(context)  {
@@ -23,28 +23,45 @@ class GenericDeleteDialog (context: Context, private val itemName: String, priva
         setContentView(R.layout.dialog_appointment)
 
         val item =
-            if(dialogModeEnum == DialogModeEnum.DELETE_APPOINTMENT) {
-                titleDeleteTV.text = "Cancellare l'Appuntamento?"
-                "Appuntamento"
-            } else {
-                titleDeleteTV.text = "Cancellare l'Medicina?"
-                "Medicina"
+            when(dialogModeEnum ) {
+                DialogModeEnum.DELETE_APPOINTMENT -> {
+                    titleDeleteTV.text = "Cancellare l'Appuntamento?"
+                    "Appuntamento"
+                }
+                DialogModeEnum.DELETE_MEDICINE -> {
+                    titleDeleteTV.text = "Cancellare l'Medicina?"
+                    "Medicina"
+                }
+                else -> {
+                    titleDeleteTV.text = "Cancellare l'Amico?"
+                    "Amico"
+                }
+
             }
 
         nameTitleTV.text = itemName
 
         deleteConfirm.setOnClickListener {
 
-            if(dialogModeEnum == DialogModeEnum.DELETE_APPOINTMENT){
-                if(UserInformation.deleteAppointment(itemName))
-                    LocalDatabase.saveAppointmentList()
-                else
-                    Toast.makeText(context,"Non è stato possibile cancellare l'$item",Toast.LENGTH_LONG).show()
-            } else {
-                if(UserInformation.deleteMedicine(itemName))
-                    LocalDatabase.saveMedicineList()
-                else
-                    Toast.makeText(context,"Non è stato possibile cancellare la $item",Toast.LENGTH_LONG).show()
+            when(dialogModeEnum){
+                DialogModeEnum.DELETE_APPOINTMENT -> {
+                    if(UserInformation.deleteAppointment(itemName))
+                        Utils.startNotifyService(context)
+                    else
+                        Toast.makeText(context,"Non è stato possibile cancellare l'$item",Toast.LENGTH_LONG).show()
+                }
+                DialogModeEnum.DELETE_MEDICINE -> {
+                    if(UserInformation.deleteMedicine(itemName))
+                        Utils.startNotifyService(context)
+                    else
+                        Toast.makeText(context,"Non è stato possibile cancellare la $item",Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    if(UserInformation.deleteFriend(itemName))
+                        Utils.startNotifyService(context)
+                    else
+                        Toast.makeText(context,"Non è stato possibile cancellare l'$item",Toast.LENGTH_LONG).show()
+                }
             }
 
             dismiss()

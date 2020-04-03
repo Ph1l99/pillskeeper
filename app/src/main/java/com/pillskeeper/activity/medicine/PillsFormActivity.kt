@@ -1,13 +1,9 @@
 package com.pillskeeper.activity.medicine
 
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.formfragments.FormAdapter
 import com.pillskeeper.activity.medicine.formfragments.PillsViewPager
@@ -53,7 +49,7 @@ class PillsFormActivity : AppCompatActivity() {
         viewPager = PillsViewPager(this)
         viewPager.id = VIEW_PAGER_ID
         relativeLayout.addView(viewPager)
-        var introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
+        val introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
         viewPager.adapter = introAdapter
 
 

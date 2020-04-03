@@ -116,7 +116,6 @@ class FinishedMedicinesActivity : AppCompatActivity() {
                 it
             )
         }
-
         val mailto = Array(recipients.size) { "" }
         recipients.toArray(mailto)
 

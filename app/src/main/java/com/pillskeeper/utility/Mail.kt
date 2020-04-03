@@ -1,16 +1,17 @@
 package com.pillskeeper.utility
 
-import android.app.Application
 import com.pillskeeper.R
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.UserInformation.context
 
 data class Mail(var mailsubject: String, var mailBody: String) {
 
     companion object {
         fun composeMail(medicine: RemoteMedicine, user: User): Mail? {
-            val mSubject: String = R.string.mailsubject.toString() + medicine.name
-            val mText: String = R.string.mailtext.toString() + "aggiungere le info della medicina"
+            val mSubject: String = context.getString(R.string.mailsubject) + medicine.name
+            val mText: String =
+                context.getString(R.string.mailtext) + "Medicina: " + medicine.name + "\nTiplogia: " + medicine.medicineType + "\nUtente: " + user.name + " " + user.surname
             return Mail(mSubject, mText)
         }
     }

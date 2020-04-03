@@ -18,7 +18,7 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_personal_info.*
 
-class PersonalInfoActivity(context: Context, private val userId: String) : Dialog(context) {
+class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
 
     companion object {
         const val PATH_USERS = "users"

@@ -33,7 +33,7 @@
             android:label="@string/expiredMedicines" />
         <activity android:name=".activity.registration.LoginActivity" />
         <activity
-            android:name=".activity.PersonalInfoActivity"
+            android:name=".activity.PersonalInfoDialog"
             android:label="@string/user_settingsActivity" />
         <activity
             android:name=".activity.LocationActivity"

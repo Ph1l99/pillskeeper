@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.activity.LocationActivity
-import com.pillskeeper.activity.PersonalInfoActivity
+import com.pillskeeper.activity.PersonalInfoDialog
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
@@ -42,37 +42,59 @@ class Menu(
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
+        var changed = true
+
         when (item.itemId) {
             R.id.nav_profile -> {
-                PersonalInfoActivity(activity, auth.currentUser?.uid.toString()).show()
+                PersonalInfoDialog(activity, auth.currentUser?.uid.toString()).show()
             }
             R.id.nav_expiry_med -> {
-                val intent =
-                    Intent(activity.applicationContext, FinishedMedicinesActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                activity.applicationContext.startActivity(intent)
+                if(activity is FinishedMedicinesActivity) {
+                    changed = false
+                } else {
+                    val intent =
+                        Intent(activity.applicationContext, FinishedMedicinesActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
+                }
             }
             R.id.nav_friends -> {
-                val intent = Intent(activity.applicationContext, FriendListActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                activity.applicationContext.startActivity(intent)
+                if(activity is FriendListActivity) {
+                    changed = false
+                } else {
+                    val intent = Intent(activity.applicationContext, FriendListActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
+                }
             }
             R.id.nav_medicines -> {
-                val intent = Intent(activity.applicationContext, PillsListActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                activity.applicationContext.startActivity(intent)
+                if(activity is PillsListActivity){
+                    changed = false
+                } else {
+                    val intent = Intent(activity.applicationContext, PillsListActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
+                }
             }
             R.id.nav_appointments -> {
-                val intent =
-                    Intent(activity.applicationContext, AppointmentListActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                activity.applicationContext.startActivity(intent)
+                if(activity is AppointmentListActivity){
+                    changed = false
+                } else {
+                    val intent =
+                        Intent(activity.applicationContext, AppointmentListActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
+                }
             }
 
             R.id.nav_pharmacies -> {
-                val intent = Intent(activity.applicationContext, LocationActivity::class.java)
-                intent.flags = FLAG_ACTIVITY_NEW_TASK
-                activity.applicationContext.startActivity(intent)
+                if(activity is LocationActivity) {
+                    changed = false
+                } else {
+                    val intent = Intent(activity.applicationContext, LocationActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
+                }
             }
             R.id.nav_logout -> {
                 auth.signOut()
@@ -84,8 +106,10 @@ class Menu(
                 )
             }
         }
-        if(activity !is HomepageActivity)
-            activity.finish()
+        if(changed) {
+            if (activity !is HomepageActivity)
+                activity.finish()
+        }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }

@@ -55,7 +55,6 @@ class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
     }
 
     private fun addOrEditMedicine() {
-        val result: Boolean
         val newMed = LocalMedicine(
             FormAdapter.pillName.toLowerCase(Locale.ROOT),
             FormAdapter.medicineType,
@@ -73,6 +72,7 @@ class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
                 FormAdapter.medicineType
             )
         )
+        //TODO gestire l'inserimento di reminder e di ripianificazione alarm
     }
 
 

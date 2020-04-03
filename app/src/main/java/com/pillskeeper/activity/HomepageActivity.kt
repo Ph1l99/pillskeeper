@@ -21,6 +21,7 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
@@ -88,14 +89,14 @@ class HomepageActivity : AppCompatActivity() {
 
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 51, 16, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 49, 16, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1.5F, 39, 19, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(1F, 41, 19, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
                 "Tachipirina",
                 MedicineTypeEnum.PILLS,
                 24F,
-                24F,
+                7F,
                 reminders,
                 "Tachipirina"
             )
@@ -139,6 +140,8 @@ class HomepageActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        NotifyPlanner.planAlarmDay(this)//todo removeeeeeeeeee laterrrrrr
         initLists()
     }
 

@@ -89,7 +89,7 @@ class HomepageActivity : AppCompatActivity() {
 
 
         val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(1.5F, 39, 19, Date(), days1, null, null))
+        reminders.add(ReminderMedicine(2F, 39, 19, Date(), days1, null, null))
         reminders.add(ReminderMedicine(1F, 41, 19, Date(), days1, null, null))
         UserInformation.addNewMedicine(
             LocalMedicine(
@@ -141,7 +141,7 @@ class HomepageActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        NotifyPlanner.planAlarmDay(this)//todo removeeeeeeeeee laterrrrrr
+        NotifyPlanner.planFullDayAlarms(this)//todo removeeeeeeeeee laterrrrrr
         initLists()
     }
 

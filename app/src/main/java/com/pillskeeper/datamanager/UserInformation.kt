@@ -238,6 +238,16 @@ object UserInformation {
         return null
     }
 
+    @Synchronized fun restoreQty(medicine: LocalMedicine): Boolean {
+        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Started")
+
+        medicine.remainingQty = medicine.totalQty
+        LocalDatabase.saveMedicineList()
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Qty restored")
+        return true
+    }
+
 
 
     /*******  DELETE FUNCTION   *******/

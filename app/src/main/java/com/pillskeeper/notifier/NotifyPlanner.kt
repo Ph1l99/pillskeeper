@@ -16,7 +16,7 @@ import java.util.*
 
 object NotifyPlanner{
 
-    fun planAlarmDay(context: Context?){
+    fun planFullDayAlarms(context: Context?){
         Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Started")
 
         if (context != null) {
@@ -61,6 +61,59 @@ object NotifyPlanner{
             println("alarm già presente!!!!!!!! $itTime") //TODO remove
         }
 
+    }
+
+    fun planNextDayPlanner(context: Context?) {
+        Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Started")
+
+        if (context != null) {
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val intent = Intent(context,EventBroadcastReceiver::class.java)
+                .apply {
+                    putExtra(EventBroadcastReceiver.TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM.toString())
+                    action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+                }
+            val itID = 0
+            if(!Utils.isAlreadyExistingIntent(context,itID,intent)) {
+                val pendingIntent = PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                )
+
+                val cal = Calendar.getInstance()
+                cal.time = Date()
+                cal.set(Calendar.MINUTE, 0)
+                cal.set(Calendar.SECOND, 0)
+                cal.set(Calendar.MILLISECOND, 0)
+                cal.set(Calendar.HOUR_OF_DAY, 7)
+                cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
+
+                if (Build.VERSION.SDK_INT >= 23)
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        cal.timeInMillis,
+                        pendingIntent
+                    )
+                else
+                    alarmManager.setExact(
+                        AlarmManager.RTC_WAKEUP,
+                        cal.timeInMillis,
+                        pendingIntent
+                    )
+                Log.i(
+                    Log.DEBUG.toString(),
+                    "MainActivity: planNextDayPlanner() - Next Day planned... ${cal.time}"
+                )
+            } else {
+                Log.i(
+                    Log.DEBUG.toString(),
+                    "MainActivity: planNextDayPlanner() - Next already planned!!!"
+                )
+            }
+        }
+        Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Ended")
     }
 
     private fun buildIntent(context: Context, it: Any): Intent{

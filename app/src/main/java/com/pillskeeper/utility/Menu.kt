@@ -17,7 +17,7 @@ import com.pillskeeper.activity.PersonalInfoDialog
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
 import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
-import com.pillskeeper.activity.medicine.PillsListActivity
+import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.registration.LoginActivity
 
 class Menu(
@@ -68,10 +68,10 @@ class Menu(
                 }
             }
             R.id.nav_medicines -> {
-                if(activity is PillsListActivity){
+                if(activity is MedicineLocaleListActivity){
                     changed = false
                 } else {
-                    val intent = Intent(activity.applicationContext, PillsListActivity::class.java)
+                    val intent = Intent(activity.applicationContext, MedicineLocaleListActivity::class.java)
                     intent.flags = FLAG_ACTIVITY_NEW_TASK
                     activity.applicationContext.startActivity(intent)
                 }

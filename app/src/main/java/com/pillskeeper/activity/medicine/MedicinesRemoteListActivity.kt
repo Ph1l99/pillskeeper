@@ -14,11 +14,11 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.PillsFormActivity.Companion.REMOTE_MEDICINE
+import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
-class MedicinesListActivity : AppCompatActivity() {
+class MedicinesRemoteListActivity : AppCompatActivity() {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var medicinesListView: ListView
     private lateinit var arrayMedicines: ArrayList<String>
@@ -38,7 +38,7 @@ class MedicinesListActivity : AppCompatActivity() {
         fillMedicinesList()
 
         addMedicineButton.setOnClickListener {
-            startActivity(Intent(this, PillsFormActivity::class.java))
+            startActivity(Intent(this, MedicineFormActivity::class.java))
             finish()
         }
     }
@@ -82,13 +82,13 @@ class MedicinesListActivity : AppCompatActivity() {
             arrayMedicines.add(medicine.name)
         }
         adapter = ArrayAdapter(
-            this@MedicinesListActivity,
+            this@MedicinesRemoteListActivity,
             android.R.layout.simple_list_item_1,
             arrayMedicines
         )
         medicinesListView.adapter = adapter
         medicinesListView.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this, PillsFormActivity::class.java)
+            val intent = Intent(this, MedicineFormActivity::class.java)
             intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
             startActivityForResult(intent, LAUNCH_PILLS)
         }

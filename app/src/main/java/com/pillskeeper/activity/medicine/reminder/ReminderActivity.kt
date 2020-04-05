@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.PillsFormActivity
+import com.pillskeeper.activity.medicine.MedicineFormActivity
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.utility.Utils
@@ -86,8 +86,8 @@ class ReminderActivity : AppCompatActivity()  {
                 editTextAddNotesRem.text.toString()
             )
 
-            val it = Intent(this, PillsFormActivity::class.java)
-            it.putExtra(PillsFormActivity.REMINDER, reminder)
+            val it = Intent(this, MedicineFormActivity::class.java)
+            it.putExtra(MedicineFormActivity.REMINDER, reminder)
             setResult(Activity.RESULT_OK, it)
             finish()
         }

@@ -19,7 +19,7 @@ import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
 
-class PillsListActivity : AppCompatActivity() {
+class MedicineLocaleListActivity : AppCompatActivity() {
 
     private lateinit var pillsArray: LinkedList<String>
     private var adapter: ArrayAdapter<String>? = null
@@ -47,11 +47,11 @@ class PillsListActivity : AppCompatActivity() {
         //Listeners
         pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
             if (position == 0) {
-                val it = Intent(this, MedicinesListActivity::class.java)
+                val it = Intent(this, MedicinesRemoteListActivity::class.java)
                 startActivity(it)
             } else {
-                val it = Intent(this, PillsFormActivity::class.java)
-                    .putExtra(PillsFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
+                val it = Intent(this, MedicineFormActivity::class.java)
+                    .putExtra(MedicineFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
                 startActivity(it)
             }
         }

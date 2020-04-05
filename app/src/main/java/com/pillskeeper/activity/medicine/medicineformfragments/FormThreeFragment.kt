@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine.formfragments
+package com.pillskeeper.activity.medicine.medicineformfragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,7 @@ import com.google.common.hash.Hashing
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.PillsListActivity
+import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.UserInformation
@@ -47,7 +47,7 @@ class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
 
         textViewConfirm.setOnClickListener {
             addOrEditMedicine()
-            var intent = Intent(context, PillsListActivity::class.java)
+            var intent = Intent(context, MedicineLocaleListActivity::class.java)
             startActivity(intent)
         }
 

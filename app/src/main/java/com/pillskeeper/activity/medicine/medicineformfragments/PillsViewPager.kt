@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine.formfragments
+package com.pillskeeper.activity.medicine.medicineformfragments
 
 import android.content.Context
 import android.view.MotionEvent

@@ -1,6 +1,5 @@
-package com.pillskeeper.activity.medicine.formfragments
+package com.pillskeeper.activity.medicine.medicineformfragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
-import androidx.viewpager.widget.ViewPager
 
 import com.pillskeeper.R
 

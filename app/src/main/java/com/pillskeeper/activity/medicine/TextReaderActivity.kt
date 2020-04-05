@@ -94,7 +94,7 @@ class TextReaderActivity : AppCompatActivity() {
             })
 
             confirm_button.setOnClickListener{
-                val it = Intent(this, PillsFormActivity::class.java)
+                val it = Intent(this, MedicineFormActivity::class.java)
                 it.putExtra("pillName", textView.text.toString())
                 setResult(Activity.RESULT_OK, it)
                 finish()

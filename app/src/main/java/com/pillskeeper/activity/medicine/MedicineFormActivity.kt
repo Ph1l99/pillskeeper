@@ -5,8 +5,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.formfragments.FormAdapter
-import com.pillskeeper.activity.medicine.formfragments.PillsViewPager
+import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
+import com.pillskeeper.activity.medicine.medicineformfragments.PillsViewPager
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
@@ -14,7 +14,7 @@ import com.pillskeeper.enums.MedicineTypeEnum
 import kotlinx.android.synthetic.main.activity_pills_form.*
 import java.util.*
 
-class PillsFormActivity : AppCompatActivity() {
+class MedicineFormActivity : AppCompatActivity() {
 
     companion object {
         const val CAMERA_REQUEST = 0

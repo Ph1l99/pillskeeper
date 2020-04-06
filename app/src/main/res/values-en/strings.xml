@@ -22,7 +22,7 @@
     <string name="Syrup">Syrup</string>
     <string name="surnameFriend">Surname Friend:</string>
     <string name="Suppository">Suppository</string>
-    <string name="quantityexample">Es: 16</string>
+    <string name="quantityexample">I.E: 16</string>
     <string name="error_values">One or more values are incorrect. Please insert the infos again</string>
     <string name="nome">Name:</string>
     <string name="cognome">Surname:</string>
@@ -65,7 +65,6 @@
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Select date</string>
-    <string name="nothingToDoHere">No result found!</string>
     <string name="medicineAlreadyExists">Error! The medicine already exists</string>
     <string name="label">Make sure you have the GPS active and select SEARCH</string>
     <string name="search_button">Search</string>
@@ -96,4 +95,10 @@
     <string name="expiredMedicines">Finished Medicines</string>
     <string name="functionalities">Functionalities</string>
     <string name="nothingToSee">No Medicine Found</string>
+    <string name="FormOneTitle">Which medicine do you wanto to add?</string>
+    <string name="FormOneTitle2">Select medicine type</string>
+    <string name="next">Next</string>
+    <string name="reminderTitle">Do you want to add a reminder for the added medicine?</string>
+    <string name="confirmText">Continue without reminder</string>
+    <string name="mailsubject">Request medicine:</string>
 </resources>

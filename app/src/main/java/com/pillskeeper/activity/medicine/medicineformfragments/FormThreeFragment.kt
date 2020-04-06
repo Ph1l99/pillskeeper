@@ -19,14 +19,10 @@ import com.pillskeeper.enums.MedicineTypeEnum
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
-    companion object {
-        const val FORM_TWO = 1
-    }
+class FormThreeFragment(private val viewPager: PillsViewPager) : Fragment() {
 
-    private val viewPager = viewPager
-    lateinit var textViewBack: TextView
-    lateinit var textViewConfirm: TextView
+    private lateinit var textViewBack: TextView
+    private lateinit var textViewConfirm: TextView
 
     private val PATH_MEDICINES = "medicines"
 
@@ -42,18 +38,29 @@ class FormThreeFragment(viewPager: PillsViewPager) : Fragment() {
         textViewConfirm = view.findViewById(R.id.textViewConfirm)
 
         textViewBack.setOnClickListener {
-            viewPager.setCurrentItem(FORM_TWO)
+            viewPager.currentItem = FormAdapter.FORM_TWO
         }
 
         textViewConfirm.setOnClickListener {
             addOrEditMedicine()
-            var intent = Intent(context, MedicineLocaleListActivity::class.java)
+            val intent = Intent(context, MedicineLocaleListActivity::class.java)
             startActivity(intent)
+            FormAdapter.closeForm()
         }
+
+        /*
+        buttonAddReminder.setOnClickListener {
+            val intent = Intent(this, ReminderActivity::class.java)
+            val intentReturn = Intent()
+            setResult(Activity.RESULT_OK, intentReturn)
+            startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
+        }
+        */
 
         return view
     }
 
+    //todo vedere se mettere nell'adapter
     private fun addOrEditMedicine() {
         val newMed = LocalMedicine(
             FormAdapter.pillName.toLowerCase(Locale.ROOT),

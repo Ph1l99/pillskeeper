@@ -20,9 +20,7 @@ import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.CAMERA_R
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMINDER
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMINDER_INSERT_ACTIVITY
 import com.pillskeeper.activity.medicine.TextReaderActivity
-import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.util.*
 import kotlin.collections.ArrayList
@@ -30,17 +28,9 @@ import kotlin.collections.ArrayList
 
 class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : Fragment() {
 
-    companion object {
-        const val FORM_TWO = 1
-    }
-
-    private var remoteMedicine: RemoteMedicine? = null
-    private var localMedicine: LocalMedicine? = null
-    private var isEditing: Boolean = false
     private val viewPager: ViewPager = viewPager
 
     private var reminderList: LinkedList<ReminderMedicine>? = null
-
 
     private lateinit var spinnerMedicineType: Spinner
     private lateinit var buttonCamera: Button
@@ -58,21 +48,11 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
         editTextNameMed = view.findViewById(R.id.editTextNameMed)
         spinner = view.findViewById(R.id.spinnerMedicineType)
 
-        if(intent.getSerializableExtra(MedicineFormActivity.LOCAL_MEDICINE) != null){
-            localMedicine = intent.getSerializableExtra(MedicineFormActivity.LOCAL_MEDICINE) as LocalMedicine
-            editTextNameMed.setText(localMedicine!!.name)
-            editTextNameMed.setRawInputType(0)
-            setAllEnable(false)
-            reminderList = localMedicine!!.reminders
-            //editTextTotQuantity.setText(if(localMedicine!!.totalPills != 0F) localMedicine!!.totalPills.toString() else "0")
-            //editTextRemQuantity.setText(if(localMedicine!!.remainingPills != 0F) localMedicine!!.remainingPills.toString() else "0")
-            //buttonDenyMed.text = getText(R.string.closeButton)
-            //buttonConfirmMed.text = getText(R.string.editButton)
-        } else if (intent.getSerializableExtra(MedicineFormActivity.REMOTE_MEDICINE) != null) {
-            remoteMedicine = intent.getSerializableExtra(MedicineFormActivity.REMOTE_MEDICINE) as RemoteMedicine
-            editTextNameMed.setText(remoteMedicine!!.name)
+        if (intent.getSerializableExtra(MedicineFormActivity.REMOTE_MEDICINE) != null) {
+            editTextNameMed.setText(FormAdapter.remoteMedicine!!.name)
             editTextNameMed.setRawInputType(0)
             spinnerMedicineType.isEnabled = false
+            textViewNext.visibility = View.VISIBLE
         }
 
         initSpinner()
@@ -81,7 +61,7 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
         buttonCamera.setOnClickListener {
             if (context?.let { it1 -> checkSelfPermission(it1, Manifest.permission.CAMERA) } == PackageManager.PERMISSION_GRANTED) {
                 val intent = Intent(context, TextReaderActivity::class.java)
-                startActivityForResult(intent, MedicineFormActivity.CAMERA_REQUEST)
+                startActivityForResult(intent, CAMERA_REQUEST)
             } else {
                 requestPermissions(
                     arrayOf(Manifest.permission.CAMERA),
@@ -91,15 +71,15 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
         }
 
         editTextNameMed.addTextChangedListener {
-            if(editTextNameMed.text.isNotEmpty()){
+            if(editTextNameMed.text.isNotEmpty())
                 textViewNext.visibility = View.VISIBLE
-            }
+
         }
 
         textViewNext.setOnClickListener {
             FormAdapter.pillName = editTextNameMed.text.toString()
             FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
-            viewPager.currentItem = FORM_TWO
+            viewPager.currentItem = FormAdapter.FORM_TWO
         }
 
         return view
@@ -108,24 +88,15 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
 
     private fun initSpinner() {
         val medTypeValues: ArrayList<String> = ArrayList()
-        var pos: Short = 0
         when {
-            remoteMedicine != null -> {
-                medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
-            }
-            localMedicine == null || isEditing -> {
-                var counter = 0
-                MedicineTypeEnum.values().forEach { medTypeEnum ->
-                    if (medTypeEnum != MedicineTypeEnum.UNDEFINED) {
-                        medTypeValues.add(getText(medTypeEnum.text).toString())
-                        if(isEditing && medTypeEnum.type == localMedicine?.medicineType?.type)
-                            pos = counter.toShort()
-                        counter++
-                    }
-                }
+            FormAdapter.remoteMedicine != null -> {
+                medTypeValues.add(getText(FormAdapter.remoteMedicine!!.medicineType.text).toString())
             }
             else -> {
-                medTypeValues.add(getText(localMedicine!!.medicineType.text).toString())
+                MedicineTypeEnum.values().forEach { medTypeEnum ->
+                    if (medTypeEnum != MedicineTypeEnum.UNDEFINED)
+                        medTypeValues.add(getText(medTypeEnum.text).toString())
+                }
             }
         }
 
@@ -134,13 +105,6 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
         arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMedicineType.adapter = arrayAdapter
-
-        if(isEditing){
-            spinnerMedicineType.setSelection(pos.toInt())
-        }
-    }
-
-    private fun setAllEnable(flag: Boolean){
 
     }
 
@@ -151,7 +115,7 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
                     val pillName: String? = data!!.getStringExtra("pillName")
                     editTextNameMed.text = SpannableStringBuilder(pillName)
                 }
-                REMINDER_INSERT_ACTIVITY -> {
+                REMINDER_INSERT_ACTIVITY -> { //todo spostare nel fragment 3
                     if(reminderList == null)
                         reminderList = LinkedList()
                     reminderList!!.add(data!!.getSerializableExtra(REMINDER) as ReminderMedicine)

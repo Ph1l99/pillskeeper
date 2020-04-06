@@ -1,23 +1,18 @@
 package com.pillskeeper.activity.medicine.medicineformfragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-
+import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 
-class FormTwoFragment(viewPager: PillsViewPager) : Fragment() {
+class FormTwoFragment(private val viewPager: PillsViewPager) : Fragment() {
 
-    companion object {
-        const val FORM_ONE = 0
-        const val FORM_THREE = 2
-    }
-
-    private val viewPager = viewPager
     lateinit var textViewNext: TextView
     lateinit var textViewBack: TextView
     lateinit var editTextTotalQuantity: EditText
@@ -29,7 +24,7 @@ class FormTwoFragment(viewPager: PillsViewPager) : Fragment() {
         val view = inflater.inflate(R.layout.fragment_form_two, container, false)
 
         textViewNext = view!!.findViewById(R.id.textViewNext)
-        textViewBack = view!!.findViewById(R.id.textViewBack)
+        textViewBack = view.findViewById(R.id.textViewBack)
         editTextTotalQuantity = view.findViewById(R.id.editTextTotalQuantity)
         editTextRemainingQuantity = view.findViewById(R.id.editTextRemainingQuantity)
 
@@ -41,12 +36,15 @@ class FormTwoFragment(viewPager: PillsViewPager) : Fragment() {
             } else {
                 FormAdapter.totalQuantity = editTextTotalQuantity.text.toString().toFloat()
                 FormAdapter.remainingQuantity = editTextRemainingQuantity.text.toString().toFloat()
-                viewPager.currentItem = FORM_THREE
+                viewPager.currentItem = FormAdapter.FORM_THREE
             }
         }
 
+        if(FormAdapter.remoteMedicine != null)
+            textViewNext.visibility = View.VISIBLE
+
         textViewBack.setOnClickListener{
-            viewPager.currentItem = FORM_ONE
+            viewPager.currentItem = FormAdapter.FORM_ONE
         }
 
         editTextTotalQuantity.addTextChangedListener {

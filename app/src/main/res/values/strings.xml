@@ -44,8 +44,10 @@
 
     <string name="addReminder">Aggiungi Promemoria</string>
     <string name="totalQuantity">Inserire la quantità totale contenuta nella confezione</string>
+    <string name="totalQuantityEditing">Inserire la nuova quantità totale contenuta nella confezione</string>
     <string name="reminder">Appuntamenti</string>
     <string name="remainingQuantity">Inserire la quantità rimanente nella confezione</string>
+    <string name="remainingQuantityEditing">Inserire la nuova quantità rimanente nella confezione</string>
     <string name="medType">Tipo Medicina</string>
     <string name="medNameHint">Inserire il nome del farmaco</string>
     <string name="medNameTitle">Leggi il nome del farmaco cliccando qui -></string>

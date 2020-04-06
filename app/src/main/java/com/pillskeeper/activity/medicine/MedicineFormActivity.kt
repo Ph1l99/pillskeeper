@@ -1,18 +1,14 @@
 package com.pillskeeper.activity.medicine
 
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.PillsViewPager
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.enums.MedicineTypeEnum
 import kotlinx.android.synthetic.main.activity_pills_form.*
-import java.util.*
 
 class MedicineFormActivity : AppCompatActivity() {
 
@@ -26,21 +22,7 @@ class MedicineFormActivity : AppCompatActivity() {
         const val VIEW_PAGER_ID = 2020
     }
 
-    private var isEditing: Boolean = false
-    private var reminderList: LinkedList<ReminderMedicine>? = null
-    private var remoteMedicine: RemoteMedicine? = null
-    private var localMedicine: LocalMedicine? = null
-    private lateinit var stdLayout: Drawable
-
-
-
     lateinit var viewPager: PillsViewPager
-    lateinit var pillName: String
-    lateinit var medicineType: MedicineTypeEnum
-    var totalQuanty: Int = 0
-    var remainingQuantity = 0
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,72 +34,14 @@ class MedicineFormActivity : AppCompatActivity() {
         val introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
         viewPager.adapter = introAdapter
 
-
-        /*
+        FormAdapter.formActivity = this
         if(intent.getSerializableExtra(LOCAL_MEDICINE) != null){
-            localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
-            editTextNameMed.setText(localMedicine!!.name)
-            editTextNameMed.setRawInputType(0)
-            setAllEnable(false)
-            reminderList = localMedicine!!.reminders
-            editTextTotQuantity.setText(if(localMedicine!!.totalPills != 0F) localMedicine!!.totalPills.toString() else "0")
-            editTextRemQuantity.setText(if(localMedicine!!.remainingPills != 0F) localMedicine!!.remainingPills.toString() else "0")
-            buttonDenyMed.text = getText(R.string.closeButton)
-            buttonConfirmMed.text = getText(R.string.editButton)
+            FormAdapter.localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
+            FormAdapter.reminderList = FormAdapter.localMedicine!!.reminders
+            viewPager.currentItem = FormAdapter.FORM_EDIT
         } else if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
-            remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
-            editTextNameMed.setText(remoteMedicine!!.name)
-            editTextNameMed.setRawInputType(0)
-            spinnerMedicineType.isEnabled = false
+            FormAdapter.remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
         }
-
-
-        initSpinner()
-
-        stdLayout = editTextNameMed.background
-        buttonCamera.setOnClickListener {
-            if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-                val intent = Intent(this, TextReaderActivity::class.java)
-                startActivityForResult(intent, CAMERA_REQUEST)
-            } else {
-                requestPermissions(
-                    arrayOf(Manifest.permission.CAMERA),
-                    REQUEST_CAMERA_PERMISSION_ID
-                )
-            }
-        }
-
-        buttonDenyMed.setOnClickListener {
-            finish()
-        }
-
-        buttonAddReminder.setOnClickListener {
-            val intent = Intent(this, ReminderActivity::class.java)
-            val intentReturn = Intent()
-            setResult(Activity.RESULT_OK, intentReturn)
-            startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
-        }
-
-        buttonConfirmMed.setOnClickListener {
-            restoreAllBg()
-
-            if(localMedicine == null) {
-                addOrEditMedicine()
-            } else {
-                if (isEditing)
-                    addOrEditMedicine()
-                else{
-                    isEditing = !isEditing
-                    setAllEnable(true)
-                    initSpinner()
-                    buttonDenyMed.text = getText(R.string.abortButton)
-                    buttonConfirmMed.text = getText(R.string.saveButton)
-                }
-            }
-        }
-
-         */
-
     }
 
     /*
@@ -155,108 +79,11 @@ class MedicineFormActivity : AppCompatActivity() {
         }
     }
 
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                CAMERA_REQUEST -> {
-                    val pillName: String = data!!.getStringExtra("pillName")
-                    editTextNameMed.text = SpannableStringBuilder(pillName)
-                }
-                REMINDER_INSERT_ACTIVITY -> {
-                    if(reminderList == null)
-                        reminderList = LinkedList()
-                    reminderList!!.add(data!!.getSerializableExtra(REMINDER) as ReminderMedicine)
-                }
-                else -> super.onActivityResult(requestCode, resultCode, data)
-            }
-        }
-    }
-
-    private fun initSpinner() {
-        val medTypeValues: ArrayList<String> = ArrayList()
-        var pos: Short = 0
-        when {
-            remoteMedicine != null -> {
-                medTypeValues.add(getText(remoteMedicine!!.medicineType.text).toString())
-            }
-            localMedicine == null || isEditing -> {
-                var counter = 0
-                MedicineTypeEnum.values().forEach { medTypeEnum ->
-                    if (medTypeEnum != MedicineTypeEnum.UNDEFINED) {
-                        medTypeValues.add(getText(medTypeEnum.text).toString())
-                        if(isEditing && medTypeEnum.type == localMedicine?.medicineType?.type)
-                            pos = counter.toShort()
-                        counter++
-                    }
-                }
-            }
-            else -> {
-                medTypeValues.add(getText(localMedicine!!.medicineType.text).toString())
-            }
-        }
-
-        val arrayAdapter =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, medTypeValues)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        spinnerMedicineType.adapter = arrayAdapter
-
-        if(isEditing){
-            spinnerMedicineType.setSelection(pos.toInt())
-        }
-    }
-
-    private fun checkValuesValidity(): Boolean {
-        var validity = true
-
-        if (editTextNameMed.text.toString().toLowerCase(Locale.ROOT) == "") {
-            validity = false
-            Utils.errorEditText(editTextNameMed)
-        }
-
-        if (editTextTotQuantity.text.toString().toFloatOrNull() == null) {
-            validity = false
-            Utils.errorEditText(editTextTotQuantity)
-        }
-
-        if (editTextRemQuantity.text.toString().toFloatOrNull() == null) {
-            validity = false
-            Utils.errorEditText(editTextRemQuantity)
-        }
-
-        return validity
-    }
-
     private fun restoreAllBg() {
         editTextNameMed.background = stdLayout
         editTextTotQuantity.background = stdLayout
         editTextRemQuantity.background = stdLayout
     }
 
-    private fun setAllEnable(flag: Boolean){
-        editTextNameMed.isEnabled = flag
-        editTextTotQuantity.isEnabled = flag
-        editTextRemQuantity.isEnabled = flag
-        editTextNameMed.isEnabled = flag
-        buttonAddReminder.isEnabled = flag
-        buttonCamera.isEnabled = flag
-        spinnerMedicineType.isEnabled = flag
-    }
-
-
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        val intent = Intent(this, TextReaderActivity::class.java)
-        startActivityForResult(intent, CAMERA_REQUEST)
-    }
-
      */
-
-
 }

@@ -248,6 +248,9 @@ object UserInformation {
         return true
     }
 
+    fun saveUser(){
+
+    }
 
 
     /*******  DELETE FUNCTION   *******/

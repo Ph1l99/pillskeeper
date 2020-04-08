@@ -3,6 +3,7 @@ package com.pillskeeper.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
+import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
@@ -58,6 +62,7 @@ class HomepageActivity : AppCompatActivity() {
 
         //TODO DEBUG - to be removed
         funTest()
+        diodeldiofunction()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -73,6 +78,16 @@ class HomepageActivity : AppCompatActivity() {
             ).show()
             return@setOnItemLongClickListener true
         }
+    }
+
+    private fun diodeldiofunction() {
+        Log.i(Log.DEBUG.toString(), "diodeldio started")
+        val functions = Firebase.functions
+        functions.getHttpsCallable("checkToxic").call("Fuck You")
+            .continueWith { task ->
+                val result = task.result?.data as String
+                Log.i(Log.DEBUG.toString(), result)
+            }
     }
 
     private fun funTest() {
@@ -143,7 +158,6 @@ class HomepageActivity : AppCompatActivity() {
     }
 
 
-
     private fun initLists(filterDate: Date = Date()) {
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
 
@@ -153,13 +167,15 @@ class HomepageActivity : AppCompatActivity() {
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
+        appointmentListMain.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterAppointments)
 
         /*Reminder List*/
         reminderListSorted = Utils.getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
+        reminderListMain.adapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, arrayAdapterReminders)
 
     }
 
@@ -181,7 +197,9 @@ class HomepageActivity : AppCompatActivity() {
                 var text =
                     "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
                 text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
-                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(Calendar.MINUTE)
+                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(
+                    Calendar.MINUTE
+                )
                 return text
             }
             else -> return ""

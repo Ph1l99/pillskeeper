@@ -22,7 +22,7 @@ import com.pillskeeper.utility.Utils
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: PillsViewPager): FragmentPagerAdapter(fm) {
+class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: MedicineViewPager): FragmentPagerAdapter(fm) {
 
     //TODO MISSING EDIT REMINDER and relative INSERT FLOW(alarm edit flow)
 

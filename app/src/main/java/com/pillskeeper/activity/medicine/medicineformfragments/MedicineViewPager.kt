@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 
-class PillsViewPager(context: Context) : ViewPager(context) {
+class MedicineViewPager(context: Context) : ViewPager(context) {
 
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         return false

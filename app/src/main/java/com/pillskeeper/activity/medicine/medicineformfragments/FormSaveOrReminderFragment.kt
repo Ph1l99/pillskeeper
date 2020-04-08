@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 
-class FormSaveOrReminderFragment(private val viewPager: PillsViewPager) : Fragment() {
+class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
 
     private lateinit var textViewBack: TextView
     private lateinit var textViewConfirm: TextView
@@ -37,7 +37,15 @@ class FormSaveOrReminderFragment(private val viewPager: PillsViewPager) : Fragme
             FormAdapter.closeForm()
         }
 
-        /*
+        /*MedicineFormActivity.REMINDER_INSERT_ACTIVITY -> { //todo spostare nel fragment 3
+
+            private var reminderList: LinkedList<ReminderMedicine>? = null
+
+            if(reminderList == null)
+                reminderList = LinkedList()
+            reminderList!!.add(data!!.getSerializableExtra(MedicineFormActivity.REMINDER) as ReminderMedicine)
+        }
+
         buttonAddReminder.setOnClickListener {
             val intent = Intent(this, ReminderActivity::class.java)
             val intentReturn = Intent()

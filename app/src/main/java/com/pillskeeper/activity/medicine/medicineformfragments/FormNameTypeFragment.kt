@@ -17,20 +17,13 @@ import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.CAMERA_REQUEST
-import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMINDER
-import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMINDER_INSERT_ACTIVITY
 import com.pillskeeper.activity.medicine.TextReaderActivity
-import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.enums.MedicineTypeEnum
-import java.util.*
-import kotlin.collections.ArrayList
 
 
-class FormNameTypeFragment(private val intent: Intent, viewPager: PillsViewPager) : Fragment() {
+class FormNameTypeFragment(private val intent: Intent, viewPager: MedicineViewPager) : Fragment() {
 
     private val viewPager: ViewPager = viewPager
-
-    private var reminderList: LinkedList<ReminderMedicine>? = null
 
     private lateinit var spinnerMedicineType: Spinner
     private lateinit var buttonCamera: Button
@@ -110,18 +103,11 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: PillsViewPager
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                CAMERA_REQUEST -> {
-                    val pillName: String? = data!!.getStringExtra("pillName")
-                    editTextNameMed.text = SpannableStringBuilder(pillName)
-                }
-                REMINDER_INSERT_ACTIVITY -> { //todo spostare nel fragment 3
-                    if(reminderList == null)
-                        reminderList = LinkedList()
-                    reminderList!!.add(data!!.getSerializableExtra(REMINDER) as ReminderMedicine)
-                }
-                else -> super.onActivityResult(requestCode, resultCode, data)
-            }
+            if(requestCode == CAMERA_REQUEST) {
+                val pillName: String? = data!!.getStringExtra("pillName")
+                editTextNameMed.text = SpannableStringBuilder(pillName)
+            } else
+                super.onActivityResult(requestCode, resultCode, data)
         }
     }
 

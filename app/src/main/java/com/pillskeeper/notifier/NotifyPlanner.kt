@@ -57,8 +57,6 @@ object NotifyPlanner{
                     itTime.time,
                     pendingIntent
                 )
-        } else {
-            println("alarm già presente!!!!!!!! $itTime") //TODO remove
         }
 
     }

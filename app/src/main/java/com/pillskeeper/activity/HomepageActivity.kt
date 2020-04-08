@@ -21,7 +21,6 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
-import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
@@ -140,8 +139,6 @@ class HomepageActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        NotifyPlanner.planFullDayAlarms(this)//todo removeeeeeeeeee laterrrrrr
         initLists()
     }
 

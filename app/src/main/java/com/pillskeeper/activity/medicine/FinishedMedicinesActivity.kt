@@ -69,8 +69,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     }
 
     private fun displayMedicines(list: LinkedList<LocalMedicine>) {
-        mAdapter =
-            MedicineLocaleCardAdapter(list)
+        mAdapter = MedicineLocaleCardAdapter(list)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)

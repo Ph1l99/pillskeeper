@@ -38,7 +38,7 @@
     <string name="abortButton">Abort</string>
     <string name="closeButton">Close</string>
     <string name="saveButton">Save</string>
-    <string name="appointmentMenu">Appintments</string>
+    <string name="appointmentMenu">Appointments</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Change Profile</string>
     <string name="pharmacies">Near Pharmacies</string>
@@ -95,7 +95,7 @@
     <string name="expiredMedicines">Finished Medicines</string>
     <string name="functionalities">Functionalities</string>
     <string name="nothingToSee">No Medicine Found</string>
-    <string name="FormOneTitle">Which medicine do you wanto to add?</string>
+    <string name="FormOneTitle">Which medicine do you want to add?</string>
     <string name="FormOneTitle2">Select medicine type</string>
     <string name="next">Next</string>
     <string name="reminderTitle">Do you want to add a reminder for the added medicine?</string>

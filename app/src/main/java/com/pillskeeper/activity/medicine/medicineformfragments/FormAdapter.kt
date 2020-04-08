@@ -58,7 +58,7 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
                 medicineType,
                 totalQuantity,
                 remainingQuantity,
-                null,
+                reminderList,
                 hashValue(pillName, medicineType)
             )
             if(UserInformation.addNewMedicine(newMed)) {

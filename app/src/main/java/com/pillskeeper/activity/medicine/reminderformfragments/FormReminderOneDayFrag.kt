@@ -90,10 +90,10 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
                     FormAdapter.reminderList!!.addAll(reminderList)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
-                    Toast.makeText(UserInformation.context,"Prefavore informazioni corrette!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
                 }
             } else {
-                Toast.makeText(UserInformation.context,"Prefavore informazioni corrette!",Toast.LENGTH_LONG).show()
+                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
             }
         }
 

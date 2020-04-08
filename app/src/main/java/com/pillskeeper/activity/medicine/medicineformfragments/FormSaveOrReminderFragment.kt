@@ -14,6 +14,8 @@ import com.pillskeeper.activity.medicine.ReminderChooseDialog
 
 class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
 
+    //TODO remove "continua senza promemoria" and add a reminderList!!!!!!
+
     private lateinit var textViewBack: TextView
     private lateinit var textViewConfirm: TextView
     private lateinit var buttonAddReminder: Button

@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -16,12 +15,12 @@ import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.utility.MedicineRemoteCardAdapter
 import kotlinx.android.synthetic.main.activity_medicines_list.*
+import java.util.*
 
 class MedicinesRemoteListActivity : AppCompatActivity() {
-    private lateinit var adapter: ArrayAdapter<String>
-    private lateinit var medicinesListView: ListView
-    private lateinit var arrayMedicines: ArrayList<String>
+    private lateinit var mAdapter: MedicineRemoteCardAdapter
     private lateinit var databaseReference: DatabaseReference
 
     companion object {
@@ -75,23 +74,14 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
 
     //Metodo per manipolare i dati e presentarli all'utente
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
-        Log.i(Log.DEBUG.toString(), "displayListMedicines()-Started")
-        arrayMedicines = ArrayList(medicinesList.size)
-        medicinesListView = findViewById(R.id.medicinesList)
-        for (medicine in medicinesList) {
-            arrayMedicines.add(medicine.name)
-        }
-        adapter = ArrayAdapter(
-            this@MedicinesRemoteListActivity,
-            android.R.layout.simple_list_item_1,
-            arrayMedicines
-        )
-        medicinesListView.adapter = adapter
-        medicinesListView.setOnItemClickListener { _, _, position, _ ->
+        mAdapter = MedicineRemoteCardAdapter(medicinesList)
+        recyclerView.adapter = mAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setHasFixedSize(true)
+        mAdapter.setOnItemClickListener {
             val intent = Intent(this, MedicineFormActivity::class.java)
-            intent.putExtra(REMOTE_MEDICINE, medicinesList[position])
+            intent.putExtra(REMOTE_MEDICINE, medicinesList[it])
             startActivityForResult(intent, LAUNCH_PILLS)
         }
-        Log.i(Log.DEBUG.toString(), "displayListMedicines()-Ended")
     }
 }

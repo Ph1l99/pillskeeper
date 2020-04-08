@@ -58,7 +58,7 @@ public class MedicineRemoteCardAdapter extends RecyclerView.Adapter<MedicineRemo
     @NotNull
     @Override
     public MedCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.med_card_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.remote_med_card_item, parent, false);
         return new MedCardHolderJava(v, mListener);
     }
 
@@ -66,7 +66,7 @@ public class MedicineRemoteCardAdapter extends RecyclerView.Adapter<MedicineRemo
     @Override
     public void onBindViewHolder(MedCardHolderJava holder, int position) {
         RemoteMedicine currentItem = medList.get(position);
-        holder.imageView.setImageResource(R.drawable.ic_mail_outline);
+        holder.imageView.setImageResource(R.drawable.ic_med_list_forward);
         holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
     }
 

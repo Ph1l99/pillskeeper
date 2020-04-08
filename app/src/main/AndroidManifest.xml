@@ -47,7 +47,7 @@
         <activity
             android:name=".activity.medicine.MedicinesRemoteListActivity"
             android:label="@string/medicineListTitle" />
-        <activity android:name=".activity.medicine.reminder.ReminderActivity" />
+        <activity android:name=".activity.medicine.reminderformfragments.ReminderActivity" />
         <activity
             android:name=".activity.medicine.TextReaderActivity"
             android:label="@string/textReaderActivityTitle" />

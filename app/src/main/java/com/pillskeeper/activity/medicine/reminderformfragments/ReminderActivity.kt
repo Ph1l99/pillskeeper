@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine.reminder
+package com.pillskeeper.activity.medicine.reminderformfragments
 
 import android.app.Activity
 import android.app.DatePickerDialog

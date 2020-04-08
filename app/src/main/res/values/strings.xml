@@ -137,4 +137,12 @@
     <string name="quantityexample">Es: 16</string>
     <string name="reminderTitle">Vuoi aggiungere un promemoria per la medicina inserita?</string>
     <string name="confirmText">Continua senza promemoria</string>
+    <string name="dialogChooseReminderText">Il promemoria si ripete nel tempo?</string>
+    <string name="no" translatable="false">No</string>
+    <string name="selectSpecificDateReminder">Seleziona la data dell\'evento</string>
+    <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
+    <string name="dosageReminder">Inserire la quantità da assuere:</string>
+    <string name="_0">0</string>
+
+
 </resources>

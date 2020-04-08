@@ -1,6 +1,5 @@
 package com.pillskeeper.activity.medicine
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.activity.GenericDeleteDialog
-import com.pillskeeper.activity.HomepageActivity
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
@@ -74,19 +72,6 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
 
         initList()
-    }
-
-    //todo può essere cancellata?
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == HomepageActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                val pillName: String = data!!.getStringExtra("pillName")
-                /*pillsArray.add(pillName)
-                adapter!!.notifyDataSetChanged()*/
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
     private fun initList() {

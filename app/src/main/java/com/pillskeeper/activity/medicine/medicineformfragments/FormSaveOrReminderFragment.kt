@@ -5,15 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
+import com.pillskeeper.activity.medicine.ReminderChooseDialog
 
 class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
 
+    //TODO remove "continua senza promemoria" and add a reminderList!!!!!!
+
     private lateinit var textViewBack: TextView
     private lateinit var textViewConfirm: TextView
+    private lateinit var buttonAddReminder: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +30,7 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
 
         textViewBack = view.findViewById(R.id.textViewBack)
         textViewConfirm = view.findViewById(R.id.textViewConfirm)
+        buttonAddReminder = view.findViewById(R.id.buttonAddReminder)
 
         textViewBack.setOnClickListener {
             viewPager.currentItem = FormAdapter.FORM_QUANTITY
@@ -37,22 +43,9 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
             FormAdapter.closeForm()
         }
 
-        /*MedicineFormActivity.REMINDER_INSERT_ACTIVITY -> { //todo spostare nel fragment 3
-
-            private var reminderList: LinkedList<ReminderMedicine>? = null
-
-            if(reminderList == null)
-                reminderList = LinkedList()
-            reminderList!!.add(data!!.getSerializableExtra(MedicineFormActivity.REMINDER) as ReminderMedicine)
-        }
-
         buttonAddReminder.setOnClickListener {
-            val intent = Intent(this, ReminderActivity::class.java)
-            val intentReturn = Intent()
-            setResult(Activity.RESULT_OK, intentReturn)
-            startActivityForResult(intent, REMINDER_INSERT_ACTIVITY)
+            ReminderChooseDialog(FormAdapter.formActivity,viewPager).show()
         }
-        */
 
         return view
     }

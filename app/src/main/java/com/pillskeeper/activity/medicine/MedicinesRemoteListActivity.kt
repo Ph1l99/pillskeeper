@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -15,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.adapter.MedicineRemoteCardAdapter
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
@@ -48,18 +50,20 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
 
                 override fun onCancelled(p0: DatabaseError) {
                     Log.i(
-                        Log.DEBUG.toString(),
+                        Log.ERROR.toString(),
                         "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
                     )
+                    progressBarRemoteMed.visibility = View.GONE
+                    startActivity(Intent(UserInformation.context, MedicineFormActivity::class.java))
+                    finish()
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
+                    progressBarRemoteMed.visibility = View.GONE
                     displayListMedicines(RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>))
-
                     Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
                 }
             })
-        Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

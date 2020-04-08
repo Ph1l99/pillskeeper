@@ -101,4 +101,5 @@
     <string name="reminderTitle">Do you want to add a reminder for the added medicine?</string>
     <string name="confirmText">Continue without reminder</string>
     <string name="mailsubject">Request medicine:</string>
+    <string name="_0">0</string>
 </resources>

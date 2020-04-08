@@ -25,6 +25,8 @@ import java.util.*
 class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: MedicineViewPager): FragmentPagerAdapter(fm) {
 
     //TODO MISSING EDIT REMINDER and relative INSERT FLOW(alarm edit flow)
+    //TODO bisogna resettare questa classe statica(o renderla non statica) quadno si finisce di salvare la medicina (altrimenti rimangono le info salvate)
+    // si potrebbe fare in apertura del form ogni volta, oppure in chiusura
 
     companion object{
         const val FORM_NAME_TYPE = 0

@@ -87,12 +87,10 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         }
         println(isValidInfo)
         if (isValidInfo) {
-            Log.i(Log.DEBUG.toString(), "valid info vero ")
             if (auth.currentUser?.email != editTextEmail.text.toString()) {
                 updateAuth = true
             }
             if (updateAuth) {
-                Log.i(Log.DEBUG.toString(), "updateAuth vero ")
                 auth.currentUser?.updateEmail(editTextEmail.text.toString())
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
@@ -105,7 +103,6 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
-                Log.i(Log.DEBUG.toString(), "updateAuth falso ")
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
                         it,

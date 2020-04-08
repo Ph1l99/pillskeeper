@@ -11,7 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 
-class FormTwoFragment(private val viewPager: PillsViewPager) : Fragment() {
+class FormQuantityFragment(private val viewPager: PillsViewPager) : Fragment() {
 
     lateinit var textViewNext: TextView
     lateinit var textViewBack: TextView
@@ -36,7 +36,7 @@ class FormTwoFragment(private val viewPager: PillsViewPager) : Fragment() {
             } else {
                 FormAdapter.totalQuantity = editTextTotalQuantity.text.toString().toFloat()
                 FormAdapter.remainingQuantity = editTextRemainingQuantity.text.toString().toFloat()
-                viewPager.currentItem = FormAdapter.FORM_THREE
+                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
             }
         }
 
@@ -44,7 +44,7 @@ class FormTwoFragment(private val viewPager: PillsViewPager) : Fragment() {
             textViewNext.visibility = View.VISIBLE
 
         textViewBack.setOnClickListener{
-            viewPager.currentItem = FormAdapter.FORM_ONE
+            viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
         }
 
         editTextTotalQuantity.addTextChangedListener {

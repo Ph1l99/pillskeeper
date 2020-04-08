@@ -24,12 +24,12 @@ import java.util.*
 
 class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: PillsViewPager): FragmentPagerAdapter(fm) {
 
-
+    //TODO MISSING EDIT REMINDER and relative INSERT FLOW(alarm edit flow)
 
     companion object{
-        const val FORM_ONE = 0
-        const val FORM_TWO = 1
-        const val FORM_THREE = 2
+        const val FORM_NAME_TYPE = 0
+        const val FORM_QUANTITY = 1
+        const val FORM_SAVE_OR_REMINDER = 2
         const val FORM_EDIT = 3
 
         lateinit var pillName: String
@@ -51,7 +51,7 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
             formActivity.finish()
         }
 
-        fun addOrEditMedicine() {
+        fun addNewMedicine() {
             val newMed = LocalMedicine(
                 pillName.toLowerCase(Locale.ROOT),
                 medicineType,
@@ -99,11 +99,11 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            FORM_ONE -> FormOneFragment(intent, viewPager)
-            FORM_TWO -> FormTwoFragment(viewPager)
-            FORM_THREE -> FormThreeFragment(viewPager)
+            FORM_NAME_TYPE -> FormNameTypeFragment(intent, viewPager)
+            FORM_QUANTITY -> FormQuantityFragment(viewPager)
+            FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            else -> FormOneFragment(intent, viewPager)
+            else -> FormNameTypeFragment(intent, viewPager)
         }
     }
 

@@ -26,7 +26,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : Fragment() {
+class FormNameTypeFragment(private val intent: Intent, viewPager: PillsViewPager) : Fragment() {
 
     private val viewPager: ViewPager = viewPager
 
@@ -79,7 +79,7 @@ class FormOneFragment(private val intent: Intent, viewPager: PillsViewPager) : F
         textViewNext.setOnClickListener {
             FormAdapter.pillName = editTextNameMed.text.toString()
             FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
-            viewPager.currentItem = FormAdapter.FORM_TWO
+            viewPager.currentItem = FormAdapter.FORM_QUANTITY
         }
 
         return view

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 
-class FormThreeFragment(private val viewPager: PillsViewPager) : Fragment() {
+class FormSaveOrReminderFragment(private val viewPager: PillsViewPager) : Fragment() {
 
     private lateinit var textViewBack: TextView
     private lateinit var textViewConfirm: TextView
@@ -27,11 +27,11 @@ class FormThreeFragment(private val viewPager: PillsViewPager) : Fragment() {
         textViewConfirm = view.findViewById(R.id.textViewConfirm)
 
         textViewBack.setOnClickListener {
-            viewPager.currentItem = FormAdapter.FORM_TWO
+            viewPager.currentItem = FormAdapter.FORM_QUANTITY
         }
 
         textViewConfirm.setOnClickListener {
-            FormAdapter.addOrEditMedicine()
+            FormAdapter.addNewMedicine()
             val intent = Intent(context, MedicineLocaleListActivity::class.java)
             startActivity(intent)
             FormAdapter.closeForm()

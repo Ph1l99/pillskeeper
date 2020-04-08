@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.medicine.medicineformfragments.FormThreeFragment"
+    tools:context=".activity.medicine.medicineformfragments.FormSaveOrReminderFragment"
     android:padding="16dp">
 
     <!-- TODO: Update blank fragment layout -->

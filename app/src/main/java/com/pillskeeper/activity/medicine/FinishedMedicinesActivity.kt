@@ -17,7 +17,7 @@ import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Mail
-import com.pillskeeper.utility.MedicineLocaleCardAdapter
+import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
 import kotlinx.android.synthetic.main.activity_finished_medicines.*
 import java.util.*
 
@@ -69,7 +69,8 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     }
 
     private fun displayMedicines(list: LinkedList<LocalMedicine>) {
-        mAdapter = MedicineLocaleCardAdapter(list)
+        mAdapter =
+            MedicineLocaleCardAdapter(list)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)

@@ -15,9 +15,8 @@ import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
-import com.pillskeeper.utility.MedicineRemoteCardAdapter
+import com.pillskeeper.utility.adapter.MedicineRemoteCardAdapter
 import kotlinx.android.synthetic.main.activity_medicines_list.*
-import java.util.*
 
 class MedicinesRemoteListActivity : AppCompatActivity() {
     private lateinit var mAdapter: MedicineRemoteCardAdapter
@@ -72,9 +71,10 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
         }
     }
 
-    //Metodo per manipolare i dati e presentarli all'utente
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
-        mAdapter = MedicineRemoteCardAdapter(medicinesList)
+        mAdapter = MedicineRemoteCardAdapter(
+            medicinesList
+        )
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)

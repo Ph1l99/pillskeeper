@@ -1,4 +1,4 @@
-package com.pillskeeper.utility;
+package com.pillskeeper.utility.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -10,15 +10,16 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillskeeper.R;
-import com.pillskeeper.data.LocalMedicine;
+import com.pillskeeper.data.RemoteMedicine;
 import com.pillskeeper.datamanager.UserInformation;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLocaleCardAdapter.MedCardHolderJava> {
-    private List<LocalMedicine> medList;
+public class MedicineRemoteCardAdapter extends RecyclerView.Adapter<MedicineRemoteCardAdapter.MedCardHolderJava> {
+
+    private List<RemoteMedicine> medList;
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
@@ -35,8 +36,8 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
 
         MedCardHolderJava(View itemView, OnItemClickListener listener) {
             super(itemView);
-            textView = itemView.findViewById(R.id.finishedMedText);
-            imageView = itemView.findViewById(R.id.sendMailIcon);
+            textView = itemView.findViewById(R.id.medText);
+            imageView = itemView.findViewById(R.id.forwardIcon);
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();
@@ -49,7 +50,7 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
 
     }
 
-    public MedicineLocaleCardAdapter(List<LocalMedicine> medList) {
+    public MedicineRemoteCardAdapter(List<RemoteMedicine> medList) {
         this.medList = medList;
     }
 
@@ -57,16 +58,15 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
     @NotNull
     @Override
     public MedCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.med_card_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.remote_med_card_item, parent, false);
         return new MedCardHolderJava(v, mListener);
     }
-
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(MedCardHolderJava holder, int position) {
-        LocalMedicine currentItem = medList.get(position);
-        holder.imageView.setImageResource(R.drawable.ic_mail_outline);
+        RemoteMedicine currentItem = medList.get(position);
+        holder.imageView.setImageResource(R.drawable.ic_med_list_forward);
         holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
     }
 

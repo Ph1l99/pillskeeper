@@ -67,7 +67,7 @@ object UserInformation {
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Started")
 
         medicines.forEach {
-            entry -> if(entry.name == medicine.name){
+            entry -> if(entry.name == medicine.name && entry.medicineType == medicine.medicineType){
                 Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Ended - Medicine already present")
                 return false
             }

@@ -58,8 +58,7 @@ public class MedCardAdapter extends RecyclerView.Adapter<MedCardAdapter.MedCardH
     @Override
     public MedCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.med_card_item, parent, false);
-        MedCardHolderJava mca = new MedCardHolderJava(v, mListener);
-        return mca;
+        return new MedCardHolderJava(v, mListener);
     }
 
 

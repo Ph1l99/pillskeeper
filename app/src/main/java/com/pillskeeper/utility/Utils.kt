@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
@@ -98,20 +99,24 @@ object Utils {
         username.text = LocalDatabase.readUser()?.name
     }
 
-    fun getSortedListReminders(filterDate: Date): LinkedList<ReminderMedicineSort> {
+    fun getSortedListReminders(filterDate: Date, medList: LinkedList<LocalMedicine> = UserInformation.medicines): LinkedList<ReminderMedicineSort> {
 
-        var randomList: LinkedList<ReminderMedicineSort> = LinkedList()
-        UserInformation.medicines.forEach {
-            it.reminders?.forEach { reminder ->
-                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
-            }
-        }
-        randomList = convertSeqToDate(randomList)
+        var randomList: LinkedList<ReminderMedicineSort> = getListReminderNormalized(medList)
 
         randomList = LinkedList(randomList.filter { it.reminder.startingDay <= filterDate })
         randomList.sortBy { it.reminder.startingDay }
 
         return randomList
+    }
+
+    fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort>{
+        val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
+        medList.forEach {
+            it.reminders?.forEach { reminder ->
+                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
+            }
+        }
+        return convertSeqToDate(randomList)
     }
 
     private fun convertSeqToDate(list: LinkedList<ReminderMedicineSort>): LinkedList<ReminderMedicineSort> {

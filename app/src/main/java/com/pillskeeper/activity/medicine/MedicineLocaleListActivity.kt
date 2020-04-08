@@ -76,6 +76,7 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         initList()
     }
 
+    //todo può essere cancellata?
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == HomepageActivity.START_FIRST_LOGIN_ACTIVITY_CODE) {
             if (resultCode == Activity.RESULT_OK) {

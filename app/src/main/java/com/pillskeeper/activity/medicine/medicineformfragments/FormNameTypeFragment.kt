@@ -93,8 +93,7 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: MedicineViewPa
             }
         }
 
-        val arrayAdapter =
-            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, medTypeValues) }
+        val arrayAdapter = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, medTypeValues) }
         arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMedicineType.adapter = arrayAdapter

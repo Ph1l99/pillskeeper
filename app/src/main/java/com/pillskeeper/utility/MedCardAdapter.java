@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillskeeper.R;
 import com.pillskeeper.data.LocalMedicine;
+import com.pillskeeper.datamanager.UserInformation;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -51,6 +54,7 @@ public class MedCardAdapter extends RecyclerView.Adapter<MedCardAdapter.MedCardH
     }
 
 
+    @NotNull
     @Override
     public MedCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.med_card_item, parent, false);
@@ -58,12 +62,13 @@ public class MedCardAdapter extends RecyclerView.Adapter<MedCardAdapter.MedCardH
         return mca;
     }
 
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(MedCardHolderJava holder, int position) {
         LocalMedicine currentItem = medList.get(position);
         holder.imageView.setImageResource(R.drawable.ic_mail_outline);
-        holder.textView.setText(currentItem.getName() + "\n" + currentItem.getMedicineType().toString());
+        holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
     }
 
     @Override

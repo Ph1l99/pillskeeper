@@ -11,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
@@ -62,7 +61,7 @@ class HomepageActivity : AppCompatActivity() {
 
         //TODO DEBUG - to be removed
         funTest()
-        diodeldiofunction()
+        httprequest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -80,13 +79,14 @@ class HomepageActivity : AppCompatActivity() {
         }
     }
 
-    private fun diodeldiofunction() {
+    //TODO @Rick,@Phil, capire dove piazzare la funzione. Scritta così funziona tutto
+    private fun httprequest() {
         Log.i(Log.DEBUG.toString(), "diodeldio started")
         val functions = Firebase.functions
         functions.getHttpsCallable("checkToxic").call("Fuck You")
             .continueWith { task ->
-                val result = task.result?.data as String
-                Log.i(Log.DEBUG.toString(), result)
+                val result = task.result?.data
+                Log.i(Log.DEBUG.toString(), result.toString())
             }
     }
 

@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE

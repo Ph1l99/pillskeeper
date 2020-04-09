@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="10dp"
+    android:orientation="vertical"
     android:padding="5dp"
     tools:context=".activity.appointment.AppointmentFormActivity">
 
     <LinearLayout
-        android:layout_weight="1"
-        android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <TextView
             android:id="@+id/addAppointmentTV"
@@ -21,37 +21,37 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:gravity="start|center"
-            android:textSize="16sp"
-            android:text="@string/appointmentTitle" />
+            android:text="@string/appointmentTitle"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/appointmentNameTV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
             android:layout_margin="3dp"
-            android:textSize="18sp"
+            android:autofillHints=""
             android:hint="@string/appointmentName"
-            android:autofillHints="" />
+            android:inputType="text"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <TextView
             android:id="@+id/timeAppointmentTV"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="start|center"
             android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="@string/timeAppointment" />
+            android:gravity="start|center"
+            android:text="@string/timeAppointment"
+            android:textSize="18sp" />
 
         <Spinner
             android:id="@+id/hourSpinnerAppointment"
@@ -72,66 +72,70 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_weight="1"
-        android:padding="3dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <TextView
             android:id="@+id/dateSelectionTV"
-            android:text="@string/dateSelectionLabel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="start|center"
             android:layout_weight="1"
-            android:textSize="18sp"/>
+            android:gravity="start|center"
+            android:text="@string/dateSelectionLabel"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/buttonDate"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textColor="@color/colorPrimary"
             android:background="@drawable/button_background"
-            android:text="@string/dateButton"/>
+            android:text="@string/dateButton"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
     <EditText
         android:id="@+id/additionalNoteAppointment"
-        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints=""
+        android:layout_margin="5dp"
         android:layout_weight="15"
+        android:autofillHints=""
         android:gravity="top"
         android:hint="@string/additionalNoteAppointment"
         android:inputType="textLongMessage" />
 
     <LinearLayout
-        android:padding="3dp"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <Button
             android:id="@+id/buttonDeleteAppointment"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="10dp"
-            android:text="@string/deleteButton"/>
+            android:layout_weight="1"
+            android:text="@string/deleteButton"
+            android:textSize="15sp"
+            android:theme="@style/AppTheme.Button" />
 
         <Button
-            android:layout_margin="10dp"
             android:id="@+id/buttonConfirmAppointment"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/confirmButton"/>
+            android:text="@string/confirmButton"
+            android:textSize="15sp"
+            android:theme="@style/AppTheme.Button" />
 
     </LinearLayout>
 

@@ -26,53 +26,53 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewWeek">
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxMonday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/monday" />
+            android:text="@string/monday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxTuesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tuesday" />
+            android:text="@string/tuesday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxWednesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/wednesday" />
+            android:text="@string/wednesday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxThursday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/thursday" />
+            android:text="@string/thursday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxFriday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/friday" />
+            android:text="@string/friday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxSaturday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/saturday" />
+            android:text="@string/saturday"
+            android:textSize="18sp" />
 
         <CheckBox
-            android:textSize="18sp"
             android:id="@+id/checkBoxSunday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sunday" />
+            android:text="@string/sunday"
+            android:textSize="18sp" />
 
     </RadioGroup>
 
@@ -117,6 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="36dp"
         android:text="@string/confirmButton"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/buttonDeleteRem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinnerHoursRem"
@@ -140,6 +141,7 @@
         android:minWidth="110dp"
         android:minHeight="46dp"
         android:text="@string/dateButton"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintEnd_toEndOf="@+id/textViewFinishDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate" />
 
@@ -156,24 +158,24 @@
         android:id="@+id/editTextQuantityRem"
         android:layout_width="100dp"
         android:layout_height="45dp"
+        android:autofillHints=""
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/textViewQuantity"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <EditText
         android:id="@+id/editTextAddNotesRem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="100dp"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="16dp"
+        android:autofillHints=""
         android:gravity="top"
         android:hint="@string/additionalNoteAppointment"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerHoursRem"
-        android:autofillHints=""
-        android:inputType="textLongMessage" />
+        android:inputType="textLongMessage"
+        android:minHeight="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerHoursRem" />
 
     <Button
         android:id="@+id/buttonDeleteRem"
@@ -181,6 +183,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:text="@string/deleteButton"
+        android:textSize="15sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spinnerHoursRem"
         app:layout_constraintStart_toStartOf="parent"

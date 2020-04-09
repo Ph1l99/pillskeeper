@@ -15,8 +15,8 @@
         android:layout_marginTop="196dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="303dp"
-        android:text="@string/label"
         android:gravity="center"
+        android:text="@string/label"
         app:layout_constraintBottom_toTopOf="@+id/search_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="62dp"
         android:text="@string/search_button"
+        android:textSize="15sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/back_location_button"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -38,6 +40,8 @@
         android:layout_marginStart="62dp"
         android:layout_marginBottom="139dp"
         android:text="@string/back_button"
+        android:textSize="15sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.medicine.medicineformfragments.FormNameTypeFragment"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    tools:context=".activity.medicine.medicineformfragments.FormNameTypeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -17,34 +17,32 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:text="@string/FormOneTitle"
+        android:textAlignment="center"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="71dp"
-        android:textAlignment="center"/>
+        tools:layout_editor_absoluteY="71dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewNameTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textAlignment="textEnd"
             android:text="@string/medNameTitle"
-            />
+            android:textAlignment="textEnd" />
 
         <Button
             android:id="@+id/buttonCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text=""
-            android:textSize="0dp"
-            android:drawableTop="@drawable/ic_camera"/>
+            android:drawableTop="@drawable/ic_camera"
+            android:textSize="0sp" />
 
     </LinearLayout>
 
@@ -52,10 +50,10 @@
         android:id="@+id/editTextNameMed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/medNameHint"
-        android:layout_marginTop="40dp" />
+        android:inputType="textPersonName" />
 
     <TextView
         android:id="@+id/textViewType"
@@ -64,10 +62,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:text="@string/FormOneTitle2"
+        android:textAlignment="center"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="40dp"
-        tools:layout_editor_absoluteY="71dp"
-        android:textAlignment="center"/>
+        tools:layout_editor_absoluteY="71dp" />
 
     <Spinner
         android:id="@+id/spinnerMedicineType"
@@ -79,8 +77,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewNext"
@@ -93,6 +91,6 @@
             android:gravity="bottom|end"
             android:text="@string/next"
             android:textSize="20sp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
     </LinearLayout>
 </LinearLayout>

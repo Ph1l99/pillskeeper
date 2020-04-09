@@ -31,7 +31,7 @@ object StorageManager {
      */
     fun uploadImage(image: FileInputStream, imageName: String): Pair<ErrorTypeEnum?, Boolean>? {
         Log.i(Log.DEBUG.toString(), "uploadImage()-Started")
-        var resultUpload: Pair<ErrorTypeEnum?, Boolean>? = null
+        var resultUpload: Pair<ErrorTypeEnum?, Boolean>?
         if (storageReferenceRoot.child("$PATH_MEDICINES_IMAGES$imageName.jpg")
                 .putStream(image).isComplete
         ) {

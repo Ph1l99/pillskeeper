@@ -60,6 +60,7 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
 
                 override fun onDataChange(p0: DataSnapshot) {
                     progressBarRemoteMed.visibility = View.GONE
+                    @Suppress("UNCHECKED_CAST")
                     displayListMedicines(RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>))
                     Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
                 }

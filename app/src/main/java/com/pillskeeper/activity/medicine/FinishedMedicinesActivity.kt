@@ -24,7 +24,7 @@ import java.util.*
 class FinishedMedicinesActivity : AppCompatActivity() {
 
     companion object {
-        const val MINIMUM_PILLS = 4
+        const val MINIMUM_QTY = 0.20
     }
 
     private lateinit var mAdapter: MedicineLocaleCardAdapter
@@ -55,7 +55,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         val list = UserInformation.medicines
 
         val outputList = LinkedList(list.filter {
-            it.remainingQty <= MINIMUM_PILLS
+            it.remainingQty <= it.remainingQty* MINIMUM_QTY
         })
 
         if (outputList.isEmpty()) {

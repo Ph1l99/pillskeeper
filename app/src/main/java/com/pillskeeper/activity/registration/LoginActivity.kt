@@ -68,6 +68,7 @@ class LoginActivity : AppCompatActivity() {
             databaseReference.child(PATH_USERS).child(userId)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
+                        @Suppress("UNCHECKED_CAST")
                         LocalDatabase.saveUser(User.fromMap(p0.value as Map<String, String>))
                     }
 

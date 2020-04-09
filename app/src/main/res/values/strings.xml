@@ -62,8 +62,9 @@
     <string name="friday">Venerdì</string>
     <string name="saturday">Sabato</string>
     <string name="sunday">Domenica</string>
-    <string name="time">Orario</string>
-    <string name="espire_date">Data Di Fine (opzionale)</string>
+    <string name="time">Orario: </string>
+    <string name="espire_date">Data Di Fine: (opzionale)</string>
+    <string name="starting_date">Data Di Inizio: </string>
     <string name="quantity">Inserire la quantità</string>
 
     <string name="monthRB">Mesi</string>
@@ -140,9 +141,9 @@
     <string name="reminderList">Promemoria Inseriti: </string>
     <string name="dialogChooseReminderText">Il promemoria si ripete nel tempo?</string>
     <string name="no" translatable="false">No</string>
-    <string name="selectSpecificDateReminder">Seleziona la data dell\'evento</string>
+    <string name="selectSpecificDateReminder">Seleziona la data: </string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
-    <string name="dosageReminder">Inserire la quantità da assuere:</string>
+    <string name="dosageReminder">Quantità da assuere:</string>
     <string name="_0">0</string>
     <string name="or">Oppure</string>
     <string name="additionalNotes">Note Addizionali:</string>

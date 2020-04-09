@@ -9,10 +9,10 @@
         android:id="@+id/textViewSelectDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="20dp"
         android:text="@string/selectSpecificDateReminder"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,14 +31,15 @@
         android:id="@+id/buttonDateReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:background="@drawable/button_background"
-        android:minWidth="120dp"
+        android:minWidth="110dp"
+        android:minHeight="46dp"
         android:text="@string/dateButton"
         android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSelectDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectDate" />
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectDate"
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectDate" />
 
     <TextView
         android:id="@+id/textViewSelectTime"
@@ -47,8 +48,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/timeSelectReminder"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectTime2"
         app:layout_constraintTop_toBottomOf="@+id/buttonDateReminder" />
 
     <Spinner
@@ -78,24 +78,24 @@
         android:layout_marginTop="30dp"
         android:text="@string/dosageReminder"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddNotes"
         app:layout_constraintTop_toBottomOf="@+id/textViewDoubleDots" />
 
     <Spinner
         android:id="@+id/dosageQtyReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="5dp"
         android:autofillHints=""
         android:hint="@string/_0"
         android:inputType="numberDecimal"
         android:minWidth="60dp"
         android:minHeight="30dp"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectTime2"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectTime2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2" />
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSelectTime2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelectTime2"
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectTime2" />
 
     <TextView
         android:id="@+id/textViewAddNotes"
@@ -104,23 +104,22 @@
         android:layout_marginTop="30dp"
         android:text="@string/additionalNotes"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
+        app:layout_constraintStart_toStartOf="@+id/reminderAddNotesEditT"
         app:layout_constraintTop_toBottomOf="@+id/dosageQtyReminder" />
 
     <EditText
-        android:id="@+id/reminderAddNotes"
+        android:id="@+id/reminderAddNotesEditT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
         android:autofillHints=""
         android:gravity="top"
         android:hint="@string/additionalNoteAppointment"
         android:inputType="textShortMessage"
-        android:minHeight="100dp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
+        android:minHeight="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewAddNotes" />
 

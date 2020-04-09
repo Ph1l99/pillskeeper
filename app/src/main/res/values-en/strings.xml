@@ -107,4 +107,5 @@
     <string name="selectSpecificDateReminder">"Select Event date: "</string>
     <string name="timeSelectReminder">Select Event time:</string>
     <string name="additionalNotes">Additional Notes:</string>
+    <string name="starting_date">Starting date:</string>
 </resources>

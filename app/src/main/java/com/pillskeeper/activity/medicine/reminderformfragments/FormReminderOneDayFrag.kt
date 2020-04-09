@@ -5,10 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
@@ -28,6 +25,7 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
     private lateinit var hourReminderSpinner: Spinner
     private lateinit var minutesReminderSpinner: Spinner
     private lateinit var dosageQtyReminder: Spinner
+    private lateinit var reminderAddNotesEditT: EditText
 
 
     override fun onCreateView(
@@ -43,6 +41,7 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
         hourReminderSpinner = view.findViewById(R.id.hourReminderSpinner)
         minutesReminderSpinner = view.findViewById(R.id.minutesReminderSpinner)
         dosageQtyReminder = view.findViewById(R.id.dosageQtyReminder)
+        reminderAddNotesEditT = view.findViewById(R.id.reminderAddNotesEditT)
 
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
@@ -75,19 +74,16 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
                 cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
                 if (cal.time > Date()){
-                    val reminderList = LinkedList<ReminderMedicine>()
-                    reminderList.add(ReminderMedicine(
+                    val reminder = ReminderMedicine(
                         dosageQtyReminder.selectedItem.toString().toFloat(),
-                        minutesReminderSpinner.selectedItem.toString().toInt(),//optimizable with null
-                        hourReminderSpinner.selectedItem.toString().toInt(),
+                        minutesReminderSpinner.selectedItem.toString().toInt(),//TODO can be null
+                        hourReminderSpinner.selectedItem.toString().toInt(),// TODO can be null
                         cal.time,
                         null,
                         cal.time,
-                        null//todo missing additional notes
-                    ))
-                    if(FormAdapter.reminderList == null)
-                        FormAdapter.reminderList = LinkedList()
-                    FormAdapter.reminderList!!.addAll(reminderList)
+                        reminderAddNotesEditT.text.toString()
+                    )
+                    FormAdapter.addReminder(reminder)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
                     Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()

@@ -62,6 +62,12 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
             formActivity?.finish()
         }
 
+        fun addReminder(reminder: ReminderMedicine){
+            if(reminderList == null)
+                reminderList = LinkedList()
+            reminderList!!.add(reminder)
+        }
+
         fun addNewMedicine() {
             val newMed = LocalMedicine(
                 pillName!!.toLowerCase(Locale.ROOT),

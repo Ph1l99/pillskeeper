@@ -24,7 +24,7 @@ import java.util.*
 
 class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: MedicineViewPager): FragmentPagerAdapter(fm) {
 
-    //TODO MISSING EDIT REMINDER and relative INSERT FLOW(alarm edit flow)
+    //TODO MISSING EDIT REMINDER and relative INSERT FLOW(also alarm edit flow)
     //TODO bisogna resettare questa classe statica(o renderla non statica) quadno si finisce di salvare la medicina (altrimenti rimangono le info salvate)
     // si potrebbe fare in apertura del form ogni volta, oppure in chiusura
 
@@ -35,8 +35,8 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
         const val FORM_EDIT = 3
         const val FORM_ONE_DAY_REMINDER = 4
 
-        lateinit var pillName: String
-        lateinit var medicineType: MedicineTypeEnum
+        var pillName: String? = null
+        var medicineType: MedicineTypeEnum? = null
         var totalQuantity: Float = 0.0F
         var remainingQuantity: Float = 0.0F
         var reminderList: LinkedList<ReminderMedicine>? = null
@@ -45,21 +45,31 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
         var remoteMedicine: RemoteMedicine? = null
         var localMedicine: LocalMedicine? = null
 
-        lateinit var formActivity: Activity
+        var formActivity: Activity? = null
 
+        fun resetForm(){
+            formActivity = null
+            localMedicine = null
+            remoteMedicine = null
+            medicineType = null
+            pillName = null
+            totalQuantity = 0.0F
+            remainingQuantity = 0.0F
+            reminderList = null
+        }
 
         fun closeForm(){
-            formActivity.finish()
+            formActivity?.finish()
         }
 
         fun addNewMedicine() {
             val newMed = LocalMedicine(
-                pillName.toLowerCase(Locale.ROOT),
-                medicineType,
+                pillName!!.toLowerCase(Locale.ROOT),
+                medicineType!!,
                 totalQuantity,
                 remainingQuantity,
                 reminderList,
-                hashValue(pillName, medicineType)
+                hashValue(pillName!!, medicineType!!)
             )
             if(UserInformation.addNewMedicine(newMed)) {
 
@@ -69,17 +79,17 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
 
                 reminderListNormalized.forEach {
                     NotifyPlanner.planSingleAlarm(
-                        formActivity,
-                        formActivity.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                        formActivity!!,
+                        formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                         it
                     )
                 }
 
                 writeMedOnDB(
                     RemoteMedicine(
-                        pillName,
-                        hashValue(pillName, medicineType),
-                        medicineType
+                        pillName!!,
+                        hashValue(pillName!!, medicineType!!),
+                        medicineType!!
                     )
                 )
             }

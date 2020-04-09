@@ -52,7 +52,7 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
         initSpinner()
 
         buttonDateReminder.setOnClickListener {
-            DatePickerDialog(FormAdapter.formActivity, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(FormAdapter.formActivity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)

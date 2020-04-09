@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -70,8 +69,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/hourReminderSpinner"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectTime"
         app:layout_constraintStart_toEndOf="@+id/textViewDoubleDots"
-        app:layout_constraintTop_toTopOf="@+id/hourReminderSpinner"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/hourReminderSpinner" />
 
     <TextView
         android:id="@+id/textViewSelectTime2"
@@ -81,7 +79,6 @@
         android:text="@string/dosageReminder"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewDoubleDots" />
 
@@ -89,39 +86,70 @@
         android:id="@+id/dosageQtyReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:autofillHints=""
+        android:hint="@string/_0"
+        android:inputType="numberDecimal"
         android:minWidth="60dp"
         android:minHeight="30dp"
         android:textSize="20sp"
-        android:layout_marginTop="25dp"
-        android:hint="@string/_0"
         app:layout_constraintEnd_toEndOf="@+id/textViewSelectTime2"
         app:layout_constraintStart_toStartOf="@+id/textViewSelectTime2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2" />
+
+    <TextView
+        android:id="@+id/textViewAddNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/additionalNotes"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
+        app:layout_constraintTop_toBottomOf="@+id/dosageQtyReminder" />
+
+    <EditText
+        android:id="@+id/reminderAddNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
         android:autofillHints=""
-        android:inputType="numberDecimal" />
+        android:gravity="top"
+        android:hint="@string/additionalNoteAppointment"
+        android:inputType="textShortMessage"
+        android:minHeight="100dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSelectDate"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddNotes" />
 
     <Button
         android:id="@+id/abortButtonReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom|start"
         android:minWidth="110dp"
-        android:theme="@style/AppTheme.Button"
         android:text="@string/abortButton"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectTime2"
-        app:layout_constraintTop_toBottomOf="@+id/dosageQtyReminder" />
+        android:textSize="18sp"
+        android:theme="@style/AppTheme.Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/saveButtonReminder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:minWidth="110dp"
-        android:theme="@style/AppTheme.Button"
         android:text="@string/saveButton"
-        android:textSize="20sp"
+        android:textSize="18sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminder"
-        app:layout_constraintEnd_toEndOf="@+id/textViewSelectTime2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/abortButtonReminder" />
 
 

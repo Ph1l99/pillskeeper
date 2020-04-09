@@ -23,4 +23,14 @@ data class ReminderMedicine(
         }
         return false
     }
+
+    fun dayStringify(): String{
+        var daysString = ""
+        for (i in days!!.indices) {
+            daysString += "${days!![i]}"
+            if(i <= days!!.size-1)
+                daysString += " - "
+        }
+        return daysString
+    }
 }

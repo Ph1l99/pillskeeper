@@ -102,4 +102,9 @@
     <string name="confirmText">Continue without reminder</string>
     <string name="mailsubject">Request medicine:</string>
     <string name="_0">0</string>
+    <string name="or">Or</string>
+    <string name="reminderList">Reminder inserted:</string>
+    <string name="selectSpecificDateReminder">"Select Event date: "</string>
+    <string name="timeSelectReminder">Select Event time:</string>
+    <string name="additionalNotes">Additional Notes:</string>
 </resources>

@@ -3,7 +3,6 @@ package com.pillskeeper.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +10,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.functions.ktx.functions
-import com.google.firebase.ktx.Firebase
-import com.google.gson.Gson
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentFormActivity
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
@@ -29,13 +25,8 @@ import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
-import kotlin.collections.HashMap
 
 class HomepageActivity : AppCompatActivity() {
-
-    companion object {
-        const val START_FIRST_LOGIN_ACTIVITY_CODE = 0
-    }
 
     private lateinit var appointmentListSorted: LinkedList<Appointment>
     private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>

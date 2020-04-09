@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.functions.ktx.functions
+import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -28,7 +30,8 @@ object Utils {
 
     private val regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
     private val regexPhoneNumber: Regex = "[0-9]{10}".toRegex()
-    private val regexEmail: Regex = "[A-Za-z0-9.]{2,30}.[A-Za-z0-9]{2,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
+    private val regexEmail: Regex =
+        "[A-Za-z0-9.]{2,30}.[A-Za-z0-9]{2,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
 
     lateinit var stdLayout: Drawable
 
@@ -50,24 +53,28 @@ object Utils {
         return (email.isNotEmpty() && email.matches(regexEmail))
     }
 
-    fun checkDate(dateSelected: Date, context: Context): Boolean{
+    fun checkDate(dateSelected: Date, context: Context): Boolean {
         val calCurrent = Calendar.getInstance()
         val calSelected = Calendar.getInstance()
         calCurrent.time = Date(System.currentTimeMillis())
         calSelected.time = dateSelected
-        if(calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(Calendar.MONTH) > calSelected.get(Calendar.MONTH) ||
-            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)){
-            Toast.makeText(context,"Perfavore inserire una data corretta", Toast.LENGTH_LONG).show()
+        if (calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(
+                Calendar.MONTH
+            ) > calSelected.get(Calendar.MONTH) ||
+            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)
+        ) {
+            Toast.makeText(context, "Perfavore inserire una data corretta", Toast.LENGTH_LONG)
+                .show()
             return false
         }
         return true
     }
 
-    fun errorEditText(editText: EditText){
-        colorEditText(editText,true)
+    fun errorEditText(editText: EditText) {
+        colorEditText(editText, true)
     }
 
-    fun validEditText(editText: EditText){
+    fun validEditText(editText: EditText) {
         colorEditText(editText, false)
     }
 
@@ -99,7 +106,10 @@ object Utils {
         username.text = LocalDatabase.readUser()?.name
     }
 
-    fun getSortedListReminders(filterDate: Date, medList: LinkedList<LocalMedicine> = UserInformation.medicines): LinkedList<ReminderMedicineSort> {
+    fun getSortedListReminders(
+        filterDate: Date,
+        medList: LinkedList<LocalMedicine> = UserInformation.medicines
+    ): LinkedList<ReminderMedicineSort> {
 
         var randomList: LinkedList<ReminderMedicineSort> = getListReminderNormalized(medList)
 
@@ -109,7 +119,7 @@ object Utils {
         return randomList
     }
 
-    fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort>{
+    fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort> {
         val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         medList.forEach {
             it.reminders?.forEach { reminder ->
@@ -143,10 +153,10 @@ object Utils {
                 calendar.add(Calendar.DAY_OF_MONTH, 1)
             }
 
-            calendar.set(Calendar.MINUTE,entry.reminder.minutes)
-            calendar.set(Calendar.HOUR_OF_DAY,entry.reminder.hours)
-            calendar.set(Calendar.SECOND,0)
-            calendar.set(Calendar.MILLISECOND,0)
+            calendar.set(Calendar.MINUTE, entry.reminder.minutes)
+            calendar.set(Calendar.HOUR_OF_DAY, entry.reminder.hours)
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND, 0)
 
             returnedList.add(
                 ReminderMedicineSort(
@@ -180,19 +190,41 @@ object Utils {
         return `is`.readObject()
     }
 
-    fun isAlreadyExistingIntent(context: Context,itID: Int,intent: Intent): Boolean{
+    fun isAlreadyExistingIntent(context: Context, itID: Int, intent: Intent): Boolean {
         return PendingIntent.getBroadcast(
             context,
             itID,
             intent,
-            PendingIntent.FLAG_NO_CREATE) != null
+            PendingIntent.FLAG_NO_CREATE
+        ) != null
     }
 
-    fun startNotifyService(context: Context){
+    fun startNotifyService(context: Context) {
         Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function started")
         val service = Intent(context, NotifyPlanner::class.java)
         context.startService(service)
         Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function ended")
     }
 
+    fun checkTextWords(text: String, language: String): Boolean {
+        lateinit var result: Map<String, Any>
+        val map = HashMap<String, Any>()
+        map["text"] = text
+        map["lang"] = language
+        val functions = Firebase.functions
+        functions.getHttpsCallable("checkToxic").call(map)
+            .continueWith { task ->
+                result = task.result?.data as Map<String, Any>
+            }
+        return checkMap(result)
+    }
+
+    private fun checkMap(resultMap: Map<String, Any>): Boolean {
+        for (result in resultMap) {
+            if (result.value as Float >= 0.8f) {
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -29,6 +29,7 @@ import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
+import kotlin.collections.HashMap
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -62,7 +63,6 @@ class HomepageActivity : AppCompatActivity() {
 
         //TODO DEBUG - to be removed
         funTest()
-        httprequest()
 
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
@@ -78,17 +78,6 @@ class HomepageActivity : AppCompatActivity() {
             ).show()
             return@setOnItemLongClickListener true
         }
-    }
-
-    //TODO @Rick,@Phil, capire dove piazzare la funzione. Scritta così funziona tutto
-    private fun httprequest() {
-        Log.i(Log.DEBUG.toString(), "diodeldio started")
-        val functions = Firebase.functions
-        functions.getHttpsCallable("checkToxic").call("Fuck You")
-            .continueWith { task ->
-                val result = task.result?.data
-                Log.i(Log.DEBUG.toString(), result.toString())
-            }
     }
 
     private fun funTest() {

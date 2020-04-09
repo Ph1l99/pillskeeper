@@ -55,7 +55,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         val list = UserInformation.medicines
 
         val outputList = LinkedList(list.filter {
-            it.remainingQty <= it.remainingQty* MINIMUM_QTY
+            it.remainingQty <= it.remainingQty * MINIMUM_QTY
         })
 
         if (outputList.isEmpty()) {

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.TypeIntentWorker
@@ -44,7 +45,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                     item.reminder.dosage
                 )
                 if (medicine != null) {
-                    if (medicine.remainingQty < 5F)//todo replace with check made by @Phil
+                    if (medicine.remainingQty < medicine.remainingQty * FinishedMedicinesActivity.MINIMUM_QTY)
                         NotificationBuilder.showNotificationLowQuantity(context, medicine)
                     if (medicine.remainingQty == 0F)
                         UserInformation.restoreQty(medicine)

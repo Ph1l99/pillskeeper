@@ -130,7 +130,7 @@
     <string name="welcome">Benvenuto!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="FormOneTitle">Quale farmaco vuoi inserire?</string>
     <string name="FormOneTitle2">Seleziona la tipologia del farmaco</string>
     <string name="next">Avanti</string>
@@ -142,7 +142,7 @@
     <string name="no" translatable="false">No</string>
     <string name="selectSpecificDateReminder">Seleziona la data dell\'evento</string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
-    <string name="dosageReminder">Inserire la quantità da assuere:</string>
+    <string name="dosageReminder">Inserire la quantità da assumere:</string>
     <string name="_0">0</string>
     <string name="or">Oppure</string>
     <string name="additionalNotes">Note Addizionali:</string>

@@ -45,7 +45,7 @@
     <string name="logout">Logout</string>
     <string name="addReminder">Add Reminder</string>
     <string name="reminder">Appointments</string>
-    <string name="remainingQuantity">Remaining qty</string>
+    <string name="remainingQuantity">Remaining quantity</string>
     <string name="medType">Medicine Type</string>
     <string name="medNameHint">Insert drug\'s name</string>
     <string name="medNameTitle">Drug Name</string>
@@ -107,4 +107,8 @@
     <string name="selectSpecificDateReminder">"Select Event date: "</string>
     <string name="timeSelectReminder">Select Event time:</string>
     <string name="additionalNotes">Additional Notes:</string>
+    <string name="totalQuantityEditing">New total quantity:</string>
+    <string name="remainingQuantityEditing">New remaining quantity</string>
+    <string name="dialogChooseReminderText">Does the reminder repeats for more than one time?</string>
+    <string name="dosageReminder">Insert the dosage for this reminder:</string>
 </resources>

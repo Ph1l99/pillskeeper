@@ -14,7 +14,6 @@ class MedicineFormActivity : AppCompatActivity() {
 
     companion object {
         const val CAMERA_REQUEST = 0
-        const val REMINDER_INSERT_ACTIVITY = 1
         const val REMOTE_MEDICINE = "remoteMedicine"
         const val LOCAL_MEDICINE = "localMedicine"
         const val REMINDER = "reminder"
@@ -27,6 +26,8 @@ class MedicineFormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pills_form)
+
+        FormAdapter.resetForm()
 
         viewPager = MedicineViewPager(this)
         viewPager.id = VIEW_PAGER_ID

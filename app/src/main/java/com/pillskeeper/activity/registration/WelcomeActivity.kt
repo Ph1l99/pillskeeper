@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.HomepageActivity
+import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.datamanager.LocalDatabase
 import kotlinx.android.synthetic.main.activity_welcome.*
 

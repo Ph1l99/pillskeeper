@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.HomepageActivity">
+    tools:context=".activity.homefragments.HomepageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
@@ -39,16 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/reminderListMain"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/appointmentListMain"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-        </ListView>
 
         <!--<androidx.viewpager.widget.ViewPager
             android:id="@+id/appointmentListMain"
@@ -60,15 +51,6 @@
             app:layout_constraintTop_toBottomOf="@+id/reminderListMain"/>-->
 
 
-        <ListView
-            android:id="@+id/appointmentListMain"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/reminderListMain"
-            app:layout_constraintStart_toStartOf="@+id/reminderListMain"
-            app:layout_constraintTop_toBottomOf="@+id/reminderListMain">
 
-        </ListView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

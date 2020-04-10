@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.HomepageActivity
+import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils

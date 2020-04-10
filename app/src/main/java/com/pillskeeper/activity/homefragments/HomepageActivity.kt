@@ -1,39 +1,38 @@
-package com.pillskeeper.activity
+package com.pillskeeper.activity.homefragments
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.activity.appointment.AppointmentFormActivity
-import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
-import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import java.util.*
 
 class HomepageActivity : AppCompatActivity() {
 
-    private lateinit var appointmentListSorted: LinkedList<Appointment>
-    private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
+    //private lateinit var appointmentListSorted: LinkedList<Appointment>
+    //private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+
+    val VIEW_PAGER_ID = 2222
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +52,17 @@ class HomepageActivity : AppCompatActivity() {
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
         //TODO DEBUG - to be removed
-        funTest()
+        //funTest()
 
+        //fragment view
+        var viewPager = ViewPager(this)
+        viewPager.id = VIEW_PAGER_ID
+        contentMainLayout.linearLayout.addView(viewPager)
+        val adapter = Adapter(supportFragmentManager)
+        viewPager.adapter = adapter
+
+
+        /*
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)
                 .putExtra(APPOINTMENT_VALUE, appointmentListSorted[position])
@@ -69,6 +77,8 @@ class HomepageActivity : AppCompatActivity() {
             ).show()
             return@setOnItemLongClickListener true
         }
+
+         */
     }
 
     private fun funTest() {
@@ -133,10 +143,13 @@ class HomepageActivity : AppCompatActivity() {
 
     }
 
+    /*
     override fun onResume() {
         super.onResume()
         initLists()
     }
+
+
 
 
     private fun initLists(filterDate: Date = Date()) {
@@ -187,4 +200,6 @@ class HomepageActivity : AppCompatActivity() {
         }
 
     }
+
+     */
 }

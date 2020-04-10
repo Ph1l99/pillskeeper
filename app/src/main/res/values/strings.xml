@@ -143,7 +143,7 @@
     <string name="no" translatable="false">No</string>
     <string name="selectSpecificDateReminder">Seleziona la data: </string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
-    <string name="dosageReminder">Quantità da assuere:</string>
+    <string name="dosageReminder">Quantità da assumere:</string>
     <string name="_0">0</string>
     <string name="or">Oppure</string>
     <string name="additionalNotes">Note Addizionali:</string>

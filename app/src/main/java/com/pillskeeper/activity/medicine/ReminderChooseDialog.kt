@@ -27,7 +27,7 @@ class ReminderChooseDialog(context: Context, private val viewPager: MedicineView
         }
 
         buttonSequence.setOnClickListener {
-            //sequence type
+            viewPager.currentItem = FormAdapter.FORM_SEQ_REMINDER
             dismiss()
         }
 

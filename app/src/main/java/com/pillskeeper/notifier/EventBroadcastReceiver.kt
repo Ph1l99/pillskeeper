@@ -45,7 +45,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                     item.reminder.dosage
                 )
                 if (medicine != null) {
-                    if (medicine.remainingQty < medicine.remainingQty * FinishedMedicinesActivity.MINIMUM_QTY)
+                    if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY)
                         NotificationBuilder.showNotificationLowQuantity(context, medicine)
                     if (medicine.remainingQty == 0F)
                         UserInformation.restoreQty(medicine)

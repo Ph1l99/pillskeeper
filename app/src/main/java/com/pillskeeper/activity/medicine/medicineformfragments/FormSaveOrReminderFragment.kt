@@ -44,7 +44,11 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
                     Locale.getDefault().displayLanguage
                 )
             ) {
-                Toast.makeText(UserInformation.context, R.string.toxicWords, Toast.LENGTH_LONG)
+                Toast.makeText(
+                    UserInformation.context,
+                    getText(R.string.toxicWords),
+                    Toast.LENGTH_LONG
+                )
                     .show()
             } else {
                 FormAdapter.addNewMedicine()

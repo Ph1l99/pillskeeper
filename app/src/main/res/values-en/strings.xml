@@ -112,5 +112,5 @@
     <string name="dialogChooseReminderText">Is the reminder a repeatitive one?</string>
     <string name="dosageReminder">Dosage:</string>
     <string name="starting_date">Starting date:</string>
-    <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
+    <string name="toxicWords">Toxic words found, please insert the medicine name again!</string>
 </resources>

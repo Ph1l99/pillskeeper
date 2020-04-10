@@ -42,7 +42,7 @@ class FormEditingFragment : Fragment() {
             val totQty = editTextTotalQtyEdit.text.toString().toFloat()
             val remQty = editTextRemainingQtyEdit.text.toString().toFloat()
 
-            if(remQty in 0.0..totQty.toDouble()) {
+            if(remQty > 0F  && remQty <= totQty) {
                 FormAdapter.localMedicine!!.totalQty = totQty
                 FormAdapter.localMedicine!!.remainingQty = remQty
                 if (!UserInformation.editMedicine(

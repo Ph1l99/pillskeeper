@@ -29,7 +29,7 @@ class FormAdapter(
     private val viewPager: MedicineViewPager
 ) : FragmentPagerAdapter(fm) {
 
-    //TODO MISSING EDIT REMINDER and relative INSERT FLOW(also alarm edit flow)
+    //TODO MISSING EDIT REMINDER (also alarm edit flow)
     //TODO bisogna resettare questa classe statica(o renderla non statica) quadno si finisce di salvare la medicina (altrimenti rimangono le info salvate)
     // si potrebbe fare in apertura del form ogni volta, oppure in chiusura
 
@@ -87,10 +87,12 @@ class FormAdapter(
 
                 val listMed: LinkedList<LocalMedicine> = LinkedList()
                 listMed.add(newMed)
-                val reminderListNormalized: LinkedList<ReminderMedicineSort> =
-                    Utils.getListReminderNormalized(listMed)
+                val reminderListNormalized: LinkedList<ReminderMedicineSort> = Utils.getListReminderNormalized(listMed)
+
+                println(listMed.size)
 
                 reminderListNormalized.forEach {
+                    println(it.reminder.toString())
                     NotifyPlanner.planSingleAlarm(
                         formActivity!!,
                         formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,

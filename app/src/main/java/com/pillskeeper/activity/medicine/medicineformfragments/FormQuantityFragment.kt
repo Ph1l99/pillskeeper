@@ -31,17 +31,24 @@ class FormQuantityFragment(private val viewPager: MedicineViewPager) : Fragment(
 
         /*LISTENERS*/
         textViewNext.setOnClickListener {
-            if ( Integer.parseInt(editTextRemainingQuantity.text.toString()) > Integer.parseInt(editTextTotalQuantity.text.toString()) ) {
-               Toast.makeText(context, "La quantità rimanente non può essere maggiore di quella totale!", Toast.LENGTH_LONG).show()
-            } else {
-                FormAdapter.totalQuantity = editTextTotalQuantity.text.toString().toFloat()
-                FormAdapter.remainingQuantity = editTextRemainingQuantity.text.toString().toFloat()
-                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+            if(editTextRemainingQuantity.text.toString() != "" && editTextTotalQuantity.text.toString() != "") {
+                if (Integer.parseInt(editTextRemainingQuantity.text.toString()) > Integer.parseInt(
+                        editTextTotalQuantity.text.toString()
+                    )
+                ) {
+                    Toast.makeText(
+                        context,
+                        "La quantità rimanente non può essere maggiore di quella totale!",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    FormAdapter.totalQuantity = editTextTotalQuantity.text.toString().toFloat()
+                    FormAdapter.remainingQuantity =
+                        editTextRemainingQuantity.text.toString().toFloat()
+                    viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+                }
             }
         }
-
-        if(FormAdapter.remoteMedicine != null)
-            textViewNext.visibility = View.VISIBLE
 
         textViewBack.setOnClickListener{
             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE

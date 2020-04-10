@@ -109,7 +109,7 @@
     <string name="additionalNotes">Additional Notes:</string>
     <string name="totalQuantityEditing">New total quantity:</string>
     <string name="remainingQuantityEditing">New remaining quantity</string>
-    <string name="dialogChooseReminderText">Does the reminder repeats for more than one time?</string>
-    <string name="dosageReminder">Insert the dosage for this reminder:</string>
+    <string name="dialogChooseReminderText">Is the reminder a repeatitive one?</string>
+    <string name="dosageReminder">Dosage:</string>
     <string name="starting_date">Starting date:</string>
 </resources>

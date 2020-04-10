@@ -18,7 +18,7 @@ import java.util.*
 
 class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
 
-    private lateinit var checkBoxes             : HashMap<String,CheckBox>
+    private          var checkBoxes             : HashMap<String,CheckBox> = HashMap()
     private lateinit var buttonDateStart        : Button
     private lateinit var buttonDateEnd          : Button
     private lateinit var spinnerHoursRem2       : Spinner

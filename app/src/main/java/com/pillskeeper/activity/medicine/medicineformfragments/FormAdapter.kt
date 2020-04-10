@@ -11,6 +11,7 @@ import com.google.common.hash.Hashing
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderOneDayFrag
+import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderSeqFrag
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
@@ -34,6 +35,7 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
         const val FORM_SAVE_OR_REMINDER = 2
         const val FORM_EDIT = 3
         const val FORM_ONE_DAY_REMINDER = 4
+        const val FORM_SEQ_REMINDER = 5
 
         var pillName: String? = null
         var medicineType: MedicineTypeEnum? = null
@@ -121,12 +123,13 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
             FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager)
+            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager)
             else -> FormNameTypeFragment(intent, viewPager)
         }
     }
 
     override fun getCount(): Int {
-        return 5
+        return 6
     }
 
 }

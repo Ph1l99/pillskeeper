@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.medicine.ReminderChooseDialog
+import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Utils
 import java.util.*
 
 class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
@@ -40,14 +39,27 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
         }
 
         textViewConfirm.setOnClickListener {
-            FormAdapter.addNewMedicine()
-            val intent = Intent(context, MedicineLocaleListActivity::class.java)
-            startActivity(intent)
-            FormAdapter.closeForm()
+            if (Utils.checkTextWords(
+                    FormAdapter.pillName.toString(),
+                    Locale.getDefault().displayLanguage
+                )
+            ) {
+                Toast.makeText(
+                    UserInformation.context,
+                    getText(R.string.toxicWords),
+                    Toast.LENGTH_LONG
+                )
+                    .show()
+            } else {
+                FormAdapter.addNewMedicine()
+                val intent = Intent(context, MedicineLocaleListActivity::class.java)
+                startActivity(intent)
+                FormAdapter.closeForm()
+            }
         }
 
         buttonAddReminder.setOnClickListener {
-            ReminderChooseDialog(FormAdapter.formActivity!!,viewPager).show()
+            ReminderChooseDialog(FormAdapter.formActivity!!, viewPager).show()
         }
 
         return view
@@ -59,18 +71,22 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
         initList()
     }
 
-    private fun initList(){
+    private fun initList() {
         val stringList = LinkedList<String>()
 
         FormAdapter.reminderList?.forEach {
-            if(it.startingDay == it.expireDate)
+            if (it.startingDay == it.expireDate)
                 stringList.add("${it.hours}:${it.minutes} - ${it.startingDay}")
             else
                 stringList.add("${it.hours}:${it.minutes} - ${it.dayStringify()}")
         }
 
         reminderListFragment.adapter =
-            ArrayAdapter(FormAdapter.formActivity!!, android.R.layout.simple_list_item_1, stringList)
+            ArrayAdapter(
+                FormAdapter.formActivity!!,
+                android.R.layout.simple_list_item_1,
+                stringList
+            )
     }
 }
 

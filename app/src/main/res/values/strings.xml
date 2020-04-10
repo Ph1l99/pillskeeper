@@ -147,6 +147,7 @@
     <string name="_0">0</string>
     <string name="or">Oppure</string>
     <string name="additionalNotes">Note Addizionali:</string>
+    <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
 
 
 </resources>

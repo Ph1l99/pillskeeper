@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.medicine.ReminderChooseDialog
-import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import java.util.*
 
@@ -39,23 +39,38 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
         }
 
         textViewConfirm.setOnClickListener {
-            if (Utils.checkTextWords(
-                    FormAdapter.pillName.toString(),
-                    Locale.getDefault().displayLanguage
-                )
-            ) {
-                Toast.makeText(
-                    UserInformation.context,
-                    getText(R.string.toxicWords),
-                    Toast.LENGTH_LONG
-                )
-                    .show()
-            } else {
-                FormAdapter.addNewMedicine()
-                val intent = Intent(context, MedicineLocaleListActivity::class.java)
-                startActivity(intent)
-                FormAdapter.closeForm()
-            }
+
+            Utils.checkTextWords(
+                FormAdapter.pillName.toString(),
+                Locale.getDefault().language,
+                object : Callback {
+                    override fun success(res: Boolean) {
+                        if (res) {
+                            Toast.makeText(
+                                FormAdapter.formActivity,
+                                getText(R.string.toxicWords),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
+                        } else {
+                            FormAdapter.addNewMedicine()
+                            val intent = Intent(context, MedicineLocaleListActivity::class.java)
+                            startActivity(intent)
+                            FormAdapter.closeForm()
+                        }
+                    }
+
+                    override fun error() {
+                        Toast.makeText(
+                            FormAdapter.formActivity,
+                            getText(R.string.networkError),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            )
+
+
         }
 
         buttonAddReminder.setOnClickListener {

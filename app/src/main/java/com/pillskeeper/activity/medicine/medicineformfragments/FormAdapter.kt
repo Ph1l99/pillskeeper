@@ -27,11 +27,9 @@ class FormAdapter(
     fm: FragmentManager,
     private val intent: Intent,
     private val viewPager: MedicineViewPager
-) : FragmentPagerAdapter(fm) {
+) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     //TODO MISSING EDIT REMINDER (also alarm edit flow)
-    //TODO bisogna resettare questa classe statica(o renderla non statica) quadno si finisce di salvare la medicina (altrimenti rimangono le info salvate)
-    // si potrebbe fare in apertura del form ogni volta, oppure in chiusura
 
     companion object {
         const val FORM_NAME_TYPE = 0

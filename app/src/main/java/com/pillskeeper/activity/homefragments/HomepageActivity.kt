@@ -10,10 +10,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
@@ -32,7 +30,7 @@ class HomepageActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
 
-    val VIEW_PAGER_ID = 2222
+    private val VIEW_PAGER_ID = 2222
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

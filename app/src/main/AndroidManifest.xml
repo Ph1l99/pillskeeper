@@ -18,8 +18,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/pills_icon"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustResize"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize">
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -67,9 +67,12 @@
             android:label="@string/friendListActivityTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.pillskeeper.activity.homefragments.HomepageActivity"
+            android:name=".activity.homefragments.HomepageActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activity.medicine.ReminderListActivity"
+            android:label="@string/reminderListActivityTitle" />
 
         <receiver
             android:name=".notifier.EventBroadcastReceiver"
@@ -80,6 +83,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service android:name=".notifier.NotifyPlanner" />
     </application>
 

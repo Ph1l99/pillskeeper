@@ -10,9 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
-import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.DialogModeEnum
 import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*
 import java.util.*
@@ -48,19 +46,23 @@ class MedicineLocaleListActivity : AppCompatActivity() {
                 val it = Intent(this, MedicinesRemoteListActivity::class.java)
                 startActivity(it)
             } else {
-                val it = Intent(this, MedicineFormActivity::class.java)
-                    .putExtra(MedicineFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
+                val it = Intent(this, ReminderListActivity::class.java)
+                    .putExtra(ReminderListActivity.REMINDER_MEDICINE, UserInformation.medicines[position - 1])
                 startActivity(it)
             }
         }
 
         pills_list.setOnItemLongClickListener { _, _, position, _ ->
-            if(position > 0)
-                GenericDeleteDialog(
+            if(position > 0) {
+                val it = Intent(this, MedicineFormActivity::class.java)
+                    .putExtra(MedicineFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
+                startActivity(it)
+            }
+                /*GenericDeleteDialog(
                     this,
                     UserInformation.medicines[position - 1].name,
                     DialogModeEnum.DELETE_MEDICINE
-                ).show()
+                ).show()*/
 
             return@setOnItemLongClickListener true
         }

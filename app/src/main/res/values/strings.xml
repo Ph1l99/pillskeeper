@@ -30,6 +30,7 @@
 
     <!--MedicinesListActivity-->
     <string name="nothingToSee">Nessuna Medicina trovata!</string>
+    <string name="addMedicineText">Aggiungi nuova medicina</string>
 
 
 

@@ -127,7 +127,7 @@
     <string name="user_settingsActivity">Modifica dati personali</string>
     <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
-    <string name="reminderListActivityTitle">Promemoria:</string>
+    <string name="reminderListActivityTitle">Promemoria</string>
 
     <!-- String for WelcomeActivity-->
     <string name="welcome">Benvenuto!</string>

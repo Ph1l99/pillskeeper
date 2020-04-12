@@ -10,8 +10,8 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.google.common.hash.Hashing
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderOneDayFrag
-import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderSeqFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort

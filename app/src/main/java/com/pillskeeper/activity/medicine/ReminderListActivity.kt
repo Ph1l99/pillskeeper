@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pillskeeper.R
+import com.pillskeeper.activity.medicine.reminder.EditReminderActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.utility.adapter.ReminderCardAdapter
@@ -26,8 +27,6 @@ class ReminderListActivity : AppCompatActivity() {
 
         medicine = intent.getSerializableExtra(REMINDER_MEDICINE) as LocalMedicine
 
-        medicine.reminders?.forEach { println(it.toString()) } //todo remove
-
         if(medicine.reminders != null)
             displayListMedicines(medicine.reminders!!)
     }
@@ -41,9 +40,9 @@ class ReminderListActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
 
         mAdapter.setOnItemClickListener {
-            val intent = Intent(this, MedicineFormActivity::class.java)//set new view EDIT_REMINDER!!!!
+            val intent = Intent(this, EditReminderActivity::class.java)
             intent.putExtra(REMINDER_MEDICINE, reminderList[it])
-            startActivityForResult(intent, REMINDER_ID)
+            startActivityForResult(intent, REMINDER_ID) //todo forResult?
             finish()
         }
     }

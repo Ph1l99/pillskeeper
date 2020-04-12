@@ -128,6 +128,7 @@
     <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
     <string name="reminderListActivityTitle">Promemoria</string>
+    <string name="reminderEditActivityTitle">Modifica</string>
 
     <!-- String for WelcomeActivity-->
     <string name="welcome">Benvenuto!</string>

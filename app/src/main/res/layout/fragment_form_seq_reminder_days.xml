@@ -170,7 +170,7 @@
         android:hint="@string/additionalNoteAppointment"
         android:inputType="textLongMessage"
         android:minHeight="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/abortButtonReminder"
+        app:layout_constraintBottom_toTopOf="@+id/abortButtonReminderSeq"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDosage" />
@@ -194,7 +194,7 @@
         app:layout_constraintTop_toTopOf="@+id/textViewDosage" />
 
     <Button
-        android:id="@+id/abortButtonReminder"
+        android:id="@+id/abortButtonReminderSeq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -204,12 +204,11 @@
         android:text="@string/abortButton"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/saveButtonReminder"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/saveButtonReminderSeq"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/saveButtonReminder"
+        android:id="@+id/saveButtonReminderSeq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
@@ -217,10 +216,10 @@
         android:text="@string/saveButton"
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
-        app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminder"
+        app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminderSeq"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/abortButtonReminder"
-        app:layout_constraintTop_toTopOf="@+id/abortButtonReminder" />
+        app:layout_constraintStart_toEndOf="@+id/abortButtonReminderSeq"
+        app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

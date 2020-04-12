@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine.reminderformfragments
+package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.reminderformfragments.ReminderActivity.Companion.hours
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.utility.Utils

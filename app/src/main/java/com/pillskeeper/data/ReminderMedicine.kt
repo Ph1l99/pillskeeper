@@ -33,4 +33,8 @@ data class ReminderMedicine(
         }
         return daysString
     }
+
+    fun isSingleDayRem(): Boolean {
+        return startingDay == expireDate
+    }
 }

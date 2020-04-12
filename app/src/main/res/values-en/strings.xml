@@ -113,6 +113,7 @@
     <string name="dosageReminder">Dosage:</string>
     <string name="starting_date">Starting date:</string>
     <string name="toxicWords">Toxic words found, please insert the medicine name again!</string>
+    <string name="addMedicineText">Add new medicine</string>
     <string name="networkError">Network error, try again soon</string>
     <string name="reminderListActivityTitle">"Reminders: "</string>
 </resources>

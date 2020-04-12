@@ -78,7 +78,7 @@ class MedicineLocaleListActivity : AppCompatActivity() {
 
     private fun initList() {
         pillsArray = LinkedList()
-        pillsArray.add("+ nuova medicina")
+        pillsArray.add(getText(R.string.addMedicineText).toString())
 
         UserInformation.medicines.forEach { entry -> pillsArray.add(entry.name) }
 

@@ -66,6 +66,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
     public void onBindViewHolder(RemCardHolderJava holder, int position) {
         ReminderMedicine item = remList.get(position);
         holder.imageView.setImageResource(R.drawable.ic_modify);
+        holder.itemView.setBackgroundResource(R.drawable.shape_card);
         StringBuilder text = new StringBuilder();
         if(item.getStartingDay().equals(item.getExpireDate())){
             Calendar cal = Calendar.getInstance();

@@ -116,4 +116,5 @@
     <string name="addMedicineText">Add new medicine</string>
     <string name="networkError">Network error, try again soon</string>
     <string name="reminderListActivityTitle">"Reminders"</string>
+    <string name="addFriend">Add a friend or a doctor in order to send the email!</string>
 </resources>

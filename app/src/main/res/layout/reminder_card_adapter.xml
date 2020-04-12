@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_margin="5sp"
-    android:elevation="5sp"
+    style="@style/Card"
     tools:context=".activity.medicine.ReminderListActivity">
 
     <LinearLayout
+        android:id="@+id/layoutReminderCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:background="@drawable/shape_card">
         <TextView
             android:id="@+id/reminderText"
             android:layout_width="0dp"
+            android:textSize="12sp"
             android:layout_height="65sp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/colorPrimary"
             android:layout_weight="1"
             android:padding="15sp" />
         <ImageView
             android:id="@+id/modifyIcon"
             android:layout_width="50sp"
-            android:layout_height="64sp"
+            android:layout_height="60sp"
             android:src="@drawable/ic_modify"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

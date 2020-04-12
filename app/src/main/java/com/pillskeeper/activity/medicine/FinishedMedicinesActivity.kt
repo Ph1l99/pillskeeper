@@ -3,6 +3,7 @@ package com.pillskeeper.activity.medicine
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -87,6 +88,10 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         val chosenFriends: LinkedList<String> = LinkedList()
 
         val localFriendList = UserInformation.friends
+
+        if (localFriendList.isEmpty()) {
+            Toast.makeText(this, getText(R.string.addFriend), Toast.LENGTH_LONG).show()
+        }
 
         for (friend in localFriendList) {
             listFriends.add(friend.name + " " + friend.surname)

@@ -154,5 +154,6 @@
 
     <!--generic error message -->
     <string name="networkError">Problemi di rete, riprovare a breve</string>
+    <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
 
 </resources>

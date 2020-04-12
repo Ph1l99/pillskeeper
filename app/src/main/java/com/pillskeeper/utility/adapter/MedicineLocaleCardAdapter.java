@@ -68,6 +68,7 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
         LocalMedicine currentItem = medList.get(position);
         holder.imageView.setImageResource(R.drawable.ic_mail_outline);
         holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
+        holder.itemView.setBackgroundResource(R.drawable.shape_card);
     }
 
     @Override

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="4sp"
-        tools:listitem="@layout/reminder_card_adapter">
+        tools:listitem="@layout/reminder_card_item">
     </androidx.recyclerview.widget.RecyclerView>
 
 

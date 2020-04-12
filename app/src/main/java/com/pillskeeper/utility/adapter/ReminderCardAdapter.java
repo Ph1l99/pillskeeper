@@ -57,7 +57,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
     @NotNull
     @Override
     public RemCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_card_adapter, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_card_item, parent, false);
         return new RemCardHolderJava(v, mListener);
     }
 

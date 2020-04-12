@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_margin="5sp"
-    tools:context=".activity.medicine.FinishedMedicinesActivity">
+    android:elevation="5sp"
+    tools:context=".activity.medicine.ReminderListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,17 +14,16 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/remMedText"
+            android:id="@+id/reminderText"
             android:layout_width="0dp"
-            android:layout_height="64sp"
+            android:layout_height="65sp"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="15sp" />
         <ImageView
-            android:id="@+id/forwardRemIcon"
-            android:layout_width="50dp"
-            android:layout_height="58dp"
-            android:src="@drawable/ic_med_list_forward"
-            android:contentDescription="" />
+            android:id="@+id/modifyIcon"
+            android:layout_width="50sp"
+            android:layout_height="64sp"
+            android:src="@drawable/ic_modify"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -37,8 +37,8 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
 
         RemCardHolderJava(View itemView, OnItemClickListener listener) {
             super(itemView);
-            textView = itemView.findViewById(R.id.remMedText);
-            imageView = itemView.findViewById(R.id.forwardRemIcon);
+            textView = itemView.findViewById(R.id.reminderText);
+            imageView = itemView.findViewById(R.id.modifyIcon);
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     int position = getAdapterPosition();
@@ -57,7 +57,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
     @NotNull
     @Override
     public RemCardHolderJava onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.rem_med_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.reminder_card_adapter, parent, false);
         return new RemCardHolderJava(v, mListener);
     }
 
@@ -65,7 +65,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
     @Override
     public void onBindViewHolder(RemCardHolderJava holder, int position) {
         ReminderMedicine item = remList.get(position);
-        holder.imageView.setImageResource(R.drawable.ic_med_list_forward);
+        holder.imageView.setImageResource(R.drawable.ic_modify);
         StringBuilder text = new StringBuilder();
         if(item.getStartingDay().equals(item.getExpireDate())){
             Calendar cal = Calendar.getInstance();

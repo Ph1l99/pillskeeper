@@ -17,6 +17,7 @@ class ReminderListActivity : AppCompatActivity() {
     private lateinit var medicine: LocalMedicine
 
     companion object {
+        const val MEDICINE_NAME = "medicineName"
         const val REMINDER_ID = 1
         const val REMINDER_MEDICINE = "reminderMedicine"
     }
@@ -26,12 +27,13 @@ class ReminderListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reminder_list)
 
         medicine = intent.getSerializableExtra(REMINDER_MEDICINE) as LocalMedicine
+    }
 
+    override fun onResume() {
+        super.onResume()
         if(medicine.reminders != null)
             displayListMedicines(medicine.reminders!!)
     }
-
-
 
     private fun displayListMedicines(reminderList: List<ReminderMedicine>) {
         mAdapter = ReminderCardAdapter(reminderList)
@@ -41,9 +43,11 @@ class ReminderListActivity : AppCompatActivity() {
 
         mAdapter.setOnItemClickListener {
             val intent = Intent(this, EditReminderActivity::class.java)
-            intent.putExtra(REMINDER_MEDICINE, reminderList[it])
-            startActivityForResult(intent, REMINDER_ID) //todo forResult?
-            finish()
+                .apply {
+                    putExtra(REMINDER_MEDICINE, reminderList[it])
+                    putExtra(MEDICINE_NAME, medicine.name)
+                }
+            startActivity(intent)
         }
     }
 

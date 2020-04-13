@@ -1,5 +1,6 @@
 package com.pillskeeper.activity.medicine.reminder
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +8,9 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.ReminderListActivity
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
+import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.fragment_form_seq_reminder_days.*
 import java.util.*
 import kotlin.collections.HashMap
@@ -16,6 +19,10 @@ import kotlin.collections.HashMap
 class EditReminderActivity : AppCompatActivity() {
 
     private lateinit var reminder               : ReminderMedicine
+    private          var medName                : String? = null
+    private lateinit var startingDate           : Date
+    private          var expireDate             : Date? = null
+
 
     private lateinit var saveButton             : Button
     private lateinit var abortButton            : Button
@@ -30,7 +37,132 @@ class EditReminderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         reminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
+        medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
+        initializeForm()
+        populateCommonFields()
+        registerDateButtonAction()
+
+
+        saveButton.setOnClickListener {
+            val days: LinkedList<DaysEnum>? =
+                if(!reminder.isSingleDayRem())
+                    buildDaysArray()
+                else
+                    null
+
+            if(checkValue(days)) {
+
+                val newReminder = ReminderMedicine(
+                    dosageSpinner.selectedItem.toString().toFloat(),
+                    minuteSpinner.selectedItem.toString().toInt(),
+                    hourSpinner.selectedItem.toString().toInt(),
+                    startingDate,
+                    days,
+                    expireDate,
+                    reminderAddNotes.text.toString()
+                )
+
+                if(UserInformation.editReminder(medName!!,reminder,newReminder)){
+                    println("corretto!!!!!!")
+                    finish()
+                } else {
+                    println("MALEEEEEEEEEEEEEE!!!!!!")
+                }
+
+            } else {
+                Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show()
+            }
+
+            //edit, salvataggio e ripianificazione degli allarmi
+        }
+
+
+        abortButton.setOnClickListener {
+            finish()
+        }
+
+    }
+
+    private fun registerDateButtonAction(){
+        val calExp = Calendar.getInstance()
+
+        val yearExp = calExp.get(Calendar.YEAR)
+        val monthExp = calExp.get(Calendar.MONTH)
+        val dayExp = calExp.get(Calendar.DAY_OF_MONTH)
+
+        if(!reminder.isSingleDayRem()) {
+            buttonDateEnd.setOnClickListener {
+                DatePickerDialog(
+                    this,
+                    DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                        buttonDateEnd.text = getString(
+                            R.string.dateButtonFormatted,
+                            dayOfMonth,
+                            monthOfYear + 1,
+                            year
+                        )
+
+                        calExp.set(Calendar.YEAR, year)
+                        calExp.set(Calendar.MONTH, monthOfYear)
+                        calExp.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                        calExp.set(Calendar.HOUR_OF_DAY, 0)
+                        calExp.set(Calendar.MINUTE, 0)
+                        calExp.set(Calendar.SECOND, 0)
+                        calExp.set(Calendar.MILLISECOND, 0)
+
+                        expireDate = calExp.time
+
+                    },
+                    yearExp,
+                    monthExp,
+                    dayExp
+                ).show()
+            }
+        }
+
+        val calStart = Calendar.getInstance()
+
+        val yearStart = calExp.get(Calendar.YEAR)
+        val monthStart = calExp.get(Calendar.MONTH)
+        val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
+
+        buttonDateReminder.setOnClickListener {
+            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
+
+                calStart.set(Calendar.YEAR, year)
+                calStart.set(Calendar.MONTH, monthOfYear)
+                calStart.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                calStart.set(Calendar.HOUR_OF_DAY, 0)
+                calStart.set(Calendar.MINUTE, 0)
+                calStart.set(Calendar.SECOND, 0)
+                calStart.set(Calendar.MILLISECOND, 0)
+
+                startingDate = calStart.time
+
+            }, yearStart, monthStart, dayStart).show()
+        }
+    }
+
+    private fun checkValue(days: LinkedList<DaysEnum>?): Boolean{
+
+        if(expireDate != null)
+            if (!Utils.checkDate(expireDate!!, this))
+                return false
+
+        if(dosageSpinner.selectedItem.toString().toFloat() == 0F)
+            return false
+
+
+        if(days != null)
+            if (days.size == 0)
+                return false
+
+        return true
+    }
+
+    private fun initializeForm(){
         if(reminder.isSingleDayRem()) {
             setContentView(R.layout.fragment_day_reminder)
             buttonDateReminder = findViewById(R.id.buttonDateReminder)
@@ -54,21 +186,9 @@ class EditReminderActivity : AppCompatActivity() {
                 val calEnd = Calendar.getInstance()
                 calEnd.time = reminder.expireDate!!
                 buttonDateEnd.text = getString(R.string.dateButtonFormatted, calEnd.get(Calendar.DAY_OF_MONTH),calEnd.get(Calendar.MONTH) + 1,calEnd.get(Calendar.YEAR))
+                expireDate = calEnd.time
             }
         }
-
-        populateCommonFields()
-
-        saveButton.setOnClickListener {
-
-            //edit, salvataggio e ripianificazione degli allarmi
-        }
-
-
-        abortButton.setOnClickListener {
-            finish()
-        }
-
     }
 
     private fun buildCheckboxes(): HashMap<String, CheckBox> {
@@ -124,5 +244,14 @@ class EditReminderActivity : AppCompatActivity() {
         dosageSpinner.setSelection((reminder.dosage * 2F).toInt())
 
     }
+
+    private fun buildDaysArray(): LinkedList<DaysEnum>{
+        val days: LinkedList<DaysEnum> = LinkedList()
+
+        checkBox.forEach {    if(it.value.isChecked)  days.add(DaysEnum.valueOf(it.key))  }
+
+        return days
+    }
+
 }
 

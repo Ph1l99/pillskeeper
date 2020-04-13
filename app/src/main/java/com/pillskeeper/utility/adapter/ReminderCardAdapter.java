@@ -68,12 +68,10 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
         holder.imageView.setImageResource(R.drawable.ic_modify);
         holder.itemView.setBackgroundResource(R.drawable.shape_card);
         StringBuilder text = new StringBuilder();
-        if(item.getStartingDay().equals(item.getExpireDate())){
+        if(item.isSingleDayRem()){
             Calendar cal = Calendar.getInstance();
             cal.setTime(item.getStartingDay());
-            text.append("Da: ").append(cal.get(Calendar.DAY_OF_MONTH) + 1).append("/").append(cal.get(Calendar.MONTH)).append("/").append(cal.get(Calendar.YEAR));
-            cal.setTime(item.getExpireDate());
-            text.append("  A: ").append(cal.get(Calendar.DAY_OF_MONTH) + 1).append("/").append(cal.get(Calendar.MONTH)).append("/").append(cal.get(Calendar.YEAR));
+            text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1).append("/").append(cal.get(Calendar.YEAR));
         } else {
             if (item.getStartingDay().after(new Date()))
                 text.append(item.getStartingDay()).append(" - ");

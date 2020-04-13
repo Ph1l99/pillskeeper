@@ -194,14 +194,7 @@ object UserInformation {
     @Synchronized fun editReminder(medName: String, oldReminder: ReminderMedicine, newReminder: ReminderMedicine): Boolean{
         Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Started")
 
-        var medicine: LocalMedicine? = null
-
-        for(i in medicines.indices){
-            if(medicines[i].name == medName){
-                medicine = medicines[i]
-                break
-            }
-        }
+        val medicine: LocalMedicine? = getSpecificMedicine(medName)
 
         if(medicine == null){
             Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Medicine not found")
@@ -209,7 +202,7 @@ object UserInformation {
         }
 
         for(i in medicine.reminders?.indices!!){
-            if (medicine.reminders!![i].isEquals(oldReminder)){
+            if (medicine.reminders!![i].isEquals(oldReminder)){//todo vediamo di testarlo un po!!!!
                 medicine.reminders!![i] = newReminder
                 Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder edited")
                 return true

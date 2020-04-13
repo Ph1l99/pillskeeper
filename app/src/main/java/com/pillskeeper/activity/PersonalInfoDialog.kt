@@ -4,11 +4,16 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.pillskeeper.R
+import com.pillskeeper.activity.registration.LoginDialog
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.datamanager.UserInformation.user
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.interfaces.FirebaseUserCallback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_personal_info.*
@@ -16,6 +21,7 @@ import kotlinx.android.synthetic.main.dialog_personal_info.*
 class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: User
     private var isEditing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +56,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                 if (user != null) {
                     displayUser(user)
                 } else {
-                    //TODO @phil mettere messaggio di errore
+                    //TODO popup
                 }
             }
 
@@ -58,9 +64,9 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
 
     }
 
+    //TODO passare messaggio quando viene chiuso il dialog
     private fun changeInfo() {
         var isValidInfo = true
-        println(isValidInfo)
         var updateAuth = false
         if (!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
             Utils.errorEditText(editTextName)
@@ -73,46 +79,62 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                 isValidInfo = false
             }
         }
-        println(isValidInfo)
         if (isValidInfo) {
-            if (auth.currentUser?.email != editTextEmail.text.toString()) {
-                println(auth.currentUser?.email.toString())
-                updateAuth = true
-                println(updateAuth)
+            val dialog = LoginDialog(context, user.email)
+            dialog.setOnDismissListener {
+                if (auth.currentUser?.email != editTextEmail.text.toString()) {
+                    updateAuth = true
+                }
+                if (updateAuth) {
+
+                    auth.currentUser?.updateEmail(editTextEmail.text.toString())
+                    auth.currentUser?.uid?.let {
+                        val userToBeWritten = User(
+                            it,
+                            editTextName.text.toString(),
+                            editTextSurname.text.toString(),
+                            editTextEmail.text.toString()
+                        )
+                        FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
+                            override fun success(res: Boolean) {
+                                LocalDatabase.saveUser(userToBeWritten)
+                            }
+
+                            override fun error() {
+                                //TODO popup
+                            }
+
+                        })
+                    }
+                } else {
+                    auth.currentUser?.uid?.let {
+                        val userToBeWritten = User(
+                            it,
+                            editTextName.text.toString(),
+                            editTextSurname.text.toString(),
+                            editTextEmail.text.toString()
+                        )
+                        FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
+                            override fun success(res: Boolean) {
+                                LocalDatabase.saveUser(userToBeWritten)
+                            }
+
+                            override fun error() {
+                                //TODO popup
+                            }
+
+                        })
+                    }
+                }
+                dismiss()
             }
-            if (updateAuth) {
-                //TODO autenticare l'utente nuovamente richiedendo un token
-                auth.currentUser?.updateEmail(editTextEmail.text.toString())?.addOnFailureListener {
-                    println(it.toString())
-                }
-                auth.currentUser?.uid?.let {
-                    val userToBeWritten = User(
-                        it,
-                        editTextName.text.toString(),
-                        editTextSurname.text.toString(),
-                        editTextEmail.text.toString()
-                    )
-                    //FirebaseDatabaseManager.writeUser(userToBeWritten)
-                    LocalDatabase.saveUser(userToBeWritten)
-                }
-            } else {
-                auth.currentUser?.uid?.let {
-                    val userToBeWritten = User(
-                        it,
-                        editTextName.text.toString(),
-                        editTextSurname.text.toString(),
-                        editTextEmail.text.toString()
-                    )
-                    //FirebaseDatabaseManager.writeUser(userToBeWritten)
-                    LocalDatabase.saveUser(userToBeWritten)
-                }
-            }
-            dismiss()
+            dialog.show()
         }
     }
 
 
     private fun displayUser(user: User) {
+        this.user = user
         editTextEmail.setText(user.email)
         editTextName.setText(user.name)
         editTextSurname.setText(user.surname)

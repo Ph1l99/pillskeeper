@@ -13,7 +13,9 @@ import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -43,22 +45,23 @@ class LoginActivity : AppCompatActivity() {
             Utils.errorEditText(passwordLogin)
             Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()
         } else {
-            FirebaseAuth.getInstance()
-                .signInWithEmailAndPassword(
-                    emailLogin.text.toString(),
-                    passwordLogin.text.toString()
-                )
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
+
+            FirebaseAuthenticationManager.loginUser(emailLogin.text.toString(),
+                passwordLogin.text.toString(), object : Callback {
+                    override fun success(res: Boolean) {
                         FirebaseAuth.getInstance().currentUser?.uid?.let { checkUserOnLocalDB(it) }
-                        startActivity(Intent(this, HomepageActivity::class.java))
+                        startActivity(Intent(applicationContext, HomepageActivity::class.java))
                         finish()
-                    } else {
+                    }
+
+                    override fun error() {
                         Utils.errorEditText(emailLogin)
                         Utils.errorEditText(passwordLogin)
-                        Toast.makeText(this, R.string.error_login, Toast.LENGTH_LONG).show()
+                        //TODO popup
+                        Toast.makeText(applicationContext, R.string.error_login, Toast.LENGTH_LONG)
+                            .show()
                     }
-                }
+                })
         }
     }
 

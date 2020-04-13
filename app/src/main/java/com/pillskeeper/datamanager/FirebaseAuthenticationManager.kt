@@ -41,10 +41,24 @@ object FirebaseAuthenticationManager {
             }
     }
 
+    fun loginUser(email: String, password: String, callback: Callback) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback.success(true)
+            } else {
+                callback.error()
+            }
+        }
+    }
+
     fun reautenticateUser(email: String, password: String, callback: Callback) {
         val credential = EmailAuthProvider.getCredential(email, password)
         getCurrentUser()?.reauthenticate(credential)?.addOnCompleteListener {
-            callback.success(true)
+            if (it.isSuccessful) {
+                callback.success(true)
+            } else {
+                callback.error()
+            }
         }
     }
 }

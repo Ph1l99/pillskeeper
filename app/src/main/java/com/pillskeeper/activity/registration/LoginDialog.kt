@@ -12,4 +12,6 @@ class LoginDialog(context: Context, userEmail: String) : Dialog(context) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dialog_login)
     }
+
+
 }

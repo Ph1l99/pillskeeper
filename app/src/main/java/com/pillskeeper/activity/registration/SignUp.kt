@@ -8,7 +8,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
@@ -47,7 +50,6 @@ class SignUp : AppCompatActivity() {
             passwordField.text.toString()
         ).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                val databaseReference = Firebase.database.reference
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
                         auth.currentUser!!.uid,
@@ -56,18 +58,25 @@ class SignUp : AppCompatActivity() {
                         mailField.text.toString()
                     )
 
-                    databaseReference.child(PATH_USERS).child(it).setValue(userToBeWritten)
-                        .addOnCompleteListener {
+                    FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
+                        override fun success(res: Boolean) {
                             LocalDatabase.saveUser(userToBeWritten)
                             finish()
                         }
-                        .addOnFailureListener {
+
+                        override fun error() {
                             Utils.errorEditText(mailField)
                             Utils.errorEditText(nameField)
                             Utils.errorEditText(surnameField)
                             Utils.errorEditText(passwordField)
-                            Toast.makeText(this, R.string.error_values, Toast.LENGTH_LONG).show()
+                            Toast.makeText(
+                                UserInformation.context,
+                                R.string.error_values,
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
+
+                    })
                 }
             }
         }

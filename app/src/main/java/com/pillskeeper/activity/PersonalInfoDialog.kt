@@ -92,7 +92,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    FirebaseDatabaseManager.writeUser(userToBeWritten)
+                    //FirebaseDatabaseManager.writeUser(userToBeWritten)
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
@@ -103,7 +103,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    FirebaseDatabaseManager.writeUser(userToBeWritten)
+                    //FirebaseDatabaseManager.writeUser(userToBeWritten)
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             }

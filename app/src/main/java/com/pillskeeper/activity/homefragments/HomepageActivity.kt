@@ -42,7 +42,6 @@ class HomepageActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         UserInformation.context = this
-        FirebaseApp.initializeApp(this)
 
         FirebaseDatabaseManager.enablePersistence()
         FirebaseDatabaseManager.obtainDatabaseReference()

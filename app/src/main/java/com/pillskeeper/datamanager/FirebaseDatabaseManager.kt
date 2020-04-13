@@ -8,6 +8,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.interfaces.FirebaseMedicineCallback
 import com.pillskeeper.interfaces.FirebaseUserCallback
 
@@ -59,9 +60,15 @@ object FirebaseDatabaseManager {
 
     }
 
-    fun writeUser(user: User) {
+    fun writeUser(user: User, callback: Callback) {
 
         databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
+            .addOnFailureListener {
+                callback.error()
+            }
+            .addOnCompleteListener {
+                callback.success(true)
+            }
 
     }
 

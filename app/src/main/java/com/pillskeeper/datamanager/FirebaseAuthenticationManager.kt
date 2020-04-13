@@ -29,4 +29,17 @@ object FirebaseAuthenticationManager {
                 }
             }
     }
+
+    fun createNewUser(email: String, password: String, callback: Callback) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                callback.success(true)
+            }
+            .addOnFailureListener {
+                callback.error()
+            }
+    }
+
+    fun reautenticateUser(email: String, password: String, callback: Callback){
+    }
 }

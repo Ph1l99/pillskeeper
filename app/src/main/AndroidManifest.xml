@@ -20,7 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".activity.registration.LoginDialog"></activity>
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

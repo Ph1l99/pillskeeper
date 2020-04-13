@@ -12,6 +12,7 @@ import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.datamanager.UserInformation.context
 import com.pillskeeper.interfaces.Callback
 import kotlinx.android.synthetic.main.activity_welcome.*
 
@@ -32,7 +33,7 @@ class WelcomeActivity : AppCompatActivity() {
         if (user != null) {
             FirebaseAuthenticationManager.getCurrentUserIdToken(user, object : Callback {
                 override fun success(res: Boolean) {
-                    startActivity(Intent(UserInformation.context, HomepageActivity::class.java))
+                    startActivity(Intent(context, HomepageActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }
@@ -40,7 +41,7 @@ class WelcomeActivity : AppCompatActivity() {
                 override fun error() {
                     FirebaseAuth.getInstance().signOut()
                     LocalDatabase.sharedPref?.edit()?.clear()?.apply()
-                    startActivity(Intent(UserInformation.context, LoginActivity::class.java))
+                    startActivity(Intent(context, LoginActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }

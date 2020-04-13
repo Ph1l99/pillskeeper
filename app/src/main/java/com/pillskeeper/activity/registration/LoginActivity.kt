@@ -39,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Login method
+     */
     private fun login() {
         if (emailLogin.text.toString().isEmpty() || passwordLogin.text.toString().isEmpty()) {
             Utils.errorEditText(emailLogin)
@@ -57,14 +60,16 @@ class LoginActivity : AppCompatActivity() {
                     override fun error() {
                         Utils.errorEditText(emailLogin)
                         Utils.errorEditText(passwordLogin)
-                        //TODO popup
-                        Toast.makeText(applicationContext, R.string.error_login, Toast.LENGTH_LONG)
-                            .show()
+                        Utils.buildAlertDialog(
+                            this@LoginActivity,
+                            getString(R.string.error_login), getString(R.string.message_title)
+                        ).show()
                     }
                 })
         }
     }
 
+    //TODO da rivedere
     private fun checkUserOnLocalDB(userId: String) {
         if (LocalDatabase.readUser() == null) {
             val databaseReference = Firebase.database.reference

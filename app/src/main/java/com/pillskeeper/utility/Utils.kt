@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -233,5 +234,16 @@ object Utils {
             if (result.value as Double >= 0.8)
                 return true
         return false
+    }
+
+    fun buildAlertDialog(context: Context, message: String, title: String): AlertDialog {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setIcon(R.drawable.pills_icon)
+        builder.setPositiveButton("OK") { _, _ ->
+
+        }
+        return builder.create()
     }
 }

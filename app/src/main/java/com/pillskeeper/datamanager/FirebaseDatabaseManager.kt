@@ -15,16 +15,14 @@ import com.pillskeeper.interfaces.FirebaseUserCallback
 object FirebaseDatabaseManager {
     lateinit var databaseReference: DatabaseReference
     lateinit var medicineRefs: DatabaseReference
-    lateinit var userRefs: DatabaseReference
+
     private const val PATH_MEDICINES = "medicines"
     private const val PATH_USERS = "users"
 
     fun enablePersistence() {
         Firebase.database.setPersistenceEnabled(true)
         medicineRefs = Firebase.database.getReference(PATH_MEDICINES)
-        //userRefs = Firebase.database.getReference("$PATH_USERS/$userId")
         medicineRefs.keepSynced(true)
-        //userRefs.keepSynced(true)
     }
 
 

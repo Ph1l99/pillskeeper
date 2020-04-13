@@ -154,7 +154,9 @@
 
 
     <!--generic error message -->
-    <string name="networkError">Problemi di rete, riprovare a breve</string>
+    <string name="networkError">Impossibile accedere alla rete. Controlla la connessione e riprova</string>
     <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
+    <string name="loginDialogError">Credenziali errate, riprova!</string>
+    <string name="message_title">Attenzione!</string>
 
 </resources>

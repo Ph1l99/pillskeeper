@@ -1,5 +1,6 @@
 package com.pillskeeper.datamanager
 
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pillskeeper.interfaces.Callback
@@ -40,6 +41,10 @@ object FirebaseAuthenticationManager {
             }
     }
 
-    fun reautenticateUser(email: String, password: String, callback: Callback){
+    fun reautenticateUser(email: String, password: String, callback: Callback) {
+        val credential = EmailAuthProvider.getCredential(email, password)
+        getCurrentUser()?.reauthenticate(credential)?.addOnCompleteListener {
+            callback.success(true)
+        }
     }
 }

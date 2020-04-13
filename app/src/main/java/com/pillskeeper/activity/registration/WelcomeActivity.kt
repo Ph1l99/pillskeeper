@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.datamanager.UserInformation.context
@@ -22,6 +23,8 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
         FirebaseApp.initializeApp(this)
+        FirebaseDatabaseManager.enablePersistence()
+        FirebaseDatabaseManager.obtainDatabaseReference()
         FirebaseAuthenticationManager.obtainAuthenticationInstance()
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)
 
@@ -33,7 +36,7 @@ class WelcomeActivity : AppCompatActivity() {
         if (user != null) {
             FirebaseAuthenticationManager.getCurrentUserIdToken(user, object : Callback {
                 override fun success(res: Boolean) {
-                    startActivity(Intent(context, HomepageActivity::class.java))
+                    startActivity(Intent(applicationContext, HomepageActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }
@@ -41,7 +44,7 @@ class WelcomeActivity : AppCompatActivity() {
                 override fun error() {
                     FirebaseAuth.getInstance().signOut()
                     LocalDatabase.sharedPref?.edit()?.clear()?.apply()
-                    startActivity(Intent(context, LoginActivity::class.java))
+                    startActivity(Intent(applicationContext, LoginActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }

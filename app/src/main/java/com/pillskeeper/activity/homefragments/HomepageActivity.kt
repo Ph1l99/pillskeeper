@@ -43,6 +43,8 @@ class HomepageActivity : AppCompatActivity() {
 
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
+
+        FirebaseDatabaseManager.enablePersistence()
         FirebaseDatabaseManager.obtainDatabaseReference()
 
         Utils.stdLayout = EditText(this).background

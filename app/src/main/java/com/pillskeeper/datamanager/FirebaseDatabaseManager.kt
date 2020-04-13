@@ -1,7 +1,5 @@
 package com.pillskeeper.datamanager
 
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -10,14 +8,23 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.data.User
-import com.pillskeeper.datamanager.UserInformation.context
 import com.pillskeeper.interfaces.FirebaseMedicineCallback
 import com.pillskeeper.interfaces.FirebaseUserCallback
 
 object FirebaseDatabaseManager {
     lateinit var databaseReference: DatabaseReference
+    lateinit var medicineRefs: DatabaseReference
+    lateinit var userRefs: DatabaseReference
     private const val PATH_MEDICINES = "medicines"
     private const val PATH_USERS = "users"
+
+    fun enablePersistence() {
+        Firebase.database.setPersistenceEnabled(true)
+        medicineRefs = Firebase.database.getReference(PATH_MEDICINES)
+        //userRefs = Firebase.database.getReference("$PATH_USERS/$userId")
+        medicineRefs.keepSynced(true)
+        //userRefs.keepSynced(true)
+    }
 
 
     fun obtainDatabaseReference() {
@@ -30,15 +37,10 @@ object FirebaseDatabaseManager {
 
                 override fun onCancelled(p0: DatabaseError) {
                     firebaseMedicineCallback.onCallback(null)
-                    Log.i(
-                        Log.ERROR.toString(),
-                        "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                    )
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
                     firebaseMedicineCallback.onCallback(RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>))
-                    Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
                 }
             })
     }
@@ -52,7 +54,6 @@ object FirebaseDatabaseManager {
 
                 override fun onCancelled(p0: DatabaseError) {
                     firebaseUserCallback.onCallback(null)
-                    Toast.makeText(context, "Dati non scaricati", Toast.LENGTH_LONG).show()
                 }
             })
 

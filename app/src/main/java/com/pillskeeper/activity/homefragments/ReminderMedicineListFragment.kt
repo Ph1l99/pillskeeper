@@ -7,33 +7,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.TextView
 
 import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.utility.Utils
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.view.*
 import java.util.*
 
 
 class ReminderMedicineListFragment : Fragment() {
 
     private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
+    private lateinit var reminderListMain: ListView
 
-    lateinit var reminderListMain: ListView
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_reminder_medicine_list, container, false)
+
 
         reminderListMain = view.findViewById(R.id.reminderListMain)
 
         initList()
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun initList() {

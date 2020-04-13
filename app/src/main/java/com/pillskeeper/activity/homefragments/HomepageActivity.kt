@@ -3,11 +3,14 @@ package com.pillskeeper.activity.homefragments
 
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.TableLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Menu
@@ -15,7 +18,7 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
 
-class HomepageActivity : AppCompatActivity() {
+class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     //private lateinit var appointmentListSorted: LinkedList<Appointment>
     //private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>
@@ -23,6 +26,9 @@ class HomepageActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
+    private lateinit var tabLayout: TabLayout
+
+    private lateinit var viewPager: ViewPager
 
     private val VIEW_PAGER_ID = 2222
 
@@ -34,6 +40,7 @@ class HomepageActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+
         UserInformation.context = this
 
 
@@ -44,13 +51,34 @@ class HomepageActivity : AppCompatActivity() {
         menu.createMenu()
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
-        //fragment view
-        var viewPager = ViewPager(this)
+        /* fragment view */
+        tabLayout = findViewById(R.id.tabLayout)
+        viewPager = ViewPager(this)
         viewPager.id = VIEW_PAGER_ID
-        contentMainLayout.linearLayout.addView(viewPager)
+        contentMainLayout.relativeLayout.addView(viewPager)
         val adapter = Adapter(supportFragmentManager)
         viewPager.adapter = adapter
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
+
+        /*LISTENERS*/
+        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if(tab?.position == Adapter.PILLS_PAGE){
+                    viewPager.currentItem = Adapter.PILLS_PAGE
+                } else {
+                    viewPager.currentItem = Adapter.APPOINTMENTS_PAGE
+                }
+            }
+        })
 
         /*
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
@@ -67,9 +95,25 @@ class HomepageActivity : AppCompatActivity() {
             ).show()
             return@setOnItemLongClickListener true
         }
-
-         */
+       */
     }
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        if(tab?.position == Adapter.PILLS_PAGE){
+            viewPager.currentItem = Adapter.PILLS_PAGE
+        } else {
+            viewPager.currentItem = Adapter.APPOINTMENTS_PAGE
+        }
+    }
+
 
     /*
     override fun onResume() {

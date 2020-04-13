@@ -4,13 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.homefragments.ReminderAppointmentListFragment">
+    tools:context=".activity.homefragments.ReminderAppointmentListFragment"
+    android:orientation="horizontal">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ListView
         android:id="@+id/appointmentListMain"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
     </ListView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

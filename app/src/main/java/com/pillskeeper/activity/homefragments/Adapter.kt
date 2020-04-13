@@ -1,8 +1,10 @@
 package com.pillskeeper.activity.homefragments
 
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.pillskeeper.R
 
 class Adapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
 
@@ -12,11 +14,13 @@ class Adapter(fm: FragmentManager): FragmentPagerAdapter(fm) {
     }
 
 
+
     override fun getItem(position: Int): Fragment {
         return when(position){
             PILLS_PAGE -> ReminderMedicineListFragment()
             APPOINTMENTS_PAGE -> ReminderAppointmentListFragment()
             else -> ReminderMedicineListFragment()
+
         }
     }
 

@@ -4,6 +4,7 @@ import com.pillskeeper.data.abstracts.ReminderAbstract
 import com.pillskeeper.enums.DaysEnum
 import java.util.*
 
+
 data class ReminderMedicine(
     var dosage: Float,
     var minutes: Int,// TODO change with short!!!!! and make nullable
@@ -14,12 +15,13 @@ data class ReminderMedicine(
     var additionNotes: String?
 ) : ReminderAbstract(minutes, hours, startingDay, days, expireDate, additionNotes) {
     
-    fun isEquals(comparator:ReminderMedicine) : Boolean{
-        if(this.startingDay == comparator.startingDay && this.expireDate == comparator.expireDate && this.hours == comparator.hours
-                && this.minutes == comparator.minutes && this.dosage == comparator.dosage){
-            if(this.days?.equals(comparator.days)!!){
-                return true
-            }
+    override fun equals(other: Any?) : Boolean{
+        if (other !is ReminderMedicine) return false
+
+        if(this.startingDay == other.startingDay && this.expireDate == other.expireDate && this.hours == other.hours
+                && this.minutes == other.minutes && this.dosage == other.dosage){
+            return compareDaysList(this.days,other.days)
+
         }
         return false
     }
@@ -36,5 +38,34 @@ data class ReminderMedicine(
 
     fun isSingleDayRem(): Boolean {
         return startingDay == expireDate
+    }
+
+    private fun compareDaysList(thisList: LinkedList<DaysEnum>?, comparator: LinkedList<DaysEnum>?): Boolean{
+        if(thisList == null && comparator == null)
+            return true
+        else {
+            if(thisList == null || comparator == null)
+                return false
+            else {
+                if(thisList.size != comparator.size)
+                    return false
+                else {
+                    val temp = LinkedList(comparator)
+                    thisList.forEach {day ->
+                        for(i in 0..temp.size) {
+                            if (temp[i] == day) {
+                                temp.removeAt(i)
+                                break
+                            }
+                        }
+                    }
+                    return temp.isEmpty()
+                }
+            }
+        }
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
     }
 }

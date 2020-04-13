@@ -23,6 +23,9 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
         }
     }
 
+    /**
+     * Method for logging the user and update the token
+     */
     private fun loginAgain() {
         if (loginDialogPasswordText.text != null) {
             FirebaseAuthenticationManager.reautenticateUser(
@@ -35,7 +38,11 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
                     }
 
                     override fun error() {
-                        //TODO popup errore
+                        Utils.buildAlertDialog(
+                            context,
+                            context.getString(R.string.loginDialogError),
+                            context.getString(R.string.message_title)
+                        ).show()
                     }
 
                 })
@@ -45,6 +52,9 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
 
     }
 
+    /**
+     * Method for displaying infos like the email address
+     */
     private fun displayInfos(userEmail: String) {
         loginDialogMailText.setText(userEmail)
         loginDialogMailText.isEnabled = false

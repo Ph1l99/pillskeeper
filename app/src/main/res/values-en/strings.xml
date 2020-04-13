@@ -114,8 +114,10 @@
     <string name="starting_date">Starting date:</string>
     <string name="toxicWords">Toxic words found, please insert the medicine name again!</string>
     <string name="addMedicineText">Add new medicine</string>
-    <string name="networkError">Network error, try again soon</string>
+    <string name="networkError">Network error, check your connection and retry</string>
     <string name="reminderListActivityTitle">"Reminders"</string>
     <string name="addFriend">Add a friend or a doctor in order to send the email!</string>
     <string name="reminderEditActivityTitle">Editing</string>
+    <string name="loginDialogError">Wrong credentials, please retry</string>
+    <string name="message_title">Attention!</string>
 </resources>

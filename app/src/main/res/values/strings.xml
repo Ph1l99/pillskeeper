@@ -30,6 +30,7 @@
 
     <!--MedicinesListActivity-->
     <string name="nothingToSee">Nessuna Medicina trovata!</string>
+    <string name="addMedicineText">Aggiungi nuova medicina</string>
 
 
     <!--Menu buttons-->
@@ -126,6 +127,8 @@
     <string name="user_settingsActivity">Modifica dati personali</string>
     <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
+    <string name="reminderListActivityTitle">Promemoria</string>
+    <string name="reminderEditActivityTitle">Modifica Promemoria</string>
 
     <!-- String for WelcomeActivity-->
     <string name="welcome">Benvenuto!</string>
@@ -143,10 +146,15 @@
     <string name="no" translatable="false">No</string>
     <string name="selectSpecificDateReminder">Seleziona la data: </string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
-    <string name="dosageReminder">Quantità da assuere:</string>
+    <string name="dosageReminder">Quantità da assumere:</string>
     <string name="_0">0</string>
     <string name="or">Oppure</string>
     <string name="additionalNotes">Note Addizionali:</string>
+    <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
 
+
+    <!--generic error message -->
+    <string name="networkError">Problemi di rete, riprovare a breve</string>
+    <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
 
 </resources>

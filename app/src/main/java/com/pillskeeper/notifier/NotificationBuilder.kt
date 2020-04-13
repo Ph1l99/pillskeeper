@@ -37,7 +37,7 @@ object NotificationBuilder {
         val notificationBuilder = NotificationCompat.Builder(context)
             .setSmallIcon(icon)
             .setContentTitle(title)
-            .setContentText("$text - ${Date()}")
+            .setContentText(text)
             .setAutoCancel(false)
             .setSound(soundUri)
             .setStyle(NotificationCompat.BigTextStyle()

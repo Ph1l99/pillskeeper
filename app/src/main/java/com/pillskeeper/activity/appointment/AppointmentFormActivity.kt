@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
-import com.pillskeeper.activity.medicine.reminderformfragments.ReminderActivity
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.notifier.NotifyPlanner

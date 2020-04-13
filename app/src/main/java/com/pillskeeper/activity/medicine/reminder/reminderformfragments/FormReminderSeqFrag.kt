@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine.reminderformfragments
+package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.reminderformfragments.ReminderActivity.Companion.hours
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.utility.Utils
@@ -18,7 +18,7 @@ import java.util.*
 
 class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
 
-    private          var checkBoxes             : HashMap<String,CheckBox> = HashMap()
+    private lateinit var checkBoxes             : HashMap<String,CheckBox>
     private lateinit var buttonDateStart        : Button
     private lateinit var buttonDateEnd          : Button
     private lateinit var spinnerHoursRem2       : Spinner
@@ -39,6 +39,8 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_form_seq_reminder_days, container, false)
 
+        checkBoxes = HashMap()
+
         DaysEnum.values().forEach {
             checkBoxes[it.name] = view.findViewById(
                 when(it){
@@ -58,8 +60,8 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         spinnerHoursRem2 = view.findViewById(R.id.spinnerHoursRem2)
         spinnerMinutesRem2 = view.findViewById(R.id.spinnerMinutesRem2)
         editTextAddNotesRem = view.findViewById(R.id.editTextAddNotesRem)
-        abortButtonReminder = view.findViewById(R.id.abortButtonReminder)
-        saveButtonReminder = view.findViewById(R.id.saveButtonReminder)
+        abortButtonReminder = view.findViewById(R.id.abortButtonReminderSeq)
+        saveButtonReminder = view.findViewById(R.id.saveButtonReminderSeq)
         dosageSpinnerReminder = view.findViewById(R.id.dosageSpinnerReminder)
 
 
@@ -83,7 +85,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
                 calExp.set(Calendar.SECOND, 0)
                 calExp.set(Calendar.MILLISECOND, 0)
 
-                startDateSelected = calExp.time
+                expDateSelected = calExp.time
 
             }, yearExp, monthExp, dayExp).show()
         }
@@ -106,7 +108,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
                 calStart.set(Calendar.SECOND, 0)
                 calStart.set(Calendar.MILLISECOND, 0)
 
-                expDateSelected = calStart.time
+                startDateSelected = calStart.time
 
             }, yearStart, monthStart, dayStart).show()
         }

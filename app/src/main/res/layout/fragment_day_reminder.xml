@@ -48,7 +48,7 @@
         android:layout_marginTop="40dp"
         android:text="@string/timeSelectReminder"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectTime2"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/buttonDateReminder" />
 
     <Spinner
@@ -78,7 +78,7 @@
         android:layout_marginTop="30dp"
         android:text="@string/dosageReminder"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewAddNotes"
+        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
         app:layout_constraintTop_toBottomOf="@+id/textViewDoubleDots" />
 
     <Spinner
@@ -97,31 +97,20 @@
         app:layout_constraintStart_toEndOf="@+id/textViewSelectTime2"
         app:layout_constraintTop_toTopOf="@+id/textViewSelectTime2" />
 
-    <TextView
-        android:id="@+id/textViewAddNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/additionalNotes"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/reminderAddNotesEditT"
-        app:layout_constraintTop_toBottomOf="@+id/dosageQtyReminder" />
-
     <EditText
         android:id="@+id/reminderAddNotesEditT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_margin="15dp"
         android:autofillHints=""
         android:gravity="top"
         android:hint="@string/additionalNoteAppointment"
         android:inputType="textShortMessage"
         android:minHeight="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/abortButtonReminder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewSelectDate"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAddNotes" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2" />
 
     <Button
         android:id="@+id/abortButtonReminder"

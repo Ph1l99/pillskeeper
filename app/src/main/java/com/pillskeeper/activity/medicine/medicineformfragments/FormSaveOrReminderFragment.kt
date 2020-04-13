@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
-import com.pillskeeper.activity.medicine.ReminderChooseDialog
+import com.pillskeeper.activity.medicine.reminder.ReminderChooseDialog
+import com.pillskeeper.interfaces.Callback
+import com.pillskeeper.utility.Utils
 import java.util.*
 
 class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
@@ -40,14 +39,46 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
         }
 
         textViewConfirm.setOnClickListener {
-            FormAdapter.addNewMedicine()
-            val intent = Intent(context, MedicineLocaleListActivity::class.java)
-            startActivity(intent)
-            FormAdapter.closeForm()
+            textViewConfirm.isClickable = false
+            Utils.checkTextWords(
+                FormAdapter.pillName.toString(),
+                Locale.getDefault().language,
+                object : Callback {
+                    override fun success(res: Boolean) {
+                        if (res) {
+                            Toast.makeText(
+                                FormAdapter.formActivity,
+                                getText(R.string.toxicWords),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            textViewConfirm.isClickable = true
+                            viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
+                        } else {
+                            FormAdapter.addNewMedicine()//todo finish and put extra
+                            val intent = Intent(context, MedicineLocaleListActivity::class.java)
+                            startActivity(intent)
+                            FormAdapter.closeForm()
+                        }
+                    }
+
+                    override fun error() {
+                        Toast.makeText(
+                            FormAdapter.formActivity,
+                            getText(R.string.networkError),
+                            Toast.LENGTH_LONG
+                        ).show()
+                        textViewConfirm.isClickable = true
+                    }
+                }
+            )
+
         }
 
         buttonAddReminder.setOnClickListener {
-            ReminderChooseDialog(FormAdapter.formActivity!!,viewPager).show()
+            ReminderChooseDialog(
+                FormAdapter.formActivity!!,
+                viewPager
+            ).show()
         }
 
         return view
@@ -59,18 +90,25 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
         initList()
     }
 
-    private fun initList(){
+    private fun initList() {
         val stringList = LinkedList<String>()
 
         FormAdapter.reminderList?.forEach {
-            if(it.startingDay == it.expireDate)
-                stringList.add("${it.hours}:${it.minutes} - ${it.startingDay}")
+            if (it.isSingleDayRem()) {
+                val cal = Calendar.getInstance()
+                cal.time = it.startingDay
+                stringList.add("${it.hours}:${it.minutes} - ${getString(R.string.dateButtonFormatted,cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))}")
+            }
             else
                 stringList.add("${it.hours}:${it.minutes} - ${it.dayStringify()}")
         }
 
         reminderListFragment.adapter =
-            ArrayAdapter(FormAdapter.formActivity!!, android.R.layout.simple_list_item_1, stringList)
+            ArrayAdapter(
+                FormAdapter.formActivity!!,
+                android.R.layout.simple_list_item_1,
+                stringList
+            )
     }
 }
 

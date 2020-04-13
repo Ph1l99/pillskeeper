@@ -10,12 +10,13 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.google.common.hash.Hashing
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderOneDayFrag
-import com.pillskeeper.activity.medicine.reminderformfragments.FormReminderSeqFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.notifier.NotifyPlanner
@@ -23,13 +24,15 @@ import com.pillskeeper.utility.Utils
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class FormAdapter(fm: FragmentManager, private val intent: Intent, private val viewPager: MedicineViewPager): FragmentPagerAdapter(fm) {
+class FormAdapter(
+    fm: FragmentManager,
+    private val intent: Intent,
+    private val viewPager: MedicineViewPager
+) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    //TODO MISSING EDIT REMINDER and relative INSERT FLOW(also alarm edit flow)
-    //TODO bisogna resettare questa classe statica(o renderla non statica) quadno si finisce di salvare la medicina (altrimenti rimangono le info salvate)
-    // si potrebbe fare in apertura del form ogni volta, oppure in chiusura
+    //TODO MISSING EDIT REMINDER (also alarm edit flow)
 
-    companion object{
+    companion object {
         const val FORM_NAME_TYPE = 0
         const val FORM_QUANTITY = 1
         const val FORM_SAVE_OR_REMINDER = 2
@@ -49,7 +52,7 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
 
         var formActivity: Activity? = null
 
-        fun resetForm(){
+        fun resetForm() {
             formActivity = null
             localMedicine = null
             remoteMedicine = null
@@ -60,12 +63,12 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
             reminderList = null
         }
 
-        fun closeForm(){
+        fun closeForm() {
             formActivity?.finish()
         }
 
-        fun addReminder(reminder: ReminderMedicine){
-            if(reminderList == null)
+        fun addReminder(reminder: ReminderMedicine) {
+            if (reminderList == null)
                 reminderList = LinkedList()
             reminderList!!.add(reminder)
         }
@@ -79,13 +82,17 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
                 reminderList,
                 hashValue(pillName!!, medicineType!!)
             )
-            if(UserInformation.addNewMedicine(newMed)) {
+            if (UserInformation.addNewMedicine(newMed)) {
 
                 val listMed: LinkedList<LocalMedicine> = LinkedList()
                 listMed.add(newMed)
-                val reminderListNormalized: LinkedList<ReminderMedicineSort> = Utils.getListReminderNormalized(listMed)
+                val reminderListNormalized: LinkedList<ReminderMedicineSort> =
+                    Utils.getListReminderNormalized(listMed)
+
+                println(listMed.size)
 
                 reminderListNormalized.forEach {
+                    println(it.reminder.toString())
                     NotifyPlanner.planSingleAlarm(
                         formActivity!!,
                         formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
@@ -105,19 +112,17 @@ class FormAdapter(fm: FragmentManager, private val intent: Intent, private val v
 
 
         private fun hashValue(name: String, typeEnum: MedicineTypeEnum): String {
-            return (Hashing.goodFastHash(64)).newHasher()
+            return (Hashing.sha1()).newHasher()
                 .putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
         }
 
         private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
-            val databaseReference = Firebase.database.reference
-            databaseReference.child(PATH_MEDICINES).child(remoteMedicine.id)
-                .setValue(remoteMedicine)
+            FirebaseDatabaseManager.writeMedicine(remoteMedicine)
         }
     }
 
     override fun getItem(position: Int): Fragment {
-        return when(position) {
+        return when (position) {
             FORM_NAME_TYPE -> FormNameTypeFragment(intent, viewPager)
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)

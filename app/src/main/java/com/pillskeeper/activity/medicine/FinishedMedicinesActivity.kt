@@ -3,6 +3,7 @@ package com.pillskeeper.activity.medicine
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -55,7 +56,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         val list = UserInformation.medicines
 
         val outputList = LinkedList(list.filter {
-            it.remainingQty <= it.remainingQty * MINIMUM_QTY
+            it.remainingQty <= it.totalQty * MINIMUM_QTY
         })
 
         if (outputList.isEmpty()) {
@@ -88,28 +89,32 @@ class FinishedMedicinesActivity : AppCompatActivity() {
 
         val localFriendList = UserInformation.friends
 
-        for (friend in localFriendList) {
-            listFriends.add(friend.name + " " + friend.surname)
-        }
-        selectableFriends = Array(listFriends.size) { "" }
-        listFriends.toArray(selectableFriends)
-        val selectedItems = Array(listFriends.size) { false }
-
-        val builder = AlertDialog.Builder(this)
-        builder.setMultiChoiceItems(selectableFriends, null) { _, which, isChecked ->
-            selectedItems[which] = isChecked
-        }
-        builder.setPositiveButton(R.string.sendMail) { _, _ ->
-            for (i in selectedItems.indices) {
-                if (selectedItems[i]) {
-                    chosenFriends.add(extractMail(selectableFriends[i], localFriendList))
-                }
+        if (localFriendList.isEmpty()) {
+            Toast.makeText(this, getText(R.string.addFriend), Toast.LENGTH_LONG).show()
+        } else {
+            for (friend in localFriendList) {
+                listFriends.add(friend.name + " " + friend.surname)
             }
-            sendEmail(localMedicine, chosenFriends)
-        }
+            selectableFriends = Array(listFriends.size) { "" }
+            listFriends.toArray(selectableFriends)
+            val selectedItems = Array(listFriends.size) { false }
 
-        val dialog = builder.create()
-        dialog.show()
+            val builder = AlertDialog.Builder(this)
+            builder.setMultiChoiceItems(selectableFriends, null) { _, which, isChecked ->
+                selectedItems[which] = isChecked
+            }
+            builder.setPositiveButton(R.string.sendMail) { _, _ ->
+                for (i in selectedItems.indices) {
+                    if (selectedItems[i]) {
+                        chosenFriends.add(extractMail(selectableFriends[i], localFriendList))
+                    }
+                }
+                sendEmail(localMedicine, chosenFriends)
+            }
+
+            val dialog = builder.create()
+            dialog.show()
+        }
     }
 
     private fun extractMail(friend: String, listFriends: LinkedList<Friend>): String {

@@ -19,12 +19,14 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.notifier.NotifyPlanner
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 import java.util.*
+import kotlin.collections.HashMap
 
 object Utils {
 
@@ -206,25 +208,30 @@ object Utils {
         Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function ended")
     }
 
-    fun checkTextWords(text: String, language: String): Boolean {
-        lateinit var result: Map<String, Any>
+    fun checkTextWords(text: String, language: String, job: Callback) {
+        Log.i(Log.DEBUG.toString(), "Utils: checkTextWords() - function Started")
         val map = HashMap<String, Any>()
         map["text"] = text
         map["lang"] = language
-        val functions = Firebase.functions
-        functions.getHttpsCallable("checkToxic").call(map)
-            .continueWith { task ->
-                result = task.result?.data as Map<String, Any>
+
+        Firebase.functions.getHttpsCallable("checkToxic").call(map)
+            .addOnSuccessListener {
+                job.success(
+                    checkMap(
+                        it?.data as Map<String, Any>
+                    )
+                )
             }
-        return checkMap(result)
+            .addOnCanceledListener {
+                job.error()
+            }
+        Log.i(Log.DEBUG.toString(), "Utils: checkTextWords() - function Ended")
     }
 
     private fun checkMap(resultMap: Map<String, Any>): Boolean {
-        for (result in resultMap) {
-            if (result.value as Float >= 0.8f) {
+        for (result in resultMap)
+            if (result.value as Double >= 0.8)
                 return true
-            }
-        }
         return false
     }
 }

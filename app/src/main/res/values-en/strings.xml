@@ -109,7 +109,13 @@
     <string name="additionalNotes">Additional Notes:</string>
     <string name="totalQuantityEditing">New total quantity:</string>
     <string name="remainingQuantityEditing">New remaining quantity</string>
-    <string name="dialogChooseReminderText">Does the reminder repeats for more than one time?</string>
-    <string name="dosageReminder">Insert the dosage for this reminder:</string>
+    <string name="dialogChooseReminderText">Is the reminder a repeatitive one?</string>
+    <string name="dosageReminder">Dosage:</string>
     <string name="starting_date">Starting date:</string>
+    <string name="toxicWords">Toxic words found, please insert the medicine name again!</string>
+    <string name="addMedicineText">Add new medicine</string>
+    <string name="networkError">Network error, try again soon</string>
+    <string name="reminderListActivityTitle">"Reminders"</string>
+    <string name="addFriend">Add a friend or a doctor in order to send the email!</string>
+    <string name="reminderEditActivityTitle">Editing</string>
 </resources>

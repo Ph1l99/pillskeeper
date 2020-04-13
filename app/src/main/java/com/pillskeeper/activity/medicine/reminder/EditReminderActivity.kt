@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.ReminderListActivity
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
@@ -64,17 +63,19 @@ class EditReminderActivity : AppCompatActivity() {
                 )
 
                 if(UserInformation.editReminder(medName!!,reminder,newReminder)){
-                    println("corretto!!!!!!")
+
+                    //cambiamento dei vari reminder dio
+
                     finish()
                 } else {
-                    println("MALEEEEEEEEEEEEEE!!!!!!")
+                    Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show() //todo change with generica dialog
                 }
 
             } else {
-                Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show() //todo change with generica dialog
             }
 
-            //edit, salvataggio e ripianificazione degli allarmi
+            //ripianificazione degli allarmi
         }
 
 
@@ -90,6 +91,8 @@ class EditReminderActivity : AppCompatActivity() {
         val yearExp = calExp.get(Calendar.YEAR)
         val monthExp = calExp.get(Calendar.MONTH)
         val dayExp = calExp.get(Calendar.DAY_OF_MONTH)
+
+        expireDate = reminder.expireDate
 
         if(!reminder.isSingleDayRem()) {
             buttonDateEnd.setOnClickListener {
@@ -126,6 +129,8 @@ class EditReminderActivity : AppCompatActivity() {
         val yearStart = calExp.get(Calendar.YEAR)
         val monthStart = calExp.get(Calendar.MONTH)
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
+
+        startingDate = reminder.startingDay
 
         buttonDateReminder.setOnClickListener {
             DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->

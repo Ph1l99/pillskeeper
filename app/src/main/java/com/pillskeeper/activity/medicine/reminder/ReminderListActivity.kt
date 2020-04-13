@@ -1,11 +1,10 @@
-package com.pillskeeper.activity.medicine
+package com.pillskeeper.activity.medicine.reminder
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.reminder.EditReminderActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.utility.adapter.ReminderCardAdapter
@@ -27,6 +26,12 @@ class ReminderListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reminder_list)
 
         medicine = intent.getSerializableExtra(REMINDER_MEDICINE) as LocalMedicine
+
+        addReminderFAB.setOnClickListener {
+
+            //ReminderChooseDialog(this).show() todo, come importare i fragment... a questo punto apri uno dei fragment...
+
+        }
     }
 
     override fun onResume() {

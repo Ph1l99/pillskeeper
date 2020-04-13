@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Card"
-    tools:context=".activity.medicine.ReminderListActivity">
+    tools:context=".activity.medicine.reminder.ReminderListActivity">
 
     <LinearLayout
         android:id="@+id/layoutReminderCard"

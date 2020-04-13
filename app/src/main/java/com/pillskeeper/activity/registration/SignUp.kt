@@ -75,7 +75,11 @@ class SignUp : AppCompatActivity() {
                 }
 
                 override fun error() {
-                    //TODO uscire popup di errore
+                    Utils.buildAlertDialog(
+                        this@SignUp,
+                        getString(R.string.networkError),
+                        getString(R.string.message_title)
+                    ).show()
                 }
 
             })

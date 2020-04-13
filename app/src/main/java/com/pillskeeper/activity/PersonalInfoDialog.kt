@@ -106,7 +106,11 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                             }
 
                             override fun error() {
-                                //TODO popup
+                                Utils.buildAlertDialog(
+                                    context,
+                                    context.getString(R.string.networkError),
+                                    context.getString(R.string.message_title)
+                                ).show()
                             }
 
                         })
@@ -125,7 +129,11 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                             }
 
                             override fun error() {
-                                //TODO popup
+                                Utils.buildAlertDialog(
+                                    context,
+                                    context.getString(R.string.networkError),
+                                    context.getString(R.string.message_title)
+                                ).show()
                             }
 
                         })

@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
+        <activity android:name=".activity.registration.LoginDialog"></activity>
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -73,9 +74,9 @@
         <activity
             android:name=".activity.medicine.ReminderListActivity"
             android:label="@string/reminderListActivityTitle" />
-
-        <activity android:name=".activity.medicine.reminder.EditReminderActivity"
-            android:label=""/>
+        <activity
+            android:name=".activity.medicine.reminder.EditReminderActivity"
+            android:label="" />
 
         <receiver
             android:name=".notifier.EventBroadcastReceiver"

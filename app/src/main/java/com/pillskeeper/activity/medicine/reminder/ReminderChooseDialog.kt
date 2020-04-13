@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.medicine
+package com.pillskeeper.activity.medicine.reminder
 
 import android.app.Dialog
 import android.content.Context

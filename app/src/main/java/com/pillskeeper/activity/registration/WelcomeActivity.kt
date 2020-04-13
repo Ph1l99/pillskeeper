@@ -12,8 +12,6 @@ import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.datamanager.UserInformation.context
 import com.pillskeeper.interfaces.Callback
 import kotlinx.android.synthetic.main.activity_welcome.*
 

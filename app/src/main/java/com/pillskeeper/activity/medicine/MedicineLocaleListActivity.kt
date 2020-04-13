@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
+import com.pillskeeper.activity.medicine.reminder.ReminderListActivity
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Menu
 import kotlinx.android.synthetic.main.content_pills_list.*

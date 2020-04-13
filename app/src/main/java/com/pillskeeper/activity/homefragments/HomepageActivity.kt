@@ -8,19 +8,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
-import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.DaysEnum
-import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
-import java.util.*
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -51,9 +44,6 @@ class HomepageActivity : AppCompatActivity() {
         menu.createMenu()
         Utils.insertNameMenu(findViewById(R.id.nav_view))
 
-        //TODO DEBUG - to be removed
-        //funTest()
-
         //fragment view
         var viewPager = ViewPager(this)
         viewPager.id = VIEW_PAGER_ID
@@ -79,68 +69,6 @@ class HomepageActivity : AppCompatActivity() {
         }
 
          */
-    }
-
-    private fun funTest() {
-
-        val days1: LinkedList<DaysEnum> = LinkedList()
-        days1.add(DaysEnum.MON)
-        days1.add(DaysEnum.FRI)
-        days1.add(DaysEnum.SAT)
-        days1.add(DaysEnum.TUE)
-        days1.add(DaysEnum.THU)
-        days1.add(DaysEnum.SUN)
-        days1.add(DaysEnum.WED)
-
-
-        val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(2F, 39, 19, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 41, 19, Date(), days1, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Tachipirina",
-                MedicineTypeEnum.PILLS,
-                24F,
-                7F,
-                reminders,
-                "Tachipirina"
-            )
-        )
-
-        /*val reminders2 = LinkedList<ReminderMedicine>()
-        reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
-        reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days1, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Aulin",
-                MedicineTypeEnum.PILLS,
-                24F,
-                24F,
-                null,
-                "Aulin"
-            )
-        )
-        UserInformation.addNewReminderList("Aulin", reminders2)
-
-        UserInformation.addNewAppointment(
-            Appointment("prelieo", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo1", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo2", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo3", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo4", Date(), "")
-        )*/
-
     }
 
     /*

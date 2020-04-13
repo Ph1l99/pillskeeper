@@ -60,8 +60,8 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         spinnerHoursRem2 = view.findViewById(R.id.spinnerHoursRem2)
         spinnerMinutesRem2 = view.findViewById(R.id.spinnerMinutesRem2)
         editTextAddNotesRem = view.findViewById(R.id.editTextAddNotesRem)
-        abortButtonReminder = view.findViewById(R.id.abortButtonReminder)
-        saveButtonReminder = view.findViewById(R.id.saveButtonReminder)
+        abortButtonReminder = view.findViewById(R.id.abortButtonReminderSeq)
+        saveButtonReminder = view.findViewById(R.id.saveButtonReminderSeq)
         dosageSpinnerReminder = view.findViewById(R.id.dosageSpinnerReminder)
 
 
@@ -85,7 +85,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
                 calExp.set(Calendar.SECOND, 0)
                 calExp.set(Calendar.MILLISECOND, 0)
 
-                startDateSelected = calExp.time
+                expDateSelected = calExp.time
 
             }, yearExp, monthExp, dayExp).show()
         }
@@ -108,7 +108,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
                 calStart.set(Calendar.SECOND, 0)
                 calStart.set(Calendar.MILLISECOND, 0)
 
-                expDateSelected = calStart.time
+                startDateSelected = calStart.time
 
             }, yearStart, monthStart, dayStart).show()
         }

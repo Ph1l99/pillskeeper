@@ -30,7 +30,7 @@ data class ReminderMedicine(
         var daysString = ""
         for (i in days!!.indices) {
             daysString += "${days!![i]}"
-            if(i <= days!!.size-1)
+            if(i < days!!.size-1)
                 daysString += " - "
         }
         return daysString

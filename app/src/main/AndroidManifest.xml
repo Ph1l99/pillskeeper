@@ -71,7 +71,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.medicine.ReminderListActivity"
+            android:name=".activity.medicine.reminder.ReminderListActivity"
             android:label="@string/reminderListActivityTitle" />
         <activity
             android:name=".activity.medicine.reminder.EditReminderActivity"

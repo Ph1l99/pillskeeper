@@ -3,33 +3,24 @@ package com.pillskeeper.activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.interfaces.FirebaseUserCallback
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.activity_personal_info.*
+import kotlinx.android.synthetic.main.dialog_personal_info.*
 
 class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
 
-    private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private var isEditing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_personal_info)
+        setContentView(R.layout.dialog_personal_info)
 
         auth = FirebaseAuth.getInstance()
 
@@ -85,10 +76,15 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         println(isValidInfo)
         if (isValidInfo) {
             if (auth.currentUser?.email != editTextEmail.text.toString()) {
+                println(auth.currentUser?.email.toString())
                 updateAuth = true
+                println(updateAuth)
             }
             if (updateAuth) {
-                auth.currentUser?.updateEmail(editTextEmail.text.toString())
+                //TODO autenticare l'utente nuovamente richiedendo un token
+                auth.currentUser?.updateEmail(editTextEmail.text.toString())?.addOnFailureListener {
+                    println(it.toString())
+                }
                 auth.currentUser?.uid?.let {
                     val userToBeWritten = User(
                         it,
@@ -96,7 +92,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    //TODO scrivere user
+                    FirebaseDatabaseManager.writeUser(userToBeWritten)
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
@@ -107,7 +103,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    //TODO scrivere user
+                    FirebaseDatabaseManager.writeUser(userToBeWritten)
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             }

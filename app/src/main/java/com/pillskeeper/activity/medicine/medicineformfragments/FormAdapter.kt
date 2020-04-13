@@ -16,6 +16,7 @@ import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.notifier.NotifyPlanner
@@ -85,7 +86,8 @@ class FormAdapter(
 
                 val listMed: LinkedList<LocalMedicine> = LinkedList()
                 listMed.add(newMed)
-                val reminderListNormalized: LinkedList<ReminderMedicineSort> = Utils.getListReminderNormalized(listMed)
+                val reminderListNormalized: LinkedList<ReminderMedicineSort> =
+                    Utils.getListReminderNormalized(listMed)
 
                 println(listMed.size)
 
@@ -115,9 +117,7 @@ class FormAdapter(
         }
 
         private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
-            val databaseReference = Firebase.database.reference
-            databaseReference.child(PATH_MEDICINES).child(remoteMedicine.id)
-                .setValue(remoteMedicine)
+            FirebaseDatabaseManager.writeMedicine(remoteMedicine)
         }
     }
 

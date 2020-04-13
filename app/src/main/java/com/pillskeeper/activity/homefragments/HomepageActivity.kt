@@ -12,6 +12,7 @@ import com.google.firebase.FirebaseApp
 import com.pillskeeper.R
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
@@ -42,6 +43,7 @@ class HomepageActivity : AppCompatActivity() {
 
         UserInformation.context = this
         FirebaseApp.initializeApp(this)
+        FirebaseDatabaseManager.obtainDatabaseReference()
 
         Utils.stdLayout = EditText(this).background
 

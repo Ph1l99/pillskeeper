@@ -28,7 +28,6 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medicines_list)
 
-        FirebaseDatabaseManager.obtainDatabaseReference()
         fillMedicinesList()
 
         addMedicineButton.setOnClickListener {

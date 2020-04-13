@@ -43,7 +43,7 @@ object FirebaseDatabaseManager {
             })
     }
 
-    fun getUser(userId: String, firebaseUserCallback: FirebaseUserCallback){
+    fun getUser(userId: String, firebaseUserCallback: FirebaseUserCallback) {
         databaseReference.child(PATH_USERS).child(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -55,6 +55,19 @@ object FirebaseDatabaseManager {
                     Toast.makeText(context, "Dati non scaricati", Toast.LENGTH_LONG).show()
                 }
             })
+
+    }
+
+    fun writeUser(user: User) {
+
+        databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
+
+    }
+
+    fun writeMedicine(medicine: RemoteMedicine) {
+
+        databaseReference.child(PATH_MEDICINES).child(medicine.id)
+            .setValue(medicine)
 
     }
 }

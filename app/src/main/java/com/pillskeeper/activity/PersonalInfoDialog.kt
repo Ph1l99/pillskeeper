@@ -96,7 +96,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    databaseReference.child(PATH_USERS).child(userId).setValue(userToBeWritten)
+                    //TODO scrivere user
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             } else {
@@ -107,7 +107,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                         editTextSurname.text.toString(),
                         editTextEmail.text.toString()
                     )
-                    databaseReference.child(PATH_USERS).child(userId).setValue(userToBeWritten)
+                    //TODO scrivere user
                     LocalDatabase.saveUser(userToBeWritten)
                 }
             }

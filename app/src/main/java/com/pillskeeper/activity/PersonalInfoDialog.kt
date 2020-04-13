@@ -14,15 +14,14 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
+import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.interfaces.FirebaseUserCallback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_personal_info.*
 
 class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
-
-    companion object {
-        const val PATH_USERS = "users"
-    }
 
     private lateinit var databaseReference: DatabaseReference
     private lateinit var auth: FirebaseAuth
@@ -33,7 +32,6 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         setContentView(R.layout.activity_personal_info)
 
         auth = FirebaseAuth.getInstance()
-        databaseReference = Firebase.database.reference
 
         getUser(userId)
 
@@ -56,17 +54,16 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
     }
 
     private fun getUser(userId: String) {
-
-        databaseReference.child(PATH_USERS).child(userId)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    displayUser(User.fromMap(p0.value as Map<String, String>))
+        FirebaseDatabaseManager.getUser(userId, object : FirebaseUserCallback {
+            override fun onCallback(user: User?) {
+                if (user != null) {
+                    displayUser(user)
+                } else {
+                    //TODO @phil mettere messaggio di errore
                 }
+            }
 
-                override fun onCancelled(p0: DatabaseError) {
-                    Toast.makeText(context, "Dati non scaricati", Toast.LENGTH_LONG).show()
-                }
-            })
+        })
 
     }
 

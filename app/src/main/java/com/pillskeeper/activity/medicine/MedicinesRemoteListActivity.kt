@@ -7,34 +7,28 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.REMOTE_MEDICINE
 import com.pillskeeper.data.RemoteMedicine
+import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.interfaces.FirebaseMedicineCallback
 import com.pillskeeper.utility.adapter.MedicineRemoteCardAdapter
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
 class MedicinesRemoteListActivity : AppCompatActivity() {
     private lateinit var mAdapter: MedicineRemoteCardAdapter
-    private lateinit var databaseReference: DatabaseReference
 
     companion object {
         private const val LAUNCH_PILLS = 1
-        private const val PATH_MEDICINES = "medicines"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_medicines_list)
 
-        databaseReference = Firebase.database.reference
-
+        FirebaseDatabaseManager.obtainDatabaseReference()
         fillMedicinesList()
 
         addMedicineButton.setOnClickListener {
@@ -45,26 +39,20 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
 
     private fun fillMedicinesList() {
         Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Started")
-        databaseReference.child(PATH_MEDICINES)
-            .addValueEventListener(object : ValueEventListener {
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.i(
-                        Log.ERROR.toString(),
-                        "getDataFromDB()-ERROR-FIREBASE: " + p0.message + " (CODE " + p0.code + ")"
-                    )
+        FirebaseDatabaseManager.getMedicines(object : FirebaseMedicineCallback {
+            override fun onCallback(list: List<RemoteMedicine>?) {
+                if (list != null) {
+                    progressBarRemoteMed.visibility = View.GONE
+                    displayListMedicines(list)
+                } else {
                     progressBarRemoteMed.visibility = View.GONE
                     startActivity(Intent(UserInformation.context, MedicineFormActivity::class.java))
                     finish()
                 }
 
-                override fun onDataChange(p0: DataSnapshot) {
-                    progressBarRemoteMed.visibility = View.GONE
-                    @Suppress("UNCHECKED_CAST")
-                    displayListMedicines(RemoteMedicine.getMedicineListFromMap(p0.value as Map<String, Map<String, String>>))
-                    Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Ended")
-                }
-            })
+            }
+        })
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -202,7 +202,7 @@ object UserInformation {
         }
 
         for(i in medicine.reminders?.indices!!){
-            if (medicine.reminders!![i].isEquals(oldReminder)){//todo vediamo di testarlo un po!!!!
+            if (medicine.reminders!![i] == oldReminder){//todo vediamo di testarlo un po!!!!
                 medicine.reminders!![i] = newReminder
                 Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder edited")
                 return true

@@ -75,7 +75,7 @@
             android:label="@string/reminderListActivityTitle" />
         <activity
             android:name=".activity.medicine.reminder.EditReminderActivity"
-            android:label="" />
+            android:label="@string/reminderEditActivityTitle" />
 
         <receiver
             android:name=".notifier.EventBroadcastReceiver"

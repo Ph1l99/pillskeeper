@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".activity.medicine.FinishedMedicinesActivity"
-            android:label="@string/expiredMedicines" />
+            android:label="@string/expiredMedicines"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.registration.LoginActivity" />
         <activity
             android:name=".activity.PersonalInfoDialog"

@@ -3,12 +3,14 @@ package com.pillskeeper.activity.medicine
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
 import com.google.common.base.Splitter
 import com.pillskeeper.R
@@ -18,8 +20,11 @@ import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Mail
+import com.pillskeeper.utility.Menu
+import com.pillskeeper.utility.Utils
 import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
 import kotlinx.android.synthetic.main.activity_finished_medicines.*
+import kotlinx.android.synthetic.main.content_finished_medicines.*
 import java.util.*
 
 class FinishedMedicinesActivity : AppCompatActivity() {
@@ -33,11 +38,16 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
 
+    private lateinit var nothingImage: ImageView
+    private lateinit var recyclerView: RecyclerView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finished_medicines)
-        //TODO ADD menu!!!!!!!!!!!!
-        /*drawerLayout = findViewById(R.id.drawer_layout)
+        nothingImage = findViewById(R.id.nothingImage)
+        recyclerView = findViewById(R.id.recyclerView)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
 
         //set toolbar
@@ -45,7 +55,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val menu = Menu(toolbar, drawerLayout, navView, this)
-        menu.createMenu()*/
+        menu.createMenu()
 
 
         checkAlmostFinishedMedicines()

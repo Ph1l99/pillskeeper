@@ -6,7 +6,7 @@
             <item
                 android:id="@+id/nav_friends"
                 android:icon="@drawable/ic_friends"
-                android:title="@string/friends"/>
+                android:title="@string/friends" />
             <item
                 android:id="@+id/nav_appointments"
                 android:icon="@drawable/calendar"
@@ -18,11 +18,11 @@
             <item
                 android:id="@+id/nav_expiry_med"
                 android:icon="@drawable/expiry_med"
-                android:title="@string/expiryMenu"/>
+                android:title="@string/expiryMenu" />
             <item
                 android:id="@+id/nav_pharmacies"
                 android:icon="@drawable/ic_pharmacy"
-                android:title="@string/pharmacies"/>
+                android:title="@string/pharmacies" />
         </menu>
     </item>
 
@@ -32,11 +32,16 @@
             <item
                 android:id="@+id/nav_profile"
                 android:icon="@drawable/ic_profile"
-                android:title="@string/edit_profile"/>
+                android:title="@string/edit_profile" />
+            <item
+                android:id="@+id/nav_danger"
+                android:icon="@drawable/ic_warning"
+                android:title="@string/danger" />
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_logout"
-                android:title="@string/logout"/>
+                android:title="@string/logout" />
+
         </menu>
     </item>
 </menu>

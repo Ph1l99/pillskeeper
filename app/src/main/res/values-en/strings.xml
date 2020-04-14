@@ -119,4 +119,6 @@
     <string name="reminderEditActivityTitle">Editing</string>
     <string name="loginDialogError">Wrong credentials, please retry</string>
     <string name="message_title">Attention!</string>
+    <string name="deleteAccountButton">Delete account</string>
+    <string name="resetPassword">Reset Password</string>
 </resources>

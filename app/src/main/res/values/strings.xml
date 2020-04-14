@@ -86,11 +86,8 @@
     <string name="dateSelectionLabel">Seleziona una data:</string>
     <string name="medicineAlreadyExists">Attenzione, Medicina già presente!</string>
 
-    <!--Location Activity-->
-    <string name="label">Assicurati di avere il GPS attivo e seleziona CERCA</string>
-    <string name="search_button">Cerca</string>
-    <string name="back_button">Indietro</string>
-    <string name="query_location">farmacie</string>
+    <!--Location-->
+    <string name="query_location">https://www.google.com/maps/search/?api=1&amp;query=farmacie</string>
 
     <!--Personal Info Activity-->
     <string name="name">Nome:</string>
@@ -158,5 +155,7 @@
     <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
     <string name="loginDialogError">Credenziali errate, riprova!</string>
     <string name="message_title">Attenzione!</string>
+
+
 
 </resources>

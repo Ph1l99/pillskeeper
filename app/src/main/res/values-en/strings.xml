@@ -66,10 +66,9 @@
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Select date</string>
     <string name="medicineAlreadyExists">Error! The medicine already exists</string>
-    <string name="label">Make sure you have the GPS active and select SEARCH</string>
     <string name="search_button">Search</string>
     <string name="back_button">Back</string>
-    <string name="query_location">Pharmacies</string>
+    <string name="query_location">https://www.google.com/maps/search/?api=1&amp;query=pharmacies</string>
     <string name="name">Name:</string>
     <string name="surname">Surname:</string>
     <string name="name_hint">Name</string>

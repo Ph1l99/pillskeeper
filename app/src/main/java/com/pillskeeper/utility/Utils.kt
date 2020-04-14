@@ -256,8 +256,6 @@ object Utils {
 
     fun openMaps(activity: Activity, context: Context) {
         val REQUEST_POSITION_PERMISSION_ID = 1
-        val searchUrl =
-            "https://www.google.com/maps/search/?api=1&query=farmacie"
         lateinit var fusedLocationClient: FusedLocationProviderClient
 
         val permissionAccessCoarseLocationApproved = ActivityCompat
@@ -268,7 +266,10 @@ object Utils {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(context.getString(R.string.query_location))
+                    )
                 intent.setPackage("com.google.android.apps.maps")
                 context.startActivity(intent)
 

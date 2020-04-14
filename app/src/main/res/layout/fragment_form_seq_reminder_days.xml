@@ -211,7 +211,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="15dp"
-        android:gravity="bottom|start"
         android:minWidth="110dp"
         android:text="@string/abortButton"
         android:textSize="18sp"
@@ -232,7 +231,6 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminderSeq"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/abortButtonReminderSeq"
         app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq"/>
 

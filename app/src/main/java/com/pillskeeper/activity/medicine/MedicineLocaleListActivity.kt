@@ -48,7 +48,7 @@ class MedicineLocaleListActivity : AppCompatActivity() {
                 startActivity(it)
             } else {
                 val it = Intent(this, ReminderListActivity::class.java)
-                    .putExtra(ReminderListActivity.REMINDER_MEDICINE, UserInformation.medicines[position - 1])
+                    .putExtra(ReminderListActivity.MEDICINE_POSITION, (position - 1))
                 startActivity(it)
             }
         }

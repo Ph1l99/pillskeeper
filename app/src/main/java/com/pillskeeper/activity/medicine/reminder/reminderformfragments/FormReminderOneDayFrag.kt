@@ -15,7 +15,10 @@ import com.pillskeeper.datamanager.UserInformation
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
+class FormReminderOneDayFrag(
+    private val viewPager: ViewPager?,
+    private val medName: String? = null
+) : Fragment()  {
 
     private var dateSelected: Date? = null
 
@@ -51,7 +54,7 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
         initSpinner()
 
         buttonDateReminder.setOnClickListener {
-            DatePickerDialog(FormAdapter.formActivity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)
@@ -83,8 +86,13 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
                         cal.time,
                         reminderAddNotesEditT.text.toString()
                     )
-                    FormAdapter.addReminder(reminder)
-                    viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+                    if(viewPager != null) {
+                        FormAdapter.addReminder(reminder)
+                        viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+                    } else {
+                        UserInformation.addNewReminder(medName!!,reminder)
+                        activity?.finish()
+                    }
                 } else {
                     Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
                 }
@@ -94,7 +102,10 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
         }
 
         abortButtonReminder.setOnClickListener {
-            viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+            if(viewPager != null)
+                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+            else
+                activity?.finish()
         }
 
         return view
@@ -123,7 +134,6 @@ class FormReminderOneDayFrag(private val viewPager: ViewPager) : Fragment()  {
         val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
         arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dosageQtyReminder.adapter = arrayAdapterDosage
-
 
     }
 }

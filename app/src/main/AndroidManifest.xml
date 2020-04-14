@@ -21,6 +21,7 @@
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
         <activity android:name=".activity.DangerActivity"></activity>
+        <activity android:name=".activity.medicine.reminder.AddNewReminderFromListActivity"></activity>
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

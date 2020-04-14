@@ -64,18 +64,27 @@ class EditReminderActivity : AppCompatActivity() {
 
                 if(UserInformation.editReminder(medName!!,reminder,newReminder)){
 
-                    //cambiamento dei vari reminder dio
+                    //todo ripianificazione degli allarmi
+
+
 
                     finish()
+
                 } else {
-                    Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show() //todo change with generica dialog
+                    Utils.buildAlertDialog(
+                        this,
+                        "Perfavore inserire valori corretti",
+                        getString(R.string.message_title)
+                    )
                 }
 
             } else {
-                Toast.makeText(this,"Perfavore inserire valori corretti",Toast.LENGTH_LONG).show() //todo change with generica dialog
+                Utils.buildAlertDialog(
+                    this,
+                    "Perfavore inserire valori corretti",
+                    getString(R.string.message_title)
+                )
             }
-
-            //ripianificazione degli allarmi
         }
 
 
@@ -159,7 +168,6 @@ class EditReminderActivity : AppCompatActivity() {
         if(dosageSpinner.selectedItem.toString().toFloat() == 0F)
             return false
 
-
         if(days != null)
             if (days.size == 0)
                 return false
@@ -211,6 +219,20 @@ class EditReminderActivity : AppCompatActivity() {
                 }
             )
         }
+
+        reminder.days?.forEach {
+            when(it){
+                DaysEnum.MON -> checkBoxes[DaysEnum.MON.name]?.isChecked = true
+                DaysEnum.TUE -> checkBoxes[DaysEnum.TUE.name]?.isChecked = true
+                DaysEnum.WED -> checkBoxes[DaysEnum.WED.name]?.isChecked = true
+                DaysEnum.THU -> checkBoxes[DaysEnum.THU.name]?.isChecked = true
+                DaysEnum.FRI -> checkBoxes[DaysEnum.FRI.name]?.isChecked = true
+                DaysEnum.SAT -> checkBoxes[DaysEnum.SAT.name]?.isChecked = true
+                DaysEnum.SUN -> checkBoxes[DaysEnum.SUN.name]?.isChecked = true
+            }
+        }
+
+
         return checkBoxes
     }
 
@@ -251,7 +273,7 @@ class EditReminderActivity : AppCompatActivity() {
     }
 
     private fun buildDaysArray(): LinkedList<DaysEnum>{
-        val days: LinkedList<DaysEnum> = LinkedList()
+        val days = LinkedList<DaysEnum>()
 
         checkBox.forEach {    if(it.value.isChecked)  days.add(DaysEnum.valueOf(it.key))  }
 

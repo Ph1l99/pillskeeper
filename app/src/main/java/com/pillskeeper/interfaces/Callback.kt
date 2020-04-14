@@ -6,4 +6,8 @@ interface Callback {
 
     fun onError()
 
+    fun success(){
+
+    }
+
 }

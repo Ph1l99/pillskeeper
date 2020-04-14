@@ -58,7 +58,6 @@ object NotifyPlanner{
                     pendingIntent
                 )
         }
-
     }
 
     fun planNextDayPlanner(context: Context?) {

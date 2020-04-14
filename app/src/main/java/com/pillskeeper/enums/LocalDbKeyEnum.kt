@@ -1,10 +1,10 @@
 package com.pillskeeper.enums
 
-enum class LocalDbKeyEnum(key: String) {
+enum class LocalDbKeyEnum {
 
-    USER                ("User"),
-    FRIENDLIST          ("FriendList"),
-    MEDICINELIST        ("MedicineList"),
-    APPOINTMENTLIST     ("AppointmentList")
+    USER,
+    FRIENDLIST,
+    MEDICINELIST,
+    APPOINTMENTLIST
 
 }

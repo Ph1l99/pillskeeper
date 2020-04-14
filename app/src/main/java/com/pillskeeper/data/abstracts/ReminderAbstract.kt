@@ -4,5 +4,11 @@ import com.pillskeeper.enums.DaysEnum
 import java.io.Serializable
 import java.util.*
 
-abstract class ReminderAbstract (minutes: Int, hours: Int, startingDay: Date,
-                                 days: LinkedList<DaysEnum>?, expireDate: Date?, additionNotes: String?): Serializable
+abstract class ReminderAbstract (
+    minutes: Int,
+    hours: Int,
+    startingDay: Date,
+    days: LinkedList<DaysEnum>?,
+    expireDate: Date?,
+    additionNotes: String?
+): Serializable

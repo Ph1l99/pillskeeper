@@ -37,7 +37,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
     }
 
     private fun eventShowNotify(context: Context?, intent: Intent){
-        val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT))
+        val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT)!!)
         if (context != null) {
             if (item is ReminderMedicineSort) {
                 val medicine = UserInformation.subMedicineQuantity(

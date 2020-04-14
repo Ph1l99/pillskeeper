@@ -35,8 +35,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:padding="4sp"
-        tools:listitem="@layout/remote_med_card_item"
-        android:background="@color/colorPrimary">
+        tools:listitem="@layout/remote_med_card_item">
     </androidx.recyclerview.widget.RecyclerView>
 
 

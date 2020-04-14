@@ -2,10 +2,7 @@ package com.pillskeeper.activity.medicine
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -15,15 +12,10 @@ import com.google.android.material.navigation.NavigationView
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.reminder.ReminderListActivity
 import com.pillskeeper.data.LocalMedicine
-import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
-import com.pillskeeper.utility.adapter.MedicineRemoteCardAdapter
-import kotlinx.android.synthetic.main.activity_medicines_list.*
 import kotlinx.android.synthetic.main.content_pills_list.*
-import kotlinx.android.synthetic.main.content_pills_list.recyclerView
-import java.util.*
 
 class MedicineLocaleListActivity : AppCompatActivity() {
 
@@ -83,8 +75,8 @@ class MedicineLocaleListActivity : AppCompatActivity() {
          */
 
         addMedicineButton.setOnClickListener{
-            val it = Intent(this, MedicinesRemoteListActivity::class.java)
-            startActivity(it)
+            val intent = Intent(this, MedicinesRemoteListActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -111,9 +103,9 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        mAdapter.setOnItemClickListener {
+        mAdapter.setOnItemClickListener { position ->
             val intent = Intent(this, ReminderListActivity::class.java)
-                .putExtra(ReminderListActivity.MEDICINE_POSITION, it-1)
+                .putExtra(ReminderListActivity.MEDICINE_NAME, UserInformation.medicines[position].name)
             startActivity(intent)
         }
     }

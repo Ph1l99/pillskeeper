@@ -91,6 +91,7 @@ class FormReminderOneDayFrag(
                         viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                     } else {
                         UserInformation.addNewReminder(medName!!,reminder)
+                        //TODO plan alarm
                         activity?.finish()
                     }
                 } else {

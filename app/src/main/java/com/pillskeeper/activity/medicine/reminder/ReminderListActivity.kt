@@ -15,14 +15,12 @@ import kotlinx.android.synthetic.main.activity_reminder_list.*
 
 class ReminderListActivity : AppCompatActivity() {
 
-    private lateinit var mAdapter: ReminderCardAdapter
-    private          var medicinePosition: Int = -1
-    private lateinit var medicine: LocalMedicine
+    private lateinit var mAdapter       : ReminderCardAdapter
+    private          var medicineName   : String? = ""
+    private          var medicine       : LocalMedicine? = null
 
     companion object {
         const val MEDICINE_NAME = "medicineName"
-        const val REMINDER_ID = 1
-        const val MEDICINE_POSITION = "medicinePosition"
         const val REMINDER_MEDICINE = "reminderMedicine"
     }
 
@@ -30,17 +28,17 @@ class ReminderListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reminder_list)
 
-        medicinePosition = intent.getIntExtra(MEDICINE_POSITION,-1)
+        medicineName = intent.getStringExtra(MEDICINE_NAME)
 
         addReminderFAB.setOnClickListener {
-            ReminderChooseDialog(this,null,UserInformation.medicines[medicinePosition].name).show()
+            ReminderChooseDialog(this,null,medicineName).show()
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        if(medicinePosition == -1){
+        if(medicineName.isNullOrEmpty()){
             Utils.buildAlertDialog(this,
                 "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",
                 getString(R.string.message_title),
@@ -50,10 +48,10 @@ class ReminderListActivity : AppCompatActivity() {
                 }
             )
         } else {
-            medicine = UserInformation.medicines[medicinePosition]
+            medicine = UserInformation.getSpecificMedicine(medicineName!!)
 
-            if (medicine.reminders != null)
-                displayListReminders(medicine.reminders!!)
+            if (medicine?.reminders != null)
+                displayListReminders(medicine?.reminders!!)
         }
     }
 
@@ -67,7 +65,7 @@ class ReminderListActivity : AppCompatActivity() {
             val intent = Intent(this, EditReminderActivity::class.java)
                 .apply {
                     putExtra(REMINDER_MEDICINE, reminderList[position])
-                    putExtra(MEDICINE_NAME, medicine.name)
+                    putExtra(MEDICINE_NAME, medicineName)
                 }
             startActivity(intent)
         }

@@ -122,7 +122,6 @@ class FormReminderSeqFrag(
                 viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
             else
                 activity?.finish()
-
         }
 
         saveButtonReminder.setOnClickListener {
@@ -147,8 +146,8 @@ class FormReminderSeqFrag(
                     FormAdapter.addReminder(newRem)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
-                    println(medName)
                     UserInformation.addNewReminder(medName!!,newRem)
+                    //TODO plan alarm
                     activity?.finish()
                 }
             } else {

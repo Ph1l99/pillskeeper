@@ -66,8 +66,6 @@ class EditReminderActivity : AppCompatActivity() {
 
                     //todo ripianificazione degli allarmi
 
-
-
                     finish()
 
                 } else {

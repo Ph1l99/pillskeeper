@@ -8,13 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.common.hash.Hashing
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayFrag
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
@@ -86,13 +83,9 @@ class FormAdapter(
 
                 val listMed: LinkedList<LocalMedicine> = LinkedList()
                 listMed.add(newMed)
-                val reminderListNormalized: LinkedList<ReminderMedicineSort> =
-                    Utils.getListReminderNormalized(listMed)
-
-                println(listMed.size)
+                val reminderListNormalized = Utils.getListReminderNormalized(listMed)
 
                 reminderListNormalized.forEach {
-                    println(it.reminder.toString())
                     NotifyPlanner.planSingleAlarm(
                         formActivity!!,
                         formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
@@ -127,8 +120,8 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager)
-            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager)
+            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager, medName)
+            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, medName)
             else -> FormNameTypeFragment(intent, viewPager)
         }
     }

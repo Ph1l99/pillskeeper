@@ -2,7 +2,10 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Card"
-    tools:context=".activity.medicine.reminder.ReminderListActivity">
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    tools:context=".activity.medicine.reminder.ReminderListActivity"
+    android:focusable="true">
 
     <LinearLayout
         android:id="@+id/layoutReminderCard"

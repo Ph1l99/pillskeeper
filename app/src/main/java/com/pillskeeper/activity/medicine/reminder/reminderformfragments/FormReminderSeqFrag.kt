@@ -12,11 +12,15 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.utility.Utils
 import java.util.*
 
-class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
+class FormReminderSeqFrag(
+    private val viewPager: ViewPager?,
+    private val medName: String? = null
+) : Fragment() {
 
     private lateinit var checkBoxes             : HashMap<String,CheckBox>
     private lateinit var buttonDateStart        : Button
@@ -74,7 +78,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         val dayExp = calExp.get(Calendar.DAY_OF_MONTH)
 
         buttonDateEnd.setOnClickListener {
-            DatePickerDialog(FormAdapter.formActivity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateEnd.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 calExp.set(Calendar.YEAR, year)
@@ -97,7 +101,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
 
         buttonDateStart.setOnClickListener {
-            DatePickerDialog(FormAdapter.formActivity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateStart.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 calStart.set(Calendar.YEAR, year)
@@ -114,7 +118,11 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         }
 
         abortButtonReminder.setOnClickListener {
-            viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+            if(viewPager != null)
+                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+            else
+                activity?.finish()
+
         }
 
         saveButtonReminder.setOnClickListener {
@@ -124,20 +132,25 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
             if(checkValue(days)) {
                 if (startDateSelected == null)
                     startDateSelected = Date()
-                FormAdapter.addReminder(
-                    ReminderMedicine(
-                        dosageSpinnerReminder.selectedItem.toString().toFloat(),
-                        spinnerMinutesRem2.selectedItem.toString().toInt(),
-                        spinnerHoursRem2.selectedItem.toString().toInt(),
-                        startDateSelected!!,
-                        days,
-                        expDateSelected,
-                        editTextAddNotesRem.text.toString()
-                    )
+                val newRem = ReminderMedicine(
+                    dosageSpinnerReminder.selectedItem.toString().toFloat(),
+                    spinnerMinutesRem2.selectedItem.toString().toInt(),
+                    spinnerHoursRem2.selectedItem.toString().toInt(),
+                    startDateSelected!!,
+                    days,
+                    expDateSelected,
+                    editTextAddNotesRem.text.toString()
                 )
-                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+
+                if(viewPager != null) {
+                    FormAdapter.addReminder(newRem)
+                    viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+                } else {
+                    UserInformation.addNewReminder(medName!!,newRem)
+                    activity?.finish()
+                }
             } else {
-                Toast.makeText(FormAdapter.formActivity,"perfavore inserire valori corretti",Toast.LENGTH_LONG).show()
+                Toast.makeText(activity,"perfavore inserire valori corretti",Toast.LENGTH_LONG).show()
             }
 
         }
@@ -155,7 +168,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
 
     private fun initSpinner(){
 
-        val arrayAdapterHours = ArrayAdapter(FormAdapter.formActivity!!,android.R.layout.simple_spinner_item, hours)
+        val arrayAdapterHours = ArrayAdapter(activity!!,android.R.layout.simple_spinner_item, hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerHoursRem2.adapter = arrayAdapterHours
@@ -164,7 +177,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
         for (i in 0..12)
             minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
 
-        val arrayAdapterMinutes = ArrayAdapter(FormAdapter.formActivity!!,android.R.layout.simple_spinner_item, minutesArray)
+        val arrayAdapterMinutes = ArrayAdapter(activity!!,android.R.layout.simple_spinner_item, minutesArray)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMinutesRem2.adapter = arrayAdapterMinutes
@@ -183,7 +196,7 @@ class FormReminderSeqFrag(private val viewPager: ViewPager) : Fragment() {
     private fun checkValue(days: LinkedList<DaysEnum>): Boolean{
 
         if(expDateSelected != null)
-            if (!Utils.checkDate(expDateSelected!!, FormAdapter.formActivity!!))
+            if (!Utils.checkDate(expDateSelected!!, activity!!))
                return false
 
         if(dosageSpinnerReminder.selectedItem.toString().toFloat() == 0F)

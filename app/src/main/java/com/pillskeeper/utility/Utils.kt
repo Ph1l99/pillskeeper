@@ -243,14 +243,15 @@ object Utils {
         return false
     }
 
-    fun buildAlertDialog(context: Context, message: String, title: String): AlertDialog {
+    fun buildAlertDialog(context: Context, message: String, title: String, callback: Callback? = null): AlertDialog {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setIcon(R.drawable.pills_icon)
         builder.setPositiveButton("OK") { _, _ ->
-
+            callback?.success()
         }
+
         return builder.create()
     }
 

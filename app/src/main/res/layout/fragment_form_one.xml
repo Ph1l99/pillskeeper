@@ -41,9 +41,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:theme="@style/AppTheme.Button"
             android:drawableTop="@drawable/ic_camera"
-            android:textSize="0sp"
-            android:background="@color/colorPrimaryDark"/>
+            android:textSize="0sp"/>
 
     </LinearLayout>
 

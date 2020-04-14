@@ -127,8 +127,7 @@
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/saveButtonReminder"
@@ -141,8 +140,7 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/abortButtonReminder"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toTopOf="@+id/abortButtonReminder"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

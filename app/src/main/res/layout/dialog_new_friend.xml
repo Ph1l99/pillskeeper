@@ -156,8 +156,7 @@
         android:textSize="15sp"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewRelation"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintStart_toStartOf="@+id/textViewRelation"/>
 
     <Button
         android:id="@+id/buttonDeny"
@@ -169,8 +168,7 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerRelation"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRelation"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

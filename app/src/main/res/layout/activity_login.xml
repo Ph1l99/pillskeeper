@@ -55,8 +55,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"/>
 
     <Button
         android:id="@+id/loginButton"
@@ -68,8 +67,7 @@
         app:layout_constraintEnd_toEndOf="@+id/signupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLogin"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/passwordLogin"/>
 
     <ImageView
         android:id="@+id/imageView2"

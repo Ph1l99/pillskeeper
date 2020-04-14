@@ -215,10 +215,10 @@
         android:minWidth="110dp"
         android:text="@string/abortButton"
         android:textSize="18sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveButtonReminderSeq"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/colorPrimaryDark"
         android:textColor="@color/white"/>
 
     <Button
@@ -234,7 +234,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/abortButtonReminderSeq"
-        app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

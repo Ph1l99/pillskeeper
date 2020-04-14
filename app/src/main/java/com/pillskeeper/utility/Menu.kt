@@ -11,7 +11,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.LocationActivity
 import com.pillskeeper.activity.PersonalInfoDialog
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
@@ -49,7 +48,7 @@ class Menu(
                 PersonalInfoDialog(activity, auth.currentUser?.uid.toString()).show()
             }
             R.id.nav_expiry_med -> {
-                if(activity is FinishedMedicinesActivity) {
+                if (activity is FinishedMedicinesActivity) {
                     changed = false
                 } else {
                     val intent =
@@ -59,7 +58,7 @@ class Menu(
                 }
             }
             R.id.nav_friends -> {
-                if(activity is FriendListActivity) {
+                if (activity is FriendListActivity) {
                     changed = false
                 } else {
                     val intent = Intent(activity.applicationContext, FriendListActivity::class.java)
@@ -68,16 +67,17 @@ class Menu(
                 }
             }
             R.id.nav_medicines -> {
-                if(activity is MedicineLocaleListActivity){
+                if (activity is MedicineLocaleListActivity) {
                     changed = false
                 } else {
-                    val intent = Intent(activity.applicationContext, MedicineLocaleListActivity::class.java)
+                    val intent =
+                        Intent(activity.applicationContext, MedicineLocaleListActivity::class.java)
                     intent.flags = FLAG_ACTIVITY_NEW_TASK
                     activity.applicationContext.startActivity(intent)
                 }
             }
             R.id.nav_appointments -> {
-                if(activity is AppointmentListActivity){
+                if (activity is AppointmentListActivity) {
                     changed = false
                 } else {
                     val intent =
@@ -88,13 +88,7 @@ class Menu(
             }
 
             R.id.nav_pharmacies -> {
-                if(activity is LocationActivity) {
-                    changed = false
-                } else {
-                    val intent = Intent(activity.applicationContext, LocationActivity::class.java)
-                    intent.flags = FLAG_ACTIVITY_NEW_TASK
-                    activity.applicationContext.startActivity(intent)
-                }
+                Utils.openMaps(activity, activity.applicationContext)
             }
             R.id.nav_logout -> {
                 auth.signOut()
@@ -106,7 +100,7 @@ class Menu(
                 )
             }
         }
-        if(changed) {
+        if (changed) {
             if (activity !is HomepageActivity)
                 activity.finish()
         }

@@ -29,57 +29,57 @@
             android:id="@+id/checkBoxMonday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/monday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary"/>
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxTuesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/tuesday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxWednesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/wednesday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxThursday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/thursday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxFriday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/friday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxSaturday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/saturday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
         <CheckBox
             android:id="@+id/checkBoxSunday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/colorPrimary"
             android:text="@string/sunday"
-            android:textSize="18sp"
-            android:buttonTint="@color/colorPrimary" />
+            android:textSize="18sp" />
 
     </RadioGroup>
 
@@ -125,12 +125,11 @@
         android:layout_marginEnd="36dp"
         android:text="@string/confirmButton"
         android:textSize="15sp"
+        android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/buttonDeleteRem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/spinnerHoursRem"
-        app:layout_constraintTop_toTopOf="@+id/buttonDeleteRem"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toTopOf="@+id/buttonDeleteRem" />
 
     <TextView
         android:id="@+id/textViewFinishDate"
@@ -152,9 +151,7 @@
         android:text="@string/dateButton"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintEnd_toEndOf="@+id/textViewFinishDate"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate"
-        android:backgroundTint="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate" />
 
     <TextView
         android:id="@+id/textViewQuantity"
@@ -171,9 +168,9 @@
         android:layout_height="45dp"
         android:autofillHints=""
         android:inputType="numberDecimal"
+        android:textColorHighlight="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="@+id/textViewQuantity"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
 
     <EditText
         android:id="@+id/editTextAddNotesRem"
@@ -187,8 +184,8 @@
         android:hint="@string/additionalNoteAppointment"
         android:inputType="textLongMessage"
         android:minHeight="100dp"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerHoursRem"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        android:textColorHighlight="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerHoursRem" />
 
     <Button
         android:id="@+id/buttonDeleteRem"
@@ -201,7 +198,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/spinnerHoursRem"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextAddNotesRem"
-        android:background="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/editTextAddNotesRem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

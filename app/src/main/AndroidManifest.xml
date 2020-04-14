@@ -38,9 +38,6 @@
             android:name=".activity.PersonalInfoDialog"
             android:label="@string/user_settingsActivity" />
         <activity
-            android:name=".activity.LocationActivity"
-            android:label="@string/search_chemist" />
-        <activity
             android:name=".activity.appointment.AppointmentListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

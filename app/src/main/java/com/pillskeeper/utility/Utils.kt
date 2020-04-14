@@ -1,16 +1,24 @@
 package com.pillskeeper.utility
 
+import android.Manifest
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.startActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -245,5 +253,33 @@ object Utils {
 
         }
         return builder.create()
+    }
+
+    fun openMaps(activity: Activity, context: Context) {
+        val REQUEST_POSITION_PERMISSION_ID = 1
+        val searchUrl =
+            "https://www.google.com/maps/search/?api=1&query=farmacie"
+        lateinit var fusedLocationClient: FusedLocationProviderClient
+
+        val permissionAccessCoarseLocationApproved = ActivityCompat
+            .checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED
+
+        if (permissionAccessCoarseLocationApproved) {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(searchUrl))
+                intent.setPackage("com.google.android.apps.maps")
+                context.startActivity(intent)
+
+            }
+        } else {
+            // Make a request for foreground-only location access.
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
+            )
+        }
     }
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     android:gravity="bottom"
     android:paddingStart="15dp"
@@ -13,11 +13,11 @@
     tools:ignore="RtlSymmetry">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_folder_menu"
         android:id="@+id/imageView"
-        android:layout_marginBottom="15dp"/>
+        android:layout_width="63dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/pills_icon" />
 
     <TextView
         android:layout_width="match_parent"

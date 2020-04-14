@@ -35,11 +35,12 @@
         android:minWidth="110dp"
         android:minHeight="46dp"
         android:text="@string/dateButton"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/textViewSelectDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewSelectDate"
-        app:layout_constraintTop_toTopOf="@+id/textViewSelectDate" />
+        app:layout_constraintTop_toTopOf="@+id/textViewSelectDate"
+        android:backgroundTint="@color/colorPrimary"/>
 
     <TextView
         android:id="@+id/textViewSelectTime"
@@ -110,7 +111,8 @@
         app:layout_constraintBottom_toTopOf="@+id/abortButtonReminder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSelectTime2"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/abortButtonReminder"
@@ -125,7 +127,8 @@
         android:textSize="18sp"
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/saveButtonReminder"
@@ -138,7 +141,8 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/abortButtonReminder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/abortButtonReminder" />
+        app:layout_constraintTop_toTopOf="@+id/abortButtonReminder"
+        android:background="@color/colorPrimaryDark"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

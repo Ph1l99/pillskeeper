@@ -29,49 +29,56 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/monday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary"/>
 
         <CheckBox
             android:id="@+id/checkBoxTuesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tuesday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
         <CheckBox
             android:id="@+id/checkBoxWednesday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/wednesday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
         <CheckBox
             android:id="@+id/checkBoxThursday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/thursday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
         <CheckBox
             android:id="@+id/checkBoxFriday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/friday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
         <CheckBox
             android:id="@+id/checkBoxSaturday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/saturday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
         <CheckBox
             android:id="@+id/checkBoxSunday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/sunday"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimary" />
 
     </RadioGroup>
 
@@ -94,7 +101,9 @@
         android:minHeight="46dp"
         android:text="@string/dateButton"
         app:layout_constraintStart_toStartOf="@+id/textViewStartingDate"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStartingDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewStartingDate"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textViewFinishDate"
@@ -116,7 +125,9 @@
         android:minHeight="46dp"
         android:text="@string/dateButton"
         app:layout_constraintStart_toStartOf="@+id/textViewFinishDate"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewFinishDate"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"/>
 
     <Spinner
         android:id="@+id/spinnerMinutesRem2"
@@ -173,7 +184,8 @@
         app:layout_constraintBottom_toTopOf="@+id/abortButtonReminderSeq"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDosage" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDosage"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/textViewDosage"
@@ -205,7 +217,9 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/saveButtonReminderSeq"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/saveButtonReminderSeq"
@@ -220,6 +234,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/abortButtonReminderSeq"
-        app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq" />
+        app:layout_constraintTop_toTopOf="@+id/abortButtonReminderSeq"
+        android:background="@color/colorPrimaryDark"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

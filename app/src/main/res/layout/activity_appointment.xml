@@ -96,7 +96,8 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/dateButton"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"/>
 
     </LinearLayout>
 

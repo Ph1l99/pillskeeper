@@ -42,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:drawableTop="@drawable/ic_camera"
-            android:textSize="0sp" />
+            android:textSize="0sp"
+            android:background="@color/colorPrimaryDark"/>
 
     </LinearLayout>
 
@@ -53,7 +54,8 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/medNameHint"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/textViewType"

@@ -36,7 +36,8 @@
         android:textAlignment="center"
         android:gravity="center"
         android:layout_gravity="center"
-        android:autofillHints="" />
+        android:autofillHints=""
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -57,7 +58,8 @@
         android:textAlignment="center"
         android:gravity="center"
         android:layout_gravity="center"
-        android:autofillHints="" />
+        android:autofillHints=""
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <LinearLayout
         android:layout_width="match_parent"

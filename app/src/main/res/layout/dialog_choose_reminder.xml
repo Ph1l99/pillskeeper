@@ -25,7 +25,8 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintEnd_toStartOf="@+id/buttonSequence"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:background="@color/colorPrimaryDark"/>
 
     <Button
         android:id="@+id/buttonSequence"
@@ -37,7 +38,8 @@
         android:theme="@style/AppTheme.Button"
         app:layout_constraintBottom_toBottomOf="@+id/buttonDayFixed"
         app:layout_constraintStart_toEndOf="@+id/buttonDayFixed"
-        app:layout_constraintTop_toTopOf="@+id/buttonDayFixed" />
+        app:layout_constraintTop_toTopOf="@+id/buttonDayFixed"
+        android:background="@color/colorPrimaryDark"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

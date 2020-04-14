@@ -24,7 +24,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/app_name"
+                    android:text="@string/appointmentMenu"
                     android:textColor="#FFFFFF"
                     style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
             </LinearLayout>
@@ -43,10 +43,10 @@
             android:layout_marginEnd="36dp"
             android:layout_marginBottom="36dp"
             android:clickable="true"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_input_add"
+            app:srcCompat="@drawable/ic_add_white"
             android:focusable="true" />
 
         <ListView

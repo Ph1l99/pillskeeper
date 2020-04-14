@@ -27,7 +27,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordField"
+        android:background="@color/colorPrimaryDark"/>
 
     <EditText
         android:id="@+id/mailField"
@@ -39,7 +40,8 @@
         app:layout_constraintEnd_toEndOf="@+id/passwordField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
+        app:layout_constraintTop_toBottomOf="@+id/surnameField"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <EditText
         android:id="@+id/nameField"
@@ -50,7 +52,8 @@
         app:layout_constraintEnd_toEndOf="@+id/surnameField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/surnameField"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <EditText
         android:id="@+id/surnameField"
@@ -61,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="@+id/mailField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/mailField"
-        app:layout_constraintTop_toBottomOf="@+id/nameField" />
+        app:layout_constraintTop_toBottomOf="@+id/nameField"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
     <EditText
         android:id="@+id/passwordField"
@@ -73,6 +77,7 @@
         app:layout_constraintEnd_toEndOf="@+id/signupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/mailField" />
+        app:layout_constraintTop_toBottomOf="@+id/mailField"
+        android:textColorHighlight="@color/colorPrimaryDark"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

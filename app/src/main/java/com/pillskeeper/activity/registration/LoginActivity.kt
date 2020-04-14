@@ -51,13 +51,13 @@ class LoginActivity : AppCompatActivity() {
 
             FirebaseAuthenticationManager.loginUser(emailLogin.text.toString(),
                 passwordLogin.text.toString(), object : Callback {
-                    override fun success(res: Boolean) {
+                    override fun onSuccess(res: Boolean) {
                         FirebaseAuth.getInstance().currentUser?.uid?.let { checkUserOnLocalDB(it) }
                         startActivity(Intent(applicationContext, HomepageActivity::class.java))
                         finish()
                     }
 
-                    override fun error() {
+                    override fun onError() {
                         Utils.errorEditText(emailLogin)
                         Utils.errorEditText(passwordLogin)
                         Utils.buildAlertDialog(

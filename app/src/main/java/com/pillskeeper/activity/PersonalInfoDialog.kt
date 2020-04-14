@@ -101,11 +101,11 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                             editTextEmail.text.toString()
                         )
                         FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
-                            override fun success(res: Boolean) {
+                            override fun onSuccess(res: Boolean) {
                                 LocalDatabase.saveUser(userToBeWritten)
                             }
 
-                            override fun error() {
+                            override fun onError() {
                                 Utils.buildAlertDialog(
                                     context,
                                     context.getString(R.string.networkError),
@@ -124,11 +124,11 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                             editTextEmail.text.toString()
                         )
                         FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
-                            override fun success(res: Boolean) {
+                            override fun onSuccess(res: Boolean) {
                                 LocalDatabase.saveUser(userToBeWritten)
                             }
 
-                            override fun error() {
+                            override fun onError() {
                                 Utils.buildAlertDialog(
                                     context,
                                     context.getString(R.string.networkError),

@@ -16,7 +16,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.navigation.NavigationView
@@ -225,14 +224,14 @@ object Utils {
 
         Firebase.functions.getHttpsCallable("checkToxic").call(map)
             .addOnSuccessListener {
-                job.success(
+                job.onSuccess(
                     checkMap(
                         it?.data as Map<String, Any>
                     )
                 )
             }
             .addOnCanceledListener {
-                job.error()
+                job.onError()
             }
         Log.i(Log.DEBUG.toString(), "Utils: checkTextWords() - function Ended")
     }

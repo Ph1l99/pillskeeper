@@ -33,13 +33,13 @@ class WelcomeActivity : AppCompatActivity() {
         val user = FirebaseAuthenticationManager.getCurrentUser()
         if (user != null) {
             FirebaseAuthenticationManager.getCurrentUserIdToken(user, object : Callback {
-                override fun success(res: Boolean) {
+                override fun onSuccess(res: Boolean) {
                     startActivity(Intent(applicationContext, HomepageActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }
 
-                override fun error() {
+                override fun onError() {
                     FirebaseAuth.getInstance().signOut()
                     LocalDatabase.sharedPref?.edit()?.clear()?.apply()
                     startActivity(Intent(applicationContext, LoginActivity::class.java))

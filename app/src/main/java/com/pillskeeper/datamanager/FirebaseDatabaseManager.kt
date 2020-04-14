@@ -62,10 +62,10 @@ object FirebaseDatabaseManager {
 
         databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
             .addOnFailureListener {
-                callback.error()
+                callback.onError()
             }
             .addOnCompleteListener {
-                callback.success(true)
+                callback.onSuccess(true)
             }
 
     }

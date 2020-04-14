@@ -44,7 +44,7 @@ class SignUp : AppCompatActivity() {
             mailField.text.toString(),
             passwordField.text.toString(),
             object : Callback {
-                override fun success(res: Boolean) {
+                override fun onSuccess(res: Boolean) {
                     val userFirebase = FirebaseAuthenticationManager.getCurrentUser()
                     if (userFirebase != null) {
                         val userToBeWritten = User(
@@ -53,12 +53,12 @@ class SignUp : AppCompatActivity() {
                             mailField.text.toString()
                         )
                         FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
-                            override fun success(res: Boolean) {
+                            override fun onSuccess(res: Boolean) {
                                 LocalDatabase.saveUser(userToBeWritten)
                                 finish()
                             }
 
-                            override fun error() {
+                            override fun onError() {
                                 Utils.errorEditText(mailField)
                                 Utils.errorEditText(nameField)
                                 Utils.errorEditText(surnameField)
@@ -74,7 +74,7 @@ class SignUp : AppCompatActivity() {
                     }
                 }
 
-                override fun error() {
+                override fun onError() {
                     Utils.buildAlertDialog(
                         this@SignUp,
                         getString(R.string.networkError),

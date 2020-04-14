@@ -33,11 +33,11 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
                 loginDialogPasswordText.text.toString(),
                 object :
                     Callback {
-                    override fun success(res: Boolean) {
+                    override fun onSuccess(res: Boolean) {
                         dismiss()
                     }
 
-                    override fun error() {
+                    override fun onError() {
                         Utils.buildAlertDialog(
                             context,
                             context.getString(R.string.loginDialogError),

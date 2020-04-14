@@ -2,8 +2,8 @@ package com.pillskeeper.interfaces
 
 interface Callback {
 
-    fun success(res: Boolean)
+    fun onSuccess(res: Boolean)
 
-    fun error()
+    fun onError()
 
 }

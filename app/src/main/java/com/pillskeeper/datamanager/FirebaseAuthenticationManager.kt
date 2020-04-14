@@ -20,13 +20,13 @@ object FirebaseAuthenticationManager {
     fun getCurrentUserIdToken(user: FirebaseUser, callback: Callback) {
         user.getIdToken(true)
             .addOnFailureListener {
-                callback.error()
+                callback.onError()
             }
             .addOnSuccessListener {
                 if (it.token != null) {
-                    callback.success(true)
+                    callback.onSuccess(true)
                 } else {
-                    callback.error()
+                    callback.onError()
                 }
             }
     }
@@ -34,19 +34,19 @@ object FirebaseAuthenticationManager {
     fun createNewUser(email: String, password: String, callback: Callback) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                callback.success(true)
+                callback.onSuccess(true)
             }
             .addOnFailureListener {
-                callback.error()
+                callback.onError()
             }
     }
 
     fun loginUser(email: String, password: String, callback: Callback) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                callback.success(true)
+                callback.onSuccess(true)
             } else {
-                callback.error()
+                callback.onError()
             }
         }
     }
@@ -55,9 +55,9 @@ object FirebaseAuthenticationManager {
         val credential = EmailAuthProvider.getCredential(email, password)
         getCurrentUser()?.reauthenticate(credential)?.addOnCompleteListener {
             if (it.isSuccessful) {
-                callback.success(true)
+                callback.onSuccess(true)
             } else {
-                callback.error()
+                callback.onError()
             }
         }
     }

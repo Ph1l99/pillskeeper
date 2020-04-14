@@ -44,7 +44,7 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
                 FormAdapter.pillName.toString(),
                 Locale.getDefault().language,
                 object : Callback {
-                    override fun success(res: Boolean) {
+                    override fun onSuccess(res: Boolean) {
                         if (res) {
                             Toast.makeText(
                                 FormAdapter.formActivity,
@@ -61,7 +61,7 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
                         }
                     }
 
-                    override fun error() {
+                    override fun onError() {
                         Toast.makeText(
                             FormAdapter.formActivity,
                             getText(R.string.networkError),

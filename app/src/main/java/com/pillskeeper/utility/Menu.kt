@@ -11,6 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
+import com.pillskeeper.activity.DangerActivity
 import com.pillskeeper.activity.PersonalInfoDialog
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
@@ -18,6 +19,7 @@ import com.pillskeeper.activity.homefragments.HomepageActivity
 import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.registration.LoginActivity
+import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 
 class Menu(
     private val toolbar: Toolbar,
@@ -25,8 +27,6 @@ class Menu(
     private val navigationView: NavigationView,
     val activity: AppCompatActivity
 ) : NavigationView.OnNavigationItemSelectedListener {
-
-    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
     fun createMenu() {
@@ -44,8 +44,25 @@ class Menu(
         var changed = true
 
         when (item.itemId) {
+            R.id.nav_danger -> {
+                if (activity is DangerActivity) {
+                    changed = false
+                } else {
+                    activity.applicationContext.startActivity(
+                        Intent(
+                            activity.applicationContext,
+                            DangerActivity::class.java
+                        )
+                    )
+                }
+            }
             R.id.nav_profile -> {
-                PersonalInfoDialog(activity, auth.currentUser?.uid.toString()).show()
+                FirebaseAuthenticationManager.getCurrentUser()?.uid?.let {
+                    PersonalInfoDialog(
+                        activity,
+                        it
+                    ).show()
+                }
             }
             R.id.nav_expiry_med -> {
                 if (activity is FinishedMedicinesActivity) {
@@ -91,7 +108,7 @@ class Menu(
                 Utils.openMaps(activity, activity.applicationContext)
             }
             R.id.nav_logout -> {
-                auth.signOut()
+                FirebaseAuthenticationManager.signOut()
                 activity.applicationContext.startActivity(
                     Intent(
                         activity.applicationContext,

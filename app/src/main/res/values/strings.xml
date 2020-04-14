@@ -41,6 +41,7 @@
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
+    <string name="danger" translatable="false">Danger Zone</string>
 
 
     <string name="addReminder">Aggiungi Promemoria</string>

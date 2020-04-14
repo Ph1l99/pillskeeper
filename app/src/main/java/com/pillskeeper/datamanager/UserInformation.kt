@@ -110,16 +110,9 @@ object UserInformation {
 
         currMedicine.reminders?.add(reminder)
 
+        LocalDatabase.saveMedicineList()
         Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder inserted")
         return true
-    }
-
-    @Synchronized fun addNewReminderList(medicineName: String, reminderList: LinkedList<ReminderMedicine>){
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Started")
-
-        reminderList.forEach { entry -> addNewReminder(medicineName, entry) }
-
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminderList() - Ended")
     }
 
     @Synchronized fun addNewAppointment(appointment: Appointment): Boolean{
@@ -202,9 +195,10 @@ object UserInformation {
         }
 
         for(i in medicine.reminders?.indices!!){
-            if (medicine.reminders!![i] == oldReminder){//todo vediamo di testarlo un po!!!!
+            if (medicine.reminders!![i] == oldReminder){
                 medicine.reminders!![i] = newReminder
                 Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder edited")
+                LocalDatabase.saveMedicineList()
                 return true
             }
         }

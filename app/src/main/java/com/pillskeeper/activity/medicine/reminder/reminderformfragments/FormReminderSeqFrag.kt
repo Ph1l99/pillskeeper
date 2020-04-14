@@ -19,7 +19,7 @@ import java.util.*
 
 class FormReminderSeqFrag(
     private val viewPager: ViewPager?,
-    private val medName: String? = null
+    private val medName: String?
 ) : Fragment() {
 
     private lateinit var checkBoxes             : HashMap<String,CheckBox>
@@ -132,6 +132,7 @@ class FormReminderSeqFrag(
             if(checkValue(days)) {
                 if (startDateSelected == null)
                     startDateSelected = Date()
+
                 val newRem = ReminderMedicine(
                     dosageSpinnerReminder.selectedItem.toString().toFloat(),
                     spinnerMinutesRem2.selectedItem.toString().toInt(),
@@ -146,6 +147,7 @@ class FormReminderSeqFrag(
                     FormAdapter.addReminder(newRem)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
+                    println(medName)
                     UserInformation.addNewReminder(medName!!,newRem)
                     activity?.finish()
                 }

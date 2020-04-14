@@ -36,7 +36,7 @@ class ReminderChooseDialog(context: Context, private val viewPager: MedicineView
                     Intent(context,AddNewReminderFromListActivity::class.java)
                         .apply {
                             putExtra(FRAG_TYPE,true)
-                            putExtra(MED_NAME,medName)
+                            putExtra(MED_NAME, medName)
                         }
                 )
             dismiss()

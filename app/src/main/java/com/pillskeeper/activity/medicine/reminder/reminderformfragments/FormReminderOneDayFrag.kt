@@ -17,7 +17,7 @@ import kotlin.collections.ArrayList
 
 class FormReminderOneDayFrag(
     private val viewPager: ViewPager?,
-    private val medName: String? = null
+    private val medName: String?
 ) : Fragment()  {
 
     private var dateSelected: Date? = null

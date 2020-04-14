@@ -33,7 +33,7 @@ class ReminderListActivity : AppCompatActivity() {
         medicinePosition = intent.getIntExtra(MEDICINE_POSITION,-1)
 
         addReminderFAB.setOnClickListener {
-            ReminderChooseDialog(this).show()
+            ReminderChooseDialog(this,null,UserInformation.medicines[medicinePosition].name).show()
         }
     }
 
@@ -45,9 +45,7 @@ class ReminderListActivity : AppCompatActivity() {
                 "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",
                 getString(R.string.message_title),
                 object: Callback {
-                    override fun onSuccess(res: Boolean) {
-                        finish()
-                    }
+                    override fun onSuccess(res: Boolean) { finish() }
                     override fun onError() {}
                 }
             )

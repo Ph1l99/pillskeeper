@@ -10,8 +10,8 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
 
     //actionType: TRUE=OneDay       FALSE=SeqDay
 
-    var fragType: Boolean = true
-    var medName: String? = ""
+    private var fragType: Boolean = true
+    private var medName: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +19,7 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_new_reminder_from_list)
 
         fragType = intent.getBooleanExtra(ReminderChooseDialog.FRAG_TYPE,false)
-        medName = intent.getStringExtra(ReminderChooseDialog.FRAG_TYPE)
+        medName = intent.getStringExtra(ReminderChooseDialog.MED_NAME)
 
         val fragment =
             if(fragType)

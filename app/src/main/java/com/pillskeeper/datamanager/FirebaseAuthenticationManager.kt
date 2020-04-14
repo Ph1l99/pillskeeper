@@ -8,7 +8,6 @@ import com.pillskeeper.interfaces.Callback
 object FirebaseAuthenticationManager {
 
     private lateinit var auth: FirebaseAuth
-    lateinit var user: FirebaseUser
 
     fun obtainAuthenticationInstance() {
         auth = FirebaseAuth.getInstance()

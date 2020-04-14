@@ -26,13 +26,11 @@ class DangerActivity : AppCompatActivity() {
 
     private fun deleteAccount() {
         val uid = FirebaseAuthenticationManager.getCurrentUser()?.uid
+        val map = HashMap<String, String?>()
+        map["userid"] = uid
+
         Firebase.functions.getHttpsCallable("deleteUser")
-            .call(
-                HashMap<String, String?>().put(
-                    "userid",
-                    "4MRKBmmXK6Of7lWH1QYVM3LTZJG3"
-                )
-            )
+            .call(map)
         FirebaseAuthenticationManager.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()

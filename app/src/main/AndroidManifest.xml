@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
+        <activity android:name=".activity.DangerActivity"></activity>
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -32,7 +33,7 @@
         <activity
             android:name=".activity.medicine.FinishedMedicinesActivity"
             android:label="@string/expiredMedicines"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.registration.LoginActivity" />
         <activity
             android:name=".activity.PersonalInfoDialog"

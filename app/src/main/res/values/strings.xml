@@ -155,7 +155,8 @@
     <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
     <string name="loginDialogError">Credenziali errate, riprova!</string>
     <string name="message_title">Attenzione!</string>
-
+    <string name="deleteAccountButton">Elimina account</string>
+    <string name="resetPassword">Reimposta Password</string>
 
 
 </resources>

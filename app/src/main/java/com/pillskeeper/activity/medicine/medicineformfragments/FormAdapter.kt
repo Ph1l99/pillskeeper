@@ -120,8 +120,8 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager, medName)
-            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, medName)
+            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager)
+            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager)
             else -> FormNameTypeFragment(intent, viewPager)
         }
     }

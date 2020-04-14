@@ -45,10 +45,10 @@ class ReminderListActivity : AppCompatActivity() {
                 "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",
                 getString(R.string.message_title),
                 object: Callback {
-                    override fun success(res: Boolean) {
+                    override fun onSuccess(res: Boolean) {
                         finish()
                     }
-                    override fun error() {}
+                    override fun onError() {}
                 }
             )
         } else {

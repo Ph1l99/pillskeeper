@@ -21,7 +21,6 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
 
     companion object {
         private const val LAUNCH_PILLS = 1
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,9 +63,7 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
     }
 
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
-        mAdapter = MedicineRemoteCardAdapter(
-            medicinesList
-        )
+        mAdapter = MedicineRemoteCardAdapter(medicinesList)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)

@@ -65,4 +65,15 @@ object FirebaseAuthenticationManager {
             }
         }
     }
+
+    fun resetPassword(email: String, callback: Callback) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback.onSuccess(true)
+            } else {
+                callback.onError()
+
+            }
+        }
+    }
 }

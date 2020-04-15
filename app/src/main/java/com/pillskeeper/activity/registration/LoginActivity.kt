@@ -37,6 +37,41 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             login()
         }
+        resetPassordTextView.setOnClickListener {
+            resetPassword()
+        }
+    }
+
+    private fun resetPassword() {
+        if (emailLogin.text.toString().isEmpty()) {
+            Utils.buildAlertDialog(
+                this@LoginActivity,
+                getString(R.string.error_values),
+                getString(R.string.message_title)
+            )
+        } else {
+            FirebaseAuthenticationManager.resetPassword(
+                emailLogin.text.toString(),
+                object : Callback {
+                    override fun onSuccess(res: Boolean) {
+                        Utils.buildAlertDialog(
+                            this@LoginActivity,
+                            getString(R.string.emailPassword),
+                            getString(R.string.message_title)
+                        )
+                    }
+
+                    override fun onError() {
+                        Utils.buildAlertDialog(
+                            this@LoginActivity,
+                            getString(R.string.emailPassword),
+                            getString(R.string.message_title)
+                        )
+                    }
+
+                })
+        }
+
     }
 
     /**

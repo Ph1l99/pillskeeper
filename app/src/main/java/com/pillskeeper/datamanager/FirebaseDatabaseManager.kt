@@ -12,24 +12,36 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.interfaces.FirebaseMedicineCallback
 import com.pillskeeper.interfaces.FirebaseUserCallback
 
+/**
+ * Object that manages all the set and get operations related to the Firebase Realtime Database
+ */
 object FirebaseDatabaseManager {
-    lateinit var databaseReference: DatabaseReference
-    lateinit var medicineRefs: DatabaseReference
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var medicineRefs: DatabaseReference
 
     private const val PATH_MEDICINES = "medicines"
     private const val PATH_USERS = "users"
 
+    /**
+     * Method for enabling the offline database cache
+     */
     fun enablePersistence() {
         Firebase.database.setPersistenceEnabled(true)
         medicineRefs = Firebase.database.getReference(PATH_MEDICINES)
         medicineRefs.keepSynced(true)
     }
 
-
+    /**
+     * Method for getting the Firebase Database reference
+     */
     fun obtainDatabaseReference() {
         databaseReference = Firebase.database.reference
     }
 
+    /**
+     * Method for getting a list of Remote Medicines
+     * @param firebaseMedicineCallback The callback for returning the values
+     */
     fun getMedicines(firebaseMedicineCallback: FirebaseMedicineCallback) {
         databaseReference.child(PATH_MEDICINES)
             .addValueEventListener(object : ValueEventListener {
@@ -44,6 +56,11 @@ object FirebaseDatabaseManager {
             })
     }
 
+    /**
+     * Method for getting the user via userId
+     * @param userId The String which represents the UID
+     * @param firebaseUserCallback The callback for returning the values
+     */
     fun getUser(userId: String, firebaseUserCallback: FirebaseUserCallback) {
         databaseReference.child(PATH_USERS).child(userId)
             .addValueEventListener(object : ValueEventListener {
@@ -58,6 +75,11 @@ object FirebaseDatabaseManager {
 
     }
 
+    /**
+     * Method for writing a new user to the Firebase Database
+     * @param user The object User
+     * @param callback The callback for returning the values
+     */
     fun writeUser(user: User, callback: Callback) {
 
         databaseReference.child(PATH_USERS).child(user.userId).setValue(user)
@@ -70,10 +92,21 @@ object FirebaseDatabaseManager {
 
     }
 
-    fun writeMedicine(medicine: RemoteMedicine) {
+    /**
+     * Method for writing a new medicine to the Firebase Database
+     * @param medicine The object RemoteMedicine
+     * @param callback The callback for returning the values
+     */
+    fun writeMedicine(medicine: RemoteMedicine, callback: Callback) {
 
         databaseReference.child(PATH_MEDICINES).child(medicine.id)
             .setValue(medicine)
+            .addOnCompleteListener {
+                callback.onSuccess(true)
+            }
+            .addOnFailureListener {
+                callback.onError()
+            }
 
     }
 }

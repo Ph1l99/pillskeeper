@@ -3,9 +3,6 @@ package com.pillskeeper.activity.registration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
@@ -29,6 +26,9 @@ class SignUp : AppCompatActivity() {
 
     }
 
+    /**
+     * Method for signup users
+     */
     private fun signUp() {
         if (mailField.text.toString().isEmpty() || passwordField.text.toString()
                 .isEmpty() || nameField.text.toString()

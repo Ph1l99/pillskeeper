@@ -7,8 +7,8 @@ import java.util.*
 
 data class ReminderMedicine(
     var dosage: Float,
-    var minutes: Int,// TODO change with short!!!!! and make nullable
-    var hours: Int,// TODO change with short!!!!! and make nullable
+    var minutes: Int,// TODO change with short!!!!!
+    var hours: Int,// TODO change with short!!!!!
     var startingDay: Date,
     var days: LinkedList<DaysEnum>?,
     var expireDate: Date?,

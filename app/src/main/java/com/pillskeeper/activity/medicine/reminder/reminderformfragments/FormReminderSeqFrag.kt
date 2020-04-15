@@ -1,6 +1,8 @@
 package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.pillskeeper.activity.medicine.reminder.reminderformfragments.Reminder
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
+import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import java.util.*
 
@@ -146,12 +149,34 @@ class FormReminderSeqFrag(
                     FormAdapter.addReminder(newRem)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
-                    UserInformation.addNewReminder(medName!!,newRem)
-                    //TODO plan alarm
-                    activity?.finish()
+                    if(UserInformation.addNewReminder(medName!!,newRem)) {
+
+                        Utils.getSingleReminderListNormalized(
+                            medName,
+                            UserInformation.getSpecificMedicine(medName)!!.medicineType,
+                            newRem
+                        ).forEach {
+                            NotifyPlanner.planSingleAlarm(
+                                activity?.applicationContext!!,
+                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                it
+                            )
+                        }
+                        activity?.finish()
+                    } else {
+                        Utils.buildAlertDialog(
+                            activity!!,
+                            "Inserimento fallito!",
+                            getString(R.string.message_title)
+                        )
+                    }
                 }
             } else {
-                Toast.makeText(activity,"perfavore inserire valori corretti",Toast.LENGTH_LONG).show()
+                Utils.buildAlertDialog(
+                    activity!!,
+                    "perfavore inserire valori corretti",
+                    getString(R.string.message_title)
+                )
             }
 
         }

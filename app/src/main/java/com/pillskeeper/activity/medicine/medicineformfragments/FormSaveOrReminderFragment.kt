@@ -54,7 +54,7 @@ class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fra
                             textViewConfirm.isClickable = true
                             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
                         } else {
-                            FormAdapter.addNewMedicine()//todo finish and put extra
+                            FormAdapter.addNewMedicine()//todo finish and put extra instead of create a new activity every time
                             val intent = Intent(context, MedicineLocaleListActivity::class.java)
                             startActivity(intent)
                             FormAdapter.closeForm()

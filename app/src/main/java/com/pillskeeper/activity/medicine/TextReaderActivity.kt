@@ -48,9 +48,7 @@ class TextReaderActivity : AppCompatActivity() {
                     format: Int,
                     width: Int,
                     height: Int
-                ) {
-                    //TODO questo metodo non deve fare nulla e va bene così
-                }
+                ) {}
 
                 override fun surfaceDestroyed(holder: SurfaceHolder?) {
                     cameraSource.stop()

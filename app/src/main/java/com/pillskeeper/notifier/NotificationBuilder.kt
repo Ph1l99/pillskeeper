@@ -12,12 +12,18 @@ import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicineSort
+import com.pillskeeper.datamanager.UserInformation.context
 import java.util.*
 
 object NotificationBuilder {
 
+    private var notificationManager : NotificationManager? = getSystemService(context, NotificationManager::class.java)
+
+    init {
+        createNotificationChannel()
+    }
+
     fun showNotificationReminder(context: Context, it: Any?) {
-        createNotificationChannel(context)
 
         val icon: Int
         val title: String
@@ -39,17 +45,17 @@ object NotificationBuilder {
             .setContentTitle(title)
             .setContentText(text)
             .setAutoCancel(false)
+            .setPriority(Notification.VISIBILITY_PUBLIC)
+            .setDefaults(Notification.DEFAULT_ALL)
             .setSound(soundUri)
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText(text))
 
-        val notificationManager = getSystemService(context, NotificationManager::class.java)
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
     }
 
     fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
-        createNotificationChannel(context)
 
         val icon = R.drawable.records_medicines
         val title = "Medicina in esaurimento"
@@ -63,25 +69,25 @@ object NotificationBuilder {
             .setContentText("$text - ${Date()}")
             .setAutoCancel(false)
             .setSound(soundUri)
+            .setPriority(Notification.VISIBILITY_PUBLIC)
+            .setDefaults(Notification.DEFAULT_ALL)
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText(text))
 
-        val notificationManager = getSystemService(context, NotificationManager::class.java)
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
     }
 
-    private fun createNotificationChannel(context: Context) {
+    private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "channelPillsKeeper"
             val descriptionText = "Channel used for PillsKeeper"
             val importance = NotificationManager.IMPORTANCE_HIGH//IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(3.toString(), name, importance).apply {
+            val channel = NotificationChannel(2020.toString(), name, importance).apply {
                 description = descriptionText
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }
-            val notificationManager = getSystemService(context, NotificationManager::class.java)
             notificationManager?.createNotificationChannel(channel)
         }
     }

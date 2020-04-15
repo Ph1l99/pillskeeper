@@ -2,7 +2,6 @@ package com.pillskeeper.utility
 
 import android.Manifest
 import android.app.Activity
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -27,6 +26,7 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.notifier.NotifyPlanner
 import java.io.ByteArrayInputStream
@@ -129,6 +129,18 @@ object Utils {
         return randomList
     }
 
+    fun getSingleReminderListNormalized(medName: String, medType: MedicineTypeEnum, reminder : ReminderMedicine): LinkedList<ReminderMedicineSort>{
+        val reminderSortList = LinkedList<ReminderMedicineSort>()
+        reminderSortList.add(ReminderMedicineSort(medName,medType,reminder))
+        return convertSeqToDate(reminderSortList)
+    }
+
+    fun getListReminderNormalized(localMedicine: LocalMedicine): LinkedList<ReminderMedicineSort> {
+        val medList = LinkedList<LocalMedicine>()
+        medList.add(localMedicine)
+        return getListReminderNormalized(medList)
+    }
+
     fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort> {
         val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         medList.forEach {
@@ -198,15 +210,6 @@ object Utils {
         val `in` = ByteArrayInputStream(data)
         val `is` = ObjectInputStream(`in`)
         return `is`.readObject()
-    }
-
-    fun isAlreadyExistingIntent(context: Context, itID: Int, intent: Intent): Boolean {
-        return PendingIntent.getBroadcast(
-            context,
-            itID,
-            intent,
-            PendingIntent.FLAG_NO_CREATE
-        ) != null
     }
 
     fun startNotifyService(context: Context) {

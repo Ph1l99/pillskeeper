@@ -1,6 +1,8 @@
 package com.pillskeeper.activity.medicine.reminder
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,7 @@ import com.pillskeeper.activity.medicine.reminder.reminderformfragments.Reminder
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
+import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.fragment_form_seq_reminder_days.*
 import java.util.*
@@ -42,7 +45,6 @@ class EditReminderActivity : AppCompatActivity() {
         populateCommonFields()
         registerDateButtonAction()
 
-
         saveButton.setOnClickListener {
             val days: LinkedList<DaysEnum>? =
                 if(!reminder.isSingleDayRem())
@@ -51,6 +53,15 @@ class EditReminderActivity : AppCompatActivity() {
                     null
 
             if(checkValue(days)) {
+
+                if(reminder.isSingleDayRem()){
+                    val cal = Calendar.getInstance()
+                    cal.time= startingDate
+                    cal.set(Calendar.HOUR_OF_DAY, hourSpinner.selectedItem.toString().toInt())
+                    cal.set(Calendar.MINUTE, minuteSpinner.selectedItem.toString().toInt())
+                    expireDate = cal.time
+                    startingDate = cal.time
+                }
 
                 val newReminder = ReminderMedicine(
                     dosageSpinner.selectedItem.toString().toFloat(),
@@ -62,16 +73,36 @@ class EditReminderActivity : AppCompatActivity() {
                     reminderAddNotes.text.toString()
                 )
 
+                val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
+                    medName!!,
+                    UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                    reminder.copy()
+                )
+
                 if(UserInformation.editReminder(medName!!,reminder,newReminder)){
 
-                    //todo ripianificazione degli allarmi
+                    reminderListNormalizedOld.forEach {
+                        NotifyPlanner.remove(this,it)
+                    }
+
+                    Utils.getSingleReminderListNormalized(
+                        medName!!,
+                        UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                        newReminder
+                    ).forEach{
+                        NotifyPlanner.planSingleAlarm(
+                            this,
+                            getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                            it
+                        )
+                    }
 
                     finish()
 
                 } else {
                     Utils.buildAlertDialog(
                         this,
-                        "Perfavore inserire valori corretti",
+                        getString(R.string.genericInfoError),
                         getString(R.string.message_title)
                     )
                 }
@@ -79,7 +110,7 @@ class EditReminderActivity : AppCompatActivity() {
             } else {
                 Utils.buildAlertDialog(
                     this,
-                    "Perfavore inserire valori corretti",
+                    getString(R.string.genericInfoError),
                     getString(R.string.message_title)
                 )
             }
@@ -152,6 +183,8 @@ class EditReminderActivity : AppCompatActivity() {
                 calStart.set(Calendar.MILLISECOND, 0)
 
                 startingDate = calStart.time
+                if(reminder.isSingleDayRem())
+                    expireDate = calStart.time
 
             }, yearStart, monthStart, dayStart).show()
         }
@@ -250,7 +283,7 @@ class EditReminderActivity : AppCompatActivity() {
         hourSpinner.setSelection(reminder.hours)
 
         val minutesArray = ArrayList<String>()
-        for (i in 0..12)
+        for (i in 0..11)
             minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
 
         val arrayAdapterMinutes = ArrayAdapter(this,android.R.layout.simple_spinner_item, minutesArray)

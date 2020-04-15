@@ -43,6 +43,19 @@ object UserInformation {
         return null
     }
 
+    @Synchronized fun getSpecificAppointment(name: String) : Appointment? {
+        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Started")
+
+        appointments.forEach {
+            entry -> if(entry.name == name) {
+                Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Ended - Appointment found")
+                return entry
+            }
+        }
+
+        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Ended - Appointment not found")
+        return null
+    }
 
 
     /*******  ADD  FUNCTION   *******/

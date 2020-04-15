@@ -165,7 +165,6 @@ class AppointmentFormActivity : AppCompatActivity() {
                 }
             } else {
                 if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
-                    Utils.startNotifyService(this)
                     NotifyPlanner.remove(this,appointment!!)
                     NotifyPlanner.planSingleAlarm(
                         this,

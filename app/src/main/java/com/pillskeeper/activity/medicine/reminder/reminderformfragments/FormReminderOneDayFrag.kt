@@ -1,6 +1,8 @@
 package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.notifier.NotifyPlanner
+import com.pillskeeper.utility.Utils
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -79,8 +83,8 @@ class FormReminderOneDayFrag(
                 if (cal.time > Date()){
                     val reminder = ReminderMedicine(
                         dosageQtyReminder.selectedItem.toString().toFloat(),
-                        minutesReminderSpinner.selectedItem.toString().toInt(),//TODO can be null
-                        hourReminderSpinner.selectedItem.toString().toInt(),// TODO can be null
+                        minutesReminderSpinner.selectedItem.toString().toInt(),
+                        hourReminderSpinner.selectedItem.toString().toInt(),
                         cal.time,
                         null,
                         cal.time,
@@ -90,9 +94,20 @@ class FormReminderOneDayFrag(
                         FormAdapter.addReminder(reminder)
                         viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                     } else {
-                        UserInformation.addNewReminder(medName!!,reminder)
-                        //TODO plan alarm
-                        activity?.finish()
+                        if (UserInformation.addNewReminder(medName!!,reminder)) {
+                            Utils.getSingleReminderListNormalized(
+                                medName,
+                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
+                                reminder
+                            ).forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    activity!!,
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
+                            }
+                            activity?.finish()
+                        }
                     }
                 } else {
                     Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()

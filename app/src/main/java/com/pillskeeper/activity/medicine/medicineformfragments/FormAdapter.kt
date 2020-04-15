@@ -27,8 +27,6 @@ class FormAdapter(
     private val viewPager: MedicineViewPager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    //TODO MISSING EDIT REMINDER (also alarm edit flow)
-
     companion object {
         const val FORM_NAME_TYPE = 0
         const val FORM_QUANTITY = 1
@@ -43,7 +41,6 @@ class FormAdapter(
         var remainingQuantity: Float = 0.0F
         var reminderList: LinkedList<ReminderMedicine>? = null
 
-        private const val PATH_MEDICINES = "medicines"
         var remoteMedicine: RemoteMedicine? = null
         var localMedicine: LocalMedicine? = null
 

@@ -72,7 +72,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
             Calendar cal = Calendar.getInstance();
             cal.setTime(item.getStartingDay());
             text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1).append("/").append(cal.get(Calendar.YEAR));
-            text.append("Alle: ").append(item.getHours()).append(":").append(item.getMinutes());
+            text.append(" Alle: ").append(item.getHours()).append(":").append(item.getMinutes());
         } else {
             if (item.getStartingDay().after(new Date()))
                 text.append(item.getStartingDay()).append(" - ");

@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
+import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_appointment.*
 
@@ -42,24 +43,33 @@ class GenericDeleteDialog (context: Context, private val itemName: String, priva
         nameTitleTV.text = itemName
 
         deleteConfirm.setOnClickListener {
-
             when(dialogModeEnum){
                 DialogModeEnum.DELETE_APPOINTMENT -> {
+                    val appointment = UserInformation.getSpecificAppointment(itemName)
                     if(UserInformation.deleteAppointment(itemName))
-                        Utils.startNotifyService(context)
+                        NotifyPlanner.remove(
+                            context,
+                            appointment!!
+                        )
                     else
                         Toast.makeText(context,"Non è stato possibile cancellare l'$item",Toast.LENGTH_LONG).show()
                 }
                 DialogModeEnum.DELETE_MEDICINE -> {
+                    val reminderMedicineSort = Utils.getListReminderNormalized(
+                        UserInformation.getSpecificMedicine(itemName)!!
+                    )
                     if(UserInformation.deleteMedicine(itemName))
-                        Utils.startNotifyService(context)
+                        reminderMedicineSort.forEach {
+                            NotifyPlanner.remove(
+                                context,
+                                it
+                            )
+                        }
                     else
                         Toast.makeText(context,"Non è stato possibile cancellare la $item",Toast.LENGTH_LONG).show()
                 }
                 else -> {
-                    if(UserInformation.deleteFriend(itemName))
-                        Utils.startNotifyService(context)
-                    else
+                    if(!UserInformation.deleteFriend(itemName))
                         Toast.makeText(context,"Non è stato possibile cancellare l'$item",Toast.LENGTH_LONG).show()
                 }
             }

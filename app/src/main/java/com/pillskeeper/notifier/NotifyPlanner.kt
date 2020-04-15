@@ -38,7 +38,7 @@ object NotifyPlanner{
 
         val itTime = getDateFromItem(it)
         val itID = generateIdForItem(it,itTime)
-        if(!Utils.isAlreadyExistingIntent(context,itID,intent)){
+        if(!isAlreadyExistingIntent(context,itID,intent)){
             val pendingIntent = PendingIntent.getBroadcast(
                 context,
                 itID,
@@ -71,7 +71,7 @@ object NotifyPlanner{
                     action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
                 }
             val itID = 0
-            if(!Utils.isAlreadyExistingIntent(context,itID,intent)) {
+            if(!isAlreadyExistingIntent(context,itID,intent)) {
                 val pendingIntent = PendingIntent.getBroadcast(
                     context,
                     0,
@@ -177,6 +177,15 @@ object NotifyPlanner{
         return ((itTime.time * stdValue / 1000L) % Int.MAX_VALUE).toInt()
     }
 
+    private fun isAlreadyExistingIntent(context: Context, itID: Int, intent: Intent): Boolean {
+        return PendingIntent.getBroadcast(
+            context,
+            itID,
+            intent,
+            PendingIntent.FLAG_NO_CREATE
+        ) != null
+    }
+
     fun remove(context: Context, it: Any){
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -191,7 +200,6 @@ object NotifyPlanner{
             PendingIntent.FLAG_UPDATE_CURRENT
         )
         alarmManager.cancel(pendingIntent)
-
     }
 
 

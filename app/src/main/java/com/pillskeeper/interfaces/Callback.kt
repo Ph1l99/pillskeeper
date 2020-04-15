@@ -5,9 +5,4 @@ interface Callback {
     fun onSuccess(res: Boolean)
 
     fun onError()
-
-    fun success(){
-
-    }
-
 }

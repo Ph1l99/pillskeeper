@@ -249,7 +249,7 @@ object Utils {
         builder.setMessage(message)
         builder.setIcon(R.drawable.pills_icon)
         builder.setPositiveButton("OK") { _, _ ->
-            callback?.success()
+            callback?.onSuccess(true)
         }
 
         return builder.create()

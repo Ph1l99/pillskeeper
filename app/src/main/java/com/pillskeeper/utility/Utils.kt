@@ -28,7 +28,6 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.interfaces.Callback
-import com.pillskeeper.notifier.NotifyPlanner
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -210,13 +209,6 @@ object Utils {
         val `in` = ByteArrayInputStream(data)
         val `is` = ObjectInputStream(`in`)
         return `is`.readObject()
-    }
-
-    fun startNotifyService(context: Context) {
-        Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function started")
-        val service = Intent(context, NotifyPlanner::class.java)
-        context.startService(service)
-        Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function ended")
     }
 
     /**

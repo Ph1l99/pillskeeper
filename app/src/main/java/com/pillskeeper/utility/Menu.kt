@@ -9,7 +9,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
 import com.pillskeeper.activity.DangerActivity
 import com.pillskeeper.activity.PersonalInfoDialog

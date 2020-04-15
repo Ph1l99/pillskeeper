@@ -219,6 +219,12 @@ object Utils {
         Log.i(Log.DEBUG.toString(), "Utils: startNotifyService() - Function ended")
     }
 
+    /**
+     * Method for checking rude language during medicine insertion
+     * @param text The text that has be analyzed
+     * @param language The language in the UTF 2 digit format
+     * @param job The callback for the return value
+     */
     fun checkTextWords(text: String, language: String, job: Callback) {
         Log.i(Log.DEBUG.toString(), "Utils: checkTextWords() - function Started")
         val map = HashMap<String, Any>()
@@ -239,6 +245,10 @@ object Utils {
         Log.i(Log.DEBUG.toString(), "Utils: checkTextWords() - function Ended")
     }
 
+    /**
+     * Method for checking the results
+     * @param resultMap The map (JSON) that returns from the checkToxicWords()
+     */
     private fun checkMap(resultMap: Map<String, Any>): Boolean {
         for (result in resultMap)
             if (result.value as Double >= 0.8)
@@ -246,7 +256,19 @@ object Utils {
         return false
     }
 
-    fun buildAlertDialog(context: Context, message: String, title: String, callback: Callback? = null): AlertDialog {
+    /**
+     * Method for building a generic AlertDialog
+     * @param context The context that the dialog has to use
+     * @param message The dialog message
+     * @param title The dialog title
+     * @param callback The optional callback for returning the result
+     */
+    fun buildAlertDialog(
+        context: Context,
+        message: String,
+        title: String,
+        callback: Callback? = null
+    ): AlertDialog {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
@@ -258,6 +280,9 @@ object Utils {
         return builder.create()
     }
 
+    /**
+     * Function that opens the Maps application by locating the user with GPS
+     */
     fun openMaps(activity: Activity, context: Context) {
         val REQUEST_POSITION_PERMISSION_ID = 1
         lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -270,19 +295,15 @@ object Utils {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 val intent =
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(context.getString(R.string.query_location))
-                    )
+                    Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.query_location)))
                 intent.setPackage("com.google.android.apps.maps")
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
 
             }
         } else {
             // Make a request for foreground-only location access.
-            ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
             )
         }
     }

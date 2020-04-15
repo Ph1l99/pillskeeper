@@ -2,10 +2,7 @@ package com.pillskeeper.activity.registration
 
 import android.app.Dialog
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.interfaces.Callback

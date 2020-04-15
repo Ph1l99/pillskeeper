@@ -7,7 +7,10 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
 import com.pillskeeper.activity.registration.LoginActivity
+import com.pillskeeper.activity.registration.LoginDialog
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
+import com.pillskeeper.interfaces.Callback
+import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_danger.*
 
 class DangerActivity : AppCompatActivity() {
@@ -21,16 +24,45 @@ class DangerActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Method for deleting the user account
+     */
     private fun deleteAccount() {
+        var closedOK = false
         val uid = FirebaseAuthenticationManager.getCurrentUser()?.uid
-        val map = HashMap<String, String?>()
-        map["userid"] = uid
+        val email = FirebaseAuthenticationManager.getCurrentUser()?.email
+        if (email != null) {
+            val dialog = LoginDialog(this, email, object : Callback {
+                override fun onSuccess(res: Boolean) {
+                    closedOK = true
+                }
 
-        //Calling the Firebase Function named deleteUser
-        Firebase.functions.getHttpsCallable("deleteUser")
-            .call(map)
-        FirebaseAuthenticationManager.signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
+                override fun onError() {
+                    closedOK = false
+                }
+
+            })
+            dialog.setOnDismissListener {
+                if (closedOK) {
+                    val map = HashMap<String, String?>()
+                    map["userid"] = uid
+
+                    //Calling the Firebase Function named deleteUser
+                    Firebase.functions.getHttpsCallable("deleteUser")
+                        .call(map)
+                    FirebaseAuthenticationManager.signOut()
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                } else {
+                    Utils.buildAlertDialog(
+                        this,
+                        getString(R.string.oops),
+                        getString(R.string.message_title)
+                    )
+                }
+
+            }
+            dialog.show()
+        }
     }
 }

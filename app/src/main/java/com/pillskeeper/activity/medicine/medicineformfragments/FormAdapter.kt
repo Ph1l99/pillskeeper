@@ -16,6 +16,7 @@ import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import java.nio.charset.StandardCharsets
@@ -100,14 +101,28 @@ class FormAdapter(
             }
         }
 
-
+        /**
+         * Method for generating the ID of a RemoteMedicine. It uses SHA-1 hashing function
+         */
         private fun hashValue(name: String, typeEnum: MedicineTypeEnum): String {
             return (Hashing.sha1()).newHasher()
                 .putString(name + typeEnum, StandardCharsets.UTF_8).hash().toString()
         }
 
+        /**
+         * Method for writing the medicine on Firebase DB
+         */
         private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
-            FirebaseDatabaseManager.writeMedicine(remoteMedicine)
+            FirebaseDatabaseManager.writeMedicine(remoteMedicine, object : Callback {
+                override fun onSuccess(res: Boolean) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onError() {
+                    TODO("Not yet implemented")
+                }
+
+            })
         }
     }
 
@@ -117,8 +132,8 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager,null)
-            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager,null)
+            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager, null)
+            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, null)
             else -> FormNameTypeFragment(intent, viewPager)
         }
     }

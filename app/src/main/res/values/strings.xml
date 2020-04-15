@@ -102,6 +102,8 @@
     <string name="signup_activity">Registrati</string>
     <string name="login_text">Benvenuto su Pillskeeper! Esegui l\'accesso oppure registrati per utilizzare l\'applicazione</string>
     <string name="error_login">Username o password errati, riprova</string>
+    <string name="resetPassword">Reimposta password</string>
+    <string name="loginDialog">Inserisci la password per confermare l\'operazione</string>
 
     <!--Mail-->
     <string name="mailsubject">Richiesta ricetta farmaco: </string>
@@ -159,8 +161,10 @@
     <string name="emailPassword">Controlla la tua mail, ti abbiamo inviato un link per il reset password!</string>
     <string name="oops">Oops! Si è verificato un errore, riprova!</string>
 
+    <!--Danger Activity-->
     <string name="deleteAccountButton">Elimina account</string>
-    <string name="resetPassword">Reimposta Password</string>
+    <string name="disclaimer">ATTENZIONE! Procedendo con l\'eliminazione dell\'account verranno persi tutti i dati e non sarà più possibile accedere a PillsKeeper con questo account</string>
+
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
 

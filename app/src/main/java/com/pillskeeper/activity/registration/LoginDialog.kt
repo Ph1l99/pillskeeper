@@ -12,7 +12,8 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_login.*
 
-class LoginDialog(context: Context, private val userEmail: String) : Dialog(context) {
+class LoginDialog(context: Context, private val userEmail: String, val callback: Callback) :
+    Dialog(context) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +21,7 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
         displayInfos(userEmail)
         loginDialogButton.setOnClickListener {
             loginAgain()
+
         }
     }
 
@@ -34,10 +36,12 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
                 object :
                     Callback {
                     override fun onSuccess(res: Boolean) {
+                        callback.onSuccess(true)
                         dismiss()
                     }
 
                     override fun onError() {
+                        callback.onError()
                         Utils.buildAlertDialog(
                             context,
                             context.getString(R.string.loginDialogError),
@@ -47,6 +51,7 @@ class LoginDialog(context: Context, private val userEmail: String) : Dialog(cont
 
                 })
         } else {
+            callback.onError()
             Utils.errorEditText(loginDialogPasswordText)
         }
 

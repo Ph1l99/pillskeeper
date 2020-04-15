@@ -10,12 +10,27 @@
         android:id="@+id/deleteAccount"
         android:layout_width="110sp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="151dp"
+        android:layout_marginBottom="122dp"
         android:text="@string/deleteAccountButton"
         android:theme="@style/AppTheme.Button.ERROR"
-        app:layout_constraintBottom_toTopOf="@+id/resetPassword"
-        app:layout_constraintEnd_toEndOf="@+id/resetPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/resetPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDeleteAccount" />
+
+    <TextView
+        android:id="@+id/textViewDeleteAccount"
+        android:layout_width="300sp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/disclaimer"
+        app:layout_constraintBottom_toTopOf="@+id/deleteAccount"
+        app:layout_constraintEnd_toEndOf="@+id/deleteAccount"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/deleteAccount"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <ImageView
@@ -23,23 +38,10 @@
         android:layout_width="200sp"
         android:layout_height="200sp"
         android:src="@drawable/pills_icon"
-        app:layout_constraintBottom_toTopOf="@+id/deleteAccount"
-        app:layout_constraintEnd_toEndOf="@+id/deleteAccount"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDeleteAccount"
+        app:layout_constraintEnd_toEndOf="@+id/textViewDeleteAccount"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/deleteAccount"
+        app:layout_constraintStart_toStartOf="@+id/textViewDeleteAccount"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/resetPassword"
-        android:layout_width="110sp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginEnd="151dp"
-        android:text="@string/resetPassword"
-        android:theme="@style/AppTheme.Button.ERROR"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/deleteAccount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

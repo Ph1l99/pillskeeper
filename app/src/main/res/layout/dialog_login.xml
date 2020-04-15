@@ -2,73 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="300sp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
     android:background="@drawable/shape_card"
     tools:context=".activity.registration.LoginDialog">
 
-    <TextView
-        android:id="@+id/loginDialogMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="87dp"
-        android:gravity="center"
-        android:text="@string/email"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toStartOf="@+id/loginDialogMailText"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/loginDialogPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="490dp"
-        android:gravity="center"
-        android:text="@string/signup_password"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/loginDialogPasswordText"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_width="250sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            android:text="@string/loginDialog" />
 
-    <EditText
-        android:id="@+id/loginDialogMailText"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:hint="@string/email_hint"
-        app:layout_constraintBottom_toBottomOf="@+id/loginDialogMail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/loginDialogMail"
-        app:layout_constraintTop_toTopOf="@+id/loginDialogMail"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/loginDialogMailText"
+            android:layout_width="250sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="@string/email_hint"
+            android:textColorHighlight="@color/colorPrimaryDark" />
 
-    <EditText
-        android:id="@+id/loginDialogPasswordText"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:hint="@string/signup_password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/loginDialogPassword"
-        app:layout_constraintStart_toEndOf="@+id/loginDialogPassword"
-        app:layout_constraintStart_toStartOf="@+id/loginDialogMailText"
-        app:layout_constraintTop_toTopOf="@+id/loginDialogPassword"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        <EditText
+            android:id="@+id/loginDialogPasswordText"
+            android:layout_width="250sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:hint="@string/signup_password"
+            android:inputType="textPassword"
+            android:textColorHighlight="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/loginDialogButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginEnd="162dp"
-        android:layout_marginBottom="304dp"
-        android:text="@string/login_button"
-        android:theme="@style/AppTheme.Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <Button
+            android:id="@+id/loginDialogButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/login_button"
+            android:theme="@style/AppTheme.Button" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

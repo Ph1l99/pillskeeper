@@ -19,9 +19,6 @@ class DangerActivity : AppCompatActivity() {
         deleteAccount.setOnClickListener {
             deleteAccount()
         }
-        resetPassword.setOnClickListener {
-
-        }
     }
 
     private fun deleteAccount() {
@@ -29,14 +26,11 @@ class DangerActivity : AppCompatActivity() {
         val map = HashMap<String, String?>()
         map["userid"] = uid
 
+        //Calling the Firebase Function named deleteUser
         Firebase.functions.getHttpsCallable("deleteUser")
             .call(map)
         FirebaseAuthenticationManager.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
-    }
-
-    private fun resetPassword() {
-
     }
 }

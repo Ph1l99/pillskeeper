@@ -69,8 +69,8 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
 
     }
 
-    //TODO passare messaggio quando viene chiuso il dialog
     private fun changeInfo() {
+        var closedOK = false
         var isValidInfo = true
         var updateAuth = false
         if (!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
@@ -85,63 +85,77 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
             }
         }
         if (isValidInfo) {
-            val dialog = LoginDialog(context, user.email)
+            val dialog = LoginDialog(context, user.email, object : Callback {
+                override fun onSuccess(res: Boolean) {
+                    closedOK = true
+                }
+
+                override fun onError() {
+                    closedOK = false
+                }
+
+            })
             dialog.setOnDismissListener {
-                if (auth.currentUser?.email != editTextEmail.text.toString()) {
-                    updateAuth = true
-                }
-                if (updateAuth) {
-
-                    auth.currentUser?.updateEmail(editTextEmail.text.toString())
-                    auth.currentUser?.uid?.let {
-                        val userToBeWritten = User(
-                            it,
-                            editTextName.text.toString(),
-                            editTextSurname.text.toString(),
-                            editTextEmail.text.toString()
-                        )
-                        FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
-                            override fun onSuccess(res: Boolean) {
-                                LocalDatabase.saveUser(userToBeWritten)
-                            }
-
-                            override fun onError() {
-                                Utils.buildAlertDialog(
-                                    context,
-                                    context.getString(R.string.networkError),
-                                    context.getString(R.string.message_title)
-                                ).show()
-                            }
-
-                        })
+                if (closedOK) {
+                    if (auth.currentUser?.email != editTextEmail.text.toString()) {
+                        updateAuth = true
                     }
+                    if (updateAuth) {
+
+                        auth.currentUser?.updateEmail(editTextEmail.text.toString())
+                        auth.currentUser?.uid?.let {
+                            val userToBeWritten = User(
+                                it,
+                                editTextName.text.toString(),
+                                editTextSurname.text.toString(),
+                                editTextEmail.text.toString()
+                            )
+                            FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
+                                override fun onSuccess(res: Boolean) {
+                                    LocalDatabase.saveUser(userToBeWritten)
+                                }
+
+                                override fun onError() {
+                                    Utils.buildAlertDialog(
+                                        context,
+                                        context.getString(R.string.networkError),
+                                        context.getString(R.string.message_title)
+                                    ).show()
+                                }
+
+                            })
+                        }
+                    } else {
+                        auth.currentUser?.uid?.let {
+                            val userToBeWritten = User(
+                                it,
+                                editTextName.text.toString(),
+                                editTextSurname.text.toString(),
+                                editTextEmail.text.toString()
+                            )
+                            FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
+                                override fun onSuccess(res: Boolean) {
+                                    LocalDatabase.saveUser(userToBeWritten)
+                                }
+
+                                override fun onError() {
+                                    Utils.buildAlertDialog(
+                                        context,
+                                        context.getString(R.string.networkError),
+                                        context.getString(R.string.message_title)
+                                    ).show()
+                                }
+
+                            })
+                        }
+                    }
+                    dismiss()
                 } else {
-                    auth.currentUser?.uid?.let {
-                        val userToBeWritten = User(
-                            it,
-                            editTextName.text.toString(),
-                            editTextSurname.text.toString(),
-                            editTextEmail.text.toString()
-                        )
-                        FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
-                            override fun onSuccess(res: Boolean) {
-                                LocalDatabase.saveUser(userToBeWritten)
-                            }
-
-                            override fun onError() {
-                                Utils.buildAlertDialog(
-                                    context,
-                                    context.getString(R.string.networkError),
-                                    context.getString(R.string.message_title)
-                                ).show()
-                            }
-
-                        })
-                    }
+                    dismiss()
                 }
-                dismiss()
             }
             dialog.show()
+
         }
     }
 

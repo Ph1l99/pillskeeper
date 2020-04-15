@@ -292,19 +292,15 @@ object Utils {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 val intent =
-                    Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(context.getString(R.string.query_location))
-                    )
+                    Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.query_location)))
                 intent.setPackage("com.google.android.apps.maps")
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
 
             }
         } else {
             // Make a request for foreground-only location access.
-            ActivityCompat.requestPermissions(
-                activity,
-                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
+            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
             )
         }
     }

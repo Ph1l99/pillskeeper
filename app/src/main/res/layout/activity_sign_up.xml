@@ -27,44 +27,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordField"/>
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <EditText
         android:id="@+id/mailField"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
-
         android:hint="@string/signup_email"
+        android:textColorHighlight="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/passwordField"
         app:layout_constraintEnd_toEndOf="@+id/passwordField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/surnameField"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
 
     <EditText
         android:id="@+id/nameField"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:hint="@string/signup_name"
+        android:textColorHighlight="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/surnameField"
         app:layout_constraintEnd_toEndOf="@+id/surnameField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/surnameField"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/surnameField"
         android:layout_width="250sp"
         android:layout_height="wrap_content"
         android:hint="@string/signup_surname"
+        android:textColorHighlight="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/mailField"
         app:layout_constraintEnd_toEndOf="@+id/mailField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/mailField"
-        app:layout_constraintTop_toBottomOf="@+id/nameField"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <EditText
         android:id="@+id/passwordField"
@@ -72,11 +71,11 @@
         android:layout_height="wrap_content"
         android:hint="@string/signup_password"
         android:inputType="textPassword"
+        android:textColorHighlight="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/signupButton"
         app:layout_constraintEnd_toEndOf="@+id/signupButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/signupButton"
-        app:layout_constraintTop_toBottomOf="@+id/mailField"
-        android:textColorHighlight="@color/colorPrimaryDark"/>
+        app:layout_constraintTop_toBottomOf="@+id/mailField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,6 +67,7 @@ object FirebaseAuthenticationManager {
     }
 
     fun resetPassword(email: String, callback: Callback) {
+        auth.setLanguageCode("it")
         auth.sendPasswordResetEmail(email).addOnCompleteListener {
             if (it.isSuccessful) {
                 callback.onSuccess(true)

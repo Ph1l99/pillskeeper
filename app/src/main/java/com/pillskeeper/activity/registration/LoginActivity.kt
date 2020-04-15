@@ -2,6 +2,7 @@ package com.pillskeeper.activity.registration
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -37,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             login()
         }
+        val textView = findViewById<TextView>(R.id.resetPassordTextView)
         resetPassordTextView.setOnClickListener {
+            resetPassordTextView.isClickable = false
             resetPassword()
         }
     }
@@ -48,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
                 this@LoginActivity,
                 getString(R.string.error_values),
                 getString(R.string.message_title)
-            )
+            ).show()
         } else {
             FirebaseAuthenticationManager.resetPassword(
                 emailLogin.text.toString(),
@@ -58,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
                             this@LoginActivity,
                             getString(R.string.emailPassword),
                             getString(R.string.message_title)
-                        )
+                        ).show()
                     }
 
                     override fun onError() {
@@ -66,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
                             this@LoginActivity,
                             getString(R.string.emailPassword),
                             getString(R.string.message_title)
-                        )
+                        ).show()
                     }
 
                 })

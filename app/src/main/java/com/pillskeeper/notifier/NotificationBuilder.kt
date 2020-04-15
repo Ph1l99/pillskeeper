@@ -18,6 +18,7 @@ import java.util.*
 object NotificationBuilder {
 
     private var notificationManager : NotificationManager? = getSystemService(context, NotificationManager::class.java)
+    private const val NOTIFICATION_CHANNEL_ID = "6081945"
 
     init {
         createNotificationChannel()
@@ -84,7 +85,7 @@ object NotificationBuilder {
             val name = "channelPillsKeeper"
             val descriptionText = "Channel used for PillsKeeper"
             val importance = NotificationManager.IMPORTANCE_HIGH//IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(2020.toString(), name, importance).apply {
+            val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance).apply {
                 description = descriptionText
                 lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             }

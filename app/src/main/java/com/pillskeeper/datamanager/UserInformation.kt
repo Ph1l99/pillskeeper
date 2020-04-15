@@ -303,7 +303,13 @@ object UserInformation {
         return false
     }
 
-
+    @Synchronized fun erase() {
+        friends = LinkedList()
+        appointments = LinkedList()
+        medicines = LinkedList()
+        user = null
+        LocalDatabase.erase()
+    }
 
 
 }

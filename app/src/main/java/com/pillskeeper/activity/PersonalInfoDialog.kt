@@ -4,21 +4,18 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
 import com.pillskeeper.R
 import com.pillskeeper.activity.registration.LoginDialog
 import com.pillskeeper.data.User
-import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
-import com.pillskeeper.datamanager.UserInformation.user
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.interfaces.FirebaseUserCallback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_personal_info.*
 
 class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
+
 
     private lateinit var auth: FirebaseAuth
     private lateinit var user: User

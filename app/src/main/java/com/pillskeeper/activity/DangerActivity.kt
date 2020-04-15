@@ -9,6 +9,7 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.registration.LoginActivity
 import com.pillskeeper.activity.registration.LoginDialog
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_danger.*
@@ -51,6 +52,7 @@ class DangerActivity : AppCompatActivity() {
                     Firebase.functions.getHttpsCallable("deleteUser")
                         .call(map)
                     FirebaseAuthenticationManager.signOut()
+                    UserInformation.erase()
                     startActivity(Intent(this, LoginActivity::class.java))
                     finish()
                 } else {

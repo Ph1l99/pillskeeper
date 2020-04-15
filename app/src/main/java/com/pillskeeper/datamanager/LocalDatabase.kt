@@ -132,4 +132,11 @@ object LocalDatabase {
 
         Log.i(Log.DEBUG.toString(), "LocalDatabase: saveAppointmentList() - Ended")
     }
+
+    fun erase() {
+        with(sharedPref?.edit()){
+            //this?.clear()?.commit()
+            this?.apply()
+        }
+    }
 }

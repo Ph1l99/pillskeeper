@@ -114,9 +114,13 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
         textViewNext.setOnClickListener {
             if(dateSelected != null && dateSelected!! > Date()){
+                /*
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
                 cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
+                */
+                FormAdapter.startDay = dateSelected
+                FormAdapter.finishDay = dateSelected
 
                 FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
                 FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
@@ -147,15 +151,6 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
         val arrayAdapterMinutes = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, minutesArray)
         arrayAdapterMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         minutesReminderSpinner.adapter = arrayAdapterMinutes
-
-
-        val qtyArray = ArrayList<String>()
-        for (i in 0..10)
-            qtyArray.add("${i/2F}")
-
-        val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
-        arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        //dosageQtyReminder.adapter = arrayAdapterDosage
 
     }
 }

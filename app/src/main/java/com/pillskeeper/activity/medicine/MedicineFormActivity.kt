@@ -29,10 +29,11 @@ class MedicineFormActivity : AppCompatActivity() {
 
         FormAdapter.resetForm()
 
-        viewPager = NoSlideViewPager(this)
+        viewPager = NoSlideViewPager(this)//TODO controllare il caso in cui si ha una nuova medicina
         viewPager.id = VIEW_PAGER_ID
         relativeLayout.addView(viewPager)
         val introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)
+        FormAdapter.isANewMedicine = true
         viewPager.adapter = introAdapter
 
         FormAdapter.formActivity = this

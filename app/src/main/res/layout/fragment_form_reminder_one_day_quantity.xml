@@ -45,7 +45,7 @@
         android:textSize="24sp"/>
 
     <EditText
-        android:id="@+id/reminderAddNotesEditT"
+        android:id="@+id/reminderAddNotesEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -87,8 +87,7 @@
             android:focusable="true"
             android:gravity="bottom|end"
             android:text="@string/saveButton"
-            android:textSize="20sp"
-            android:visibility="invisible"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 

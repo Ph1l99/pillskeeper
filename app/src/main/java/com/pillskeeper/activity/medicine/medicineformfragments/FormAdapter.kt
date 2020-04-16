@@ -53,6 +53,10 @@ class FormAdapter(
         var reminderMinute: Int = 0
         var reminderQuantity: Float = 0.0F
         var reminderNotes: String = ""
+        var startDay: Date? = null
+        var finishDay: Date? = null
+
+        var isANewMedicine: Boolean = true
 
         fun resetForm() {
             formActivity = null
@@ -67,6 +71,9 @@ class FormAdapter(
             reminderMinute = 0
             reminderQuantity = 0.0F
             reminderNotes = ""
+            startDay = null
+            finishDay = null
+            isANewMedicine = true
         }
 
         fun closeForm() {
@@ -143,8 +150,8 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, null)
-            FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag()
+            FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, pillName)
+            FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag(viewPager, pillName)
             FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, null)
             else -> FormNameTypeFragment(intent, viewPager)
         }

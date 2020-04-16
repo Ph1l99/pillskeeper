@@ -34,6 +34,7 @@ class EditReminderActivity : AppCompatActivity() {
     private lateinit var reminderAddNotes       : EditText
     private lateinit var dosageSpinner          : Spinner
     private lateinit var checkBox               : HashMap<String,CheckBox>
+    private lateinit var saveTextView           : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -210,11 +211,11 @@ class EditReminderActivity : AppCompatActivity() {
         if(reminder.isSingleDayRem()) {
             setContentView(R.layout.fragment_day_reminder_time)
             buttonDateReminder = findViewById(R.id.buttonDateReminder)
-            //saveTextView = findViewById(R.id.saveButtonReminder)
+            saveTextView = findViewById(R.id.textViewSave)
             abortTextView = findViewById(R.id.textViewAbort)
             hourSpinner = findViewById(R.id.hourReminderSpinner)
             minuteSpinner = findViewById(R.id.minutesReminderSpinner)
-            reminderAddNotes = findViewById(R.id.reminderAddNotesEditT)
+            reminderAddNotes = findViewById(R.id.reminderAddNotesEdit)
             dosageSpinner = findViewById(R.id.dosageQtyReminder)
         } else {
             setContentView(R.layout.fragment_form_seq_reminder_days)

@@ -31,14 +31,18 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
 
         fragType = intent.getBooleanExtra(ReminderChooseDialog.FRAG_TYPE,false)
         medName = intent.getStringExtra(ReminderChooseDialog.MED_NAME)
+
         val adapter = FormAdapter(supportFragmentManager, intent, viewPager)
+        /*Queste due istruzion i inizializzano il form con una medicina che è gia stat inserita*/
+        FormAdapter.isANewMedicine = false
+        FormAdapter.pillName = medName
         viewPager.adapter = adapter
 
 
         if(fragType)
             viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
         else
-            FormReminderSeqFrag(viewPager, medName)//TODO check viewPager
+            viewPager.currentItem = FormAdapter.FORM_SEQ_REMINDER
 
         /*
         val transaction = supportFragmentManager.beginTransaction()

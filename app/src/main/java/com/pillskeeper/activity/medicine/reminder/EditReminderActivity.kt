@@ -27,7 +27,7 @@ class EditReminderActivity : AppCompatActivity() {
 
 
     private lateinit var saveButton             : Button
-    private lateinit var abortButton            : Button
+    private lateinit var abortTextView          : TextView
     private lateinit var buttonDateReminder     : Button
     private lateinit var hourSpinner            : Spinner
     private lateinit var minuteSpinner          : Spinner
@@ -117,7 +117,7 @@ class EditReminderActivity : AppCompatActivity() {
         }
 
 
-        abortButton.setOnClickListener {
+        abortTextView.setOnClickListener {
             finish()
         }
 
@@ -208,10 +208,10 @@ class EditReminderActivity : AppCompatActivity() {
 
     private fun initializeForm(){
         if(reminder.isSingleDayRem()) {
-            setContentView(R.layout.fragment_day_reminder)
+            setContentView(R.layout.fragment_day_reminder_time)
             buttonDateReminder = findViewById(R.id.buttonDateReminder)
-            saveButton = findViewById(R.id.saveButtonReminder)
-            abortButton = findViewById(R.id.abortButtonReminder)
+            //saveTextView = findViewById(R.id.saveButtonReminder)
+            abortTextView = findViewById(R.id.textViewAbort)
             hourSpinner = findViewById(R.id.hourReminderSpinner)
             minuteSpinner = findViewById(R.id.minutesReminderSpinner)
             reminderAddNotes = findViewById(R.id.reminderAddNotesEditT)
@@ -220,7 +220,7 @@ class EditReminderActivity : AppCompatActivity() {
             setContentView(R.layout.fragment_form_seq_reminder_days)
             buttonDateReminder = findViewById(R.id.buttonDateStart)
             saveButton = findViewById(R.id.saveButtonReminderSeq)
-            abortButton = findViewById(R.id.abortButtonReminderSeq)
+            abortTextView = findViewById(R.id.abortButtonReminderSeq)
             hourSpinner = findViewById(R.id.spinnerHoursRem2)
             minuteSpinner = findViewById(R.id.spinnerMinutesRem2)
             reminderAddNotes = findViewById(R.id.editTextAddNotesRem)

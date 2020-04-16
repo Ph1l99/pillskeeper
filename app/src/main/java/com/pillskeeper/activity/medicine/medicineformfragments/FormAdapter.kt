@@ -8,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.common.hash.Hashing
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayQuantityFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayTimeFrag
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
@@ -25,7 +26,7 @@ import java.util.*
 class FormAdapter(
     fm: FragmentManager,
     private val intent: Intent,
-    private val viewPager: MedicineViewPager
+    private val viewPager: NoSlideViewPager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     companion object {
@@ -33,8 +34,9 @@ class FormAdapter(
         const val FORM_QUANTITY = 1
         const val FORM_SAVE_OR_REMINDER = 2
         const val FORM_EDIT = 3
-        const val FORM_ONE_DAY_REMINDER = 4
-        const val FORM_SEQ_REMINDER = 5
+        const val FORM_ONE_DAY_REMINDER_TIME = 4
+        const val FORM_ONE_DAY_REMINDER_QUANTITY = 5
+        const val FORM_SEQ_REMINDER = 6
 
         var pillName: String? = null
         var medicineType: MedicineTypeEnum? = null
@@ -47,6 +49,11 @@ class FormAdapter(
 
         var formActivity: Activity? = null
 
+        var reminderHour: Int = 0
+        var reminderMinute: Int = 0
+        var reminderQuantity: Float = 0.0F
+        var reminderNotes: String = ""
+
         fun resetForm() {
             formActivity = null
             localMedicine = null
@@ -56,6 +63,10 @@ class FormAdapter(
             totalQuantity = 0.0F
             remainingQuantity = 0.0F
             reminderList = null
+            reminderHour = 0
+            reminderMinute = 0
+            reminderQuantity = 0.0F
+            reminderNotes = ""
         }
 
         fun closeForm() {
@@ -132,7 +143,8 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER -> FormReminderOneDayFrag(viewPager, null)
+            FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, null)
+            FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag()
             FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, null)
             else -> FormNameTypeFragment(intent, viewPager)
         }

@@ -11,7 +11,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 
-class FormQuantityFragment(private val viewPager: MedicineViewPager) : Fragment() {
+class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment() {
 
     lateinit var textViewNext: TextView
     lateinit var textViewBack: TextView

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.medicineformfragments.MedicineViewPager
+import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.RemoteMedicine
 import kotlinx.android.synthetic.main.activity_pills_form.*
@@ -21,7 +21,7 @@ class MedicineFormActivity : AppCompatActivity() {
         const val VIEW_PAGER_ID = 2020
     }
 
-    lateinit var viewPager: MedicineViewPager
+    lateinit var viewPager: NoSlideViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class MedicineFormActivity : AppCompatActivity() {
 
         FormAdapter.resetForm()
 
-        viewPager = MedicineViewPager(this)
+        viewPager = NoSlideViewPager(this)
         viewPager.id = VIEW_PAGER_ID
         relativeLayout.addView(viewPager)
         val introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)

@@ -7,10 +7,10 @@ import android.os.Bundle
 import android.view.Window
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.medicineformfragments.MedicineViewPager
+import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import kotlinx.android.synthetic.main.dialog_choose_reminder.*
 
-class ReminderChooseDialog(context: Context, private val viewPager: MedicineViewPager? = null, private val medName: String? = null): Dialog(context) {
+class ReminderChooseDialog(context: Context, private val viewPager: NoSlideViewPager? = null, private val medName: String? = null): Dialog(context) {
 
     //actionType: TRUE=OneDay       FALSE=SeqDay
     companion object{
@@ -30,7 +30,7 @@ class ReminderChooseDialog(context: Context, private val viewPager: MedicineView
 
         buttonDayFixed.setOnClickListener {
             if (viewPager != null)
-                viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER
+                viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
             else
                 context.startActivity(
                     Intent(context,AddNewReminderFromListActivity::class.java)

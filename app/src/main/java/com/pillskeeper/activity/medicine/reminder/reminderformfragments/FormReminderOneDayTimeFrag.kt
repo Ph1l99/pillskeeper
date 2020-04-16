@@ -19,20 +19,14 @@ import com.pillskeeper.utility.Utils
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FormReminderOneDayFrag(
-    private val viewPager: ViewPager?,
-    private val medName: String?
-) : Fragment()  {
+class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val medName: String?) : Fragment()  {
 
     private var dateSelected: Date? = null
 
     private lateinit var buttonDateReminder: Button
-    private lateinit var abortButtonReminder: Button
-    private lateinit var saveButtonReminder: Button
     private lateinit var hourReminderSpinner: Spinner
     private lateinit var minutesReminderSpinner: Spinner
-    private lateinit var dosageQtyReminder: Spinner
-    private lateinit var reminderAddNotesEditT: EditText
+    private lateinit var textViewNext: TextView
 
 
     override fun onCreateView(
@@ -40,15 +34,12 @@ class FormReminderOneDayFrag(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_day_reminder, container, false)
+        val view = inflater.inflate(R.layout.fragment_day_reminder_time, container, false)
 
         buttonDateReminder = view.findViewById(R.id.buttonDateReminder)
-        abortButtonReminder = view.findViewById(R.id.abortButtonReminder)
-        saveButtonReminder = view.findViewById(R.id.saveButtonReminder)
         hourReminderSpinner = view.findViewById(R.id.hourReminderSpinner)
         minutesReminderSpinner = view.findViewById(R.id.minutesReminderSpinner)
-        dosageQtyReminder = view.findViewById(R.id.dosageQtyReminder)
-        reminderAddNotesEditT = view.findViewById(R.id.reminderAddNotesEditT)
+        textViewNext = view.findViewById(R.id.textViewNext)
 
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
@@ -74,6 +65,7 @@ class FormReminderOneDayFrag(
             }, year, month, day).show()
         }
 
+        /*
         saveButtonReminder.setOnClickListener {
 
             if(dateSelected != null && dosageQtyReminder.selectedItem.toString().toFloat() > 0){
@@ -117,11 +109,25 @@ class FormReminderOneDayFrag(
             }
         }
 
-        abortButtonReminder.setOnClickListener {
-            if(viewPager != null)
-                viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-            else
-                activity?.finish()
+         */
+
+
+        textViewNext.setOnClickListener {
+            if(dateSelected != null && dateSelected!! > Date()){
+                cal.time = dateSelected!!
+                cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
+                cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
+
+                FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
+                FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
+
+                if(viewPager != null){
+                    viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
+                }
+
+            } else {
+                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
+            }
         }
 
         return view
@@ -149,7 +155,7 @@ class FormReminderOneDayFrag(
 
         val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
         arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        dosageQtyReminder.adapter = arrayAdapterDosage
+        //dosageQtyReminder.adapter = arrayAdapterDosage
 
     }
 }

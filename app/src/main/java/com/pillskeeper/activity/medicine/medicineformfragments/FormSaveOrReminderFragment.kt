@@ -14,7 +14,7 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import java.util.*
 
-class FormSaveOrReminderFragment(private val viewPager: MedicineViewPager) : Fragment() {
+class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Fragment() {
 
     private lateinit var textViewBack: TextView
     private lateinit var textViewConfirm: TextView

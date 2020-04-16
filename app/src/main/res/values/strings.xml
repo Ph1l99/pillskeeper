@@ -144,11 +144,11 @@
     <string name="reminderList">Promemoria Inseriti: </string>
     <string name="dialogChooseReminderText">Il promemoria si ripete nel tempo?</string>
     <string name="no" translatable="false">No</string>
-    <string name="selectSpecificDateReminder">Seleziona la data: </string>
+    <string name="selectSpecificDateReminder">Seleziona il giorno in cui vuoi ricevere l\'avviso</string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
-    <string name="dosageReminder">Quantità da assumere:</string>
+    <string name="dosageReminder">Seleziona la quantità da assumere</string>
     <string name="_0">0</string>
-    <string name="or">Oppure</string>
+    <string name="or">Oppure premi salva per continuare</string>
     <string name="additionalNotes">Note Addizionali:</string>
     <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
 
@@ -168,6 +168,7 @@
 
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
+    <string name="addNoteTitle">Aggiungi eventuali note al promemoria</string>
 
 
 </resources>

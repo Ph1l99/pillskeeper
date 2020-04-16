@@ -21,7 +21,7 @@ import com.pillskeeper.activity.medicine.TextReaderActivity
 import com.pillskeeper.enums.MedicineTypeEnum
 
 
-class FormNameTypeFragment(private val intent: Intent, viewPager: MedicineViewPager) : Fragment() {
+class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPager) : Fragment() {
 
     private val viewPager: ViewPager = viewPager
 

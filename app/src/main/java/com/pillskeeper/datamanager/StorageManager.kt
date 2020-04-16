@@ -2,14 +2,8 @@ package com.pillskeeper.datamanager
 
 import android.util.Log
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
-import com.google.firebase.storage.ktx.storageMetadata
-import com.pillskeeper.enums.ErrorTypeEnum
-import java.io.File
-import java.io.FileInputStream
 
 object StorageManager {
     private lateinit var storageReferenceRoot: StorageReference
@@ -29,6 +23,7 @@ object StorageManager {
      * @param image L'oggetto che rappresenta l'immagine
      * @return Un oggetto Pair contenente l'esito dell'operazione e il tipo di errore ricevuto
      */
+    /*
     fun uploadImage(image: FileInputStream, imageName: String): Pair<ErrorTypeEnum?, Boolean>? {
         Log.i(Log.DEBUG.toString(), "uploadImage()-Started")
         var resultUpload: Pair<ErrorTypeEnum?, Boolean>?
@@ -43,5 +38,5 @@ object StorageManager {
         }
         Log.i(Log.DEBUG.toString(), "uploadImage()-Ended")
         return resultUpload
-    }
+    }*/
 }

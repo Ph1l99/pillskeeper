@@ -65,7 +65,7 @@ object FirebaseDatabaseManager {
         databaseReference.child(PATH_USERS).child(userId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    firebaseUserCallback.onCallback(User.fromMap(p0.value as Map<String, String>))
+                    firebaseUserCallback.onCallback(User.getUserFromMap(p0.value as Map<String, String>))
                 }
 
                 override fun onCancelled(p0: DatabaseError) {

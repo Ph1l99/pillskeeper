@@ -115,7 +115,7 @@ class LoginActivity : AppCompatActivity() {
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         @Suppress("UNCHECKED_CAST")
-                        LocalDatabase.saveUser(User.fromMap(p0.value as Map<String, String>))
+                        LocalDatabase.saveUser(User.getUserFromMap(p0.value as Map<String, String>))
                     }
 
                     override fun onCancelled(p0: DatabaseError) {

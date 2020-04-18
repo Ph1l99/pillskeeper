@@ -113,7 +113,6 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                 )
                 if(FormAdapter.isANewMedicine){       //caso in cui la medicina è appena stata inserita
                     FormAdapter.addReminder(reminder)
-                    activity?.finish()
                     viewPager?.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {                             //caso in cui la medicina è stata inserita in passato
                     if (UserInformation.addNewReminder(medName!!,reminder)) {
@@ -132,7 +131,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                     }
                 }
             } else {
-                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
+                Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
             }
         }
 

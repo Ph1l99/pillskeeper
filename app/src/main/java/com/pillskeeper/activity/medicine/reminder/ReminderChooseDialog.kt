@@ -10,7 +10,7 @@ import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import kotlinx.android.synthetic.main.dialog_choose_reminder.*
 
-class ReminderChooseDialog(context: Context, private val viewPager: NoSlideViewPager? = null, private val medName: String? = null): Dialog(context) {
+class ReminderChooseDialog(context: Context, private val viewPager: NoSlideViewPager? , private val medName: String? = null): Dialog(context) {
 
     //actionType: TRUE=OneDay       FALSE=SeqDay
     companion object{

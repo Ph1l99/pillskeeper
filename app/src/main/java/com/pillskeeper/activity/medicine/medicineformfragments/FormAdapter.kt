@@ -133,11 +133,11 @@ class FormAdapter(
         private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
             FirebaseDatabaseManager.writeMedicine(remoteMedicine, object : Callback {
                 override fun onSuccess(res: Boolean) {
-                    TODO("Not yet implemented")
+                    //TODO da implementare
                 }
 
                 override fun onError() {
-                    TODO("Not yet implemented")
+                    //TODO da implementare
                 }
 
             })

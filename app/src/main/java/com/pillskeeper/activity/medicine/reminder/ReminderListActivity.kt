@@ -35,6 +35,7 @@ class ReminderListActivity : AppCompatActivity() {
         }
     }
 
+
     override fun onResume() {
         super.onResume()
 

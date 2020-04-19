@@ -130,6 +130,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
             FormAdapter.reminderNotes = reminderAddNotesEdit.toString()
 
             if (dosageQtyReminder.selectedItem.toString().toFloat() > 0) {
+
                 val newReminder = ReminderMedicine(
                     FormAdapter.reminderQuantity,
                     FormAdapter.reminderMinute,
@@ -139,6 +140,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                     FormAdapter.finishDay,
                     FormAdapter.reminderNotes
                 )
+
                 if (FormAdapter.isANewMedicine) {       //caso in cui la medicina è appena stata inserita
                     FormAdapter.addReminder(newReminder)
                     viewPager?.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
@@ -168,26 +170,27 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                                     it
                                 )
                             }
-                        } else if (UserInformation.addNewReminder(medName, newReminder)) {
-                            Utils.getSingleReminderListNormalized(
-                                medName,
-                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
-                                newReminder
-                            ).forEach {
-                                NotifyPlanner.planSingleAlarm(
-                                    requireActivity(),
-                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                    it
-                                )
-                            }
-                            activity?.finish()
-                        } else {
-                            Toast.makeText(
-                                UserInformation.context,
-                                "Per favore inserire informazioni corrette!",
-                                Toast.LENGTH_LONG
-                            ).show()
                         }
+
+                    } else if (UserInformation.addNewReminder(medName!!, newReminder)) {
+                        Utils.getSingleReminderListNormalized(
+                            medName,
+                            UserInformation.getSpecificMedicine(medName)!!.medicineType,
+                            newReminder
+                        ).forEach {
+                            NotifyPlanner.planSingleAlarm(
+                                requireActivity(),
+                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                it
+                            )
+                        }
+                        activity?.finish()
+                    } else {
+                        Toast.makeText(
+                            UserInformation.context,
+                            "Per favore inserire informazioni corrette!",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
                 }
             }

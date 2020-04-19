@@ -141,14 +141,14 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
                         FormAdapter.startDay = cal.time
                         FormAdapter.finishDay = cal.time
 
-
-
                         FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
                         FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
 
                         if (viewPager != null) {
                             viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
                         }
+                    } else {
+                        Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
                     }
 
             } else {

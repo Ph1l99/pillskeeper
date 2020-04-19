@@ -1,24 +1,12 @@
 package com.pillskeeper.activity.medicine.reminder
 
-import android.app.AlarmManager
-import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.DaysEnum
-import com.pillskeeper.notifier.NotifyPlanner
-import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_edit_reminder.*
-import kotlinx.android.synthetic.main.fragment_form_seq_reminder_days.*
-import java.util.*
-import kotlin.collections.HashMap
 
 
 class EditReminderActivity : AppCompatActivity() {
@@ -37,7 +25,7 @@ class EditReminderActivity : AppCompatActivity() {
         reminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
         medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
-        var viewPager = NoSlideViewPager(this)//TODO check viewPager
+        val viewPager = NoSlideViewPager(this)//TODO check viewPager
         viewPager.id = VIEW_PAGER_REMINDER_ID
         relativeLayout.addView(viewPager)
 

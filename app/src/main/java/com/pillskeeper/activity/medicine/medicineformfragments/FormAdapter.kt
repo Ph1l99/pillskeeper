@@ -68,14 +68,8 @@ class FormAdapter(
             totalQuantity = 0.0F
             remainingQuantity = 0.0F
             reminderList = null
-            reminderHour = 0
-            reminderMinute = 0
-            reminderQuantity = 0.0F
-            reminderNotes = ""
-            startDay = null
-            finishDay = null
             isANewMedicine = true
-            isAReminderEditing = false
+            resetReminder()
         }
 
         fun resetReminder() {

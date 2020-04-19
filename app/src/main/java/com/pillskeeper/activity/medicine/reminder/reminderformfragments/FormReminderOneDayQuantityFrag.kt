@@ -158,7 +158,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                             }
 
                             Utils.getSingleReminderListNormalized(
-                                medName!!,
+                                medName,
                                 UserInformation.getSpecificMedicine(medName)!!.medicineType,
                                 newReminder
                             ).forEach {

@@ -131,27 +131,23 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
 
         textViewNext.setOnClickListener {
-            val calTemp = Calendar.getInstance()
-            calTemp.time = Date()
-            calTemp.set(Calendar.HOUR_OF_DAY, 0)
-            calTemp.set(Calendar.MINUTE, 0)
-            calTemp.set(Calendar.SECOND, 0)
-            calTemp.set(Calendar.MILLISECOND, 0)
-            if(dateSelected != null && dateSelected!! >= calTemp.time){
-                /*
+            if(dateSelected != null) {
+
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
                 cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
-                */
-                FormAdapter.startDay = dateSelected
-                FormAdapter.finishDay = dateSelected
 
-                FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
-                FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
+                    if(dateSelected!! >= cal.time) {
+                        FormAdapter.startDay = cal.time
+                        FormAdapter.finishDay = cal.time
 
-                if(viewPager != null){
-                    viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
-                }
+                        FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
+                        FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
+
+                        if (viewPager != null) {
+                            viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
+                        }
+                    }
 
             } else {
                 Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()

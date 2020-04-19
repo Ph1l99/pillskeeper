@@ -125,11 +125,10 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         }
 
         saveTextReminder.setOnClickListener {
-
-            FormAdapter.reminderQuantity = dosageQtyReminder.selectedItem.toString().toFloat()
-            FormAdapter.reminderNotes = reminderAddNotesEdit.toString()
+            FormAdapter.reminderNotes = reminderAddNotesEdit.text.toString()
 
             if (dosageQtyReminder.selectedItem.toString().toFloat() > 0) {
+                FormAdapter.reminderQuantity = dosageQtyReminder.selectedItem.toString().toFloat()
 
                 val newReminder = ReminderMedicine(
                     FormAdapter.reminderQuantity,

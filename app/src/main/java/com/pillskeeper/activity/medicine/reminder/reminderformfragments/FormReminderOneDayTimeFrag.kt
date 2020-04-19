@@ -137,7 +137,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
             calTemp.set(Calendar.MINUTE, 0)
             calTemp.set(Calendar.SECOND, 0)
             calTemp.set(Calendar.MILLISECOND, 0)
-            if(dateSelected != null && dateSelected!! > calTemp.time){
+            if(dateSelected != null && dateSelected!! >= calTemp.time){
                 /*
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
@@ -163,7 +163,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
     private fun initSpinner(){
 
-        val arrayAdapterHours = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, ReminderActivity.hours)
+        val arrayAdapterHours = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         hourReminderSpinner.adapter = arrayAdapterHours
 

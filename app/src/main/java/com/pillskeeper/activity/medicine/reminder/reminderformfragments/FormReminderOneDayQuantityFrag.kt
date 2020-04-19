@@ -147,11 +147,11 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
 
                         val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
                             medName!!,
-                            UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                            UserInformation.getSpecificMedicine(medName)!!.medicineType,
                             oldReminder?.copy()!!
                         )
 
-                        if (UserInformation.editReminder(medName!!, oldReminder!!, newReminder)) {
+                        if (UserInformation.editReminder(medName, oldReminder!!, newReminder)) {
 
                             reminderListNormalizedOld.forEach {
                                 NotifyPlanner.remove(activity?.applicationContext!!, it)
@@ -159,7 +159,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
 
                             Utils.getSingleReminderListNormalized(
                                 medName!!,
-                                UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
                                 newReminder
                             ).forEach {
                                 NotifyPlanner.planSingleAlarm(
@@ -168,7 +168,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                                     it
                                 )
                             }
-                        } else if (UserInformation.addNewReminder(medName!!, newReminder)) {
+                        } else if (UserInformation.addNewReminder(medName, newReminder)) {
                             Utils.getSingleReminderListNormalized(
                                 medName,
                                 UserInformation.getSpecificMedicine(medName)!!.medicineType,

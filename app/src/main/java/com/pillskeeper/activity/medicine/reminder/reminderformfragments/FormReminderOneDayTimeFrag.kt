@@ -1,8 +1,6 @@
 package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
-import android.app.AlarmManager
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,7 +45,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
         initSpinner()
 
         buttonDateReminder.setOnClickListener {
-            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)
@@ -139,7 +135,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
     private fun initSpinner(){
 
-        val arrayAdapterHours = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, ReminderActivity.hours)
+        val arrayAdapterHours = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, Utils.hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         hourReminderSpinner.adapter = arrayAdapterHours
 

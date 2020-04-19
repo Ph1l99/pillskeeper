@@ -131,16 +131,18 @@ class FormAdapter(
          * Method for writing the medicine on Firebase DB
          */
         private fun writeMedOnDB(remoteMedicine: RemoteMedicine) {
-            FirebaseDatabaseManager.writeMedicine(remoteMedicine, object : Callback {
-                override fun onSuccess(res: Boolean) {
-                    //TODO da implementare
-                }
+            FirebaseDatabaseManager.writeMedicine(
+                remoteMedicine,
+                object : Callback {
+                    override fun onSuccess(res: Boolean) {
+                        //TODO da implementare
+                    }
 
-                override fun onError() {
-                    //TODO da implementare
+                    override fun onError() {
+                        //TODO da implementare
+                    }
                 }
-
-            })
+            )
         }
     }
 

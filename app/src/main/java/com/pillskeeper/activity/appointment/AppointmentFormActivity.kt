@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.notifier.NotifyPlanner
@@ -115,9 +114,12 @@ class AppointmentFormActivity : AppCompatActivity() {
         val cal = Calendar.getInstance()
         minuteArray = LinkedList()
         val arrayAdapterHours: Any
+
         if(appointment == null || isEditing) {
-            arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, ReminderActivity.hours)
-            minuteArray = LinkedList(ReminderActivity.minutes)
+            for (i in 0..12)
+                minuteArray.add(if(i < 2) "0${i*5}" else "${i*5}")
+            arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, Utils.hours)
+            minuteArray = LinkedList(minuteArray)
         } else {
             val hour = LinkedList<String>()
             cal.time = appointment!!.date
@@ -146,7 +148,7 @@ class AppointmentFormActivity : AppCompatActivity() {
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
             cal.set(Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
-            cal.set(Calendar.HOUR_OF_DAY,ReminderActivity.hours[hourSpinnerAppointment.selectedItemPosition].toInt())
+            cal.set(Calendar.HOUR_OF_DAY,Utils.hours[hourSpinnerAppointment.selectedItemPosition].toInt())
             val newAppointment = Appointment(
                 appointmentNameTV.text.toString(),
                 cal.time,
@@ -161,7 +163,11 @@ class AppointmentFormActivity : AppCompatActivity() {
                     )
                     finish()
                 } else {
-                    Toast.makeText(this, "Appuntamento già presente!", Toast.LENGTH_LONG).show()
+                    Utils.buildAlertDialog(
+                        this,
+                        "appointment already existing",
+                        getString(R.string.message_title)
+                    )
                 }
             } else {
                 if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
@@ -173,7 +179,11 @@ class AppointmentFormActivity : AppCompatActivity() {
                     )
                     finish()
                 } else {
-                    Toast.makeText(this, "Appuntamento non modificato!", Toast.LENGTH_LONG).show()
+                    Utils.buildAlertDialog(
+                        this,
+                        "appointment not created",
+                        getString(R.string.message_title)
+                    )
                 }
             }
 

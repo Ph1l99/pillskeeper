@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
@@ -278,7 +277,7 @@ class EditReminderActivity : AppCompatActivity() {
 
     private fun initSpinner(){
 
-        val arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, hours)
+        val arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, Utils.hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         hourSpinner.adapter = arrayAdapterHours
         hourSpinner.setSelection(reminder.hours)

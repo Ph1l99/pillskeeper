@@ -3,7 +3,6 @@ package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,18 +10,14 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.fragment_day_reminder_time.*
-import kotlinx.android.synthetic.main.fragment_form_reminder_one_day_quantity.*
-import org.w3c.dom.Text
 import java.util.*
 
 
@@ -180,7 +175,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                                 newReminder
                             ).forEach {
                                 NotifyPlanner.planSingleAlarm(
-                                    activity!!,
+                                    requireActivity(),
                                     activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                                     it
                                 )

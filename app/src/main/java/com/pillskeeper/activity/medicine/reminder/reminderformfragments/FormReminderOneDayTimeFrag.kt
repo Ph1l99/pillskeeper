@@ -1,8 +1,6 @@
 package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
-import android.app.AlarmManager
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
-import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.notifier.NotifyPlanner
-import com.pillskeeper.utility.Utils
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,7 +49,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
             FormAdapter.startDay = calEnd.time
             dateSelected = FormAdapter.startDay
 
-            val arrayAdapterHours = ArrayAdapter(activity?.applicationContext!!,android.R.layout.simple_spinner_item, hours)
+            val arrayAdapterHours = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, hours)
             arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             hourReminderSpinner.adapter = arrayAdapterHours
             hourReminderSpinner.setSelection(FormAdapter.reminderHour)
@@ -72,7 +67,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
         }
 
         buttonDateReminder.setOnClickListener {
-            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 cal.set(Calendar.YEAR, year)
@@ -136,7 +131,13 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
 
         textViewNext.setOnClickListener {
-            if(dateSelected != null && dateSelected!! > Date()){
+            val calTemp = Calendar.getInstance()
+            calTemp.time = Date()
+            calTemp.set(Calendar.HOUR_OF_DAY, 0)
+            calTemp.set(Calendar.MINUTE, 0)
+            calTemp.set(Calendar.SECOND, 0)
+            calTemp.set(Calendar.MILLISECOND, 0)
+            if(dateSelected != null && dateSelected!! > calTemp.time){
                 /*
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())

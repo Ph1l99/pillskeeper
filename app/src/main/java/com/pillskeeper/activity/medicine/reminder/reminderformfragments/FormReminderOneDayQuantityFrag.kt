@@ -53,21 +53,6 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                 FormAdapter.reminderNotes
             )
 
-            val qtyArray = ArrayList<String>()
-            for (i in 0..10)
-                qtyArray.add("${i / 2F}")
-
-            val arrayAdapterDosage = ArrayAdapter(
-                activity?.applicationContext!!,
-                android.R.layout.simple_spinner_item,
-                qtyArray
-            )
-            arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            dosageQtyReminder.adapter = arrayAdapterDosage
-            dosageQtyReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
-
-
-            //TODO controllare che non si spacchi
             reminderAddNotesEdit.text = FormAdapter.reminderNotes
         }
 
@@ -205,6 +190,8 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
         arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dosageQtyReminder.adapter = arrayAdapterDosage
+        if(FormAdapter.isAReminderEditing)
+            dosageQtyReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
     }
 
 }

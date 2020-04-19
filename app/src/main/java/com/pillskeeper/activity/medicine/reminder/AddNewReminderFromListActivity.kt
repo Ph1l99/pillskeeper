@@ -35,6 +35,7 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         val adapter = FormAdapter(supportFragmentManager, intent, viewPager)
         /*Queste due istruzion i inizializzano il form con una medicina che è gia stat inserita*/
         FormAdapter.isANewMedicine = false
+        FormAdapter.resetReminder()
         FormAdapter.pillName = medName
         viewPager.adapter = adapter
 

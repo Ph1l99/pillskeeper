@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.viewpager.widget.ViewPager
 
 import com.pillskeeper.R
@@ -31,6 +32,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
     private lateinit var textViewBack: TextView
     private lateinit var dosageQtyReminder: Spinner
     private lateinit var reminderAddNotesEdit: TextView
+    private var oldReminder: ReminderMedicine? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +45,36 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         textViewBack = view.findViewById(R.id.textViewBack)
         dosageQtyReminder = view.findViewById(R.id.dosageQtyReminder)
         reminderAddNotesEdit = view.findViewById(R.id.reminderAddNotesEdit)
+
+        if(FormAdapter.isAReminderEditing) {
+
+            oldReminder = ReminderMedicine(
+                FormAdapter.reminderQuantity,
+                FormAdapter.reminderMinute,
+                FormAdapter.reminderHour,
+                FormAdapter.startDay!!,
+                null,
+                FormAdapter.finishDay,
+                FormAdapter.reminderNotes
+            )
+
+            val qtyArray = ArrayList<String>()
+            for (i in 0..10)
+                qtyArray.add("${i / 2F}")
+
+            val arrayAdapterDosage = ArrayAdapter(
+                activity?.applicationContext!!,
+                android.R.layout.simple_spinner_item,
+                qtyArray
+            )
+            arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            dosageQtyReminder.adapter = arrayAdapterDosage
+            dosageQtyReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
+
+
+            //TODO controllare che non si spacchi
+            reminderAddNotesEdit.text = FormAdapter.reminderNotes
+        }
 
         initSpinner()
 
@@ -98,11 +130,12 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         }
 
         saveTextReminder.setOnClickListener {
+
             FormAdapter.reminderQuantity = dosageQtyReminder.selectedItem.toString().toFloat()
             FormAdapter.reminderNotes = reminderAddNotesEdit.toString()
 
-            if(dosageQtyReminder.selectedItem.toString().toFloat() > 0){
-                val reminder = ReminderMedicine(
+            if (dosageQtyReminder.selectedItem.toString().toFloat() > 0) {
+                val newReminder = ReminderMedicine(
                     FormAdapter.reminderQuantity,
                     FormAdapter.reminderMinute,
                     FormAdapter.reminderHour,
@@ -111,30 +144,59 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                     FormAdapter.finishDay,
                     FormAdapter.reminderNotes
                 )
-                if(FormAdapter.isANewMedicine){       //caso in cui la medicina è appena stata inserita
-                    FormAdapter.addReminder(reminder)
+                if (FormAdapter.isANewMedicine) {       //caso in cui la medicina è appena stata inserita
+                    FormAdapter.addReminder(newReminder)
                     viewPager?.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-                } else {                             //caso in cui la medicina è stata inserita in passato
-                    if (UserInformation.addNewReminder(medName!!,reminder)) {
-                        Utils.getSingleReminderListNormalized(
-                            medName,
-                            UserInformation.getSpecificMedicine(medName)!!.medicineType,
-                            reminder
-                        ).forEach {
-                            NotifyPlanner.planSingleAlarm(
-                                activity!!,
-                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                it
-                            )
+                } else {
+                    if (FormAdapter.isAReminderEditing) {   //caso in cui la medicina è stata inserita in passato
+
+                        val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
+                            medName!!,
+                            UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                            oldReminder?.copy()!!
+                        )
+
+                        if (UserInformation.editReminder(medName!!, oldReminder!!, newReminder)) {
+
+                            reminderListNormalizedOld.forEach {
+                                NotifyPlanner.remove(activity?.applicationContext!!, it)
+                            }
+
+                            Utils.getSingleReminderListNormalized(
+                                medName!!,
+                                UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                                newReminder
+                            ).forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    activity?.applicationContext!!,
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
+                            }
+                        } else if (UserInformation.addNewReminder(medName!!, newReminder)) {
+                            Utils.getSingleReminderListNormalized(
+                                medName,
+                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
+                                newReminder
+                            ).forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    activity!!,
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
+                            }
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(
+                                UserInformation.context,
+                                "Per favore inserire informazioni corrette!",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                        activity?.finish()
                     }
                 }
-            } else {
-                Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
             }
         }
-
         return view
     }
 

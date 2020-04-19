@@ -7,12 +7,15 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
+import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
+import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
+import kotlinx.android.synthetic.main.activity_edit_reminder.*
 import kotlinx.android.synthetic.main.fragment_form_seq_reminder_days.*
 import java.util.*
 import kotlin.collections.HashMap
@@ -20,28 +23,39 @@ import kotlin.collections.HashMap
 
 class EditReminderActivity : AppCompatActivity() {
 
+    val VIEW_PAGER_REMINDER_ID = 4040
+
     private lateinit var reminder               : ReminderMedicine
     private          var medName                : String? = null
-    private lateinit var startingDate           : Date
-    private          var expireDate             : Date? = null
 
-
-    private lateinit var saveButton             : Button
-    private lateinit var abortTextView          : TextView
-    private lateinit var buttonDateReminder     : Button
-    private lateinit var hourSpinner            : Spinner
-    private lateinit var minuteSpinner          : Spinner
-    private lateinit var reminderAddNotes       : EditText
-    private lateinit var dosageSpinner          : Spinner
-    private lateinit var checkBox               : HashMap<String,CheckBox>
-    private lateinit var saveTextView           : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_edit_reminder)
+
         reminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
         medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
+        var viewPager = NoSlideViewPager(this)//TODO check viewPager
+        viewPager.id = VIEW_PAGER_REMINDER_ID
+        relativeLayout.addView(viewPager)
+
+        val adapter = FormAdapter(supportFragmentManager, intent, viewPager)
+        FormAdapter.isANewMedicine = false
+        FormAdapter.resetReminder()
+        FormAdapter.pillName = medName
+        FormAdapter.startDay = reminder.startingDay
+        FormAdapter.finishDay = reminder.expireDate
+        FormAdapter.reminderHour = reminder.hours
+        FormAdapter.reminderMinute = reminder.minutes
+        FormAdapter.reminderQuantity = reminder.dosage
+        FormAdapter.reminderNotes = reminder.additionNotes
+        FormAdapter.isAReminderEditing = true
+        viewPager.adapter = adapter
+        viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
+
+        /*
         initializeForm()
         populateCommonFields()
         registerDateButtonAction()
@@ -117,10 +131,14 @@ class EditReminderActivity : AppCompatActivity() {
             }
         }
 
+        nextTextView.setOnClickListener {
 
-        abortTextView.setOnClickListener {
+        }
+
+        backTextView.setOnClickListener {
             finish()
         }
+
 
     }
 
@@ -211,17 +229,19 @@ class EditReminderActivity : AppCompatActivity() {
         if(reminder.isSingleDayRem()) {
             setContentView(R.layout.fragment_day_reminder_time)
             buttonDateReminder = findViewById(R.id.buttonDateReminder)
-            saveTextView = findViewById(R.id.textViewSave)
-            abortTextView = findViewById(R.id.textViewAbort)
             hourSpinner = findViewById(R.id.hourReminderSpinner)
             minuteSpinner = findViewById(R.id.minutesReminderSpinner)
+
+            setContentView(R.layout.fragment_form_reminder_one_day_quantity)
+            saveTextView = findViewById(R.id.textViewSave)
+            backTextView = findViewById(R.id.textViewBack)
             reminderAddNotes = findViewById(R.id.reminderAddNotesEdit)
             dosageSpinner = findViewById(R.id.dosageQtyReminder)
         } else {
             setContentView(R.layout.fragment_form_seq_reminder_days)
             buttonDateReminder = findViewById(R.id.buttonDateStart)
             saveButton = findViewById(R.id.saveButtonReminderSeq)
-            abortTextView = findViewById(R.id.abortButtonReminderSeq)
+            backTextView = findViewById(R.id.abortButtonReminderSeq)
             hourSpinner = findViewById(R.id.spinnerHoursRem2)
             minuteSpinner = findViewById(R.id.spinnerMinutesRem2)
             reminderAddNotes = findViewById(R.id.editTextAddNotesRem)
@@ -234,8 +254,11 @@ class EditReminderActivity : AppCompatActivity() {
                 expireDate = calEnd.time
             }
         }
+
+         */
     }
 
+    /*
     private fun buildCheckboxes(): HashMap<String, CheckBox> {
         val checkBoxes: HashMap<String,CheckBox> = HashMap()
         DaysEnum.values().forEach {
@@ -311,6 +334,8 @@ class EditReminderActivity : AppCompatActivity() {
 
         return days
     }
+
+     */
 
 }
 

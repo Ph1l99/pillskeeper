@@ -52,11 +52,12 @@ class FormAdapter(
         var reminderHour: Int = 0
         var reminderMinute: Int = 0
         var reminderQuantity: Float = 0.0F
-        var reminderNotes: String = ""
+        var reminderNotes: String? = ""
         var startDay: Date? = null
         var finishDay: Date? = null
 
         var isANewMedicine: Boolean = true
+        var isAReminderEditing: Boolean = false
 
         fun resetForm() {
             formActivity = null
@@ -74,6 +75,17 @@ class FormAdapter(
             startDay = null
             finishDay = null
             isANewMedicine = true
+            isAReminderEditing = false
+        }
+
+        fun resetReminder() {
+            reminderHour = 0
+            reminderMinute = 0
+            reminderQuantity = 0.0F
+            reminderNotes = ""
+            startDay = null
+            finishDay = null
+            isAReminderEditing = false
         }
 
         fun closeForm() {
@@ -142,6 +154,8 @@ class FormAdapter(
 
             })
         }
+
+
     }
 
     override fun getItem(position: Int): Fragment {

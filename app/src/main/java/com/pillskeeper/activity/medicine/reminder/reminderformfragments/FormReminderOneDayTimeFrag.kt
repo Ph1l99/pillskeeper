@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.notifier.NotifyPlanner
@@ -46,7 +47,28 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
-        initSpinner()
+        if(FormAdapter.isAReminderEditing){
+            val calEnd = Calendar.getInstance()
+            calEnd.time = FormAdapter.startDay!!
+            buttonDateReminder.text = getString(R.string.dateButtonFormatted, calEnd.get(Calendar.DAY_OF_MONTH),calEnd.get(Calendar.MONTH) + 1,calEnd.get(Calendar.YEAR))
+            FormAdapter.startDay = calEnd.time
+
+            val arrayAdapterHours = ArrayAdapter(activity?.applicationContext!!,android.R.layout.simple_spinner_item, hours)
+            arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            hourReminderSpinner.adapter = arrayAdapterHours
+            hourReminderSpinner.setSelection(FormAdapter.reminderHour)
+
+            val minutesArray = ArrayList<String>()
+            for (i in 0..11)
+                minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
+
+            val arrayAdapterMinutes = ArrayAdapter(activity?.applicationContext!!,android.R.layout.simple_spinner_item, minutesArray)
+            arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            minutesReminderSpinner.adapter = arrayAdapterMinutes
+            minutesReminderSpinner.setSelection(FormAdapter.reminderMinute/5)
+        } else {
+            initSpinner()
+        }
 
         buttonDateReminder.setOnClickListener {
             DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->

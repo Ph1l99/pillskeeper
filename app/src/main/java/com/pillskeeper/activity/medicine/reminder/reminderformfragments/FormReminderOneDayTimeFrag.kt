@@ -141,6 +141,8 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
                         FormAdapter.startDay = cal.time
                         FormAdapter.finishDay = cal.time
 
+
+
                         FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
                         FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
 

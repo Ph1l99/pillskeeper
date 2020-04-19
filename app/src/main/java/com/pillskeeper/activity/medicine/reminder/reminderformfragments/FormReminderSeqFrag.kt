@@ -81,7 +81,7 @@ class FormReminderSeqFrag(
         val dayExp = calExp.get(Calendar.DAY_OF_MONTH)
 
         buttonDateEnd.setOnClickListener {
-            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateEnd.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 calExp.set(Calendar.YEAR, year)
@@ -104,7 +104,7 @@ class FormReminderSeqFrag(
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
 
         buttonDateStart.setOnClickListener {
-            DatePickerDialog(activity!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateStart.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
                 calStart.set(Calendar.YEAR, year)
@@ -165,7 +165,7 @@ class FormReminderSeqFrag(
                         activity?.finish()
                     } else {
                         Utils.buildAlertDialog(
-                            activity!!,
+                            requireActivity(),
                             "Inserimento fallito!",
                             getString(R.string.message_title)
                         )
@@ -173,7 +173,7 @@ class FormReminderSeqFrag(
                 }
             } else {
                 Utils.buildAlertDialog(
-                    activity!!,
+                    requireActivity(),
                     "perfavore inserire valori corretti",
                     getString(R.string.message_title)
                 )
@@ -194,7 +194,7 @@ class FormReminderSeqFrag(
 
     private fun initSpinner(){
 
-        val arrayAdapterHours = ArrayAdapter(activity!!,android.R.layout.simple_spinner_item, hours)
+        val arrayAdapterHours = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, hours)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerHoursRem2.adapter = arrayAdapterHours
@@ -203,7 +203,7 @@ class FormReminderSeqFrag(
         for (i in 0..12)
             minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
 
-        val arrayAdapterMinutes = ArrayAdapter(activity!!,android.R.layout.simple_spinner_item, minutesArray)
+        val arrayAdapterMinutes = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, minutesArray)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMinutesRem2.adapter = arrayAdapterMinutes
@@ -222,7 +222,7 @@ class FormReminderSeqFrag(
     private fun checkValue(days: LinkedList<DaysEnum>): Boolean{
 
         if(expDateSelected != null)
-            if (!Utils.checkDate(expDateSelected!!, activity!!))
+            if (!Utils.checkDate(expDateSelected!!, requireActivity()))
                return false
 
         if(dosageSpinnerReminder.selectedItem.toString().toFloat() == 0F)

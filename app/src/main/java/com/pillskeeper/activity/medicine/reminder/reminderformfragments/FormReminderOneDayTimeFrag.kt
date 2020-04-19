@@ -52,6 +52,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
             calEnd.time = FormAdapter.startDay!!
             buttonDateReminder.text = getString(R.string.dateButtonFormatted, calEnd.get(Calendar.DAY_OF_MONTH),calEnd.get(Calendar.MONTH) + 1,calEnd.get(Calendar.YEAR))
             FormAdapter.startDay = calEnd.time
+            dateSelected = FormAdapter.startDay
 
             val arrayAdapterHours = ArrayAdapter(activity?.applicationContext!!,android.R.layout.simple_spinner_item, hours)
             arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -152,7 +153,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
                 }
 
             } else {
-                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
+                Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
             }
         }
 

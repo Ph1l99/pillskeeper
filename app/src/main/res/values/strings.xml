@@ -56,7 +56,7 @@
     <string name="camera">Fotocamera</string>
 
     <!--Reminders-->
-    <string name="select_week">Selezionare i giorni</string>
+    <string name="select_week">Selezionare i giorni in cui si ripete il promemoria</string>
     <string name="monday">Lunedì</string>
     <string name="tuesday">Martedì</string>
     <string name="wednesday">Mercoledì</string>
@@ -65,8 +65,8 @@
     <string name="saturday">Sabato</string>
     <string name="sunday">Domenica</string>
     <string name="time">Orario: </string>
-    <string name="espire_date">Data Di Fine: (opzionale)</string>
-    <string name="starting_date">Data Di Inizio: </string>
+    <string name="espire_date">Seleziona una data di fine per il Promemoria</string>
+    <string name="starting_date">Seleziona una data di inizio per il promemoria </string>
     <string name="quantity">Inserire la quantità</string>
 
     <string name="monthRB">Mesi</string>

@@ -126,4 +126,5 @@
     <string name="oops">Oops! An error occurred, please retry</string>
     <string name="disclaimer">BE CAREFUL! By removing your account all information will be deleted and you won\'t be able to login into PillsKeeper with this account and you will have to create a new one</string>
     <string name="loginDialog">Insert your password to confirm this action</string>
+    <string name="selectDateReminder">Select a starting and finishing date for the reminder</string>
 </resources>

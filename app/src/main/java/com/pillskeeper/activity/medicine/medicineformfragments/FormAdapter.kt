@@ -8,9 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.common.hash.Hashing
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayQuantityFrag
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayTimeFrag
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
+import com.pillskeeper.activity.medicine.reminder.reminderformfragments.*
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
@@ -36,7 +34,9 @@ class FormAdapter(
         const val FORM_EDIT = 3
         const val FORM_ONE_DAY_REMINDER_TIME = 4
         const val FORM_ONE_DAY_REMINDER_QUANTITY = 5
-        const val FORM_SEQ_REMINDER = 6
+        const val FORM_SEQ_DATE_REMINDER = 6
+        const val FORM_SEQ_TIME_REMINDER = 7
+        const val FORM_SEQ_QUANTITY_REMINDER = 8
 
         var pillName: String? = null
         var medicineType: MedicineTypeEnum? = null
@@ -160,13 +160,15 @@ class FormAdapter(
             FORM_EDIT -> FormEditingFragment()
             FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, pillName)
             FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag(viewPager, pillName)
-            FORM_SEQ_REMINDER -> FormReminderSeqFrag(viewPager, null)
+            FORM_SEQ_DATE_REMINDER -> FormReminderSeqDateFrag(viewPager)
+            FORM_SEQ_TIME_REMINDER -> FormReminderSeqTimeFrag(viewPager, null)
+            FORM_SEQ_QUANTITY_REMINDER -> FormReminderSeqQuantityFrag(viewPager)
             else -> FormNameTypeFragment(intent, viewPager)
         }
     }
 
     override fun getCount(): Int {
-        return 6
+        return 9
     }
 
 }

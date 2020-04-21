@@ -226,7 +226,7 @@ class EditReminderActivity : AppCompatActivity() {
             reminderAddNotes = findViewById(R.id.reminderAddNotesEdit)
             dosageSpinner = findViewById(R.id.dosageQtyReminder)
         } else {
-            setContentView(R.layout.fragment_form_seq_reminder_days)
+            setContentView(R.layout.fragment_form_seq_reminder_time)
             buttonDateReminder = findViewById(R.id.buttonDateStart)
             saveButton = findViewById(R.id.saveButtonReminderSeq)
             backTextView = findViewById(R.id.abortButtonReminderSeq)

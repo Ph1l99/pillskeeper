@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderOneDayTimeFrag
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.FormReminderSeqFrag
-import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.activity_add_new_reminder_from_list.*
 
 class AddNewReminderFromListActivity : AppCompatActivity() {
@@ -25,7 +22,7 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_reminder_from_list)
 
-        viewPager = NoSlideViewPager(this)//TODO check viewPager
+        viewPager = NoSlideViewPager(this)
         viewPager.id = VIEW_PAGER_REMINDER_ID
         relativeLayoutReminder.addView(viewPager)
 
@@ -33,7 +30,7 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         medName = intent.getStringExtra(ReminderChooseDialog.MED_NAME)
 
         val adapter = FormAdapter(supportFragmentManager, intent, viewPager)
-        /*Queste due istruzion i inizializzano il form con una medicina che è gia stat inserita*/
+        /*Queste due istruzion i inizializzano il form con una medicina che è gia stata inserita*/
         FormAdapter.isANewMedicine = false
         FormAdapter.resetReminder()
         FormAdapter.pillName = medName
@@ -43,14 +40,13 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         if(fragType)
             viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
         else
-            viewPager.currentItem = FormAdapter.FORM_SEQ_REMINDER
+            viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
 
         /*
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frameContainer,fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-
          */
     }
 }

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/selectDayTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:text="@string/select_week"
+        android:textAlignment="center"
+        android:textSize="24sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+        <RadioGroup
+            android:id="@+id/radioGroupDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/checkBoxMonday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/monday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxTuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tuesday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/checkBoxWednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wednesday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+
+
+
+            <CheckBox
+                android:id="@+id/checkBoxThursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/thursday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/checkBoxFriday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/friday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSaturday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/saturday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+
+            <CheckBox
+                android:id="@+id/checkBoxSunday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sunday"
+                android:textSize="18sp"
+                android:buttonTint="@color/colorPrimary" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewSelectTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timeSelectReminder"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="20dp">
+        <Spinner
+            android:id="@+id/hourReminderSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=" : "
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:layout_weight="1"/>
+
+        <Spinner
+            android:id="@+id/minutesReminderSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/back_button"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textViewNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="bottom|end"
+            android:text="@string/next"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

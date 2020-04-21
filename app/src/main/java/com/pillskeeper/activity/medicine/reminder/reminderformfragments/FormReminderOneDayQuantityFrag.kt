@@ -122,7 +122,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                             reminder
                         ).forEach {
                             NotifyPlanner.planSingleAlarm(
-                                activity!!,
+                                requireActivity(),
                                 activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                                 it
                             )

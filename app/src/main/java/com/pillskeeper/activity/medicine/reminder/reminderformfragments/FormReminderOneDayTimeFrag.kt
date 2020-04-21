@@ -109,7 +109,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
 
         textViewNext.setOnClickListener {
-            if(dateSelected != null && dateSelected!! > Date()){
+            if(dateSelected != null && dateSelected!! >= cal.time){
                 /*
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())

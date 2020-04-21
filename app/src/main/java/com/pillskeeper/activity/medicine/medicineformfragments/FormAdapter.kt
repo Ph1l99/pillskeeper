@@ -135,11 +135,11 @@ class FormAdapter(
                 remoteMedicine,
                 object : Callback {
                     override fun onSuccess(res: Boolean) {
-                        //TODO da implementare
+                        println("ok")
                     }
 
                     override fun onError() {
-                        //TODO da implementare
+                        println("ok")
                     }
                 }
             )

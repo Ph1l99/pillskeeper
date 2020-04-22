@@ -37,6 +37,10 @@ import kotlin.collections.HashMap
 
 object Utils {
 
+    val hours = arrayListOf("00", "01", "02", "03", "04","05","06","07","08","09"
+        ,"10","11","12","13","14","15","16","17","18","19","20","21","22","23")
+
+
     private val regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
     private val regexPhoneNumber: Regex = "[0-9]{10}".toRegex()
     private val regexEmail: Regex =

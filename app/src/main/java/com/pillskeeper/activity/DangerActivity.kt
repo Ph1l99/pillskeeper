@@ -3,6 +3,9 @@ package com.pillskeeper.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
@@ -11,6 +14,7 @@ import com.pillskeeper.activity.registration.LoginDialog
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.interfaces.Callback
+import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_danger.*
 

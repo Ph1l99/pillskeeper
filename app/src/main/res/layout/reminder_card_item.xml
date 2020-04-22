@@ -2,30 +2,32 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Card"
-    android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
-    tools:context=".activity.medicine.reminder.ReminderListActivity"
-    android:focusable="true">
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:context=".activity.medicine.reminder.ReminderListActivity">
 
     <LinearLayout
         android:id="@+id/layoutReminderCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="@drawable/shape_card">
+        android:background="@drawable/shape_card"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/reminderText"
             android:layout_width="0dp"
-            android:textSize="12sp"
             android:layout_height="65sp"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_weight="1"
-            android:padding="15sp" />
+            android:padding="15sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp" />
+
         <ImageView
             android:id="@+id/modifyIcon"
             android:layout_width="50sp"
             android:layout_height="60sp"
-            android:src="@drawable/ic_modify"/>
+            android:src="@drawable/ic_modify" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

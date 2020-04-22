@@ -47,12 +47,9 @@ class Menu(
                 if (activity is DangerActivity) {
                     changed = false
                 } else {
-                    activity.applicationContext.startActivity(
-                        Intent(
-                            activity.applicationContext,
-                            DangerActivity::class.java
-                        )
-                    )
+                    val intent = Intent(activity.applicationContext, DangerActivity::class.java)
+                    intent.flags = FLAG_ACTIVITY_NEW_TASK
+                    activity.applicationContext.startActivity(intent)
                 }
             }
             R.id.nav_profile -> {

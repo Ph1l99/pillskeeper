@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
@@ -41,14 +42,11 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
 
         val calExp = Calendar.getInstance()
-
-
         val yearExp = calExp.get(Calendar.YEAR)
         val monthExp = calExp.get(Calendar.MONTH)
         val dayExp = calExp.get(Calendar.DAY_OF_MONTH)
 
         val calStart = Calendar.getInstance()
-
         val yearStart = calExp.get(Calendar.YEAR)
         val monthStart = calExp.get(Calendar.MONTH)
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
@@ -57,11 +55,6 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
 
         /*LISTENERS*/
-        nextTextView.setOnClickListener {
-            viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
-        }
-
-
         buttonDateStart.setOnClickListener {
             DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateStart.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
@@ -80,7 +73,7 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
         }
 
 
-         buttonDateEnd.setOnClickListener {
+        buttonDateEnd.setOnClickListener {
             DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 buttonDateEnd.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
 
@@ -97,6 +90,25 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
             }, yearExp, monthExp, dayExp).show()
         }
 
+        nextTextView.setOnClickListener {
+
+
+            if(startDateSelected != null) {
+                FormAdapter.startDay = startDateSelected
+                //cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
+                //cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
+                if(expDateSelected != null){
+                    FormAdapter.finishDay = startDateSelected
+                } else {
+                    FormAdapter.finishDay = null //TODO chiedere come va gestito
+                }
+                viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
+            } else {
+                Toast.makeText(context, "Selezionare una data di inizio!", Toast.LENGTH_LONG).show()
+            }
+
+
+        }
 
         return view
     }

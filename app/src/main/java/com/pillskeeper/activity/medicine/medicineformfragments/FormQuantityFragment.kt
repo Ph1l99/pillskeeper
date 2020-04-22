@@ -23,7 +23,7 @@ class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment()
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_form_two, container, false)
 
-        textViewNext = view!!.findViewById(R.id.textViewNext)
+        textViewNext = view.findViewById(R.id.textViewNext)
         textViewBack = view.findViewById(R.id.textViewBack)
         editTextTotalQuantity = view.findViewById(R.id.editTextTotalQuantity)
         editTextRemainingQuantity = view.findViewById(R.id.editTextRemainingQuantity)

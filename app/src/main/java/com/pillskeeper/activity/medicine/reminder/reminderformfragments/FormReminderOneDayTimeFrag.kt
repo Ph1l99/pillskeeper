@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Utils.hours
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -12,12 +12,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.activity.medicine.reminder.reminderformfragments.ReminderActivity.Companion.hours
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
+import com.pillskeeper.utility.Utils.hours
 import java.util.*
 
 class FormReminderSeqTimeFrag(
@@ -65,7 +65,20 @@ class FormReminderSeqTimeFrag(
 
 
         nextTextView.setOnClickListener {
-            viewPager.currentItem = FormAdapter.FORM_SEQ_QUANTITY_REMINDER
+            if(spinnerHoursRem2.selectedItem != null && spinnerMinutesRem2.selectedItem != null) {
+                FormAdapter.reminderHour = spinnerHoursRem2.selectedItem.toString().toInt()
+                FormAdapter.reminderMinute = spinnerMinutesRem2.selectedItem.toString().toInt()
+
+                val days = buildDaysArray()
+                if(days.size > 0){
+                    FormAdapter.days = days
+                    viewPager.currentItem = FormAdapter.FORM_SEQ_QUANTITY_REMINDER
+                } else {
+                    Toast.makeText(context, "Selezionare uno o più giorni!", Toast.LENGTH_LONG).show()
+                }
+            } else {
+                Toast.makeText(context, "Inserire un orario corretto!", Toast.LENGTH_LONG).show()
+            }
         }
 
         return view
@@ -105,6 +118,7 @@ class FormReminderSeqTimeFrag(
         dosageSpinnerReminder.adapter = arrayAdapterDosage
  */
     }
+
 
     /*
     private fun checkValue(days: LinkedList<DaysEnum>): Boolean{

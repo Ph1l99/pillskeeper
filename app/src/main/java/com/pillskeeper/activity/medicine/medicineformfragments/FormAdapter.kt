@@ -14,6 +14,7 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.notifier.NotifyPlanner
@@ -55,6 +56,7 @@ class FormAdapter(
         var reminderNotes: String? = ""
         var startDay: Date? = null
         var finishDay: Date? = null
+        var days: LinkedList<DaysEnum>? = null
 
         var isANewMedicine: Boolean = true
         var isAReminderEditing: Boolean = false
@@ -79,6 +81,7 @@ class FormAdapter(
             reminderNotes = ""
             startDay = null
             finishDay = null
+            days = null
             isAReminderEditing = false
         }
 

@@ -124,10 +124,9 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                 }
 
             } else {
-                Toast.makeText(context, "Selezionare la quanittà da assumere!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Selezionare la quanità da assumere!", Toast.LENGTH_LONG).show()
             }
 
-            activity?.finish()
 
             //TODO deve fare le cose che sono commentate
 /*

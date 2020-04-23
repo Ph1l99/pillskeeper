@@ -129,6 +129,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
             }
 
 
+
             //TODO deve fare le cose che sono commentate
 /*
             val days = buildDaysArray()

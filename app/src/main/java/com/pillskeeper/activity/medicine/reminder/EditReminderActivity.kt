@@ -52,5 +52,6 @@ class EditReminderActivity : AppCompatActivity() {
             viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
         }
     }
+
 }
 

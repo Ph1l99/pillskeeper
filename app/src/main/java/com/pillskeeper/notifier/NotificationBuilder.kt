@@ -44,7 +44,7 @@ object NotificationBuilder {
             icon = R.drawable.calendar
         }
 
-        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM/*TYPE_NOTIFICATION*/)
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         val notificationBuilder = NotificationCompat.Builder(context)
             .setSmallIcon(icon)
             .setContentTitle(title)

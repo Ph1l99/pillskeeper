@@ -24,7 +24,7 @@ object NotifyPlanner{
     )
 
     fun testPlanner(context: Context, alarmManager: AlarmManager, it: Appointment = appointmentTest) {
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Started")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: testPlan() - Started")
 
         /*
             setWindow(int type, long windowStartMillis, long windowLengthMillis, PendingIntent operation)
@@ -33,7 +33,7 @@ object NotifyPlanner{
 
         val cal = Calendar.getInstance()
         cal.time = appointmentTest.date
-        cal.add(Calendar.MINUTE, 10)
+        cal.add(Calendar.MINUTE, 5)
         appointmentTest.date = cal.time
 
         val intent = buildIntent(context, it, true)
@@ -64,10 +64,9 @@ object NotifyPlanner{
             calDebug.time = itTime
             Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - " +
                     "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}")
-            Toast.makeText(context,"Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}",Toast.LENGTH_SHORT).show()
         }
 
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Ended")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: testPlan() - Ended")
     }
 
     fun planFullDayAlarms(context: Context?){

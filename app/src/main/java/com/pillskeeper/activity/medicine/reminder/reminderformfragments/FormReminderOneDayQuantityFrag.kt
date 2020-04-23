@@ -3,13 +3,11 @@ package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
@@ -26,7 +24,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
     private lateinit var saveTextReminder: TextView
     private lateinit var textViewBack: TextView
     private lateinit var dosageQtyReminder: Spinner
-    private lateinit var reminderAddNotesEdit: TextView
+    private lateinit var reminderAddNotesEdit: EditText
     private var oldReminder: ReminderMedicine? = null
 
     override fun onCreateView(
@@ -53,7 +51,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                 FormAdapter.reminderNotes
             )
 
-            reminderAddNotesEdit.text = FormAdapter.reminderNotes
+            reminderAddNotesEdit.setText(FormAdapter.reminderNotes)
         }
 
         initSpinner()

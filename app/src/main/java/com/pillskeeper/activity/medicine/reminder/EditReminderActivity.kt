@@ -13,8 +13,12 @@ class EditReminderActivity : AppCompatActivity() {
 
     val VIEW_PAGER_REMINDER_ID = 4040
 
-    private lateinit var reminder               : ReminderMedicine
+    //private lateinit var reminder               : ReminderMedicine
     private          var medName                : String? = null
+
+    companion object {
+        var oldReminder: ReminderMedicine? = null
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +26,7 @@ class EditReminderActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_edit_reminder)
 
-        reminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
+        oldReminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
         medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
         val viewPager = NoSlideViewPager(this)//TODO check viewPager
@@ -33,16 +37,21 @@ class EditReminderActivity : AppCompatActivity() {
         FormAdapter.isANewMedicine = false
         FormAdapter.resetReminder()
         FormAdapter.pillName = medName
-        FormAdapter.startDay = reminder.startingDay
-        FormAdapter.finishDay = reminder.expireDate
-        FormAdapter.reminderHour = reminder.hours
-        FormAdapter.reminderMinute = reminder.minutes
-        FormAdapter.reminderQuantity = reminder.dosage
-        FormAdapter.reminderNotes = reminder.additionNotes
+        FormAdapter.startDay = oldReminder!!.startingDay
+        FormAdapter.finishDay = oldReminder!!.expireDate
+        FormAdapter.reminderHour = oldReminder!!.hours
+        FormAdapter.reminderMinute = oldReminder!!.minutes
+        FormAdapter.reminderQuantity = oldReminder!!.dosage
+        FormAdapter.reminderNotes = oldReminder!!.additionNotes
+        FormAdapter.days = oldReminder!!.days
         FormAdapter.isAReminderEditing = true
         viewPager.adapter = adapter
-        viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
 
+        if(oldReminder!!.isSingleDayRem()) {
+            viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
+        } else {
+            viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
+        }
         /*
         initializeForm()
         populateCommonFields()

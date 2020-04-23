@@ -28,10 +28,7 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
     private var expDateSelected: Date? = null
     private var startDateSelected: Date? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_form_reminder_seq_date, container, false)
 
@@ -51,7 +48,26 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
         val monthStart = calExp.get(Calendar.MONTH)
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
 
+        if(FormAdapter.isAReminderEditing){
+            val calStart = Calendar.getInstance()
+            calStart.time = FormAdapter.startDay
+            buttonDateStart.text = getString(R.string.dateButtonFormatted, calStart.get(Calendar.DAY_OF_MONTH),calStart.get(Calendar.MONTH) + 1,calStart.get(Calendar.YEAR))
+            FormAdapter.startDay = calStart.time
+            startDateSelected = FormAdapter.startDay
 
+            if(FormAdapter.finishDay != null) {
+                val calEnd = Calendar.getInstance()
+                calEnd.time = FormAdapter.finishDay!!
+                buttonDateEnd.text = getString(
+                    R.string.dateButtonFormatted,
+                    calEnd.get(Calendar.DAY_OF_MONTH),
+                    calEnd.get(Calendar.MONTH) + 1,
+                    calEnd.get(Calendar.YEAR)
+                )
+                FormAdapter.finishDay = calEnd.time
+                expDateSelected = FormAdapter.finishDay
+            }
+        }
 
 
         /*LISTENERS*/
@@ -95,8 +111,6 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
             if(startDateSelected != null) {
                 FormAdapter.startDay = startDateSelected
-                //cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
-                //cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
                 if(expDateSelected != null){
                     FormAdapter.finishDay = startDateSelected
                 } else {
@@ -109,7 +123,6 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
 
         }
-
         return view
     }
 

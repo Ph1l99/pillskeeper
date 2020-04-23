@@ -29,14 +29,18 @@ object NotificationBuilder {
         val icon: Int
         val title: String
         var text = "Buongiorno! "
+
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        val timeStr = cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
         if(it is ReminderMedicineSort) {
             title = "Medicina!"
-            text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)}"
+            text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)} \n $timeStr"
             icon = R.drawable.records_medicines
         } else {
             (it as Appointment)
             title = "Appuntamento!"
-            text += "Ha un appuntamento: ${it.name}"
+            text += "Ha un appuntamento: ${it.name} $timeStr"
             icon = R.drawable.calendar
         }
 

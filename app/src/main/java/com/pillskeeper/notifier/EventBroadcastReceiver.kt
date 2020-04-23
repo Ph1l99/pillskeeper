@@ -1,5 +1,6 @@
 package com.pillskeeper.notifier
 
+import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -27,7 +28,15 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                 if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
                     eventShowNotify(context, intent)
-                else {
+                else if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
+                    eventShowNotify(context, intent)
+                    if (context != null) {
+                        NotifyPlanner.testPlanner(
+                            context,
+                            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                        )
+                    }
+                } else {
                     NotifyPlanner.planFullDayAlarms(context)
                     NotifyPlanner.planNextDayPlanner(context)
                 }

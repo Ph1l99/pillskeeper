@@ -49,10 +49,10 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
 
         if(FormAdapter.isAReminderEditing){
-            val calStart = Calendar.getInstance()
-            calStart.time = FormAdapter.startDay
+            val calStr = Calendar.getInstance()
+            calStr.time = FormAdapter.startDay
             buttonDateStart.text = getString(R.string.dateButtonFormatted, calStart.get(Calendar.DAY_OF_MONTH),calStart.get(Calendar.MONTH) + 1,calStart.get(Calendar.YEAR))
-            FormAdapter.startDay = calStart.time
+            FormAdapter.startDay = calStr.time
             startDateSelected = FormAdapter.startDay
 
             if(FormAdapter.finishDay != null) {
@@ -111,11 +111,7 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
             if(startDateSelected != null) {
                 FormAdapter.startDay = startDateSelected
-                if(expDateSelected != null){
-                    FormAdapter.finishDay = startDateSelected
-                } else {
-                    FormAdapter.finishDay = null //TODO chiedere come va gestito
-                }
+                FormAdapter.finishDay = expDateSelected
                 viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
             } else {
                 Toast.makeText(context, "Selezionare una data di inizio!", Toast.LENGTH_LONG).show()

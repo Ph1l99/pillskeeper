@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
@@ -16,7 +17,7 @@ import java.util.*
 
 object NotifyPlanner{
 
-    private val appointmentTest = Appointment(
+    private val appointmentTest = Appointment( //todo remove
         "test",
         Date(),
         null
@@ -28,11 +29,11 @@ object NotifyPlanner{
         /*
             setWindow(int type, long windowStartMillis, long windowLengthMillis, PendingIntent operation)
             Schedule an alarm to be delivered within a given window of time.
-         */
+        */
 
         val cal = Calendar.getInstance()
         cal.time = appointmentTest.date
-        cal.add(Calendar.MINUTE, 5)
+        cal.add(Calendar.MINUTE, 10)
         appointmentTest.date = cal.time
 
         val intent = buildIntent(context, it, true)
@@ -62,7 +63,8 @@ object NotifyPlanner{
             val calDebug = Calendar.getInstance()
             calDebug.time = itTime
             Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - " +
-                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)} - ${calDebug.get(Calendar.DAY_OF_MONTH)}/${calDebug.get(Calendar.MONTH)}")
+                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}")
+            Toast.makeText(context,"Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}",Toast.LENGTH_SHORT).show()
         }
 
         Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Ended")

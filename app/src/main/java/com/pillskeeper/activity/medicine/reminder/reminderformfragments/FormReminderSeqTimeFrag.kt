@@ -1,8 +1,5 @@
 package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 
-import android.app.AlarmManager
-import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
-import com.pillskeeper.data.ReminderMedicine
-import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
-import com.pillskeeper.notifier.NotifyPlanner
-import com.pillskeeper.utility.Utils
 import com.pillskeeper.utility.Utils.hours
 import java.util.*
 
-class FormReminderSeqTimeFrag(private val viewPager: ViewPager, private val medName: String?) : Fragment() {
+class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
 
     private lateinit var checkBoxes             : HashMap<String,CheckBox>
     private lateinit var spinnerHoursRem2       : Spinner

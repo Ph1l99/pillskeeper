@@ -166,7 +166,7 @@ class FormAdapter(
             FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, pillName)
             FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag(viewPager, pillName)
             FORM_SEQ_DATE_REMINDER -> FormReminderSeqDateFrag(viewPager)
-            FORM_SEQ_TIME_REMINDER -> FormReminderSeqTimeFrag(viewPager, null)
+            FORM_SEQ_TIME_REMINDER -> FormReminderSeqTimeFrag(viewPager)
             FORM_SEQ_QUANTITY_REMINDER -> FormReminderSeqQuantityFrag(viewPager)
             else -> FormNameTypeFragment(intent, viewPager)
         }

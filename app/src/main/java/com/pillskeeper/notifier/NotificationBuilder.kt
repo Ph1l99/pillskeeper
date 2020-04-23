@@ -25,6 +25,7 @@ object NotificationBuilder {
     }
 
     fun showNotificationReminder(context: Context, it: Any?) {
+        println("showNotificationRem: function started")
 
         val icon: Int
         val title: String
@@ -54,9 +55,13 @@ object NotificationBuilder {
 
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
+
+        println("showNotificationRem: function started")
     }
 
     fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
+        println("showNotificationLowQuantity: function started")
+
 
         val icon = R.drawable.records_medicines
         val title = "Medicina in esaurimento"
@@ -78,6 +83,7 @@ object NotificationBuilder {
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
+        println("showNotificationLowQuantity: function ended")
     }
 
     private fun createNotificationChannel() {

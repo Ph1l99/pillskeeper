@@ -40,13 +40,17 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT)!!)
         if (context != null) {
             if (item is ReminderMedicineSort) {
+
                 val medicine = UserInformation.subMedicineQuantity(
                     item.medName,
                     item.reminder.dosage
                 )
+
                 if (medicine != null) {
-                    if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY)
+                    if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY) {
+                        println("qty lowwwww")
                         NotificationBuilder.showNotificationLowQuantity(context, medicine)
+                    }
                     if (medicine.remainingQty == 0F)
                         UserInformation.restoreQty(medicine)
                 }

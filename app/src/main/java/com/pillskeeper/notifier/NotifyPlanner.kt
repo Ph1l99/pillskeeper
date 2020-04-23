@@ -17,7 +17,7 @@ import java.util.*
 object NotifyPlanner{
 
     fun planFullDayAlarms(context: Context?){
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Started")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Started")
 
         if (context != null) {
             val listAlarm = getDailyList()
@@ -30,10 +30,12 @@ object NotifyPlanner{
                 }
             }
         }
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Ended")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Ended")
     }
 
     fun planSingleAlarm(context: Context, alarmManager: AlarmManager, it: Any){
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
+
         val intent = buildIntent(context, it)
 
         val itTime = getDateFromItem(it)
@@ -57,7 +59,13 @@ object NotifyPlanner{
                     itTime.time,
                     pendingIntent
                 )
+
+            val cal = Calendar.getInstance()
+            cal.time = itTime
+            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
         }
+
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Ended")
     }
 
     fun planNextDayPlanner(context: Context?) {

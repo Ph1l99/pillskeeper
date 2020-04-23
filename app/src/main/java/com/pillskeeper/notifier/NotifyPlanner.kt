@@ -16,8 +16,60 @@ import java.util.*
 
 object NotifyPlanner{
 
+    private val appointmentTest = Appointment(
+        "test",
+        Date(),
+        null
+    )
+
+    fun testPlanner(context: Context, alarmManager: AlarmManager, it: Appointment = appointmentTest) {
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Started")
+
+        /*
+            setWindow(int type, long windowStartMillis, long windowLengthMillis, PendingIntent operation)
+            Schedule an alarm to be delivered within a given window of time.
+         */
+
+        val cal = Calendar.getInstance()
+        cal.time = appointmentTest.date
+        cal.add(Calendar.MINUTE, 5)
+        appointmentTest.date = cal.time
+
+        val intent = buildIntent(context, it, true)
+
+        val itTime = getDateFromItem(it)
+        val itID = generateIdForItem(it,itTime)
+        if(!isAlreadyExistingIntent(context,itID,intent)){
+            val pendingIntent = PendingIntent.getBroadcast(
+                context,
+                itID,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            if (Build.VERSION.SDK_INT >= 23)
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    itTime.time,
+                    pendingIntent
+                )
+            else
+                alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    itTime.time,
+                    pendingIntent
+                )
+
+            val calDebug = Calendar.getInstance()
+            calDebug.time = itTime
+            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - " +
+                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)} - ${calDebug.get(Calendar.DAY_OF_MONTH)}/${calDebug.get(Calendar.MONTH)}")
+        }
+
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Ended")
+    }
+
     fun planFullDayAlarms(context: Context?){
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Started")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Started")
 
         if (context != null) {
             val listAlarm = getDailyList()
@@ -30,10 +82,12 @@ object NotifyPlanner{
                 }
             }
         }
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planAlarmDay() - Ended")
+        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Ended")
     }
 
     fun planSingleAlarm(context: Context, alarmManager: AlarmManager, it: Any){
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
+
         val intent = buildIntent(context, it)
 
         val itTime = getDateFromItem(it)
@@ -57,7 +111,13 @@ object NotifyPlanner{
                     itTime.time,
                     pendingIntent
                 )
+
+            val cal = Calendar.getInstance()
+            cal.time = itTime
+            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
         }
+
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Ended")
     }
 
     fun planNextDayPlanner(context: Context?) {
@@ -113,7 +173,7 @@ object NotifyPlanner{
         Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Ended")
     }
 
-    private fun buildIntent(context: Context, it: Any): Intent{
+    private fun buildIntent(context: Context, it: Any, debug: Boolean = false): Intent{
         val intent = Intent(context,EventBroadcastReceiver::class.java)
 
         val item = Utils.serialize(
@@ -123,7 +183,11 @@ object NotifyPlanner{
                 (it as Appointment)
             })
 
-        intent.putExtra(EventBroadcastReceiver.TYPE_INTENT, TypeIntentWorker.SHOW_NOTIFY.toString())
+        if (debug)
+            intent.putExtra(EventBroadcastReceiver.TYPE_INTENT, TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString())
+        else
+            intent.putExtra(EventBroadcastReceiver.TYPE_INTENT, TypeIntentWorker.SHOW_NOTIFY.toString())
+
         intent.putExtra(EventBroadcastReceiver.VALUE_INTENT, item)
         intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
         return intent

@@ -12,6 +12,7 @@ import android.widget.*
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
+import com.pillskeeper.activity.medicine.reminder.EditReminderActivity
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DaysEnum
@@ -46,15 +47,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
         initSpinner()
 
         if(FormAdapter.isAReminderEditing) {
-            oldReminder = ReminderMedicine(
-                FormAdapter.reminderQuantity,
-                FormAdapter.reminderMinute,
-                FormAdapter.reminderHour,
-                FormAdapter.startDay!!,
-                null,
-                FormAdapter.finishDay,
-                FormAdapter.reminderNotes
-            )
+            oldReminder = EditReminderActivity.oldReminder
 
             medName = FormAdapter.pillName
             notesReminder.setText(FormAdapter.reminderNotes)

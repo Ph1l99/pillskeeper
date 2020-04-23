@@ -39,10 +39,15 @@ class EditReminderActivity : AppCompatActivity() {
         FormAdapter.reminderMinute = reminder.minutes
         FormAdapter.reminderQuantity = reminder.dosage
         FormAdapter.reminderNotes = reminder.additionNotes
+        FormAdapter.days = reminder.days
         FormAdapter.isAReminderEditing = true
         viewPager.adapter = adapter
-        viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
 
+        if(reminder.isSingleDayRem()) {
+            viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
+        } else {
+            viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
+        }
         /*
         initializeForm()
         populateCommonFields()

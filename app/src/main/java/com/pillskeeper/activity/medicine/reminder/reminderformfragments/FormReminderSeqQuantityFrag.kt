@@ -14,6 +14,7 @@ import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
 import java.util.ArrayList
@@ -27,6 +28,8 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
     private lateinit var saveTextView: TextView
     private lateinit var dosageSpinnerReminder: Spinner
     private lateinit var notesReminder: EditText
+    private var oldReminder: ReminderMedicine? = null
+    private var medName: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +45,23 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
 
         initSpinner()
 
-        /*LISTENERS*/
+        if(FormAdapter.isAReminderEditing) {
+            oldReminder = ReminderMedicine(
+                FormAdapter.reminderQuantity,
+                FormAdapter.reminderMinute,
+                FormAdapter.reminderHour,
+                FormAdapter.startDay!!,
+                null,
+                FormAdapter.finishDay,
+                FormAdapter.reminderNotes
+            )
 
+            medName = FormAdapter.pillName
+            notesReminder.setText(FormAdapter.reminderNotes)
+        }
+
+
+        /*LISTENERS*/
         backTextView.setOnClickListener {
             viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
         }
@@ -68,9 +86,32 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
 
                 if(FormAdapter.isAReminderEditing){
                    //TODO editing
-                } else {
-                    if(FormAdapter.isANewMedicine){
-                        //TODO newm edicine
+                    val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
+                        medName!!,
+                        UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                        oldReminder?.copy()!!
+                    )
+
+                    if (UserInformation.editReminder(medName!!, oldReminder!!, newRem)) {
+
+                        reminderListNormalizedOld.forEach {
+                            NotifyPlanner.remove(activity?.applicationContext!!, it)
+                        }
+
+                        Utils.getSingleReminderListNormalized(
+                            medName!!,
+                            UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                            newRem
+                        ).forEach {
+                            NotifyPlanner.planSingleAlarm(
+                                activity?.applicationContext!!,
+                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                it
+                            )
+                        }
+                    }
+                } else { if(FormAdapter.isANewMedicine){
+                        //TODO new medicine
                         viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                     } else  if (UserInformation.addNewReminder(FormAdapter.pillName!!, newRem)) {
                         Utils.getSingleReminderListNormalized(
@@ -165,5 +206,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
         if(FormAdapter.isAReminderEditing)
             dosageSpinnerReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
     }
+
+
 
 }

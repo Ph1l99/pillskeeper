@@ -88,6 +88,7 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             getSystemService(Context.ALARM_SERVICE) as AlarmManager
         )
 
+
         /*
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->
             val intent = Intent(this, AppointmentFormActivity::class.java)

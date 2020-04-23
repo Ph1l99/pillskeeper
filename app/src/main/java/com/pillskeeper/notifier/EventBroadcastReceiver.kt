@@ -28,12 +28,14 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                 if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
                     eventShowNotify(context, intent)
-                else if(intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
-                    NotifyPlanner.testPlanner(
-                        context!!,
-                        context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-                    )
+                else if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
                     eventShowNotify(context, intent)
+                    if (context != null) {
+                        NotifyPlanner.testPlanner(
+                            context,
+                            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+                        )
+                    }
                 } else {
                     NotifyPlanner.planFullDayAlarms(context)
                     NotifyPlanner.planNextDayPlanner(context)
@@ -47,13 +49,17 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         val item = Utils.deserialize(intent.getByteArrayExtra(VALUE_INTENT)!!)
         if (context != null) {
             if (item is ReminderMedicineSort) {
+
                 val medicine = UserInformation.subMedicineQuantity(
                     item.medName,
                     item.reminder.dosage
                 )
+
                 if (medicine != null) {
-                    if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY)
+                    if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY) {
+                        println("qty lowwwww")
                         NotificationBuilder.showNotificationLowQuantity(context, medicine)
+                    }
                     if (medicine.remainingQty == 0F)
                         UserInformation.restoreQty(medicine)
                 }

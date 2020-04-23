@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
-import android.widget.Toast
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.datamanager.UserInformation
@@ -17,26 +16,21 @@ import java.util.*
 
 object NotifyPlanner{
 
-    private val appointmentTest = Appointment( //todo remove
+    private val appointmentTest = Appointment(
         "test",
         Date(),
         null
     )
 
     fun testPlanner(context: Context, alarmManager: AlarmManager, it: Appointment = appointmentTest) {
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Started")
-
-        /*
-            setWindow(int type, long windowStartMillis, long windowLengthMillis, PendingIntent operation)
-            Schedule an alarm to be delivered within a given window of time.
-        */
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
 
         val cal = Calendar.getInstance()
         cal.time = appointmentTest.date
-        cal.add(Calendar.MINUTE, 10)
+        cal.add(Calendar.MINUTE, 5)
         appointmentTest.date = cal.time
 
-        val intent = buildIntent(context, it, true)
+        val intent = buildIntent(context, it)
 
         val itTime = getDateFromItem(it)
         val itID = generateIdForItem(it,itTime)
@@ -62,12 +56,11 @@ object NotifyPlanner{
 
             val calDebug = Calendar.getInstance()
             calDebug.time = itTime
-            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - " +
-                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}")
-            Toast.makeText(context,"Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)}",Toast.LENGTH_SHORT).show()
+            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - " +
+                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)} - ${calDebug.get(Calendar.DAY_OF_MONTH)}/${calDebug.get(Calendar.MONTH)}")
         }
 
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: testPlan() - Ended")
+        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Ended")
     }
 
     fun planFullDayAlarms(context: Context?){

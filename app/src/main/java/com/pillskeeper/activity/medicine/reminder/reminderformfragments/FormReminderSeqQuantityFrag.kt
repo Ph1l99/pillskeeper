@@ -107,6 +107,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                                 )
                             }
                         }
+                        activity?.finish()
                     } else if (UserInformation.addNewReminder(FormAdapter.pillName!!, newRem)) {
                         Utils.getSingleReminderListNormalized(
                             FormAdapter.pillName!!,

@@ -77,36 +77,37 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                     FormAdapter.reminderNotes
                 )
 
-                if(FormAdapter.isAReminderEditing){
-                   //TODO editing
-                    val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
-                        medName!!,
-                        UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
-                        oldReminder?.copy()!!
-                    )
-
-                    if (UserInformation.editReminder(medName!!, oldReminder!!, newRem)) {
-
-                        reminderListNormalizedOld.forEach {
-                            NotifyPlanner.remove(activity?.applicationContext!!, it)
-                        }
-
-                        Utils.getSingleReminderListNormalized(
+                if(FormAdapter.isANewMedicine){
+                    FormAdapter.addReminder(newRem)
+                    viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
+                } else {
+                    if (FormAdapter.isAReminderEditing) {
+                        //TODO editing
+                        val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
                             medName!!,
                             UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
-                            newRem
-                        ).forEach {
-                            NotifyPlanner.planSingleAlarm(
-                                activity?.applicationContext!!,
-                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                it
-                            )
+                            oldReminder?.copy()!!
+                        )
+
+                        if (UserInformation.editReminder(medName!!, oldReminder!!, newRem)) {
+
+                            reminderListNormalizedOld.forEach {
+                                NotifyPlanner.remove(activity?.applicationContext!!, it)
+                            }
+
+                            Utils.getSingleReminderListNormalized(
+                                medName!!,
+                                UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
+                                newRem
+                            ).forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    activity?.applicationContext!!,
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
+                            }
                         }
-                    }
-                } else { if(FormAdapter.isANewMedicine){
-                        //TODO new medicine
-                        viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-                    } else  if (UserInformation.addNewReminder(FormAdapter.pillName!!, newRem)) {
+                    } else if (UserInformation.addNewReminder(FormAdapter.pillName!!, newRem)) {
                         Utils.getSingleReminderListNormalized(
                             FormAdapter.pillName!!,
                             UserInformation.getSpecificMedicine(FormAdapter.pillName!!)!!.medicineType,

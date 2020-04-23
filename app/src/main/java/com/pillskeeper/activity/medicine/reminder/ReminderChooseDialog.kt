@@ -44,7 +44,7 @@ class ReminderChooseDialog(context: Context, private val viewPager: NoSlideViewP
 
         buttonSequence.setOnClickListener {
             if (viewPager != null)
-                viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
+                viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
             else
                 context.startActivity(Intent(context,AddNewReminderFromListActivity::class.java).apply {
                     putExtra(FRAG_TYPE,false)

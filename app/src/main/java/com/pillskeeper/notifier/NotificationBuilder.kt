@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import com.pillskeeper.R
@@ -19,9 +20,41 @@ object NotificationBuilder {
 
     private var notificationManager : NotificationManager? = getSystemService(context, NotificationManager::class.java)
     private const val NOTIFICATION_CHANNEL_ID = "6081945"
+    private const val TAG = "NOTIFICATION_BUILDER"
 
     init {
         createNotificationChannel()
+    }
+
+    fun showNotificationDebug(context: Context){
+        Log.i(TAG,"showNotificatioTest: function started")
+
+        val icon = R.drawable.records_medicines
+        val title = "Medicina!"
+        var text = "Buongiorno! "
+
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        val timeStr = cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
+
+        text += timeStr.toString()
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+            .setSmallIcon(icon)
+            .setContentTitle(title)
+            .setContentText(text)
+            .setAutoCancel(false)
+            .setPriority(Notification.VISIBILITY_PUBLIC)
+            .setDefaults(Notification.DEFAULT_ALL)
+            .setSound(soundUri)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(text))
+
+        val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
+        notificationManager?.notify(id, notificationBuilder.build())
+
+
+        Log.i(TAG,"showNotificatioTest: function ended")
     }
 
     fun showNotificationReminder(context: Context, it: Any?) {
@@ -46,7 +79,7 @@ object NotificationBuilder {
         }
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val notificationBuilder = NotificationCompat.Builder(context)
+        val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(icon)
             .setContentTitle(title)
             .setContentText(text)
@@ -73,7 +106,7 @@ object NotificationBuilder {
 
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(context)
+        val notificationBuilder = NotificationCompat.Builder(context,NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(icon)
             .setContentTitle(title)
             .setContentText("$text - ${Date()}")

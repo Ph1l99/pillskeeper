@@ -16,19 +16,19 @@ import java.util.*
 
 object NotifyPlanner{
 
-    private val appointmentTest = Appointment(
-        "test",
-        Date(),
-        null
-    )
-
-    fun testPlanner(context: Context, alarmManager: AlarmManager, it: Appointment = appointmentTest) {
+    fun testPlanner(context: Context, alarmManager: AlarmManager) {
         Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
 
+        val it = Appointment(
+            "test",
+            Date(),
+            null
+        )
+
         val cal = Calendar.getInstance()
-        cal.time = appointmentTest.date
+        cal.time = it.date
         cal.add(Calendar.MINUTE, 5)
-        appointmentTest.date = cal.time
+        it.date = cal.time
 
         val intent = buildIntent(context, it)
 

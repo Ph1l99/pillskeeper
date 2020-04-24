@@ -29,8 +29,8 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                 if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
                     eventShowNotify(context, intent)
                 else if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
-                    eventShowNotify(context, intent)
                     if (context != null) {
+                        NotificationBuilder.showNotificationDebug(context)
                         NotifyPlanner.testPlanner(
                             context,
                             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager

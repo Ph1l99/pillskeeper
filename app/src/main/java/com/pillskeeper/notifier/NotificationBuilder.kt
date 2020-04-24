@@ -13,21 +13,19 @@ import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicineSort
-import com.pillskeeper.datamanager.UserInformation.context
 import java.util.*
 
 object NotificationBuilder {
 
-    private var notificationManager : NotificationManager? = getSystemService(context, NotificationManager::class.java)
+    private var notificationManager : NotificationManager? = null
     private const val NOTIFICATION_CHANNEL_ID = "6081945"
     private const val TAG = "NOTIFICATION_BUILDER"
 
-    init {
-        createNotificationChannel()
-    }
-
     fun showNotificationDebug(context: Context){
-        Log.i(TAG,"showNotificatioTest: function started")
+        Log.i(TAG,"showNotificationTest: function started")
+
+        notificationManager = getSystemService(context, NotificationManager::class.java)
+        createNotificationChannel()
 
         val icon = R.drawable.records_medicines
         val title = "Medicina!"
@@ -37,7 +35,7 @@ object NotificationBuilder {
         cal.time = Date()
         val timeStr = cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
 
-        text += timeStr.toString()
+        text += timeStr
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(icon)
@@ -54,11 +52,14 @@ object NotificationBuilder {
         notificationManager?.notify(id, notificationBuilder.build())
 
 
-        Log.i(TAG,"showNotificatioTest: function ended")
+        Log.i(TAG,"showNotificationTest: function ended")
     }
 
     fun showNotificationReminder(context: Context, it: Any?) {
         println("showNotificationRem: function started")
+
+        notificationManager = getSystemService(context, NotificationManager::class.java)
+        createNotificationChannel()
 
         val icon: Int
         val title: String
@@ -99,6 +100,8 @@ object NotificationBuilder {
     fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
         println("showNotificationLowQuantity: function started")
 
+        notificationManager = getSystemService(context, NotificationManager::class.java)
+        createNotificationChannel()
 
         val icon = R.drawable.records_medicines
         val title = "Medicina in esaurimento"

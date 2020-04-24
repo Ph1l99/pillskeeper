@@ -5,7 +5,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
@@ -15,6 +14,8 @@ import com.pillskeeper.utility.Utils
 import java.util.*
 
 object NotifyPlanner{
+
+    private const val ACTION_PLANNER = "com.pillskeeper.notifier.ACTION_PLANNER"
 
     fun testPlanner(context: Context, alarmManager: AlarmManager) {
         Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
@@ -27,10 +28,10 @@ object NotifyPlanner{
 
         val cal = Calendar.getInstance()
         cal.time = it.date
-        cal.add(Calendar.MINUTE, 5)
+        cal.add(Calendar.MINUTE, 15)
         it.date = cal.time
 
-        val intent = buildIntent(context, it)
+        val intent = buildIntent(context, it, true)
 
         val itTime = getDateFromItem(it)
         val itID = generateIdForItem(it,itTime)
@@ -123,7 +124,8 @@ object NotifyPlanner{
             val intent = Intent(context,EventBroadcastReceiver::class.java)
                 .apply {
                     putExtra(EventBroadcastReceiver.TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM.toString())
-                    action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+                    //action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+                    action = ACTION_PLANNER
                 }
             val itID = 0
             if(!isAlreadyExistingIntent(context,itID,intent)) {
@@ -139,7 +141,7 @@ object NotifyPlanner{
                 cal.set(Calendar.MINUTE, 0)
                 cal.set(Calendar.SECOND, 0)
                 cal.set(Calendar.MILLISECOND, 0)
-                cal.set(Calendar.HOUR_OF_DAY, 7)
+                cal.set(Calendar.HOUR_OF_DAY, 4)
                 cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
 
                 if (Build.VERSION.SDK_INT >= 23)
@@ -184,7 +186,8 @@ object NotifyPlanner{
             intent.putExtra(EventBroadcastReceiver.TYPE_INTENT, TypeIntentWorker.SHOW_NOTIFY.toString())
 
         intent.putExtra(EventBroadcastReceiver.VALUE_INTENT, item)
-        intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+        //intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+        intent.action = ACTION_PLANNER
         return intent
     }
 

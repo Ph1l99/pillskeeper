@@ -17,32 +17,35 @@ class EventBroadcastReceiver : BroadcastReceiver() {
     companion object {
         const val TYPE_INTENT = "TypeIntent"
         const val VALUE_INTENT = "ValueIntent"
+        private const val TAG = "BROADCAST_RECEIVER"
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function started")
-        if (intent != null) {
-            if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-                NotifyPlanner.planFullDayAlarms(context)
-                NotifyPlanner.planNextDayPlanner(context)
-            } else if (intent.getStringExtra(TYPE_INTENT) != null) {
-                if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
-                    eventShowNotify(context, intent)
-                else if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
-                    if (context != null) {
-                        NotificationBuilder.showNotificationDebug(context)
+        Log.i(TAG, "EventBroadcastReceiver: onReceive() - Function started")
+        try {
+            if (intent != null) {
+                if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
+                    NotifyPlanner.planFullDayAlarms(context)
+                    NotifyPlanner.planNextDayPlanner(context)
+                } else if (intent.getStringExtra(TYPE_INTENT) != null) {
+                    if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
+                        eventShowNotify(context, intent)
+                    else if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY_DEBUG.toString()) {
+                        NotificationBuilder.showNotificationDebug(context!!)
                         NotifyPlanner.testPlanner(
                             context,
                             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
                         )
+                    } else {
+                        NotifyPlanner.planFullDayAlarms(context)
+                        NotifyPlanner.planNextDayPlanner(context)
                     }
-                } else {
-                    NotifyPlanner.planFullDayAlarms(context)
-                    NotifyPlanner.planNextDayPlanner(context)
                 }
             }
+        }catch (e: Exception){
+            Log.i(TAG, "ServiceStarter: onReceive() - Function ended " + e.printStackTrace())
         }
-        Log.i(Log.DEBUG.toString(), "ServiceStarter: onReceive() - Function ended")
+        Log.i(TAG, "ServiceStarter: onReceive() - Function ended")
     }
 
     private fun eventShowNotify(context: Context?, intent: Intent){
@@ -57,7 +60,6 @@ class EventBroadcastReceiver : BroadcastReceiver() {
 
                 if (medicine != null) {
                     if (medicine.remainingQty <= medicine.totalQty * FinishedMedicinesActivity.MINIMUM_QTY) {
-                        println("qty lowwwww")
                         NotificationBuilder.showNotificationLowQuantity(context, medicine)
                     }
                     if (medicine.remainingQty == 0F)

@@ -58,7 +58,7 @@
             android:label="@string/pillsListActivityTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.registration.SignUp"
+            android:name=".activity.registration.SignUpActivity"
             android:label="@string/singUpTitle" />
         <activity
             android:name=".activity.friend.FriendListActivity"

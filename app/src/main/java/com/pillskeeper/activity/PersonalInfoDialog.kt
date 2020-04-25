@@ -14,6 +14,9 @@ import com.pillskeeper.interfaces.FirebaseUserCallback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_personal_info.*
 
+/**
+ * Dialog for changing personal informations like name, surname and email
+ */
 class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(context) {
 
 
@@ -47,6 +50,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         }
     }
 
+    //Method for getting the user's data from the Firebase Realtime Database
     private fun getUser(userId: String) {
         FirebaseDatabaseManager.getUser(userId, object : FirebaseUserCallback {
             override fun onCallback(user: User?) {
@@ -81,6 +85,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                 isValidInfo = false
             }
         }
+        //If the user has inserted potential valid infos we open a login dialog
         if (isValidInfo) {
             val dialog = LoginDialog(context, user.email, object : Callback {
                 override fun onSuccess(res: Boolean) {
@@ -93,12 +98,13 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
 
             })
             dialog.setOnDismissListener {
+                //If the LoginDialog was closed with success we check if the user has changed the primary email
                 if (closedOK) {
                     if (auth.currentUser?.email != editTextEmail.text.toString()) {
                         updateAuth = true
                     }
                     if (updateAuth) {
-
+                        //If the user has changed the primary email we first update the Firebase Authentication instance
                         auth.currentUser?.updateEmail(editTextEmail.text.toString())
                         auth.currentUser?.uid?.let {
                             val userToBeWritten = User(
@@ -107,6 +113,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                                 editTextSurname.text.toString(),
                                 editTextEmail.text.toString()
                             )
+                            //We then save the user to the Firebase Realtime Database and to the local database
                             FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
                                 override fun onSuccess(res: Boolean) {
                                     LocalDatabase.saveUser(userToBeWritten)
@@ -123,6 +130,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
                             })
                         }
                     } else {
+                        //If the user hasn't changed the primary email we simply write the new data on the Firebase Realtime Database
                         auth.currentUser?.uid?.let {
                             val userToBeWritten = User(
                                 it,
@@ -156,7 +164,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         }
     }
 
-
+    //Method for displaying a user's data on the UI
     private fun displayUser(user: User) {
         this.user = user
         editTextEmail.setText(user.email)
@@ -165,6 +173,7 @@ class PersonalInfoDialog(context: Context, private val userId: String) : Dialog(
         setAllEnable(false)
     }
 
+    //Method for enabling the data fields
     private fun setAllEnable(value: Boolean) {
         editTextName.isEnabled = value
         editTextSurname.isEnabled = value

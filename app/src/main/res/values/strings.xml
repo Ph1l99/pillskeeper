@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PillsKeeper</string>
 
-    <!-- Strings for SignUp Activity-->
+    <!-- Strings for SignUpActivity Activity-->
     <string name="signup_button">Registrati</string>
     <string name="signup_name">Nome</string>
     <string name="signup_surname">Cognome</string>

@@ -9,6 +9,9 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_login.*
 
+/**
+ * LoginDialog for re-authenticating a user in order to change personal information on Firebase
+ */
 class LoginDialog(context: Context, private val userEmail: String, val callback: Callback) :
     Dialog(context) {
 
@@ -22,9 +25,7 @@ class LoginDialog(context: Context, private val userEmail: String, val callback:
         }
     }
 
-    /**
-     * Method for logging the user and update the token
-     */
+    //Method for loggin in the user and refresh the authentication token
     private fun loginAgain() {
         if (loginDialogPasswordText.text != null) {
             FirebaseAuthenticationManager.reautenticateUser(
@@ -54,9 +55,7 @@ class LoginDialog(context: Context, private val userEmail: String, val callback:
 
     }
 
-    /**
-     * Method for displaying infos like the email address
-     */
+    //Method for displaying infos like email
     private fun displayInfos(userEmail: String) {
         loginDialogMailText.setText(userEmail)
         loginDialogMailText.isEnabled = false

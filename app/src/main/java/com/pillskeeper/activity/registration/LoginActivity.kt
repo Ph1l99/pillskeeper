@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
         emailLogin.requestFocus()
 
         signupButton.setOnClickListener {
-            startActivity(Intent(this, SignUp::class.java))
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
         loginButton.setOnClickListener {
             login()

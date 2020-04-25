@@ -13,7 +13,10 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUp : AppCompatActivity() {
+/**
+ * SignupActivity for registering new users to PillsKeeper
+ */
+class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +29,7 @@ class SignUp : AppCompatActivity() {
 
     }
 
-    /**
-     * Method for signup users
-     */
+    //Method for register a new user to PillsKeeper
     private fun signUp() {
         if (mailField.text.toString().isEmpty() || passwordField.text.toString()
                 .isEmpty() || nameField.text.toString()
@@ -40,6 +41,7 @@ class SignUp : AppCompatActivity() {
             Utils.errorEditText(passwordField)
         }
 
+        //We write the new user to Firebase Authentication instance
         FirebaseAuthenticationManager.createNewUser(
             mailField.text.toString(),
             passwordField.text.toString(),
@@ -52,6 +54,7 @@ class SignUp : AppCompatActivity() {
                             surnameField.text.toString(),
                             mailField.text.toString()
                         )
+                        //If the user was succesfully written we then write it to the Firebase Realtime Database
                         FirebaseDatabaseManager.writeUser(userToBeWritten, object : Callback {
                             override fun onSuccess(res: Boolean) {
                                 LocalDatabase.saveUser(userToBeWritten)
@@ -76,7 +79,7 @@ class SignUp : AppCompatActivity() {
 
                 override fun onError() {
                     Utils.buildAlertDialog(
-                        this@SignUp,
+                        this@SignUpActivity,
                         getString(R.string.networkError),
                         getString(R.string.message_title)
                     ).show()

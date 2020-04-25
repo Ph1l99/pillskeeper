@@ -35,7 +35,12 @@ class AppointmentFormActivity : AppCompatActivity() {
             appointmentNameTV.setRawInputType(0)
             dateSelected = appointment!!.date
             cal.time = appointment!!.date
-            buttonDate.text = getString(R.string.dateButtonFormatted, cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))
+            buttonDate.text = getString(
+                R.string.dateButtonFormatted,
+                cal.get(Calendar.DAY_OF_MONTH),
+                cal.get(Calendar.MONTH) + 1,
+                cal.get(Calendar.YEAR)
+            )
             additionalNoteAppointment.setText(appointment!!.additionNotes)
             buttonDeleteAppointment.text = getText(R.string.closeButton)
             buttonConfirmAppointment.text = getText(R.string.editButton)
@@ -49,20 +54,27 @@ class AppointmentFormActivity : AppCompatActivity() {
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
         buttonDate.setOnClickListener {
-            DatePickerDialog(this, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                buttonDate.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
+            DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    buttonDate.text =
+                        getString(R.string.dateButtonFormatted, dayOfMonth, monthOfYear + 1, year)
 
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                cal.set(Calendar.HOUR_OF_DAY, 0)
-                cal.set(Calendar.MINUTE, 0)
-                cal.set(Calendar.SECOND, 0)
-                cal.set(Calendar.MILLISECOND, 0)
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    cal.set(Calendar.HOUR_OF_DAY, 0)
+                    cal.set(Calendar.MINUTE, 0)
+                    cal.set(Calendar.SECOND, 0)
+                    cal.set(Calendar.MILLISECOND, 0)
 
-                dateSelected = cal.time
+                    dateSelected = cal.time
 
-            }, year, month, day).show()
+                },
+                year,
+                month,
+                day
+            ).show()
         }
 
         buttonDeleteAppointment.setOnClickListener { finish() }
@@ -90,41 +102,42 @@ class AppointmentFormActivity : AppCompatActivity() {
     private fun checkValues(): Boolean {
         var result = true
 
-        if(appointmentNameTV.text.toString().isEmpty()){
+        if (appointmentNameTV.text.toString().isEmpty()) {
             Utils.errorEditText(appointmentNameTV)
             result = false
         }
 
-        if(dateSelected != null) {
+        if (dateSelected != null) {
             if (!Utils.checkDate(dateSelected!!, this))
                 result = false
         } else {
-            Toast.makeText(this,"Perfavore inserire una data corretta",Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG).show()
             result = false
         }
 
         return result
     }
 
-    private fun resetEditText(){
+    private fun resetEditText() {
         Utils.validEditText(appointmentNameTV)
     }
 
-    private fun initSpinner(){
+    private fun initSpinner() {
         val cal = Calendar.getInstance()
         minuteArray = LinkedList()
         val arrayAdapterHours: Any
 
-        if(appointment == null || isEditing) {
+        if (appointment == null || isEditing) {
             for (i in 0..12)
-                minuteArray.add(if(i < 2) "0${i*5}" else "${i*5}")
-            arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, Utils.hours)
+                minuteArray.add(if (i < 2) "0${i * 5}" else "${i * 5}")
+            arrayAdapterHours =
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, Utils.hours)
             minuteArray = LinkedList(minuteArray)
         } else {
             val hour = LinkedList<String>()
             cal.time = appointment!!.date
             hour.add(cal.get(Calendar.HOUR_OF_DAY).toString())
-            arrayAdapterHours = ArrayAdapter(this,android.R.layout.simple_spinner_item, hour)
+            arrayAdapterHours = ArrayAdapter(this, android.R.layout.simple_spinner_item, hour)
             minuteArray.add(cal.get(Calendar.MINUTE).toString())
         }
 
@@ -132,12 +145,13 @@ class AppointmentFormActivity : AppCompatActivity() {
 
         hourSpinnerAppointment.adapter = arrayAdapterHours
 
-        val arrayAdapterMinutes = ArrayAdapter(this,android.R.layout.simple_spinner_item, minuteArray)
+        val arrayAdapterMinutes =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, minuteArray)
         arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         minuteSpinnerAppointment.adapter = arrayAdapterMinutes
 
-        if(isEditing){
+        if (isEditing) {
             cal.time = appointment!!.date
             hourSpinnerAppointment.setSelection(cal.get(Calendar.HOUR_OF_DAY))
             minuteSpinnerAppointment.setSelection(cal.get(Calendar.MINUTE) / 15)
@@ -147,14 +161,20 @@ class AppointmentFormActivity : AppCompatActivity() {
 
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
-            cal.set(Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
-            cal.set(Calendar.HOUR_OF_DAY,Utils.hours[hourSpinnerAppointment.selectedItemPosition].toInt())
+            cal.set(
+                Calendar.MINUTE,
+                minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt()
+            )
+            cal.set(
+                Calendar.HOUR_OF_DAY,
+                Utils.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
+            )
             val newAppointment = Appointment(
                 appointmentNameTV.text.toString(),
                 cal.time,
                 additionalNoteAppointment.text.toString()
             )
-            if(appointment == null){
+            if (appointment == null) {
                 if (UserInformation.addNewAppointment(newAppointment)) {
                     NotifyPlanner.planSingleAlarm(
                         this,
@@ -165,13 +185,13 @@ class AppointmentFormActivity : AppCompatActivity() {
                 } else {
                     Utils.buildAlertDialog(
                         this,
-                        "appointment already existing",
+                        "appointment already existing",//TODO
                         getString(R.string.message_title)
                     )
                 }
             } else {
-                if(UserInformation.editAppointment(appointment!!.name,newAppointment)){
-                    NotifyPlanner.remove(this,appointment!!)
+                if (UserInformation.editAppointment(appointment!!.name, newAppointment)) {
+                    NotifyPlanner.remove(this, appointment!!)
                     NotifyPlanner.planSingleAlarm(
                         this,
                         getSystemService(Context.ALARM_SERVICE) as AlarmManager,
@@ -190,7 +210,7 @@ class AppointmentFormActivity : AppCompatActivity() {
         }
     }
 
-    private fun setAllEnable(flag: Boolean){
+    private fun setAllEnable(flag: Boolean) {
         appointmentNameTV.isEnabled = flag
         hourSpinnerAppointment.isEnabled = flag
         minuteSpinnerAppointment.isEnabled = flag

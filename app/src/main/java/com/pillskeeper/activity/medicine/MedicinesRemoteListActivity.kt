@@ -3,7 +3,6 @@ package com.pillskeeper.activity.medicine
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,7 +35,6 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
     }
 
     private fun fillMedicinesList() {
-        Log.i(Log.DEBUG.toString(), "fillMedicinesList()-Started")
         FirebaseDatabaseManager.getMedicines(object : FirebaseMedicineCallback {
             override fun onCallback(list: List<RemoteMedicine>?) {
                 if (list != null) {

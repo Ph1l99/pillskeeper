@@ -15,7 +15,11 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.dialog_new_friend.*
 
 
-class NewFriendDialog(context: Context, private val mode: DialogModeEnum, private val friend: Friend?) : Dialog(context) {
+class NewFriendDialog(
+    context: Context,
+    private val mode: DialogModeEnum,
+    private val friend: Friend?
+) : Dialog(context) {
 
     private var isEditing: Boolean = false
     private var stdLayout: Drawable? = null
@@ -30,9 +34,9 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
         setContentView(R.layout.dialog_new_friend)
 
         stdLayout = editTextName.background
-        if(mode == DialogModeEnum.CREATE_NEW_FRIEND){
+        if (mode == DialogModeEnum.CREATE_NEW_FRIEND) {
             initSpinner()
-            buttonConfirm.setOnClickListener{
+            buttonConfirm.setOnClickListener {
                 restoreAllLayout()
                 addOrEditFriend()
             }
@@ -45,21 +49,24 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
                 editTextEmail.setText(friend.email)
                 editTextPhone.setText(friend.phone)
 
-                val relationValues : ArrayList<String> = ArrayList()
+                val relationValues: ArrayList<String> = ArrayList()
                 relationValues.add(friend.relationEnum.toString())
-                val arrayAdapter = ArrayAdapter(context,android.R.layout.simple_spinner_item, relationValues)
+                val arrayAdapter =
+                    ArrayAdapter(context, android.R.layout.simple_spinner_item, relationValues)
                 arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
                 spinnerRelation.adapter = arrayAdapter
 
                 setAllEnable(false)
 
+                //TODO
+
                 buttonDeny.text = "Chiudi"
                 buttonConfirm.text = "Modifica"
 
                 buttonConfirm.setOnClickListener {
                     restoreAllLayout()
-                    if(isEditing)
+                    if (isEditing)
                         addOrEditFriend()
                     else {
                         isEditing = !isEditing
@@ -74,27 +81,27 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
             }
         }
 
-        buttonDeny.setOnClickListener{
+        buttonDeny.setOnClickListener {
             dismiss()
         }
 
     }
 
-    private fun addOrEditFriend(){
+    private fun addOrEditFriend() {
         var isValidInfo = true
-        if(editTextPhone.text.toString().isNotEmpty())
-            if(!Utils.checkPhoneNumber(editTextPhone.text.toString())) {
+        if (editTextPhone.text.toString().isNotEmpty())
+            if (!Utils.checkPhoneNumber(editTextPhone.text.toString())) {
                 isValidInfo = false
                 Utils.errorEditText(editTextPhone)
             }
 
-        if(editTextEmail.text.toString().isNotEmpty())
-            if(!Utils.checkEmail(editTextEmail.text.toString())) {
+        if (editTextEmail.text.toString().isNotEmpty())
+            if (!Utils.checkEmail(editTextEmail.text.toString())) {
                 isValidInfo = false
                 Utils.errorEditText(editTextEmail)
             }
 
-        if(!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
+        if (!Utils.checkName(editTextName.text.toString()) || !Utils.checkName(editTextSurname.text.toString())) {
             isValidInfo = false
             Utils.errorEditText(editTextName)
             Utils.errorEditText(editTextSurname)
@@ -109,7 +116,7 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
                 RelationEnum.valueOf(spinnerRelation.selectedItem.toString())
             )
 
-            if (mode == DialogModeEnum.CREATE_NEW_FRIEND){
+            if (mode == DialogModeEnum.CREATE_NEW_FRIEND) {
                 UserInformation.addNewFriend(newFriend)
             } else {
                 if (friend != null)
@@ -121,17 +128,19 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
         }
     }
 
-    private fun initSpinner(){
-        val relationValues : ArrayList<String> = ArrayList()
-        RelationEnum.values().forEach { relationEnum -> relationValues.add(relationEnum.toString()) }
+    private fun initSpinner() {
+        val relationValues: ArrayList<String> = ArrayList()
+        RelationEnum.values()
+            .forEach { relationEnum -> relationValues.add(relationEnum.toString()) }
 
-        val arrayAdapter = ArrayAdapter(context,android.R.layout.simple_spinner_item, relationValues)
+        val arrayAdapter =
+            ArrayAdapter(context, android.R.layout.simple_spinner_item, relationValues)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerRelation.adapter = arrayAdapter
     }
 
-    private fun setAllEnable(value: Boolean){
+    private fun setAllEnable(value: Boolean) {
         editTextName.isEnabled = value
         editTextSurname.isEnabled = value
         editTextEmail.isEnabled = value
@@ -139,7 +148,7 @@ class NewFriendDialog(context: Context, private val mode: DialogModeEnum, privat
         spinnerRelation.isEnabled = value
     }
 
-    private fun restoreAllLayout(){
+    private fun restoreAllLayout() {
         Utils.validEditText(editTextName)
         Utils.validEditText(editTextSurname)
         Utils.validEditText(editTextPhone)

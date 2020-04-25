@@ -21,10 +21,7 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
-import com.pillskeeper.utility.Utils
 import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
-import kotlinx.android.synthetic.main.activity_finished_medicines.*
-import kotlinx.android.synthetic.main.content_finished_medicines.*
 import java.util.*
 
 class FinishedMedicinesActivity : AppCompatActivity() {

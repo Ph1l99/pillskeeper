@@ -18,9 +18,9 @@ import kotlinx.android.synthetic.main.content_appointement_list.*
 
 class AppointmentListActivity : AppCompatActivity() {
 
-    private lateinit var appointmentListView : ListView
-    private lateinit var listAppointmentName : ArrayList<String>
-    private lateinit var adapter : ArrayAdapter<String>
+    private lateinit var appointmentListView: ListView
+    private lateinit var listAppointmentName: ArrayList<String>
+    private lateinit var adapter: ArrayAdapter<String>
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
@@ -45,13 +45,13 @@ class AppointmentListActivity : AppCompatActivity() {
         initList()
 
         addAppointmentFab.setOnClickListener {
-            val intent = Intent(this,AppointmentFormActivity::class.java)
+            val intent = Intent(this, AppointmentFormActivity::class.java)
             startActivity(intent)
         }
 
         appointmentListView.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this,AppointmentFormActivity::class.java)
-                .putExtra(APPOINTMENT_VALUE,UserInformation.appointments[position])
+            val intent = Intent(this, AppointmentFormActivity::class.java)
+                .putExtra(APPOINTMENT_VALUE, UserInformation.appointments[position])
             startActivity(intent)
         }
 
@@ -71,7 +71,7 @@ class AppointmentListActivity : AppCompatActivity() {
         initList()
     }
 
-    private fun initList(){
+    private fun initList() {
         Log.i(Log.DEBUG.toString(), "AppointmentListActivity - initList() Started")
 
         appointmentListView = findViewById(R.id.appointmentListView)

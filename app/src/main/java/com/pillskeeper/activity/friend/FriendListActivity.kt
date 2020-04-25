@@ -1,7 +1,6 @@
 package com.pillskeeper.activity.friend
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +16,9 @@ import kotlinx.android.synthetic.main.content_friend_list.*
 
 class FriendListActivity : AppCompatActivity() {
 
-    private lateinit var friendListView : ListView
-    private lateinit var listName : ArrayList<String>
-    private lateinit var adapter : ArrayAdapter<String>
+    private lateinit var friendListView: ListView
+    private lateinit var listName: ArrayList<String>
+    private lateinit var adapter: ArrayAdapter<String>
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
@@ -44,12 +43,20 @@ class FriendListActivity : AppCompatActivity() {
         }
 
         friendListView.setOnItemLongClickListener { _, _, position, _ ->
-            GenericDeleteDialog(this,UserInformation.friends[position].name,DialogModeEnum.DELETE_FRIEND).show()
+            GenericDeleteDialog(
+                this,
+                UserInformation.friends[position].name,
+                DialogModeEnum.DELETE_FRIEND
+            ).show()
             return@setOnItemLongClickListener true
         }
 
         friendListView.setOnItemClickListener { _, _, position, _ ->
-            NewFriendDialog(this, DialogModeEnum.EDIT_FRIEND,UserInformation.friends[position]).show()
+            NewFriendDialog(
+                this,
+                DialogModeEnum.EDIT_FRIEND,
+                UserInformation.friends[position]
+            ).show()
         }
     }
 
@@ -59,9 +66,7 @@ class FriendListActivity : AppCompatActivity() {
         initList()
     }
 
-    private fun initList(){
-        Log.i(Log.DEBUG.toString(), "FriendListActivity - initList() Started")
-
+    private fun initList() {
         friendListView = findViewById(R.id.friendListView)
         listName = ArrayList(UserInformation.friends.size)
 
@@ -71,8 +76,6 @@ class FriendListActivity : AppCompatActivity() {
 
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listName)
         friendListView.adapter = adapter
-
-        Log.i(Log.DEBUG.toString(), "FriendListActivity - initList() Ended")
     }
 
 }

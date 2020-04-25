@@ -17,12 +17,11 @@ import kotlinx.android.synthetic.main.activity_text_reader.*
 
 class TextReaderActivity : AppCompatActivity() {
 
-    val MAX_STRING_LENGTH: Int = 30
+    private val MAX_STRING_LENGTH: Int = 30
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_text_reader)
-
 
 
         val cameraView = findViewById<SurfaceView>(R.id.surface_view)
@@ -32,7 +31,11 @@ class TextReaderActivity : AppCompatActivity() {
         var textRecognizer = TextRecognizer.Builder(applicationContext).build()
 
         if (!textRecognizer.isOperational) {
-            Toast.makeText(applicationContext, "Detector dependencies are not avaiable!", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                "Detector dependencies are not avaiable!",
+                Toast.LENGTH_LONG
+            ).show()
         } else {
             val cameraSource = CameraSource.Builder(applicationContext, textRecognizer)
                 .setFacing(CameraSource.CAMERA_FACING_BACK)
@@ -48,7 +51,8 @@ class TextReaderActivity : AppCompatActivity() {
                     format: Int,
                     width: Int,
                     height: Int
-                ) {}
+                ) {
+                }
 
                 override fun surfaceDestroyed(holder: SurfaceHolder?) {
                     cameraSource.stop()
@@ -91,7 +95,7 @@ class TextReaderActivity : AppCompatActivity() {
 
             })
 
-            confirm_button.setOnClickListener{
+            confirm_button.setOnClickListener {
                 val it = Intent(this, MedicineFormActivity::class.java)
                 it.putExtra("pillName", textView.text.toString())
                 setResult(Activity.RESULT_OK, it)
@@ -100,10 +104,10 @@ class TextReaderActivity : AppCompatActivity() {
         }
     }
 
-    private fun formatText(str: String): String{
+    private fun formatText(str: String): String {
         var result: String = str
 
-        if(str.length > MAX_STRING_LENGTH) {
+        if (str.length > MAX_STRING_LENGTH) {
             result = str.subSequence(0, MAX_STRING_LENGTH) as String
         }
 
@@ -121,7 +125,7 @@ class TextReaderActivity : AppCompatActivity() {
         //result = Regex("$").replace(result, "s")
         result = Regex("§").replace(result, "s")
         result = Regex("ç").replace(result, "c")
-        result = Regex("\n").replace(result," ")
+        result = Regex("\n").replace(result, " ")
 
 
         return result.toLowerCase()

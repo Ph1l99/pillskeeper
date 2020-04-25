@@ -31,7 +31,11 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
     private lateinit var editTextNameMed: EditText
     private lateinit var spinner: Spinner
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_form_one, container, false)
 
@@ -52,7 +56,12 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
 
         /*LISTENERS*/
         buttonCamera.setOnClickListener {
-            if (context?.let { it1 -> checkSelfPermission(it1, Manifest.permission.CAMERA) } == PackageManager.PERMISSION_GRANTED) {
+            if (context?.let { it1 ->
+                    checkSelfPermission(
+                        it1,
+                        Manifest.permission.CAMERA
+                    )
+                } == PackageManager.PERMISSION_GRANTED) {
                 val intent = Intent(context, TextReaderActivity::class.java)
                 startActivityForResult(intent, CAMERA_REQUEST)
             } else {
@@ -64,7 +73,7 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
         }
 
         editTextNameMed.addTextChangedListener {
-            if(editTextNameMed.text.isNotEmpty())
+            if (editTextNameMed.text.isNotEmpty())
                 textViewNext.visibility = View.VISIBLE
 
         }
@@ -93,7 +102,8 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
             }
         }
 
-        val arrayAdapter = context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, medTypeValues) }
+        val arrayAdapter =
+            context?.let { ArrayAdapter(it, android.R.layout.simple_spinner_item, medTypeValues) }
         arrayAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinnerMedicineType.adapter = arrayAdapter
@@ -102,7 +112,7 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
-            if(requestCode == CAMERA_REQUEST) {
+            if (requestCode == CAMERA_REQUEST) {
                 val pillName: String? = data!!.getStringExtra("pillName")
                 editTextNameMed.text = SpannableStringBuilder(pillName)
             } else

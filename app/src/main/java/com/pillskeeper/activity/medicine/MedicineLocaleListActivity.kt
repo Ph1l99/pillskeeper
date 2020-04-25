@@ -74,7 +74,7 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         }
          */
 
-        addMedicineButton.setOnClickListener{
+        addMedicineButton.setOnClickListener {
             val intent = Intent(this, MedicinesRemoteListActivity::class.java)
             startActivity(intent)
         }
@@ -105,7 +105,10 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         recyclerView.setHasFixedSize(true)
         mAdapter.setOnItemClickListener { position ->
             val intent = Intent(this, ReminderListActivity::class.java)
-                .putExtra(ReminderListActivity.MEDICINE_NAME, UserInformation.medicines[position].name)
+                .putExtra(
+                    ReminderListActivity.MEDICINE_NAME,
+                    UserInformation.medicines[position].name
+                )
             startActivity(intent)
         }
     }

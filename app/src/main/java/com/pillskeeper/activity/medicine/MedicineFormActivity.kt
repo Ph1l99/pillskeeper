@@ -37,12 +37,13 @@ class MedicineFormActivity : AppCompatActivity() {
         viewPager.adapter = introAdapter
 
         FormAdapter.formActivity = this
-        if(intent.getSerializableExtra(LOCAL_MEDICINE) != null){
+        if (intent.getSerializableExtra(LOCAL_MEDICINE) != null) {
             FormAdapter.localMedicine = intent.getSerializableExtra(LOCAL_MEDICINE) as LocalMedicine
             FormAdapter.reminderList = FormAdapter.localMedicine!!.reminders
             viewPager.currentItem = FormAdapter.FORM_EDIT
         } else if (intent.getSerializableExtra(REMOTE_MEDICINE) != null) {
-            FormAdapter.remoteMedicine = intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
+            FormAdapter.remoteMedicine =
+                intent.getSerializableExtra(REMOTE_MEDICINE) as RemoteMedicine
         }
 
     }

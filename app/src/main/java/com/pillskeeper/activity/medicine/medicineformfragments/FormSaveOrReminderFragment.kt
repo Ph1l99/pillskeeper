@@ -97,9 +97,15 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
             if (it.isSingleDayRem()) {
                 val cal = Calendar.getInstance()
                 cal.time = it.startingDay
-                stringList.add("${it.hours}:${it.minutes} - ${getString(R.string.dateButtonFormatted,cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.MONTH) + 1,cal.get(Calendar.YEAR))}")
-            }
-            else
+                stringList.add(
+                    "${it.hours}:${it.minutes} - ${getString(
+                        R.string.dateButtonFormatted,
+                        cal.get(Calendar.DAY_OF_MONTH),
+                        cal.get(Calendar.MONTH) + 1,
+                        cal.get(Calendar.YEAR)
+                    )}"
+                )
+            } else
                 stringList.add("${it.hours}:${it.minutes} - ${it.dayStringify()}")
         }
 

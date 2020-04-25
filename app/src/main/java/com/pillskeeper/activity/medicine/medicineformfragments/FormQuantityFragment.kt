@@ -19,7 +19,11 @@ class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment()
     lateinit var editTextRemainingQuantity: EditText
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_form_two, container, false)
 
@@ -31,11 +35,11 @@ class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment()
 
         /*LISTENERS*/
         textViewNext.setOnClickListener {
-            if(editTextRemainingQuantity.text.toString() != "" && editTextTotalQuantity.text.toString() != "") {
+            if (editTextRemainingQuantity.text.toString() != "" && editTextTotalQuantity.text.toString() != "") {
                 if (Integer.parseInt(editTextRemainingQuantity.text.toString()) > Integer.parseInt(
                         editTextTotalQuantity.text.toString()
                     )
-                ) {
+                ) {//TODO
                     Toast.makeText(
                         context,
                         "La quantità rimanente non può essere maggiore di quella totale!",
@@ -50,14 +54,14 @@ class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment()
             }
         }
 
-        textViewBack.setOnClickListener{
+        textViewBack.setOnClickListener {
             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
         }
 
         editTextTotalQuantity.addTextChangedListener {
             editTextRemainingQuantity.text = editTextTotalQuantity.text
 
-            if(editTextTotalQuantity.text.isNotEmpty() && editTextRemainingQuantity.text.isNotEmpty()){
+            if (editTextTotalQuantity.text.isNotEmpty() && editTextRemainingQuantity.text.isNotEmpty()) {
                 textViewNext.visibility = View.VISIBLE
             } else {
                 textViewNext.visibility = View.INVISIBLE

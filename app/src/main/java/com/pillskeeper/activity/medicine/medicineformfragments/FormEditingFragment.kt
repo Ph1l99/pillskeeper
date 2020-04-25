@@ -15,7 +15,7 @@ class FormEditingFragment : Fragment() {
 
     private lateinit var textViewSave: TextView
     private lateinit var textViewAbort: TextView
-    private lateinit var textViewMedName : TextView
+    private lateinit var textViewMedName: TextView
     private lateinit var editTextTotalQtyEdit: EditText
     private lateinit var editTextRemainingQtyEdit: EditText
 
@@ -42,14 +42,14 @@ class FormEditingFragment : Fragment() {
             val totQty = editTextTotalQtyEdit.text.toString().toFloat()
             val remQty = editTextRemainingQtyEdit.text.toString().toFloat()
 
-            if(remQty > 0F  && remQty <= totQty) {
+            if (remQty > 0F && remQty <= totQty) {
                 FormAdapter.localMedicine!!.totalQty = totQty
                 FormAdapter.localMedicine!!.remainingQty = remQty
                 if (!UserInformation.editMedicine(
                         FormAdapter.localMedicine!!.name,
                         FormAdapter.localMedicine!!
                     )
-                ) {
+                ) {//TODO
                     Toast.makeText(
                         UserInformation.context,
                         "Attenzione medicina non modificata!",

@@ -3,10 +3,12 @@ package com.pillskeeper.activity.homefragments
 
 import android.app.AlarmManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.widget.EditText
-import android.widget.TableLayout
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -88,6 +90,14 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             getSystemService(Context.ALARM_SERVICE) as AlarmManager
         )
 
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        if(powerManager.isIgnoringBatteryOptimizations(packageName)){
+            Toast.makeText(this, "NON OTTIMIZZATA (bene)" ,Toast.LENGTH_LONG).show()
+        } else {
+            Toast.makeText(this, "OTTIMIZZATA (male)" ,Toast.LENGTH_LONG).show()
+            val intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
+            startActivity(intent)
+        }
 
         /*
         appointmentListMain.setOnItemClickListener { _, _, position, _ ->

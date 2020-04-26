@@ -28,7 +28,7 @@ object NotifyPlanner{
 
         val cal = Calendar.getInstance()
         cal.time = it.date
-        cal.add(Calendar.MINUTE, 15)
+        cal.add(Calendar.MINUTE, 20)
         it.date = cal.time
 
         val intent = buildIntent(context, it, true)
@@ -42,7 +42,13 @@ object NotifyPlanner{
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT
             )
-            if (Build.VERSION.SDK_INT >= 23)
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                itTime.time,
+                pendingIntent
+            )
+
+            /*if (Build.VERSION.SDK_INT >= 23)
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     itTime.time,
@@ -53,7 +59,7 @@ object NotifyPlanner{
                     AlarmManager.RTC_WAKEUP,
                     itTime.time,
                     pendingIntent
-                )
+                )*/
 
             val calDebug = Calendar.getInstance()
             calDebug.time = itTime

@@ -14,31 +14,16 @@ import com.pillskeeper.interfaces.FirebaseUserCallback
  */
 object FirebaseDatabaseManager {
     private lateinit var databaseReference: DatabaseReference
-    private lateinit var medicineRefs: DatabaseReference
-
-    private lateinit var firebaseDatabase: FirebaseDatabase
 
     private const val PATH_MEDICINES = "medicines"
     private const val PATH_USERS = "users"
 
-    /**
-     * Method for enabling the offline database cache
-     */
-    private fun enablePersistence() {
-        medicineRefs = Firebase.database.getReference(PATH_MEDICINES)
-        medicineRefs.keepSynced(true)
-    }
 
     /**
      * Method for getting the Firebase Database reference
      */
     fun obtainDatabaseReference() {
-        if (databaseReference == null) {
-            firebaseDatabase = FirebaseDatabase.getInstance()
-            firebaseDatabase.setPersistenceEnabled(true)
-            databaseReference = firebaseDatabase.reference
-            enablePersistence()
-        }
+        databaseReference = Firebase.database.reference
     }
 
     /**

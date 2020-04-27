@@ -61,6 +61,8 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
         return new RemCardHolderJava(v, mListener);
     }
 
+    //todo cambiare tutti i testi con r.stringhe
+
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(RemCardHolderJava holder, int position) {
@@ -71,11 +73,14 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
         if(item.isSingleDayRem()){
             Calendar cal = Calendar.getInstance();
             cal.setTime(item.getStartingDay());
-            text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1).append("/").append(cal.get(Calendar.YEAR));
+            text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1);
             text.append(" Alle: ").append(item.getHours()).append(":").append(item.getMinutes());
         } else {
-            if (item.getStartingDay().after(new Date()))
-                text.append(item.getStartingDay()).append(" - ");
+            if (item.getStartingDay().after(new Date())) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(item.getStartingDay());
+                text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1).append(" - ");
+            }
             text.append(item.getHours()).append(":").append(item.getMinutes()).append(" - ");
             text.append(item.dayStringify());
         }

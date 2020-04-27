@@ -16,9 +16,12 @@ import java.util.*
 object NotifyPlanner{
 
     private const val ACTION_PLANNER = "com.pillskeeper.notifier.ACTION_PLANNER"
+    const val ACTION_NEXT_DAY_PLANNER = "com.pillskeeper.notifier.ACTION_NEXT_DAY_PLANNER"
+    private const val TAG = "NotifyPlanner: "
 
+    //todo remove after accurate test
     fun testPlanner(context: Context, alarmManager: AlarmManager) {
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
+        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Started")
 
         val it = Appointment(
             "test",
@@ -63,15 +66,15 @@ object NotifyPlanner{
 
             val calDebug = Calendar.getInstance()
             calDebug.time = itTime
-            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - " +
+            Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - " +
                     "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)} - ${calDebug.get(Calendar.DAY_OF_MONTH)}/${calDebug.get(Calendar.MONTH)}")
         }
 
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Ended")
+        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Ended")
     }
 
     fun planFullDayAlarms(context: Context?){
-        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Started")
+        Log.i(TAG, "planFullDayAlarms() - Started")
 
         if (context != null) {
             val listAlarm = getDailyList()
@@ -84,11 +87,11 @@ object NotifyPlanner{
                 }
             }
         }
-        Log.i(Log.DEBUG.toString(), "NotifyPlanner: planFullDayAlarms() - Ended")
+        Log.i(TAG, "planFullDayAlarms() - Ended")
     }
 
     fun planSingleAlarm(context: Context, alarmManager: AlarmManager, it: Any){
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Started")
+        Log.i(TAG, "planSingleAlarm() - Started")
 
         val intent = buildIntent(context, it)
 
@@ -116,14 +119,14 @@ object NotifyPlanner{
 
             val cal = Calendar.getInstance()
             cal.time = itTime
-            Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
+            Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
         }
 
-        Log.i(Log.DEBUG.toString(), "EventBroadcastReceiver: planSingleAlarm() - Ended")
+        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Ended")
     }
 
     fun planNextDayPlanner(context: Context?) {
-        Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Started")
+        Log.i(TAG, "planNextDayPlanner() - Started")
 
         if (context != null) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -131,7 +134,7 @@ object NotifyPlanner{
                 .apply {
                     putExtra(EventBroadcastReceiver.TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM.toString())
                     //action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-                    action = ACTION_PLANNER
+                    action = ACTION_NEXT_DAY_PLANNER
                 }
             val itID = 0
             if(!isAlreadyExistingIntent(context,itID,intent)) {
@@ -163,17 +166,17 @@ object NotifyPlanner{
                         pendingIntent
                     )
                 Log.i(
-                    Log.DEBUG.toString(),
+                    TAG,
                     "MainActivity: planNextDayPlanner() - Next Day planned... ${cal.time}"
                 )
             } else {
                 Log.i(
-                    Log.DEBUG.toString(),
+                    TAG,
                     "MainActivity: planNextDayPlanner() - Next already planned!!!"
                 )
             }
         }
-        Log.i(Log.DEBUG.toString(), "MainActivity: planNextDayPlanner() - Ended")
+        Log.i(TAG, "MainActivity: planNextDayPlanner() - Ended")
     }
 
     private fun buildIntent(context: Context, it: Any, debug: Boolean = false): Intent{
@@ -192,7 +195,6 @@ object NotifyPlanner{
             intent.putExtra(EventBroadcastReceiver.TYPE_INTENT, TypeIntentWorker.SHOW_NOTIFY.toString())
 
         intent.putExtra(EventBroadcastReceiver.VALUE_INTENT, item)
-        //intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
         intent.action = ACTION_PLANNER
         return intent
     }

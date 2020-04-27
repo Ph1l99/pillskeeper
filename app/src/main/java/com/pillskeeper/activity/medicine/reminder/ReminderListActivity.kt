@@ -41,7 +41,7 @@ class ReminderListActivity : AppCompatActivity() {
 
         if(medicineName.isNullOrEmpty()){
             Utils.buildAlertDialog(this,
-                "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",//todo mettere in string
+                "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",//todo mettere in r.string
                 getString(R.string.message_title),
                 object: Callback {
                     override fun onSuccess(res: Boolean) { finish() }

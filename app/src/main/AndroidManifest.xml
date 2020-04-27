@@ -84,6 +84,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
                 <action android:name="com.pillskeeper.notifier.ACTION_PLANNER"/>
+                <action android:name="com.pillskeeper.notifier.ACTION_NEXT_DAY_PLANNER"/>
             </intent-filter>
         </receiver>
 

@@ -99,6 +99,7 @@ class AppointmentFormActivity : AppCompatActivity() {
 
     }
 
+
     private fun checkValues(): Boolean {
         var result = true
 
@@ -108,7 +109,7 @@ class AppointmentFormActivity : AppCompatActivity() {
         }
 
         if (dateSelected != null) {
-            if (!Utils.checkDate(dateSelected!!, this))
+            if (checkDate(dateSelected!!))
                 result = false
         } else {
             Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG).show()
@@ -116,6 +117,24 @@ class AppointmentFormActivity : AppCompatActivity() {
         }
 
         return result
+    }
+
+
+    private fun checkDate(dateSelected: Date): Boolean {
+        val calCurrent = Calendar.getInstance()
+        val calSelected = Calendar.getInstance()
+        calCurrent.time = Date(System.currentTimeMillis())
+        calSelected.time = dateSelected
+        if (calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(
+                Calendar.MONTH
+            ) > calSelected.get(Calendar.MONTH) ||
+            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)
+        ) {
+            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG) //todo change with widjet made byphil
+                .show()
+            return false
+        }
+        return true
     }
 
     private fun resetEditText() {

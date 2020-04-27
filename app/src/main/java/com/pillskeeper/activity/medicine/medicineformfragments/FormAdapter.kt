@@ -106,9 +106,7 @@ class FormAdapter(
             )
             if (UserInformation.addNewMedicine(newMed)) {
 
-                val listMed: LinkedList<LocalMedicine> = LinkedList()
-                listMed.add(newMed)
-                val reminderListNormalized = Utils.getListReminderNormalized(listMed)
+                val reminderListNormalized = Utils.getListReminderNormalized(newMed)
 
                 reminderListNormalized.forEach {
                     NotifyPlanner.planSingleAlarm(

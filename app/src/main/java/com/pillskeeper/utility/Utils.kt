@@ -12,7 +12,6 @@ import android.net.Uri
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -48,62 +47,84 @@ object Utils {
 
     lateinit var stdLayout: Drawable
 
+    /**
+     * Function to check for wrong char inside userText string
+     * It made check with regex pattern
+     * @param value string we need to check
+     * @return result of check
+     */
     fun checkName(value: String): Boolean {
         Log.i(Log.DEBUG.toString(), "Utils: checkUsername() - Check value!")
 
         return (value.isNotEmpty() && value.matches(regexUsername))
     }
 
+    /**
+     * Function to check for wrong char inside userText string
+     * It made check with regex pattern
+     * @param phoneNumber stringPhoneNumber we need to check
+     * @return result of check
+     */
     fun checkPhoneNumber(phoneNumber: String): Boolean {
         Log.i(Log.DEBUG.toString(), "Utils: checkPhoneNumber() - Check value!")
 
         return (phoneNumber.isNotEmpty() && phoneNumber.matches(regexPhoneNumber))
     }
 
+    /**
+     * Function to check for wrong char inside userText string
+     * It made check with regex pattern
+     * @param email stringEmail we need to check
+     * @return result of check
+     */
     fun checkEmail(email: String): Boolean {
         Log.i(Log.DEBUG.toString(), "Utils: checkEmail() - Check value!")
 
         return (email.isNotEmpty() && email.matches(regexEmail))
     }
 
-    fun checkDate(dateSelected: Date, context: Context): Boolean {
-        val calCurrent = Calendar.getInstance()
-        val calSelected = Calendar.getInstance()
-        calCurrent.time = Date(System.currentTimeMillis())
-        calSelected.time = dateSelected
-        if (calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(
-                Calendar.MONTH
-            ) > calSelected.get(Calendar.MONTH) ||
-            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)
-        ) {
-            Toast.makeText(context, "Perfavore inserire una data corretta", Toast.LENGTH_LONG)
-                .show()
-            return false
-        }
-        return true
-    }
-
+    /**
+     * Function used as bridge, it makes code more readable
+     * error case
+     * @param editText the editText we need to change the color
+     */
     fun errorEditText(editText: EditText) {
         colorEditText(editText, true)
     }
 
+    /**
+     * Function used as bridge, it makes code more readable
+     * valid case
+     * @param editText the editText we need to change the color
+     */
     fun validEditText(editText: EditText) {
         colorEditText(editText, false)
     }
 
+    /**
+     * Function used to change borderColor of editText
+     * @param editText the editText we need to change the color
+     * @param isError flag used to chang the color based on an error or not
+     */
     private fun colorEditText(editText: EditText, isError: Boolean) {
         if (isError) {
             stdLayout = editText.background
             val gd = GradientDrawable()
             gd.setColor(Color.parseColor("#00ffffff"))
-            gd.setStroke(2, Color.RED)
+            gd.setStroke(4, Color.RED)
             editText.background = gd
         } else {
             editText.background = stdLayout
         }
     }
 
-    fun dataNormalizationLimit(date: Date): Long {
+    /**
+     * Function used to normalized a date to the ending day time
+     * Like : dd/mm/aaaa - 23:59:59:9999 (the really end date)  -  (it keep the initial day, month and year)
+     * @param date the date we want to normalize (90% of cases is today)
+     * @return it return the long version of time (time in millis)
+     */
+    fun dataNormalizationLimit(date: Date = Date()): Long {
         val cal: Calendar = Calendar.getInstance()
         cal.time = date
 
@@ -119,6 +140,13 @@ object Utils {
         username.text = LocalDatabase.readUser()?.name
     }
 
+    /**
+     * Function that get the list normalized and sort it and remove out of date reminder
+     * Used in the homePage and to plan alarms
+     * @param filterDate used to remove future reminders
+     * @param medList medicine list, it process them all
+     * @return return a sorted-daily reminderList
+     */
     fun getSortedListReminders(
         filterDate: Date,
         medList: LinkedList<LocalMedicine> = UserInformation.medicines
@@ -132,28 +160,53 @@ object Utils {
         return randomList
     }
 
+    /**
+     * Function used to get a normalized only a single reminder for a specific medicine
+     * It's useless to process all reminders of a medicine, it reduce overflow
+     * @param medName medicine name we want to process
+     * @param medType param used to build the reminderMedicine normalized
+     * @param reminder The item we want to process
+     * @return the same as @getListReminderNormalized (normalized reminderList)
+     * */
     fun getSingleReminderListNormalized(medName: String, medType: MedicineTypeEnum, reminder : ReminderMedicine): LinkedList<ReminderMedicineSort>{
         val reminderSortList = LinkedList<ReminderMedicineSort>()
         reminderSortList.add(ReminderMedicineSort(medName,medType,reminder))
         return convertSeqToDate(reminderSortList)
     }
 
+    /**
+     * Function used to get a normalized reminderList only for a specific medicine
+     * @param localMedicine medicine we want to process
+     * @return the same as @getListReminderNormalized (normalized reminderList)
+     * */
     fun getListReminderNormalized(localMedicine: LocalMedicine): LinkedList<ReminderMedicineSort> {
         val medList = LinkedList<LocalMedicine>()
         medList.add(localMedicine)
         return getListReminderNormalized(medList)
     }
 
+    /**
+     * Because of reminder types, we need to normalize all reminders before create the alarms
+     * The function process all reminders and for each, if they are SEQUENCE type it normalize them all
+     * @param medList medicine list (function can be used with multiple medicine)
+     * @return a normalized reminderList
+     * */
     fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort> {
         val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         medList.forEach {
             it.reminders?.forEach { reminder ->
-                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
+                if(reminder.startingDay > Date(dataNormalizationLimit(Date())))
+                    randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
             }
         }
         return convertSeqToDate(randomList)
     }
 
+    /**
+     * Function used to convert a SEQUENCE reminder to a dateReminder (really more easy to process)
+     * @param list take a mixed (SEQ and DATE) list od reminder
+     * @return a list composed by only DATE reminder. The size of list returned >= than list in input
+     */
     private fun convertSeqToDate(list: LinkedList<ReminderMedicineSort>): LinkedList<ReminderMedicineSort> {
         val convertedList: LinkedList<ReminderMedicineSort> = LinkedList()
 
@@ -167,6 +220,11 @@ object Utils {
         return convertedList
     }
 
+    /**
+     * Function that take a SEQ reminder and convert it to a list of DATE reminder
+     * @param entry the specific reminder we need to process
+     * @return the reminder converted to a list of DATE reminder
+     */
     private fun getDataListFromDays(entry: ReminderMedicineSort): Collection<ReminderMedicineSort> {
         val returnedList: LinkedList<ReminderMedicineSort> = LinkedList()
 
@@ -202,6 +260,12 @@ object Utils {
         return returnedList
     }
 
+    /**
+     * Function used to serialized a generic obj into an array of byte.
+     * We need it to send a specific item with Intent
+     * @param obj item we want to serialize
+     * @return the object serialized
+     */
     fun serialize(obj: Any): ByteArray? {
         val out = ByteArrayOutputStream()
         val os = ObjectOutputStream(out)
@@ -209,6 +273,12 @@ object Utils {
         return out.toByteArray()
     }
 
+    /**
+     * Function used to rebuild an array of byte into a generic obj
+     * We need it to get a specific item from an Intent
+     * @param data array of byte we want to deserialize
+     * @return the object deserialized
+     */
     fun deserialize(data: ByteArray): Any? {
         val `in` = ByteArrayInputStream(data)
         val `is` = ObjectInputStream(`in`)

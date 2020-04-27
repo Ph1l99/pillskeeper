@@ -24,6 +24,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
             if (intent != null) {
 
                 if (intent.action == Intent.ACTION_BOOT_COMPLETED || intent.action == NotifyPlanner.ACTION_NEXT_DAY_PLANNER) {
+                    UserInformation.cleanAppointmentAndReminderList()
                     NotifyPlanner.planFullDayAlarms(context)
                     NotifyPlanner.planNextDayPlanner(context)
                 } else if (intent.getStringExtra(TYPE_INTENT) != null) {

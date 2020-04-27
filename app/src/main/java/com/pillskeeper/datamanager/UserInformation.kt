@@ -7,6 +7,8 @@ import java.util.*
 
 object UserInformation {
 
+    const val TAG = "UserInformation: "
+    
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
     var appointments: LinkedList<Appointment> = LocalDatabase.readAppointmentList()
@@ -16,44 +18,44 @@ object UserInformation {
     /*******  GET FUNCTION   *******/
 
     @Synchronized fun getSpecificMedicine(name: String) : LocalMedicine?{
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Started")
+        Log.i(TAG,"getSpecificMedicine() - Started")
 
         medicines.forEach {
             entry -> if (entry.name == name){
-                Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Ended - Medicine found")
+                Log.i(TAG,"getSpecificMedicine() - Ended - Medicine found")
                 return entry
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificMedicine() - Ended - Medicine not found")
+        Log.i(TAG,"getSpecificMedicine() - Ended - Medicine not found")
         return null
     }
 
     @Synchronized fun getSpecificFriend(name: String)  : Friend? {
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificFriend() - Started")
+        Log.i(TAG,"getSpecificFriend() - Started")
 
         friends.forEach {
             entry -> if(entry.name == name) {
-                Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificFriend() - Ended - Friend found")
+                Log.i(TAG,"getSpecificFriend() - Ended - Friend found")
                 return entry
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificFriend() - Ended - Friend not found")
+        Log.i(TAG,"getSpecificFriend() - Ended - Friend not found")
         return null
     }
 
     @Synchronized fun getSpecificAppointment(name: String) : Appointment? {
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Started")
+        Log.i(TAG,"getSpecificAppointment() - Started")
 
         appointments.forEach {
             entry -> if(entry.name == name) {
-                Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Ended - Appointment found")
+                Log.i(TAG,"getSpecificAppointment() - Ended - Appointment found")
                 return entry
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: getSpecificAppointment() - Ended - Appointment not found")
+        Log.i(TAG,"getSpecificAppointment() - Ended - Appointment not found")
         return null
     }
 
@@ -61,10 +63,10 @@ object UserInformation {
     /*******  ADD  FUNCTION   *******/
 
     @Synchronized fun addNewFriend(friend: Friend): Boolean {
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewFriend() - Started")
+        Log.i(TAG,"addNewFriend() - Started")
         friends.forEach {
             entry -> if(entry.name == friend.name){
-                Log.i(Log.DEBUG.toString(),"UserInformation: addNewFriend() - Ended - Friend already present")
+                Log.i(TAG,"addNewFriend() - Ended - Friend already present")
                 return false
             }
         }
@@ -72,16 +74,16 @@ object UserInformation {
         friends.add(friend)
         LocalDatabase.saveFriendList()
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewFriend() - Ended - Friend inserted")
+        Log.i(TAG,"addNewFriend() - Ended - Friend inserted")
         return true
     }
 
     @Synchronized fun addNewMedicine(medicine: LocalMedicine) : Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Started")
+        Log.i(TAG,"addNewMedicine() - Started")
 
         medicines.forEach {
             entry -> if(entry.name == medicine.name && entry.medicineType == medicine.medicineType){
-                Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Ended - Medicine already present")
+                Log.i(TAG,"addNewMedicine() - Ended - Medicine already present")
                 return false
             }
         }
@@ -89,12 +91,12 @@ object UserInformation {
         medicines.add(medicine)
         LocalDatabase.saveMedicineList()
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewMedicine() - Ended - Medicine inserted")
+        Log.i(TAG,"addNewMedicine() - Ended - Medicine inserted")
         return true
     }
 
     @Synchronized fun addNewReminder(medicineName: String, reminder: ReminderMedicine): Boolean {
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Started")
+        Log.i(TAG,"addNewReminder() - Started")
 
         var currMedicine: LocalMedicine? = null
 
@@ -106,14 +108,14 @@ object UserInformation {
         }
 
         if(currMedicine == null){
-            Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Medicine not found")
+            Log.i(TAG,"addNewReminder() - Ended - Medicine not found")
             return false
         }
 
         currMedicine.reminders?.forEach { it ->
             if(it.days == reminder.days && it.expireDate == reminder.expireDate &&
                 it.hours == reminder.hours && it.minutes == reminder.minutes && it.dosage == reminder.dosage){
-                Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder with same Info")
+                Log.i(TAG,"addNewReminder() - Ended - Reminder with same Info")
                 return false
             }
         }
@@ -124,16 +126,16 @@ object UserInformation {
         currMedicine.reminders?.add(reminder)
 
         LocalDatabase.saveMedicineList()
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewReminder() - Ended - Reminder inserted")
+        Log.i(TAG,"addNewReminder() - Ended - Reminder inserted")
         return true
     }
 
     @Synchronized fun addNewAppointment(appointment: Appointment): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Started")
+        Log.i(TAG,"addNewAppointment() - Started")
 
         appointments.forEach {
             entry -> if(entry.name == appointment.name){
-                Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Ended - Appointment already present")
+                Log.i(TAG,"addNewAppointment() - Ended - Appointment already present")
                 return false
             }
         }
@@ -141,7 +143,7 @@ object UserInformation {
         appointments.add(appointment)
         LocalDatabase.saveAppointmentList()
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: addNewAppointment() - Ended - Appointment inserted")
+        Log.i(TAG,"addNewAppointment() - Ended - Appointment inserted")
         return true
     }
 
@@ -150,78 +152,78 @@ object UserInformation {
     /*******  EDIT FUNCTION   *******/
 
     @Synchronized fun editAppointment(oldName: String, appointment: Appointment): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Started")
+        Log.i(TAG,"editAppointment() - Started")
 
         for(i in appointments.indices){
             if(appointments[i].name == oldName){
-                Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Ended - Appointment modified")
+                Log.i(TAG,"editAppointment() - Ended - Appointment modified")
                 appointments[i] = appointment
                 LocalDatabase.saveAppointmentList()
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: editAppointment() - Ended - Appointment not found")
+        Log.i(TAG,"editAppointment() - Ended - Appointment not found")
         return false
     }
 
     @Synchronized fun editMedicine(oldName: String, medicine: LocalMedicine): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Started")
+        Log.i(TAG,"editMedicine() - Started")
 
         for(i in medicines.indices){
             if(medicines[i].name == oldName){
-                Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine modified")
+                Log.i(TAG,"editMedicine() - Ended - Medicine modified")
                 medicines[i] = medicine
                 LocalDatabase.saveMedicineList()
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: editMedicine() - Ended - Medicine not found")
+        Log.i(TAG,"editMedicine() - Ended - Medicine not found")
         return false
     }
 
     @Synchronized fun editFriend(oldName: String, friend: Friend): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Started")
+        Log.i(TAG,"editFriend() - Started")
 
         for(i in friends.indices){
             if(friends[i].name == oldName){
-                Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend modified")
+                Log.i(TAG,"editFriend() - Ended - Friend modified")
                 friends[i] = friend
                 LocalDatabase.saveFriendList()
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: editFriend() - Ended - Friend not found")
+        Log.i(TAG,"editFriend() - Ended - Friend not found")
         return false
     }
 
     @Synchronized fun editReminder(medName: String, oldReminder: ReminderMedicine, newReminder: ReminderMedicine): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Started")
+        Log.i(TAG,"editReminder() - Started")
 
         val medicine: LocalMedicine? = getSpecificMedicine(medName)
 
         if(medicine == null){
-            Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Medicine not found")
+            Log.i(TAG,"editReminder() - Ended - Medicine not found")
             return false
         }
 
         for(i in medicine.reminders?.indices!!){
             if (medicine.reminders!![i] == oldReminder){
                 medicine.reminders!![i] = newReminder
-                Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder edited")
+                Log.i(TAG,"editReminder() - Ended - Reminder edited")
                 LocalDatabase.saveMedicineList()
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: editReminder() - Ended - Reminder not found")
+        Log.i(TAG,"editReminder() - Ended - Reminder not found")
         return false
     }
 
     @Synchronized fun subMedicineQuantity(nameMedicine: String, subQty: Float ): LocalMedicine? {
-        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Started")
+        Log.i(TAG,"subMedicineQuantity() - Started")
         val medicine = getSpecificMedicine(nameMedicine)
 
         if(medicine != null){
@@ -230,76 +232,72 @@ object UserInformation {
                 medicine.remainingQty = 0F
 
             LocalDatabase.saveMedicineList()
-            Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Qty decreased")
+            Log.i(TAG,"subMedicineQuantity() - Qty decreased")
             return medicine
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Medicine not found")
+        Log.i(TAG,"subMedicineQuantity() - Medicine not found")
         return null
     }
 
     @Synchronized fun restoreQty(medicine: LocalMedicine): Boolean {
-        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Started")
+        Log.i(TAG,"subMedicineQuantity() - Started")
 
         medicine.remainingQty = medicine.totalQty
         LocalDatabase.saveMedicineList()
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: subMedicineQuantity() - Qty restored")
+        Log.i(TAG,"subMedicineQuantity() - Qty restored")
         return true
     }
-
-    fun saveUser(){
-
-    }
-
+    
 
     /*******  DELETE FUNCTION   *******/
 
     @Synchronized fun deleteAppointment(name: String): Boolean {
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Started")
+        Log.i(TAG,"deleteAppointment() - Started")
 
         for(i in appointments.indices){
             if(appointments[i].name == name){
-                Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Ended - Appointment Deleted")
+                Log.i(TAG,"deleteAppointment() - Ended - Appointment Deleted")
                 appointments.removeAt(i)
                 LocalDatabase.saveAppointmentList()
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteAppointment() - Ended - Appointment not found")
+        Log.i(TAG,"deleteAppointment() - Ended - Appointment not found")
         return false
     }
 
     @Synchronized fun deleteMedicine(name: String): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Started")
+        Log.i(TAG,"deleteMedicine() - Started")
 
         for(i in medicines.indices){
             if(medicines[i].name == name){
                 medicines.removeAt(i)
                 LocalDatabase.saveMedicineList()
-                Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Ended - Medicine Deleted")
+                Log.i(TAG,"deleteMedicine() - Ended - Medicine Deleted")
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteMedicine() - Ended - Medicine not found")
+        Log.i(TAG,"deleteMedicine() - Ended - Medicine not found")
         return false
     }
 
     @Synchronized fun deleteFriend(name: String): Boolean{
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Started")
+        Log.i(TAG,"deleteFriend() - Started")
 
         for(i in friends.indices){
             if(friends[i].name == name){
                 friends.removeAt(i)
                 LocalDatabase.saveFriendList()
-                Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Ended - Friend Removed")
+                Log.i(TAG,"deleteFriend() - Ended - Friend Removed")
                 return true
             }
         }
 
-        Log.i(Log.DEBUG.toString(),"UserInformation: deleteFriend() - Ended - Friend not found")
+        Log.i(TAG,"deleteFriend() - Ended - Friend not found")
         return false
     }
 
@@ -311,5 +309,24 @@ object UserInformation {
         LocalDatabase.erase()
     }
 
+    @Synchronized fun cleanAppointmentAndReminderList(){
+        Log.i(TAG, "cleanAppointmentAndReminderList() - function started")
+
+        val nowDate = Date()
+
+        for(i in appointments.indices)
+            if(appointments[i].date < nowDate)
+                appointments.removeAt(i)
+
+        medicines.forEach {
+            if (it.reminders != null)
+                for(i in it.reminders!!.indices)
+                    if (it.reminders!![i].expireDate != null
+                        && it.reminders!![i].expireDate!! < nowDate)
+                        it.reminders!!.removeAt(i)
+        }
+
+        Log.i(TAG, "cleanAppointmentAndReminderList() - function ended")
+    }
 
 }

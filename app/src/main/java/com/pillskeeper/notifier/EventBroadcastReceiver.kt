@@ -28,6 +28,7 @@ class EventBroadcastReceiver : BroadcastReceiver() {
                     UserInformation.cleanAppointmentAndReminderList()
                     NotifyPlanner.planFullDayAlarms(context)
                     NotifyPlanner.planNextDayPlanner(context)
+                    NotificationBuilder.showNotificationDebug(context!!) //todo remove when tested
                 } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                     if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
                         eventShowNotify(context, intent)

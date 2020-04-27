@@ -19,7 +19,7 @@ object NotificationBuilder {
 
     private var notificationManager : NotificationManager? = null
     private const val NOTIFICATION_CHANNEL_ID = "6081945"
-    private const val TAG = "NOTIFICATION_BUILDER"
+    private const val TAG = "NOTIFICATION_BUILDER: "
 
     fun showNotificationDebug(context: Context){
         Log.i(TAG,"showNotificationTest: function started")
@@ -28,8 +28,8 @@ object NotificationBuilder {
         createNotificationChannel()
 
         val icon = R.drawable.records_medicines
-        val title = "Medicina!"
-        var text = "Buongiorno! "
+        val title = "PIANIFICAZIONEEEEEEEEE!"
+        var text = "PIANIFICATO! ALLE  "
 
         val cal = Calendar.getInstance()
         cal.time = Date()
@@ -56,7 +56,7 @@ object NotificationBuilder {
     }
 
     fun showNotificationReminder(context: Context, it: Any?) {
-        println("showNotificationRem: function started")
+        Log.i(TAG,"showNotificationRem: function started")
 
         notificationManager = getSystemService(context, NotificationManager::class.java)
         createNotificationChannel()
@@ -94,11 +94,11 @@ object NotificationBuilder {
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
-        println("showNotificationRem: function started")
+        Log.i(TAG,"showNotificationRem: function ended")
     }
 
     fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
-        println("showNotificationLowQuantity: function started")
+        Log.i(TAG,"showNotificationLowQuantity: function started")
 
         notificationManager = getSystemService(context, NotificationManager::class.java)
         createNotificationChannel()
@@ -123,7 +123,7 @@ object NotificationBuilder {
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
-        println("showNotificationLowQuantity: function ended")
+        Log.i(TAG,"showNotificationLowQuantity: function ended")
     }
 
     private fun createNotificationChannel() {

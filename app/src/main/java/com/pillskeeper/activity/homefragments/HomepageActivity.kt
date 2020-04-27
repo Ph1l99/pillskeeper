@@ -1,7 +1,6 @@
 package com.pillskeeper.activity.homefragments
 
 
-import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +16,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Menu
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
@@ -85,10 +83,10 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        NotifyPlanner.testPlanner(
+        /*NotifyPlanner.testPlanner(
             this,
             getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        )
+        )*/
 
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if(powerManager.isIgnoringBatteryOptimizations(packageName)){

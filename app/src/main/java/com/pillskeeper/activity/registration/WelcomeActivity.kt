@@ -21,7 +21,6 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
         FirebaseApp.initializeApp(this)
-        FirebaseDatabaseManager.enablePersistence()
         FirebaseDatabaseManager.obtainDatabaseReference()
         FirebaseAuthenticationManager.obtainAuthenticationInstance()
         LocalDatabase.sharedPref = this.getPreferences(Context.MODE_PRIVATE)

@@ -88,6 +88,7 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             getSystemService(Context.ALARM_SERVICE) as AlarmManager
         )*/
 
+        //todo fare un activity per questa parte di codice qui(Strettamente necessario, semplice cn bottone si e no)
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if(powerManager.isIgnoringBatteryOptimizations(packageName)){
             Toast.makeText(this, "NON OTTIMIZZATA (bene)" ,Toast.LENGTH_LONG).show()

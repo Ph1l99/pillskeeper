@@ -3,22 +3,24 @@ package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-
+import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.activity.medicine.medicineformfragments.NoSlideViewPager
 import com.pillskeeper.activity.medicine.reminder.EditReminderActivity
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.enums.DaysEnum
 import com.pillskeeper.notifier.NotifyPlanner
+import com.pillskeeper.utility.InitSpinner
 import com.pillskeeper.utility.Utils
-import java.util.ArrayList
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -48,7 +50,6 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
 
         if(FormAdapter.isAReminderEditing) {
             oldReminder = EditReminderActivity.oldReminder
-
             medName = FormAdapter.pillName
             notesReminder.setText(FormAdapter.reminderNotes)
         }
@@ -99,13 +100,14 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                                 medName!!,
                                 UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
                                 newRem
-                            ).forEach {
-                                NotifyPlanner.planSingleAlarm(
-                                    activity?.applicationContext!!,
-                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                    it
-                                )
-                            }
+                            ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                                .forEach {
+                                    NotifyPlanner.planSingleAlarm(
+                                        activity?.applicationContext!!,
+                                        activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                        it
+                                    )
+                                }
                         }
                         activity?.finish()
                     } else if (UserInformation.addNewReminder(FormAdapter.pillName!!, newRem)) {
@@ -113,19 +115,26 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                             FormAdapter.pillName!!,
                             UserInformation.getSpecificMedicine(FormAdapter.pillName!!)!!.medicineType,
                             newRem
-                        ).forEach {
-                            NotifyPlanner.planSingleAlarm(
-                                requireActivity(),
-                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                it
-                            )
+                        ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                            .forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    requireActivity(),
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
                         }
                         activity?.finish()
+                    } else {
+                        Utils.buildAlertDialog(
+                            requireContext(),
+                            "Errore nell'inserimento",
+                            getString(R.string.message_title)
+                        )
                     }
                 }
 
             } else {
-                Toast.makeText(context, "Selezionare la quanità da assumere!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Selezionare la quanità da assumere!", Toast.LENGTH_LONG).show()//todo change with modal
             }
 
 
@@ -191,15 +200,9 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
     }
 
     private fun  initSpinner(){
-        val qtyArray = ArrayList<String>()
-        for (i in 0..10)
-            qtyArray.add("${i/2F}")
-
-        val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
-        arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        dosageSpinnerReminder.adapter = arrayAdapterDosage
+        dosageSpinnerReminder.adapter = InitSpinner.initSpinnerDosage(requireActivity())
         if(FormAdapter.isAReminderEditing)
-            dosageSpinnerReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
+            dosageSpinnerReminder.setSelection((FormAdapter.reminderQuantity / InitSpinner.DOSAGE_MULTI).toInt())
     }
 
 

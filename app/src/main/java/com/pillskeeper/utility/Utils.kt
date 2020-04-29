@@ -36,10 +36,6 @@ import kotlin.collections.HashMap
 
 object Utils {
 
-    val hours = arrayListOf("00", "01", "02", "03", "04","05","06","07","08","09"
-        ,"10","11","12","13","14","15","16","17","18","19","20","21","22","23")
-
-
     private val regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
     private val regexPhoneNumber: Regex = "[0-9]{10}".toRegex()
     private val regexEmail: Regex =
@@ -182,7 +178,10 @@ object Utils {
     fun getListReminderNormalized(localMedicine: LocalMedicine): LinkedList<ReminderMedicineSort> {
         val medList = LinkedList<LocalMedicine>()
         medList.add(localMedicine)
-        return getListReminderNormalized(medList)
+        return LinkedList(
+            getListReminderNormalized(medList)
+                .filter { it.reminder.startingDay < Date(dataNormalizationLimit()) }
+        )
     }
 
     /**
@@ -191,12 +190,11 @@ object Utils {
      * @param medList medicine list (function can be used with multiple medicine)
      * @return a normalized reminderList
      * */
-    fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort> {
+    private fun getListReminderNormalized(medList: LinkedList<LocalMedicine>): LinkedList<ReminderMedicineSort> {
         val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         medList.forEach {
             it.reminders?.forEach { reminder ->
-                if(reminder.startingDay < Date(dataNormalizationLimit(Date())))
-                    randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
+                randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
             }
         }
         return convertSeqToDate(randomList)

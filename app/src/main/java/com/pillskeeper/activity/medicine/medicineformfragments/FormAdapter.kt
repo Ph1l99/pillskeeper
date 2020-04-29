@@ -19,6 +19,7 @@ import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.notifier.NotifyPlanner
 import com.pillskeeper.utility.Utils
+import com.pillskeeper.utility.Utils.dataNormalizationLimit
 import java.nio.charset.StandardCharsets
 import java.util.*
 
@@ -106,9 +107,10 @@ class FormAdapter(
             )
             if (UserInformation.addNewMedicine(newMed)) {
 
-                val reminderListNormalized = Utils.getListReminderNormalized(newMed)
-
-                reminderListNormalized.forEach {
+                Utils.getListReminderNormalized(
+                    newMed
+                ).filter { it.reminder.startingDay < Date(dataNormalizationLimit()) }
+                    .forEach {
                     NotifyPlanner.planSingleAlarm(
                         formActivity!!,
                         formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
@@ -161,7 +163,7 @@ class FormAdapter(
             FORM_QUANTITY -> FormQuantityFragment(viewPager)
             FORM_SAVE_OR_REMINDER -> FormSaveOrReminderFragment(viewPager)
             FORM_EDIT -> FormEditingFragment()
-            FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager, pillName)
+            FORM_ONE_DAY_REMINDER_TIME -> FormReminderOneDayTimeFrag(viewPager)
             FORM_ONE_DAY_REMINDER_QUANTITY -> FormReminderOneDayQuantityFrag(viewPager, pillName)
             FORM_SEQ_DATE_REMINDER -> FormReminderSeqDateFrag(viewPager)
             FORM_SEQ_TIME_REMINDER -> FormReminderSeqTimeFrag(viewPager)

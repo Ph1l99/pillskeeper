@@ -5,17 +5,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.datamanager.UserInformation
-import com.pillskeeper.utility.Utils.hours
+import com.pillskeeper.utility.InitSpinner
 import java.util.*
-import kotlin.collections.ArrayList
 
-class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val medName: String?) : Fragment()  {
+class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?) : Fragment()  {
 
     private var dateSelected: Date? = null
 
@@ -42,28 +44,17 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
         val month = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
 
+        initSpinner()
+
         if(FormAdapter.isAReminderEditing){
-            val calEnd = Calendar.getInstance()
-            calEnd.time = FormAdapter.startDay!!
-            buttonDateReminder.text = getString(R.string.dateButtonFormatted, calEnd.get(Calendar.DAY_OF_MONTH),calEnd.get(Calendar.MONTH) + 1,calEnd.get(Calendar.YEAR))
-            FormAdapter.startDay = calEnd.time
+            val calStart = Calendar.getInstance()
+            calStart.time = FormAdapter.startDay!!
+            buttonDateReminder.text = getString(R.string.dateButtonFormatted, calStart.get(Calendar.DAY_OF_MONTH),calStart.get(Calendar.MONTH) + 1,calStart.get(Calendar.YEAR))
+            FormAdapter.startDay = calStart.time
             dateSelected = FormAdapter.startDay
 
-            val arrayAdapterHours = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, hours)
-            arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            hourReminderSpinner.adapter = arrayAdapterHours
             hourReminderSpinner.setSelection(FormAdapter.reminderHour)
-
-            val minutesArray = ArrayList<String>()
-            for (i in 0..11)
-                minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
-
-            val arrayAdapterMinutes = ArrayAdapter(activity?.applicationContext!!,android.R.layout.simple_spinner_item, minutesArray)
-            arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            minutesReminderSpinner.adapter = arrayAdapterMinutes
-            minutesReminderSpinner.setSelection(FormAdapter.reminderMinute/5)
-        } else {
-            initSpinner()
+            minutesReminderSpinner.setSelection((FormAdapter.reminderMinute / InitSpinner.MINUTE_MULTI).toInt())
         }
 
         buttonDateReminder.setOnClickListener {
@@ -82,53 +73,6 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
 
             }, year, month, day).show()
         }
-
-        /*
-        saveButtonReminder.setOnClickListener {
-
-            if(dateSelected != null && dosageQtyReminder.selectedItem.toString().toFloat() > 0){
-                cal.time = dateSelected!!
-                cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
-                cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
-                if (cal.time > Date()){
-                    val reminder = ReminderMedicine(
-                        dosageQtyReminder.selectedItem.toString().toFloat(),
-                        minutesReminderSpinner.selectedItem.toString().toInt(),
-                        hourReminderSpinner.selectedItem.toString().toInt(),
-                        cal.time,
-                        null,
-                        cal.time,
-                        reminderAddNotesEditT.text.toString()
-                    )
-                    if(viewPager != null) {
-                        FormAdapter.addReminder(reminder)
-                        viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-                    } else {
-                        if (UserInformation.addNewReminder(medName!!,reminder)) {
-                            Utils.getSingleReminderListNormalized(
-                                medName,
-                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
-                                reminder
-                            ).forEach {
-                                NotifyPlanner.planSingleAlarm(
-                                    activity!!,
-                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                    it
-                                )
-                            }
-                            activity?.finish()
-                        }
-                    }
-                } else {
-                    Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
-                }
-            } else {
-                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
-            }
-        }
-
-         */
-
 
         textViewNext.setOnClickListener {
             if(dateSelected != null) {
@@ -160,19 +104,7 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?, private val 
     }
 
     private fun initSpinner(){
-
-        val arrayAdapterHours = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, hours)
-        arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        hourReminderSpinner.adapter = arrayAdapterHours
-
-
-        val minutesArray = ArrayList<String>()
-        for (i in 0..12)
-            minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
-
-        val arrayAdapterMinutes = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, minutesArray)
-        arrayAdapterMinutes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        minutesReminderSpinner.adapter = arrayAdapterMinutes
-
+        hourReminderSpinner.adapter = InitSpinner.initSpinnerHour(requireActivity())
+        minutesReminderSpinner.adapter = InitSpinner.initSpinnerMinute(requireActivity())
     }
 }

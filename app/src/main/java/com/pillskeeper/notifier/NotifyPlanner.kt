@@ -133,7 +133,6 @@ object NotifyPlanner{
             val intent = Intent(context,EventBroadcastReceiver::class.java)
                 .apply {
                     putExtra(EventBroadcastReceiver.TYPE_INTENT,TypeIntentWorker.PLAN_DAY_ALARM.toString())
-                    //action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
                     action = ACTION_NEXT_DAY_PLANNER
                 }
             val cal = Calendar.getInstance()

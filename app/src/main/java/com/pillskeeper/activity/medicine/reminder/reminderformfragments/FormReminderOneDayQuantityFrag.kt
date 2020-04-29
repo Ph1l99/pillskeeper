@@ -3,7 +3,6 @@ package com.pillskeeper.activity.medicine.reminder.reminderformfragments
 import android.app.AlarmManager
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -145,7 +144,8 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                                 medName,
                                 UserInformation.getSpecificMedicine(medName)!!.medicineType,
                                 newReminder
-                            ).forEach {
+                            ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                                .forEach {
                                 NotifyPlanner.planSingleAlarm(
                                     activity?.applicationContext!!,
                                     activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
@@ -159,13 +159,14 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                             medName,
                             UserInformation.getSpecificMedicine(medName)!!.medicineType,
                             newReminder
-                        ).forEach {
-                            NotifyPlanner.planSingleAlarm(
-                                requireActivity(),
-                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                it
-                            )
-                        }
+                        ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                            .forEach {
+                                NotifyPlanner.planSingleAlarm(
+                                    requireActivity(),
+                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                    it
+                                )
+                            }
                         activity?.finish()
                     } else {
                         Toast.makeText(

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_edit_reminder.*
 
 class EditReminderActivity : AppCompatActivity() {
 
-    val VIEW_PAGER_REMINDER_ID = 4040
+    private val VIEW_PAGER_REMINDER_ID = 4040
 
     private          var medName                : String? = null
 
@@ -28,7 +28,7 @@ class EditReminderActivity : AppCompatActivity() {
         oldReminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
         medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
-        val viewPager = NoSlideViewPager(this)//TODO check viewPager
+        val viewPager = NoSlideViewPager(this)
         viewPager.id = VIEW_PAGER_REMINDER_ID
         relativeLayout.addView(viewPager)
 

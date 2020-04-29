@@ -1,21 +1,16 @@
 package com.pillskeeper.activity.homefragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.TextView
-
+import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
-import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_main.view.*
 import java.util.*
 
 
@@ -43,7 +38,7 @@ class ReminderMedicineListFragment : Fragment() {
     }
 
     private fun initList() {
-        var filterDate = Date()
+        val filterDate = Date()
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
         reminderListSorted = Utils.getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()

@@ -7,8 +7,8 @@ import java.util.*
 
 object UserInformation {
 
-    const val TAG = "UserInformation: "
-    
+    private const val TAG = "UserInformation: "
+
     var medicines: LinkedList<LocalMedicine> = LocalDatabase.readMedicineList()
     var friends: LinkedList<Friend> = LocalDatabase.readFriendList()
     var appointments: LinkedList<Appointment> = LocalDatabase.readAppointmentList()

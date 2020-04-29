@@ -35,10 +35,8 @@ class AppointmentListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_appointment_list)
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-        //set toolbar
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        //set menu
         val menu = Menu(toolbar, drawerLayout, navView, this)
         menu.createMenu()
 

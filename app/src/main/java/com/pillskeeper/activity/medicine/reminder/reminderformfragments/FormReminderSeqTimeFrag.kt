@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.medicineformfragments.FormAdapter
 import com.pillskeeper.enums.DaysEnum
-import com.pillskeeper.utility.Utils.hours
+import com.pillskeeper.utility.InitSpinner
 import java.util.*
 
 class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
@@ -75,32 +78,13 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
 
     private fun buildDaysArray(): LinkedList<DaysEnum>{
         val days: LinkedList<DaysEnum> = LinkedList()
-
         checkBoxes.forEach {    if(it.value.isChecked)  days.add(DaysEnum.valueOf(it.key))  }
-
         return days
     }
 
     private fun initSpinner(){
-
-        val arrayAdapterHours = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, hours)
-        arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        spinnerHoursRem2.adapter = arrayAdapterHours
-
-        val minutesArray = ArrayList<String>()
-        for (i in 0..12)
-            minutesArray.add(if(i < 2) "0${i*5}" else "${i*5}")
-
-        val arrayAdapterMinutes = ArrayAdapter(requireActivity(),android.R.layout.simple_spinner_item, minutesArray)
-        arrayAdapterHours.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        spinnerMinutesRem2.adapter = arrayAdapterMinutes
-
-
-        val qtyArray = ArrayList<String>()
-        for (i in 0..10)
-            qtyArray.add("${i/2F}")
+        spinnerHoursRem2.adapter = InitSpinner.initSpinnerHour(requireActivity())
+        spinnerMinutesRem2.adapter = InitSpinner.initSpinnerMinute(requireActivity())
     }
 
     private fun buildCheckboxes(view: View): HashMap<String, CheckBox> {
@@ -131,26 +115,6 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
             }
         }
 
-
         return checkBoxes
     }
-
-
-    /*
-    private fun checkValue(days: LinkedList<DaysEnum>): Boolean{
-
-        if(expDateSelected != null)
-            if (!Utils.checkDate(expDateSelected!!, requireActivity()))
-               return false
-
-        if(dosageSpinnerReminder.selectedItem.toString().toFloat() == 0F)
-            return false
-
-
-        if (days.size == 0)
-            return false
-
-        return true
-    }
-     */
 }

@@ -12,6 +12,7 @@ import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.AP
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.notifier.NotifyPlanner
+import com.pillskeeper.utility.InitSpinner
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_appointment.*
 import java.util.*
@@ -148,7 +149,7 @@ class AppointmentFormActivity : AppCompatActivity() {
             for (i in 0..11)
                 minuteArray.add(if (i < 2) "0${i * 5}" else "${i * 5}")
             arrayAdapterHours =
-                ArrayAdapter(this, android.R.layout.simple_spinner_item, Utils.hours)
+                ArrayAdapter(this, android.R.layout.simple_spinner_item, InitSpinner.hours)
             minuteArray = LinkedList(minuteArray)
         } else {
             val hour = LinkedList<String>()
@@ -181,7 +182,7 @@ class AppointmentFormActivity : AppCompatActivity() {
             cal.set( Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
             cal.set(
                 Calendar.HOUR_OF_DAY,
-                Utils.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
+                InitSpinner.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
             )
             val newAppointment = Appointment(
                 appointmentNameTV.text.toString(),

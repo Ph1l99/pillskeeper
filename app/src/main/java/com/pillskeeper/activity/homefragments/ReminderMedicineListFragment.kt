@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.pillskeeper.R
 import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
+import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
@@ -38,6 +39,7 @@ class ReminderMedicineListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        initList()
     }
 
     private fun initList() {

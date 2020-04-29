@@ -195,7 +195,7 @@ object Utils {
         val randomList: LinkedList<ReminderMedicineSort> = LinkedList()
         medList.forEach {
             it.reminders?.forEach { reminder ->
-                if(reminder.startingDay > Date(dataNormalizationLimit(Date())))
+                if(reminder.startingDay < Date(dataNormalizationLimit(Date())))
                     randomList.add(ReminderMedicineSort(it.name, it.medicineType, reminder))
             }
         }

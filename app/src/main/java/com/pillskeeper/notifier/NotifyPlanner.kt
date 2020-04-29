@@ -136,7 +136,15 @@ object NotifyPlanner{
                     //action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
                     action = ACTION_NEXT_DAY_PLANNER
                 }
-            val itID = 0
+            val cal = Calendar.getInstance()
+            cal.time = Date()
+            cal.set(Calendar.MINUTE, 0)
+            cal.set(Calendar.SECOND, 0)
+            cal.set(Calendar.MILLISECOND, 0)
+            cal.set(Calendar.HOUR_OF_DAY, 4)
+            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
+
+            val itID = generateIdForPlanner(cal)
             if(!isAlreadyExistingIntent(context,itID,intent)) {
                 val pendingIntent = PendingIntent.getBroadcast(
                     context,
@@ -144,14 +152,6 @@ object NotifyPlanner{
                     intent,
                     PendingIntent.FLAG_UPDATE_CURRENT
                 )
-
-                val cal = Calendar.getInstance()
-                cal.time = Date()
-                cal.set(Calendar.MINUTE, 0)
-                cal.set(Calendar.SECOND, 0)
-                cal.set(Calendar.MILLISECOND, 0)
-                cal.set(Calendar.HOUR_OF_DAY, 4)
-                cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + 1)
 
                 if (Build.VERSION.SDK_INT >= 23)
                     alarmManager.setExactAndAllowWhileIdle(
@@ -245,6 +245,10 @@ object NotifyPlanner{
             }
         if (stdValue <= 0) stdValue = 1
         return ((itTime.time * stdValue / 1000L) % Int.MAX_VALUE).toInt()
+    }
+
+    private fun generateIdForPlanner(cal: Calendar): Int{
+        return ((cal.time.time / 1000L) % Int.MAX_VALUE).toInt()
     }
 
     private fun isAlreadyExistingIntent(context: Context, itID: Int, intent: Intent): Boolean {

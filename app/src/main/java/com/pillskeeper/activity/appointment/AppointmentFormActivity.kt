@@ -109,10 +109,10 @@ class AppointmentFormActivity : AppCompatActivity() {
         }
 
         if (dateSelected != null) {
-            if (checkDate(dateSelected!!))
+            if (!checkDate(dateSelected!!))
                 result = false
         } else {
-            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG).show() //todo
             result = false
         }
 
@@ -123,13 +123,11 @@ class AppointmentFormActivity : AppCompatActivity() {
     private fun checkDate(dateSelected: Date): Boolean {
         val calCurrent = Calendar.getInstance()
         val calSelected = Calendar.getInstance()
-        calCurrent.time = Date(System.currentTimeMillis())
+        calCurrent.time = Date()
         calSelected.time = dateSelected
-        if (calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) || calCurrent.get(
-                Calendar.MONTH
-            ) > calSelected.get(Calendar.MONTH) ||
-            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)
-        ) {
+        if (calCurrent.get(Calendar.YEAR)        > calSelected.get(Calendar.YEAR) ||
+            calCurrent.get(Calendar.MONTH)       > calSelected.get(Calendar.MONTH) ||
+            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)) {
             Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG) //todo change with widjet made byphil
                 .show()
             return false
@@ -147,7 +145,7 @@ class AppointmentFormActivity : AppCompatActivity() {
         val arrayAdapterHours: Any
 
         if (appointment == null || isEditing) {
-            for (i in 0..12)
+            for (i in 0..11)
                 minuteArray.add(if (i < 2) "0${i * 5}" else "${i * 5}")
             arrayAdapterHours =
                 ArrayAdapter(this, android.R.layout.simple_spinner_item, Utils.hours)
@@ -180,10 +178,7 @@ class AppointmentFormActivity : AppCompatActivity() {
 
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
-            cal.set(
-                Calendar.MINUTE,
-                minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt()
-            )
+            cal.set( Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
             cal.set(
                 Calendar.HOUR_OF_DAY,
                 Utils.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
@@ -225,7 +220,6 @@ class AppointmentFormActivity : AppCompatActivity() {
                     )
                 }
             }
-
         }
     }
 

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pillskeeper.R;
 import com.pillskeeper.data.LocalMedicine;
 import com.pillskeeper.datamanager.UserInformation;
-import com.pillskeeper.interfaces.OnItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,6 +21,10 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
     private List<LocalMedicine> medList;
     private OnItemClickListener mListener;
     private Boolean isMedicineLocaleListActivity;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mListener = onItemClickListener;

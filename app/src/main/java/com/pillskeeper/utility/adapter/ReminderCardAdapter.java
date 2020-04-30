@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillskeeper.R;
 import com.pillskeeper.data.ReminderMedicine;
-import com.pillskeeper.interfaces.OnItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +22,10 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
 
     private List<ReminderMedicine> remList;
     private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mListener = onItemClickListener;
@@ -41,14 +44,15 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION)
                         listener.onItemClick(position);
-
                 }
             });
         }
 
     }
 
-    public ReminderCardAdapter(List<ReminderMedicine> medList) { this.remList = medList; }
+    public ReminderCardAdapter(List<ReminderMedicine> medList) {
+        this.remList = medList;
+    }
 
 
     @NotNull
@@ -67,7 +71,7 @@ public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapte
         holder.imageView.setImageResource(R.drawable.ic_modify);
         holder.itemView.setBackgroundResource(R.drawable.shape_card);
         StringBuilder text = new StringBuilder();
-        if(item.isSingleDayRem()){
+        if (item.isSingleDayRem()) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(item.getStartingDay());
             text.append("Il: ").append(cal.get(Calendar.DAY_OF_MONTH)).append("/").append(cal.get(Calendar.MONTH) + 1);

@@ -12,11 +12,11 @@ import com.pillskeeper.data.RemoteMedicine
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.interfaces.FirebaseMedicineCallback
-import com.pillskeeper.utility.adapter.MedicineRemoteCardAdapter
+import com.pillskeeper.utility.adapter.RemoteMedicineAdapter
 import kotlinx.android.synthetic.main.activity_medicines_list.*
 
 class MedicinesRemoteListActivity : AppCompatActivity() {
-    private lateinit var mAdapter: MedicineRemoteCardAdapter
+    private lateinit var adapter: RemoteMedicineAdapter
 
     companion object {
         private const val LAUNCH_PILLS = 1
@@ -61,13 +61,13 @@ class MedicinesRemoteListActivity : AppCompatActivity() {
     }
 
     private fun displayListMedicines(medicinesList: List<RemoteMedicine>) {
-        mAdapter = MedicineRemoteCardAdapter(medicinesList)
-        recyclerView.adapter = mAdapter
+        adapter = RemoteMedicineAdapter(medicinesList)
+        recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        mAdapter.setOnItemClickListener {
+        adapter.onItemClick = {
             val intent = Intent(this, MedicineFormActivity::class.java)
-            intent.putExtra(REMOTE_MEDICINE, medicinesList[it])
+            intent.putExtra(REMOTE_MEDICINE, it)
             startActivityForResult(intent, LAUNCH_PILLS)
         }
     }

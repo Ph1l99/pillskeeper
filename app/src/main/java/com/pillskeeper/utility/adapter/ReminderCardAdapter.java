@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pillskeeper.R;
 import com.pillskeeper.data.ReminderMedicine;
+import com.pillskeeper.interfaces.OnItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,11 +22,7 @@ import java.util.List;
 public class ReminderCardAdapter extends RecyclerView.Adapter<ReminderCardAdapter.RemCardHolderJava> {
 
     private List<ReminderMedicine> remList;
-    private ReminderCardAdapter.OnItemClickListener mListener;
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
+    private OnItemClickListener mListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mListener = onItemClickListener;

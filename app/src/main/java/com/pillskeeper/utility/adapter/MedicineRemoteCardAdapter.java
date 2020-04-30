@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.pillskeeper.R;
 import com.pillskeeper.data.RemoteMedicine;
 import com.pillskeeper.datamanager.UserInformation;
+import com.pillskeeper.interfaces.OnItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,10 +22,6 @@ public class MedicineRemoteCardAdapter extends RecyclerView.Adapter<MedicineRemo
 
     private List<RemoteMedicine> medList;
     private OnItemClickListener mListener;
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mListener = onItemClickListener;

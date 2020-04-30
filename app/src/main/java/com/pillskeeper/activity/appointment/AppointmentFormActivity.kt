@@ -5,7 +5,6 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pillskeeper.R
 import com.pillskeeper.activity.appointment.AppointmentListActivity.Companion.APPOINTMENT_VALUE
@@ -113,7 +112,11 @@ class AppointmentFormActivity : AppCompatActivity() {
             if (!checkDate(dateSelected!!))
                 result = false
         } else {
-            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG).show() //todo
+            Utils.buildAlertDialog(
+                this,
+                getString(R.string.genericInfoError),
+                getString(R.string.message_title)
+            ).show()
             result = false
         }
 
@@ -126,11 +129,15 @@ class AppointmentFormActivity : AppCompatActivity() {
         val calSelected = Calendar.getInstance()
         calCurrent.time = Date()
         calSelected.time = dateSelected
-        if (calCurrent.get(Calendar.YEAR)        > calSelected.get(Calendar.YEAR) ||
-            calCurrent.get(Calendar.MONTH)       > calSelected.get(Calendar.MONTH) ||
-            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)) {
-            Toast.makeText(this, "Perfavore inserire una data corretta", Toast.LENGTH_LONG) //todo change with widjet made byphil
-                .show()
+        if (calCurrent.get(Calendar.YEAR) > calSelected.get(Calendar.YEAR) ||
+            calCurrent.get(Calendar.MONTH) > calSelected.get(Calendar.MONTH) ||
+            calCurrent.get(Calendar.DAY_OF_YEAR) > calSelected.get(Calendar.DAY_OF_YEAR)
+        ) {
+            Utils.buildAlertDialog(
+                this,
+                getString(R.string.dateError),
+                getString(R.string.message_title)
+            ).show()
             return false
         }
         return true
@@ -179,7 +186,10 @@ class AppointmentFormActivity : AppCompatActivity() {
 
     private fun addOrEditAppointment(cal: Calendar) {
         if (checkValues()) {
-            cal.set( Calendar.MINUTE,minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
+            cal.set(
+                Calendar.MINUTE,
+                minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt()
+            )
             cal.set(
                 Calendar.HOUR_OF_DAY,
                 InitSpinner.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
@@ -200,7 +210,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                 } else {
                     Utils.buildAlertDialog(
                         this,
-                        "appointment already existing",//TODO
+                        getString(R.string.appointmentError),
                         getString(R.string.message_title)
                     )
                 }
@@ -216,7 +226,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                 } else {
                     Utils.buildAlertDialog(
                         this,
-                        "appointment not created",
+                        getString(R.string.appointmentError),
                         getString(R.string.message_title)
                     )
                 }

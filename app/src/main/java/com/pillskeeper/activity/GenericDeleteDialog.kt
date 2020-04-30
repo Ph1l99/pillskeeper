@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
-import android.widget.Toast
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.DialogModeEnum
@@ -56,10 +55,10 @@ class GenericDeleteDialog(
                             appointment!!
                         )
                     else
-                        Toast.makeText(
+                        Utils.buildAlertDialog(
                             context,
-                            "Non è stato possibile cancellare l'$item",
-                            Toast.LENGTH_LONG
+                            context.getString(R.string.genericDelete) + " " + item,
+                            context.getString(R.string.message_title)
                         ).show()
                 }
                 DialogModeEnum.DELETE_MEDICINE -> {
@@ -74,18 +73,18 @@ class GenericDeleteDialog(
                             )
                         }
                     else
-                        Toast.makeText(
+                        Utils.buildAlertDialog(
                             context,
-                            "Non è stato possibile cancellare la $item",
-                            Toast.LENGTH_LONG
+                            context.getString(R.string.genericDelete) + " " + item,
+                            context.getString(R.string.message_title)
                         ).show()
                 }
                 else -> {
                     if (!UserInformation.deleteFriend(itemName))
-                        Toast.makeText(
+                        Utils.buildAlertDialog(
                             context,
-                            "Non è stato possibile cancellare l'$item",
-                            Toast.LENGTH_LONG
+                            context.getString(R.string.genericDelete) + " " + item,
+                            context.getString(R.string.message_title)
                         ).show()
                 }
             }

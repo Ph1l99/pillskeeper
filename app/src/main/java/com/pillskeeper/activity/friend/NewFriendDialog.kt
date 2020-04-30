@@ -59,10 +59,9 @@ class NewFriendDialog(
 
                 setAllEnable(false)
 
-                //TODO
 
-                buttonDeny.text = "Chiudi"
-                buttonConfirm.text = "Modifica"
+                buttonDeny.text = context.getString(R.string.closeButton)
+                buttonConfirm.text = context.getString(R.string.editButton)
 
                 buttonConfirm.setOnClickListener {
                     restoreAllLayout()
@@ -72,8 +71,8 @@ class NewFriendDialog(
                         isEditing = !isEditing
                         setAllEnable(true)
                         initSpinner()
-                        buttonDeny.text = "Annulla"
-                        buttonConfirm.text = "Salva"
+                        buttonDeny.text = context.getString(R.string.abortButton)
+                        buttonConfirm.text = context.getString(R.string.saveButton)
                     }
                 }
             } else {

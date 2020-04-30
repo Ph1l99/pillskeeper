@@ -65,7 +65,7 @@
     <string name="saturday">Sabato</string>
     <string name="sunday">Domenica</string>
     <string name="time">Orario: </string>
-    <string name="espire_date">Seleziona una data di fine per il Promemoria</string>
+    <string name="espire_date">Seleziona una data di fine per il promemoria</string>
     <string name="starting_date">Seleziona una data di inizio per il promemoria </string>
     <string name="quantity">Inserire la quantità</string>
 
@@ -159,6 +159,9 @@
     <string name="loginDialogError">Credenziali errate, riprova!</string>
     <string name="message_title">Attenzione!</string>
     <string name="genericInfoError">Perfavore inserire valori corretti</string>
+    <string name="dateError">Perfavore inserire una data corretta</string>
+    <string name="appointmentError">Appuntamento gia\' presente</string>
+    <string name="genericDelete">Non è stato possibile cancellare</string>
     <string name="emailPassword">Controlla la tua mail, ti abbiamo inviato un link per il reset password!</string>
     <string name="oops">Oops! Si è verificato un errore, riprova!</string>
 

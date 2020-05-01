@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.pillskeeper.R
-import com.pillskeeper.activity.homefragments.HomepageActivity
+import com.pillskeeper.activity.home.HomeActivity
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.FirebaseDatabaseManager
 import com.pillskeeper.datamanager.LocalDatabase
@@ -33,7 +33,7 @@ class WelcomeActivity : AppCompatActivity() {
         if (user != null) {
             FirebaseAuthenticationManager.getCurrentUserIdToken(user, object : Callback {
                 override fun onSuccess(res: Boolean) {
-                    startActivity(Intent(applicationContext, HomepageActivity::class.java))
+                    startActivity(Intent(applicationContext, HomeActivity::class.java))
                     finish()
                     progressBar.visibility = View.GONE
                 }

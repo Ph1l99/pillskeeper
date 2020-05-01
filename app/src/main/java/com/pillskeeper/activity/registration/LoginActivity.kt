@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.pillskeeper.R
-import com.pillskeeper.activity.homefragments.HomepageActivity
+import com.pillskeeper.activity.home.HomeActivity
 import com.pillskeeper.data.User
 import com.pillskeeper.datamanager.FirebaseAuthenticationManager
 import com.pillskeeper.datamanager.LocalDatabase
@@ -91,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                 passwordLogin.text.toString(), object : Callback {
                     override fun onSuccess(res: Boolean) {
                         FirebaseAuth.getInstance().currentUser?.uid?.let { checkUserOnLocalDB(it) }
-                        startActivity(Intent(applicationContext, HomepageActivity::class.java))
+                        startActivity(Intent(applicationContext, HomeActivity::class.java))
                         finish()
                     }
 

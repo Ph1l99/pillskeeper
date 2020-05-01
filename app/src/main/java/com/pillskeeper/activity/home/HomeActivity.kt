@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.homefragments
+package com.pillskeeper.activity.home
 
 
 import android.content.Context
@@ -21,7 +21,7 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.view.*
 
-class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
+class HomeActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
 
     //private lateinit var appointmentListSorted: LinkedList<Appointment>
     //private lateinit var reminderListSorted: LinkedList<ReminderMedicineSort>

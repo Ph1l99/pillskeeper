@@ -49,7 +49,7 @@ class FormEditingFragment : Fragment() {
                         FormAdapter.localMedicine!!.name,
                         FormAdapter.localMedicine!!
                     )
-                ) {//TODO
+                ) {//TODO @Phil
                     Toast.makeText(
                         UserInformation.context,
                         "Attenzione medicina non modificata!",

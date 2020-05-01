@@ -45,7 +45,7 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                 Locale.getDefault().language,
                 object : Callback {
                     override fun onSuccess(res: Boolean) {
-                        if (res) {//TODO
+                        if (res) {//TODO @phil
                             Toast.makeText(
                                 FormAdapter.formActivity,
                                 getText(R.string.toxicWords),

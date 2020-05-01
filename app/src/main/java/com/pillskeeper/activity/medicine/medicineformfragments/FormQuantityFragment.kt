@@ -39,7 +39,7 @@ class FormQuantityFragment(private val viewPager: NoSlideViewPager) : Fragment()
                 if (Integer.parseInt(editTextRemainingQuantity.text.toString()) > Integer.parseInt(
                         editTextTotalQuantity.text.toString()
                     )
-                ) {//TODO
+                ) {//TODO @Phil
                     Toast.makeText(
                         context,
                         "La quantità rimanente non può essere maggiore di quella totale!",

@@ -93,7 +93,7 @@
 
     <!--Mail-->
     <string name="mailsubject">Richiesta ricetta farmaco: </string>
-    <string name="mailtext">Salve, il sistema PillsKeeper ha generato il seguente avviso: </string>
+    <string name="mailtext">Avviso da PillsKeeper: </string>
     <string name="sendMail">Invia Mail</string>
 
     <!-- Titoli android Manifest-->

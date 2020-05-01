@@ -10,9 +10,10 @@ data class Mail(var mailsubject: String, var mailBody: String) {
     companion object {
         fun composeMail(medicine: RemoteMedicine, user: User): Mail? {
             val mSubject: String = context.getString(R.string.mailsubject) + medicine.name //TODO
-            val mText: String =
+            val sb = StringBuilder()
+            sb.append(context.getString(R.string.mailtext))
                 context.getString(R.string.mailtext) + "Medicina: " + medicine.name + "\nTiplogia: " + medicine.medicineType + "\nUtente: " + user.name + " " + user.surname
-            return Mail(mSubject, mText)
+            return Mail(mSubject, sb.toString())
         }
     }
 }

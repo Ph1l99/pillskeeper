@@ -115,4 +115,5 @@
     <string name="dateError">Please insert a valid date</string>
     <string name="appointmentError">Appointment already existing</string>
     <string name="genericDelete">Error during deleting the item</string>
+    <string name="mailtext">Alert from PillsKeeper</string>
 </resources>

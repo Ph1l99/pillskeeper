@@ -10,7 +10,7 @@
             <item
                 android:id="@+id/nav_appointments"
                 android:icon="@drawable/calendar"
-                android:title="@string/appointmentMenu" />
+                android:title="@string/reminder" />
             <item
                 android:id="@+id/nav_medicines"
                 android:icon="@drawable/records_medicines"

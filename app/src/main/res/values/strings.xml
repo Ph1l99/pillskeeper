@@ -3,8 +3,8 @@
 
     <!-- Strings for SignUpActivity Activity-->
     <string name="signup_button">Registrati</string>
-    <string name="signup_name">Nome</string>
-    <string name="signup_surname">Cognome</string>
+    <string name="name">Nome</string>
+    <string name="surname">Cognome</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
     <string name="error_values">Uno o piu\' valori non sono corretti. Inserire nuovamente le informazioni</string>
@@ -34,7 +34,6 @@
 
 
     <!--Menu buttons-->
-    <string name="appointmentMenu">Appuntamenti</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Modifica Profilo</string>
@@ -43,13 +42,13 @@
     <string name="danger" translatable="false">Danger Zone</string>
 
 
-    <string name="addReminder">Aggiungi Promemoria</string>
+    <string name="addReminder">Aggiungi promemoria</string>
     <string name="totalQuantity">Inserire la quantità totale contenuta nella confezione</string>
     <string name="totalQuantityEditing">Inserire la nuova quantità totale contenuta nella confezione</string>
     <string name="reminder">Appuntamenti</string>
     <string name="remainingQuantity">Inserire la quantità rimanente nella confezione</string>
     <string name="remainingQuantityEditing">Inserire la nuova quantità rimanente nella confezione</string>
-    <string name="medType">Tipo Medicina</string>
+    <string name="medType">Tipologia farmaco</string>
     <string name="medNameHint">Inserire il nome del farmaco</string>
     <string name="medNameTitle">Leggi il nome del farmaco cliccando qui -></string>
     <string name="camera">Fotocamera</string>
@@ -66,7 +65,6 @@
     <string name="time">Orario: </string>
     <string name="espire_date">Seleziona una data di fine per il promemoria</string>
     <string name="starting_date">Seleziona una data di inizio per il promemoria </string>
-    <string name="quantityInsert">Inserire la quantità</string>
     <string name="quantity">Quantità:</string>
 
     <string name="monthRB">Mesi</string>
@@ -80,7 +78,6 @@
     <string name="Suppository">Supposte</string>
     <string name="Undefined">Non definito</string>
     <string name="appointmentName">Titolo</string>
-    <string name="additionalNoteAppointment">Note addizionali …</string>
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona una data:</string>
@@ -89,16 +86,8 @@
     <!--Location-->
     <string name="query_location">https://www.google.com/maps/search/?api=1&amp;query=farmacie</string>
 
-    <!--Personal Info Activity-->
-    <string name="name">Nome:</string>
-    <string name="surname">Cognome:</string>
-    <string name="name_hint">Nome</string>
-    <string name="surname_hint">Cognome</string>
-    <string name="email_hint">Email</string>
-
     <!--Login-->
     <string name="login_button">Accedi</string>
-    <string name="signup_activity">Registrati</string>
     <string name="login_text">Benvenuto su Pillskeeper! Esegui l\'accesso oppure registrati per utilizzare l\'applicazione</string>
     <string name="error_login">Username o password errati, riprova</string>
     <string name="resetPassword">Reimposta password</string>
@@ -110,8 +99,7 @@
     <string name="sendMail">Invia Mail</string>
 
     <!-- Titoli android Manifest-->
-    <string name="chemistsTitle">Farmacie in zona</string>
-    <string name="appointmentTitle">Aggiungi Appuntamento:</string>
+    <string name="appointmentTitle">Aggiungi Appuntamento</string>
     <string name="medicineListTitle">Lista Medicine</string>
     <string name="textReaderActivityTitle">Fotocamera</string>
     <string name="pillsFormActivityTitle">Nuova Medicina</string>
@@ -122,7 +110,6 @@
     <string name="functionalities">Funzionalità</string>
     <string name="settingsMenu">Impostazioni</string>
     <string name="expiryMenu">Medicine terminate</string>
-    <string name="user_settingsActivity">Modifica dati personali</string>
     <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
     <string name="reminderListActivityTitle">Promemoria</string>
@@ -132,7 +119,6 @@
     <string name="welcome">Benvenuto!</string>
 
     <!-- Fragments -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="FormOneTitle">Quale farmaco vuoi inserire?</string>
     <string name="FormOneTitle2">Seleziona la tipologia del farmaco</string>
     <string name="next">Avanti</string>
@@ -145,9 +131,11 @@
     <string name="selectSpecificDateReminder">Seleziona il giorno in cui vuoi ricevere l\'avviso</string>
     <string name="timeSelectReminder">Seleziona l\'orario dell\'avviso</string>
     <string name="dosageReminder">Seleziona la quantità da assumere</string>
-    <string name="_0">0</string>
+    <string name="_0" translatable="false">0</string>
     <string name="or">Oppure premi salva per continuare</string>
     <string name="additionalNotes">Note addizionali:</string>
+
+
     <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome</string>
 
 
@@ -169,7 +157,4 @@
 
     <string name="search_button">Cerca</string>
     <string name="back_button">Indietro</string>
-    <string name="addNoteTitle">Aggiungi eventuali note al promemoria</string>
-
-
 </resources>

@@ -109,7 +109,7 @@
         android:layout_weight="15"
         android:autofillHints=""
         android:gravity="top"
-        android:hint="@string/additionalNoteAppointment"
+        android:hint="@string/additionalNotes"
         android:inputType="textLongMessage"
         android:textColorHighlight="@color/colorPrimaryDark" />
 

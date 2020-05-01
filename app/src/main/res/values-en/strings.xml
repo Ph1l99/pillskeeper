@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">PillsKeeper</string>
     <string name="signup_button">Sign Up</string>
-    <string name="signup_name">Name</string>
-    <string name="signup_surname">Surname</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="signup_email">Email</string>
     <string name="signup_password">Password</string>
     <string name="yes">Yes</string>
@@ -36,7 +36,6 @@
     <string name="abortButton">Abort</string>
     <string name="closeButton">Close</string>
     <string name="saveButton">Save</string>
-    <string name="appointmentMenu">Appointments</string>
     <string name="friends">Friends</string>
     <string name="edit_profile">Change Profile</string>
     <string name="pharmacies">Near Pharmacies</string>
@@ -54,12 +53,10 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="espire_date">End Date (optional)</string>
-    <string name="quantityInsert">Insert quantity</string>
     <string name="monthRB">Months</string>
     <string name="Pills">Pills</string>
     <string name="Undefined">Undefined</string>
     <string name="appointmentName">Title</string>
-    <string name="additionalNoteAppointment">Additional notes...</string>
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Select date</string>
@@ -67,17 +64,10 @@
     <string name="search_button">Search</string>
     <string name="back_button">Back</string>
     <string name="query_location">https://www.google.com/maps/search/?api=1&amp;query=pharmacies</string>
-    <string name="name">Name:</string>
-    <string name="surname">Surname:</string>
-    <string name="name_hint">Name</string>
-    <string name="surname_hint">Surname:</string>
-    <string name="email_hint">Email</string>
     <string name="login_button">Login</string>
-    <string name="signup_activity">Sign Up</string>
     <string name="login_text">Welcome to PillsKeeper! Login if you have an account or create one</string>
     <string name="error_login">Wrong username or password, please retry</string>
     <string name="sendMail">Send mail</string>
-    <string name="chemistsTitle">Nearest Pharmacies</string>
     <string name="appointmentTitle">Add Appointment</string>
     <string name="medicineListTitle">Medicines List</string>
     <string name="pillsFormActivityTitle">New Medicine</string>
@@ -86,7 +76,6 @@
     <string name="friendListActivityTitle">Friends List</string>
     <string name="settingsMenu">Settings</string>
     <string name="expiryMenu">Finished Medicines</string>
-    <string name="user_settingsActivity">Change personal settings</string>
     <string name="welcome">Welcome!</string>
     <string name="expiredMedicines">Finished Medicines</string>
     <string name="functionalities">Functionalities</string>
@@ -97,7 +86,6 @@
     <string name="reminderTitle">Do you want to add a reminder for the added medicine?</string>
     <string name="confirmText">Continue without reminder</string>
     <string name="mailsubject">Request medicine:</string>
-    <string name="_0">0</string>
     <string name="or">Or select save to continue</string>
     <string name="reminderList">Reminder inserted:</string>
     <string name="selectSpecificDateReminder">Select the date of the event</string>

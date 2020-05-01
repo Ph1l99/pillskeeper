@@ -63,7 +63,7 @@ class DangerActivity : AppCompatActivity() {
                         this,
                         getString(R.string.oops),
                         getString(R.string.message_title)
-                    )
+                    ).show()
                 }
 
             }

@@ -40,7 +40,8 @@
         app:layout_constraintEnd_toEndOf="@+id/passwordField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/passwordField"
-        app:layout_constraintTop_toBottomOf="@+id/surnameField" />
+        app:layout_constraintTop_toBottomOf="@+id/surnameField"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/nameField"
@@ -53,7 +54,8 @@
         app:layout_constraintEnd_toEndOf="@+id/surnameField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/surnameField"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/surnameField"
@@ -66,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="@+id/mailField"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/mailField"
-        app:layout_constraintTop_toBottomOf="@+id/nameField" />
+        app:layout_constraintTop_toBottomOf="@+id/nameField"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/passwordField"

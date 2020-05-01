@@ -26,7 +26,6 @@ class RemoteMedicineAdapter constructor(list: List<RemoteMedicine>) :
                 onItemClick?.invoke(medList[adapterPosition])
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemoteMedicineHolder {

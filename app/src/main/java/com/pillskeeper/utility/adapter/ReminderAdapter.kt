@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pillskeeper.R
+import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.reminder_card_item.view.*
@@ -42,7 +43,7 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
     override fun onBindViewHolder(holder: ReminderHolder, position: Int) {
         val currentItem = remList[position]
         holder.imageView.setImageResource(R.drawable.ic_modify)
-        var text = StringBuilder()
+        val text = StringBuilder()
         if (currentItem.isSingleDayRem()) {
             val calendar = Calendar.getInstance()
             calendar.time = currentItem.startingDay

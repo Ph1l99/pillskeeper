@@ -56,7 +56,7 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         viewPager = ViewPager(this)
         viewPager.id = VIEW_PAGER_ID
         contentMainLayout.relativeLayout.addView(viewPager)
-        val adapter = Adapter(supportFragmentManager)
+        val adapter = HomeAdapter(supportFragmentManager)
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
 
@@ -72,10 +72,10 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab?.position == Adapter.PILLS_PAGE){
-                    viewPager.currentItem = Adapter.PILLS_PAGE
+                if(tab?.position == HomeAdapter.PILLS_PAGE){
+                    viewPager.currentItem = HomeAdapter.PILLS_PAGE
                 } else {
-                    viewPager.currentItem = Adapter.APPOINTMENTS_PAGE
+                    viewPager.currentItem = HomeAdapter.APPOINTMENTS_PAGE
                 }
             }
         })
@@ -96,10 +96,10 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        if(tab?.position == Adapter.PILLS_PAGE){
-            viewPager.currentItem = Adapter.PILLS_PAGE
+        if(tab?.position == HomeAdapter.PILLS_PAGE){
+            viewPager.currentItem = HomeAdapter.PILLS_PAGE
         } else {
-            viewPager.currentItem = Adapter.APPOINTMENTS_PAGE
+            viewPager.currentItem = HomeAdapter.APPOINTMENTS_PAGE
         }
     }
 

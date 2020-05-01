@@ -55,7 +55,7 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
         } else {
             if (currentItem.startingDay.after(Date())) {
                 val calendar = Calendar.getInstance()
-                calendar.time = currentItem.startingDay
+                calendar.time = currentItem.startingDay //TODO gg/mm/yyyy
                 text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
                     .append(calendar.get(Calendar.MONTH) + 1).append(" - ")
             }

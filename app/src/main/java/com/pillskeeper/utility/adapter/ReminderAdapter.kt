@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.pillskeeper.R
-import com.pillskeeper.activity.GenericDeleteDialog
 import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.reminder_card_item.view.*

@@ -18,7 +18,10 @@ import com.pillskeeper.R
 import com.pillskeeper.activity.medicine.MedicineFormActivity
 import com.pillskeeper.activity.medicine.MedicineFormActivity.Companion.CAMERA_REQUEST
 import com.pillskeeper.activity.medicine.TextReaderActivity
+import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
+import com.pillskeeper.utility.Utils
+import java.text.Normalizer
 
 
 class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPager) : Fragment() {
@@ -75,13 +78,31 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
         editTextNameMed.addTextChangedListener {
             if (editTextNameMed.text.isNotEmpty())
                 textViewNext.visibility = View.VISIBLE
+            else
+                textViewNext.visibility = View.INVISIBLE
 
         }
 
         textViewNext.setOnClickListener {
-            FormAdapter.pillName = editTextNameMed.text.toString()
-            FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
-            viewPager.currentItem = FormAdapter.FORM_QUANTITY
+
+            if(editTextNameMed.text.toString().isNotEmpty()) {
+                if(UserInformation.getSpecificMedicine(editTextNameMed.text.toString()) == null) {//non esiste la medicina!!! si può procedere
+                    FormAdapter.pillName = editTextNameMed.text.toString()
+                    FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
+                    viewPager.currentItem = FormAdapter.FORM_QUANTITY
+                } else {
+                    Utils.buildAlertDialog(
+                        requireContext(),
+                        getString(R.string.medicineAlreadyFound)
+                    )
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.genericInfoError),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
 
         return view

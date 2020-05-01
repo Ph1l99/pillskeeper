@@ -132,6 +132,7 @@
     <string name="_0" translatable="false">0</string>
     <string name="or">Oppure premi salva per continuare</string>
     <string name="additionalNotes">Note addizionali:</string>
+    <string name="medicineAlreadyFound">Il nome della medicina esiste già.</string>
 
 
     <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome</string>

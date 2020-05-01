@@ -69,18 +69,19 @@ public class MedicineLocaleCardAdapter extends RecyclerView.Adapter<MedicineLoca
     }
 
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint({"ResourceAsColor", "SetTextI18n"})
     @Override
     public void onBindViewHolder(MedCardHolderJava holder, int position) {
         if (isMedicineLocaleListActivity) {
             LocalMedicine currentItem = medList.get(position);
             holder.imageView.setImageResource(R.drawable.ic_med_list_forward);
-            holder.textView.setTextColor(R.color.black);
+            holder.textView.setTextColor(R.color.colorPrimaryDark);
             holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
             holder.itemView.setBackgroundResource(R.drawable.shape_card);
         } else {
             LocalMedicine currentItem = medList.get(position);
             holder.imageView.setImageResource(R.drawable.ic_mail_outline);
+            //holder.textView.setTextColor(UserInformation.context.res);
             holder.textView.setText(currentItem.getName() + "\n" + UserInformation.context.getString(currentItem.getMedicineType().getText()));
             holder.itemView.setBackgroundResource(R.drawable.shape_card);
         }

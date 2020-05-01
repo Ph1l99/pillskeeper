@@ -10,14 +10,14 @@ import com.pillskeeper.data.ReminderMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
-import com.pillskeeper.utility.adapter.ReminderCardAdapter
+import com.pillskeeper.utility.adapter.ReminderAdapter
 import kotlinx.android.synthetic.main.activity_reminder_list.*
 
 class ReminderListActivity : AppCompatActivity() {
 
-    private lateinit var mAdapter       : ReminderCardAdapter
-    private          var medicineName   : String? = ""
-    private          var medicine       : LocalMedicine? = null
+    private lateinit var rAdapter: ReminderAdapter
+    private var medicineName: String? = ""
+    private var medicine: LocalMedicine? = null
 
     companion object {
         const val MEDICINE_NAME = "medicineName"
@@ -31,7 +31,7 @@ class ReminderListActivity : AppCompatActivity() {
         medicineName = intent.getStringExtra(MEDICINE_NAME)
 
         addReminderFAB.setOnClickListener {
-            ReminderChooseDialog(this,null,medicineName).show()
+            ReminderChooseDialog(this, null, medicineName).show()
         }
     }
 
@@ -39,12 +39,15 @@ class ReminderListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        if(medicineName.isNullOrEmpty()){
+        if (medicineName.isNullOrEmpty()) {
             Utils.buildAlertDialog(this,
                 "Attenzione un errore è avvenuto durante la visualizzazione dei promemoria",//todo mettere in r.string
                 getString(R.string.message_title),
-                object: Callback {
-                    override fun onSuccess(res: Boolean) { finish() }
+                object : Callback {
+                    override fun onSuccess(res: Boolean) {
+                        finish()
+                    }
+
                     override fun onError() {}
                 }
             )
@@ -57,15 +60,15 @@ class ReminderListActivity : AppCompatActivity() {
     }
 
     private fun displayListReminders(reminderList: List<ReminderMedicine>) {
-        mAdapter = ReminderCardAdapter(reminderList)
-        recyclerView.adapter = mAdapter
+        rAdapter = ReminderAdapter(reminderList)
+        recyclerView.adapter = rAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
 
-        mAdapter.setOnItemClickListener {position ->
+        rAdapter.onItemClick = { reminder ->
             val intent = Intent(this, EditReminderActivity::class.java)
                 .apply {
-                    putExtra(REMINDER_MEDICINE, reminderList[position])
+                    putExtra(REMINDER_MEDICINE, reminder)
                     putExtra(MEDICINE_NAME, medicineName)
                 }
             startActivity(intent)

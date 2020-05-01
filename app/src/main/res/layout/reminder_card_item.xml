@@ -4,6 +4,7 @@
     style="@style/Card"
     android:clickable="true"
     android:focusable="true"
+    android:layout_height="75sp"
     android:foreground="?android:attr/selectableItemBackground"
     tools:context=".activity.medicine.reminder.ReminderListActivity">
 
@@ -17,7 +18,7 @@
         <TextView
             android:id="@+id/reminderText"
             android:layout_width="0dp"
-            android:layout_height="65sp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1"
             android:padding="15sp"
@@ -28,6 +29,7 @@
             android:id="@+id/modifyIcon"
             android:layout_width="50sp"
             android:layout_height="60sp"
+            android:layout_gravity="center_vertical"
             android:src="@drawable/ic_modify" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

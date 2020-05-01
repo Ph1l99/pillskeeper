@@ -16,7 +16,6 @@
             android:layout_width="0dp"
             android:layout_height="64sp"
             android:layout_gravity="center"
-            android:textColor="@color/red"
             android:layout_weight="1"
             android:padding="15sp" />
 
@@ -24,7 +23,7 @@
             android:id="@+id/sendMailIcon"
             android:layout_width="50sp"
             android:layout_height="64sp"
-            android:layout_marginRight="4sp"
+            android:layout_marginEnd="4sp"
             android:src="@drawable/ic_mail_outline" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

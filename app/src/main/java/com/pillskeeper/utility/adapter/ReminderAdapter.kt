@@ -45,13 +45,32 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
         var text = StringBuilder()
         if (currentItem.isSingleDayRem()) {
             val calendar = Calendar.getInstance()
-            //calendar.time(currentItem.startingDay)
+            calendar.time = currentItem.startingDay
             text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
                 .append(calendar.get(Calendar.MONTH) + 1).append("\n")
-            text.append(currentItem.hours).append(":").append(currentItem.minutes)
+            text.append(UserInformation.context.getString(R.string.time)).append(" ")
+                .append(currentItem.hours)
+                .append(":").append(currentItem.minutes).append("\n")
+        } else {
+            if (currentItem.startingDay.after(Date())) {
+                val calendar = Calendar.getInstance()
+                calendar.time = currentItem.startingDay
+                text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                    .append(calendar.get(Calendar.MONTH) + 1).append(" - ")
+            }
+            text.append(currentItem.dayStringify()).append("\n")
+            text.append(UserInformation.context.getString(R.string.time)).append(" ")
+                .append(currentItem.hours)
+                .append(":").append(currentItem.minutes).append("\n")
         }
         text.append(UserInformation.context.getString(R.string.quantity)).append(" ")
             .append(currentItem.dosage)
-        holder.textView.text.toString()
+        holder.textView.text = text.toString()
+        holder.textView.setTextColor(
+            UserInformation.context.resources.getColor(
+                R.color.colorPrimary,
+                null
+            )
+        )
     }
 }

@@ -67,7 +67,8 @@
     <string name="time">Orario: </string>
     <string name="espire_date">Seleziona una data di fine per il promemoria</string>
     <string name="starting_date">Seleziona una data di inizio per il promemoria </string>
-    <string name="quantity">Inserire la quantità</string>
+    <string name="quantityInsert">Inserire la quantità</string>
+    <string name="quantity">Quantità:</string>
 
     <string name="monthRB">Mesi</string>
     <string name="weekRB">Settimane</string>
@@ -153,7 +154,7 @@
     <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
 
 
-    <!--generic error message -->
+    <!--Error message -->
     <string name="networkError">Impossibile accedere alla rete. Controlla la connessione e riprova</string>
     <string name="addFriend">Aggiungi un amico prima di inviare la mail!</string>
     <string name="loginDialogError">Credenziali errate, riprova!</string>

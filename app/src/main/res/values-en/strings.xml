@@ -16,7 +16,7 @@
     <string name="tuesday">Tuesday</string>
     <string name="totalQuantity">"Total Quantity: "</string>
     <string name="timeAppointment">"Time: "</string>
-    <string name="time">Time</string>
+    <string name="time">Time:</string>
     <string name="thursday">Thursday</string>
     <string name="textReaderActivityTitle">Camera</string>
     <string name="Syrup">Syrup</string>
@@ -56,7 +56,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="espire_date">End Date (optional)</string>
-    <string name="quantity">Insert quantity</string>
+    <string name="quantityInsert">Insert quantity</string>
     <string name="monthRB">Months</string>
     <string name="Pills">Pills</string>
     <string name="Undefined">Undefined</string>
@@ -127,4 +127,5 @@
     <string name="disclaimer">BE CAREFUL! By removing your account all information will be deleted and you won\'t be able to login into PillsKeeper with this account and you will have to create a new one</string>
     <string name="loginDialog">Insert your password to confirm this action</string>
     <string name="selectDateReminder">Select a starting and finishing date for the reminder</string>
+    <string name="quantity">Quantity:</string>
 </resources>

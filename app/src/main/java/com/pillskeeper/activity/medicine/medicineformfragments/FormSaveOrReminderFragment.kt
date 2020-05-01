@@ -15,8 +15,6 @@ import com.pillskeeper.utility.Utils
 import kotlinx.android.synthetic.main.fragment_form_three.*
 import java.util.*
 
-//TODO aggingere loader onclick del bottone salva (va su internet)
-
 class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Fragment() {
 
     private lateinit var textViewBack: TextView

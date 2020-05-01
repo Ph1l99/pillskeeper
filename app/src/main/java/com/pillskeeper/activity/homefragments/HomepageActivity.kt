@@ -43,10 +43,7 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         UserInformation.context = this
-
-
 
         Utils.stdLayout = EditText(this).background
 
@@ -83,11 +80,6 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             }
         })
 
-        /*NotifyPlanner.testPlanner(
-            this,
-            getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        )*/
-
         //todo fare un activity per questa parte di codice qui(Strettamente necessario, semplice cn bottone si e no)
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if(powerManager.isIgnoringBatteryOptimizations(packageName)){
@@ -97,32 +89,11 @@ class HomepageActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             val intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
             startActivity(intent)
         }
-
-        /*
-        appointmentListMain.setOnItemClickListener { _, _, position, _ ->
-            val intent = Intent(this, AppointmentFormActivity::class.java)
-                .putExtra(APPOINTMENT_VALUE, appointmentListSorted[position])
-            startActivity(intent)
-        }
-
-        appointmentListMain.setOnItemLongClickListener { _, _, position, _ ->
-            GenericDeleteDialog(
-                this,
-                appointmentListSorted[position].name,
-                DialogModeEnum.DELETE_APPOINTMENT
-            ).show()
-            return@setOnItemLongClickListener true
-        }
-       */
     }
 
-    override fun onTabReselected(tab: TabLayout.Tab?) {
-        TODO("Not yet implemented")
-    }
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 
-    override fun onTabUnselected(tab: TabLayout.Tab?) {
-        TODO("Not yet implemented")
-    }
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
         if(tab?.position == Adapter.PILLS_PAGE){

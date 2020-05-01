@@ -36,16 +36,11 @@ class ReminderAppointmentListFragment : Fragment() {
     private lateinit var appointmentListSorted: LinkedList<Appointment>
     private lateinit var appointmentListMain: ListView
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        var view = inflater.inflate(R.layout.fragment_reminder_appointment_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_reminder_appointment_list, container, false)
 
         appointmentListMain = view.findViewById(R.id.appointmentListMain)
-
-        //TODO da rimuovere
-        funTest()
 
         initList()
 
@@ -71,10 +66,11 @@ class ReminderAppointmentListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        initList()
     }
 
     private fun initList() {
-        var filterDate = Date()
+        val filterDate = Date()
         filterDate.time = Utils.dataNormalizationLimit(filterDate)
         UserInformation.appointments.sortWith(compareBy { it.date })
         appointmentListSorted = UserInformation.appointments
@@ -84,93 +80,16 @@ class ReminderAppointmentListFragment : Fragment() {
         appointmentListMain.adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, arrayAdapterAppointments)}
     }
 
-    private fun formatOutputString(item: Any): String {
+    private fun formatOutputString(item: Appointment): String {
         val cal: Calendar = Calendar.getInstance()
-        when (item) {
-            is ReminderMedicineSort -> {
-                cal.time = item.reminder.startingDay
-                var text =
-                    "${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
-                text += if (item.reminder.hours < 10) "0${item.reminder.hours}" else item.reminder.hours
-                text += ":"
-                text += if (item.reminder.minutes < 10) "0${item.reminder.minutes}" else item.reminder.minutes
-                text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}"
-                return text
-            }
-            is Appointment -> {
-                cal.time = item.date
-                var text =
-                    "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
-                text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
-                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(
-                    Calendar.MINUTE
-                )
-                return text
-            }
-            else -> return ""
-        }
-
-    }
-
-    private fun funTest() {
-
-        val days1: LinkedList<DaysEnum> = LinkedList()
-        days1.add(DaysEnum.MON)
-        days1.add(DaysEnum.FRI)
-        days1.add(DaysEnum.SAT)
-        days1.add(DaysEnum.TUE)
-        days1.add(DaysEnum.THU)
-        days1.add(DaysEnum.SUN)
-        days1.add(DaysEnum.WED)
-
-
-        val reminders = LinkedList<ReminderMedicine>()
-        reminders.add(ReminderMedicine(2F, 39, 19, Date(), days1, null, null))
-        reminders.add(ReminderMedicine(1F, 41, 19, Date(), days1, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Tachipirina",
-                MedicineTypeEnum.PILLS,
-                24F,
-                7F,
-                reminders,
-                "Tachipirina"
-            )
-        )
-
-        /*val reminders2 = LinkedList<ReminderMedicine>()
-        reminders2.add(ReminderMedicine(1.5F, 0, 13, Date(), days1, null, null))
-        reminders2.add(ReminderMedicine(1F, 0, 11, Date(), days1, null, null))
-        UserInformation.addNewMedicine(
-            LocalMedicine(
-                "Aulin",
-                MedicineTypeEnum.PILLS,
-                24F,
-                24F,
-                null,
-                "Aulin"
-            )
-        )
-        UserInformation.addNewReminderList("Aulin", reminders2)
-
-        UserInformation.addNewAppointment(
-            Appointment("prelieo", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo1", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo2", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo3", Date(), "")
-        )
-        UserInformation.addNewAppointment(
-            Appointment("Visita Urologo4", Date(), "")
-        )*/
-
+        cal.time = item.date
+        var text =
+            "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
+        text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
+        text += if (cal.get(Calendar.MINUTE) < 10)
+                    "0${cal.get(Calendar.MINUTE)}"
+                else
+                    cal.get(Calendar.MINUTE)
+        return text
     }
 }

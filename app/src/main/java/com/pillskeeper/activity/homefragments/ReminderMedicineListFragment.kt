@@ -46,31 +46,15 @@ class ReminderMedicineListFragment : Fragment() {
         reminderListMain.adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, arrayAdapterReminders)}
     }
 
-    private fun formatOutputString(item: Any): String {
+    private fun formatOutputString(item: ReminderMedicineSort): String {
         val cal: Calendar = Calendar.getInstance()
-        when (item) {
-            is ReminderMedicineSort -> {
-                cal.time = item.reminder.startingDay
-                var text =
-                    "${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
-                text += if (item.reminder.hours < 10) "0${item.reminder.hours}" else item.reminder.hours
-                text += ":"
-                text += if (item.reminder.minutes < 10) "0${item.reminder.minutes}" else item.reminder.minutes
-                text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}"
-                return text
-            }
-            is Appointment -> {
-                cal.time = item.date
-                var text =
-                    "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
-                text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
-                text += if (cal.get(Calendar.MINUTE) < 10) "0${cal.get(Calendar.MINUTE)}" else cal.get(
-                    Calendar.MINUTE
-                )
-                return text
-            }
-            else -> return ""
-        }
-
+        cal.time = item.reminder.startingDay
+        var text =
+            "${item.medName}  -  ${item.reminder.dosage} ${getText(item.medType.text)} - "
+        text += if (item.reminder.hours < 10) "0${item.reminder.hours}" else item.reminder.hours
+        text += ":"
+        text += if (item.reminder.minutes < 10) "0${item.reminder.minutes}" else item.reminder.minutes
+        text += "  ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}"
+        return text
     }
 }

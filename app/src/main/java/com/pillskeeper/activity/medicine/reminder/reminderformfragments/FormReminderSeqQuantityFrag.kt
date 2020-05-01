@@ -83,7 +83,6 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
                     if (FormAdapter.isAReminderEditing) {
-                        //TODO editing
                         val reminderListNormalizedOld = Utils.getSingleReminderListNormalized(
                             medName!!,
                             UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
@@ -136,64 +135,6 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
             } else {
                 Toast.makeText(context, "Selezionare la quanità da assumere!", Toast.LENGTH_LONG).show()//todo change with modal
             }
-
-
-
-            //TODO deve fare le cose che sono commentate
-/*
-            val days = buildDaysArray()
-
-            if(checkValue(days)) {
-                if (startDateSelected == null)
-                    startDateSelected = Date()
-
-                val newRem = ReminderMedicine(
-                    dosageSpinnerReminder.selectedItem.toString().toFloat(),
-                    spinnerMinutesRem2.selectedItem.toString().toInt(),
-                    spinnerHoursRem2.selectedItem.toString().toInt(),
-                    startDateSelected!!,
-                    days,
-                    expDateSelected,
-                    editTextAddNotesRem.text.toString()
-                )
-
-                if(viewPager != null) {
-                    FormAdapter.addReminder(newRem)
-                    viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-                } else {
-                    if(UserInformation.addNewReminder(medName!!,newRem)) {
-
-                        Utils.getSingleReminderListNormalized(
-                            medName,
-                            UserInformation.getSpecificMedicine(medName)!!.medicineType,
-                            newRem
-                        ).forEach {
-                            NotifyPlanner.planSingleAlarm(
-                                activity?.applicationContext!!,
-                                activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                it
-                            )
-                        }
-                        activity?.finish()
-                    } else {
-                        Utils.buildAlertDialog(
-                            requireActivity(),
-                            "Inserimento fallito!",
-                            getString(R.string.message_title)
-                        )
-                    }
-                }
-            } else {
-                Utils.buildAlertDialog(
-                    requireActivity(),
-                    "perfavore inserire valori corretti",
-                    getString(R.string.message_title)
-                )
-            }
-
- */
-
-
         }
 
         return view

@@ -16,7 +16,6 @@ class MedicineFormActivity : AppCompatActivity() {
         const val CAMERA_REQUEST = 0
         const val REMOTE_MEDICINE = "remoteMedicine"
         const val LOCAL_MEDICINE = "localMedicine"
-        const val REMINDER = "reminder"
         const val REQUEST_CAMERA_PERMISSION_ID = 1
         const val VIEW_PAGER_ID = 2020
     }
@@ -29,7 +28,7 @@ class MedicineFormActivity : AppCompatActivity() {
 
         FormAdapter.resetForm()
 
-        viewPager = NoSlideViewPager(this)//TODO controllare il caso in cui si ha una nuova medicina
+        viewPager = NoSlideViewPager(this)
         viewPager.id = VIEW_PAGER_ID
         relativeLayout.addView(viewPager)
         val introAdapter = FormAdapter(supportFragmentManager, intent, viewPager)

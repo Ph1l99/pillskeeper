@@ -1,7 +1,7 @@
 package com.pillskeeper.data
 
-import com.pillskeeper.data.abstracts.AbstractMedicine
 import com.pillskeeper.enums.MedicineTypeEnum
+import java.io.Serializable
 import java.util.*
 
 data class LocalMedicine(
@@ -11,4 +11,4 @@ data class LocalMedicine(
     var remainingQty: Float,
     var reminders: LinkedList<ReminderMedicine>?,
     var id :String
-) : AbstractMedicine(name, id, medicineType)
+) : Serializable

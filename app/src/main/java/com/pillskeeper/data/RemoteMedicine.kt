@@ -1,6 +1,5 @@
 package com.pillskeeper.data
 
-import com.pillskeeper.data.abstracts.AbstractMedicine
 import com.pillskeeper.enums.MedicineTypeEnum
 import java.io.Serializable
 
@@ -14,9 +13,9 @@ data class RemoteMedicine(
     var name: String,
     var id: String,
     var medicineType: MedicineTypeEnum
-) : AbstractMedicine(name, id, medicineType) {
+) : Serializable {
 
-    companion object : Serializable {
+    companion object {
 
         /**
          * Method for getting a List of RemoteMedicines from the Map representing the Realtime Database JSON

@@ -1,7 +1,7 @@
 package com.pillskeeper.data
 
-import com.pillskeeper.data.abstracts.ReminderAbstract
 import com.pillskeeper.enums.DaysEnum
+import java.io.Serializable
 import java.util.*
 
 
@@ -13,7 +13,7 @@ data class ReminderMedicine(
     var days: LinkedList<DaysEnum>?,
     var expireDate: Date?,
     var additionNotes: String?
-) : ReminderAbstract(minutes, hours, startingDay, days, expireDate, additionNotes) {
+) : Serializable {
     
     override fun equals(other: Any?) : Boolean{
         if (other !is ReminderMedicine) return false

@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.homefragments
+package com.pillskeeper.activity.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

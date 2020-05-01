@@ -65,7 +65,7 @@
             android:label="@string/friendListActivityTitle"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.homefragments.HomepageActivity"
+            android:name=".activity.home.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

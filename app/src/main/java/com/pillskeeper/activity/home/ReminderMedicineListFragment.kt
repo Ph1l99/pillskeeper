@@ -1,4 +1,4 @@
-package com.pillskeeper.activity.homefragments
+package com.pillskeeper.activity.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

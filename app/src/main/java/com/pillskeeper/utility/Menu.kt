@@ -14,7 +14,7 @@ import com.pillskeeper.activity.DangerActivity
 import com.pillskeeper.activity.PersonalInfoDialog
 import com.pillskeeper.activity.appointment.AppointmentListActivity
 import com.pillskeeper.activity.friend.FriendListActivity
-import com.pillskeeper.activity.homefragments.HomepageActivity
+import com.pillskeeper.activity.home.HomeActivity
 import com.pillskeeper.activity.medicine.FinishedMedicinesActivity
 import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.registration.LoginActivity
@@ -114,7 +114,7 @@ class Menu(
             }
         }
         if (changed) {
-            if (activity !is HomepageActivity)
+            if (activity !is HomeActivity)
                 activity.finish()
         }
         drawerLayout.closeDrawer(GravityCompat.START)

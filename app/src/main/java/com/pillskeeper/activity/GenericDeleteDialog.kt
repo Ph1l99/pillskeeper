@@ -28,7 +28,7 @@ class GenericDeleteDialog(
 
         val item =
             when (dialogModeEnum) {
-                DialogModeEnum.DELETE_APPOINTMENT -> {//TODO
+                DialogModeEnum.DELETE_APPOINTMENT -> {//TODO @Phil
                     titleDeleteTV.text = "Cancellare l'Appuntamento?"
                     "Appuntamento"
                 }

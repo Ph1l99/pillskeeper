@@ -107,7 +107,6 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    //TODO da rivedere
     private fun checkUserOnLocalDB(userId: String) {
         if (LocalDatabase.readUser() == null) {
             val databaseReference = Firebase.database.reference

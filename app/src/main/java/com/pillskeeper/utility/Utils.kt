@@ -3,6 +3,7 @@ package com.pillskeeper.utility
 import android.Manifest
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -330,17 +331,16 @@ object Utils {
     fun buildAlertDialog(
         context: Context,
         message: String,
-        title: String = context.getString(R.string.message_title),
+        title: String = context.getText(R.string.message_title).toString(),
         callback: Callback? = null
     ): AlertDialog {
         val builder = AlertDialog.Builder(context)
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setIcon(R.drawable.pills_icon)
-        builder.setPositiveButton("OK") { _, _ ->
+        builder.setPositiveButton("OK") { _: DialogInterface, _: Int ->
             callback?.onSuccess(true)
         }
-
         return builder.create()
     }
 

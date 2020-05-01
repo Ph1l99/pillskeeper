@@ -50,7 +50,7 @@ class ReminderListActivity : AppCompatActivity() {
 
                     override fun onError() {}
                 }
-            )
+            ).show()
         } else {
             medicine = UserInformation.getSpecificMedicine(medicineName!!)
 

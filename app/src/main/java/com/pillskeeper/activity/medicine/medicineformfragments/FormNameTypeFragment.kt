@@ -92,13 +92,13 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
                     viewPager.currentItem = FormAdapter.FORM_QUANTITY
                 } else {
                     Utils.buildAlertDialog(
-                        requireContext(),
-                        getString(R.string.medicineAlreadyFound)
-                    )
+                        requireActivity(),
+                        getText(R.string.medicineAlreadyFound).toString()
+                    ).show()
                 }
             } else {
                 Toast.makeText(
-                    requireContext(),
+                    requireActivity(),
                     getString(R.string.genericInfoError),
                     Toast.LENGTH_LONG
                 ).show()

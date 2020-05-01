@@ -52,7 +52,7 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                                 requireActivity(),
                                 getText(R.string.toxicWords).toString(),
                                 getString(R.string.message_title)
-                            )
+                            ).show()
                             textViewConfirm.isClickable = true
                             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
                         } else {

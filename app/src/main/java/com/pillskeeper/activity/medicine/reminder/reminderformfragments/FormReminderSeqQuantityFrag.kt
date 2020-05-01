@@ -128,7 +128,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                             requireContext(),
                             "Errore nell'inserimento",
                             getString(R.string.message_title)
-                        )
+                        ).show()
                     }
                 }
 

@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
-import com.pillskeeper.data.Appointment
 import com.pillskeeper.data.ReminderMedicineSort
 import com.pillskeeper.utility.Utils
 import java.util.*

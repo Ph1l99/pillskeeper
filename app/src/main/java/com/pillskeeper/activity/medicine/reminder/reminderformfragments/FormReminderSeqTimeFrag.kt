@@ -35,13 +35,14 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
 
         initSpinner()
 
-        checkBoxes = if(FormAdapter.isAReminderEditing){
-            spinnerHoursRem2.setSelection(FormAdapter.reminderHour)
-            spinnerMinutesRem2.setSelection(FormAdapter.reminderMinute/5)
-            populateCheckboxes(view)
-        } else {
-            buildCheckBoxHM(view)
-        }
+        checkBoxes =
+            if(FormAdapter.isAReminderEditing){
+                spinnerHoursRem2.setSelection(FormAdapter.reminderHour)
+                spinnerMinutesRem2.setSelection(FormAdapter.reminderMinute/5)
+                populateCheckboxes(view)
+            } else {
+                buildCheckBoxHM(view)
+            }
 
         nextTextView.setOnClickListener {
             if(spinnerHoursRem2.selectedItem != null && spinnerMinutesRem2.selectedItem != null) {

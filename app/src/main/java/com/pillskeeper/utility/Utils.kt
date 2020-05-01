@@ -330,7 +330,7 @@ object Utils {
     fun buildAlertDialog(
         context: Context,
         message: String,
-        title: String,
+        title: String = context.getString(R.string.message_title),
         callback: Callback? = null
     ): AlertDialog {
         val builder = AlertDialog.Builder(context)

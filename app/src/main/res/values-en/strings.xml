@@ -11,11 +11,9 @@
     <string name="weekMonthPause">"Weeks/Months of stop: "</string>
     <string name="weekMonthConsecutive">"Consecutive Weeks/Months: "</string>
     <string name="wednesday">Wednesday</string>
-    <string name="username">Username</string>
     <string name="user_settings">Users Settings</string>
     <string name="tuesday">Tuesday</string>
     <string name="totalQuantity">"Total Quantity: "</string>
-    <string name="timeAppointment">"Time: "</string>
     <string name="time">Time:</string>
     <string name="thursday">Thursday</string>
     <string name="textReaderActivityTitle">Camera</string>
@@ -88,7 +86,6 @@
     <string name="friendListActivityTitle">Friends List</string>
     <string name="settingsMenu">Settings</string>
     <string name="expiryMenu">Finished Medicines</string>
-    <string name="search_chemist">Pharmacies Search</string>
     <string name="user_settingsActivity">Change personal settings</string>
     <string name="welcome">Welcome!</string>
     <string name="expiredMedicines">Finished Medicines</string>
@@ -126,6 +123,8 @@
     <string name="oops">Oops! An error occurred, please retry</string>
     <string name="disclaimer">BE CAREFUL! By removing your account all information will be deleted and you won\'t be able to login into PillsKeeper with this account and you will have to create a new one</string>
     <string name="loginDialog">Insert your password to confirm this action</string>
-    <string name="selectDateReminder">Select a starting and finishing date for the reminder</string>
     <string name="quantity">Quantity:</string>
+    <string name="dateError">Please insert a valid date</string>
+    <string name="appointmentError">Appointment already existing</string>
+    <string name="genericDelete">Error during deleting the item</string>
 </resources>

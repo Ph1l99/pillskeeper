@@ -34,7 +34,6 @@
 
 
     <!--Menu buttons-->
-    <string name="username">Nome Utente</string>
     <string name="appointmentMenu">Appuntamenti</string>
     <string name="user_settings">Impostazioni Utente</string>
     <string name="friends">Friends</string>
@@ -73,7 +72,7 @@
     <string name="monthRB">Mesi</string>
     <string name="weekRB">Settimane</string>
     <string name="weekMonthPause">Settimane/mesi di pausa:</string>
-    <string name="weekMonthConsecutive">Settimane/mesi Consecutive:</string>
+    <string name="weekMonthConsecutive">Settimane/mesi consecutive:</string>
 
     <!--  -->
     <string name="Pills">Pillole</string>
@@ -81,12 +80,11 @@
     <string name="Suppository">Supposte</string>
     <string name="Undefined">Non definito</string>
     <string name="appointmentName">Titolo</string>
-    <string name="timeAppointment">Orario:</string>
-    <string name="additionalNoteAppointment">Note Addizionali …</string>
+    <string name="additionalNoteAppointment">Note addizionali …</string>
     <string name="dateButton">dd/mm/yyyy</string>
     <string name="dateButtonFormatted">%1$d/%2$d/%3$d</string>
     <string name="dateSelectionLabel">Seleziona una data:</string>
-    <string name="medicineAlreadyExists">Attenzione, Medicina già presente!</string>
+    <string name="medicineAlreadyExists">Attenzione, medicina già presente!</string>
 
     <!--Location-->
     <string name="query_location">https://www.google.com/maps/search/?api=1&amp;query=farmacie</string>
@@ -124,17 +122,16 @@
     <string name="functionalities">Funzionalità</string>
     <string name="settingsMenu">Impostazioni</string>
     <string name="expiryMenu">Medicine terminate</string>
-    <string name="search_chemist">Riceca Farmacie</string>
     <string name="user_settingsActivity">Modifica dati personali</string>
     <string name="login_activity" translatable="false">Login</string>
     <string name="expiredMedicines">Farmaci in esaurimento</string>
     <string name="reminderListActivityTitle">Promemoria</string>
     <string name="reminderEditActivityTitle">Modifica Promemoria</string>
 
-    <!-- String for WelcomeActivity-->
+    <!--WelcomeActivity-->
     <string name="welcome">Benvenuto!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- Fragments -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="FormOneTitle">Quale farmaco vuoi inserire?</string>
     <string name="FormOneTitle2">Seleziona la tipologia del farmaco</string>
@@ -142,7 +139,7 @@
     <string name="quantityexample">Es: 16</string>
     <string name="reminderTitle">Vuoi aggiungere un promemoria per la medicina inserita?</string>
     <string name="confirmText">Continua senza promemoria</string>
-    <string name="reminderList">Promemoria Inseriti: </string>
+    <string name="reminderList">Promemoria inseriti: </string>
     <string name="dialogChooseReminderText">Il promemoria si ripete nel tempo?</string>
     <string name="no" translatable="false">No</string>
     <string name="selectSpecificDateReminder">Seleziona il giorno in cui vuoi ricevere l\'avviso</string>
@@ -150,8 +147,8 @@
     <string name="dosageReminder">Seleziona la quantità da assumere</string>
     <string name="_0">0</string>
     <string name="or">Oppure premi salva per continuare</string>
-    <string name="additionalNotes">Note Addizionali:</string>
-    <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome!</string>
+    <string name="additionalNotes">Note addizionali:</string>
+    <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome</string>
 
 
     <!--Error message -->
@@ -160,7 +157,7 @@
     <string name="loginDialogError">Credenziali errate, riprova!</string>
     <string name="message_title">Attenzione!</string>
     <string name="genericInfoError">Perfavore inserire valori corretti</string>
-    <string name="dateError">Perfavore inserire una data corretta</string>
+    <string name="dateError">Inserire una data corretta</string>
     <string name="appointmentError">Appuntamento gia\' presente</string>
     <string name="genericDelete">Non è stato possibile cancellare</string>
     <string name="emailPassword">Controlla la tua mail, ti abbiamo inviato un link per il reset password!</string>

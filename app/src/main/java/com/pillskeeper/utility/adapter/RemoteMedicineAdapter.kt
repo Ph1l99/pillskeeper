@@ -13,11 +13,11 @@ import com.pillskeeper.datamanager.UserInformation
 import kotlinx.android.synthetic.main.remote_med_card_item.view.*
 
 class RemoteMedicineAdapter constructor(list: List<RemoteMedicine>) :
-    RecyclerView.Adapter<RemoteMedicineAdapter.RemoteMedicineAdapter>() {
+    RecyclerView.Adapter<RemoteMedicineAdapter.RemoteMedicineHolder>() {
     var onItemClick: ((RemoteMedicine) -> Unit)? = null
     var medList: List<RemoteMedicine> = list
 
-    inner class RemoteMedicineAdapter(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RemoteMedicineHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.medText
         val imageView: ImageView = itemView.forwardIcon
 
@@ -29,8 +29,8 @@ class RemoteMedicineAdapter constructor(list: List<RemoteMedicine>) :
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemoteMedicineAdapter {
-        return RemoteMedicineAdapter(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RemoteMedicineHolder {
+        return RemoteMedicineHolder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.remote_med_card_item, parent, false)
         )
@@ -39,7 +39,7 @@ class RemoteMedicineAdapter constructor(list: List<RemoteMedicine>) :
     override fun getItemCount(): Int = medList.size
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: RemoteMedicineAdapter, position: Int) {
+    override fun onBindViewHolder(holder: RemoteMedicineHolder, position: Int) {
         val currentItem = medList[position]
         holder.imageView.setImageResource(R.drawable.ic_med_list_forward)
         holder.textView.text =

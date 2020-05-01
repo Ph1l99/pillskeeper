@@ -27,7 +27,6 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
                 onItemClick?.invoke(remList[adapterPosition])
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderHolder {
@@ -46,17 +45,27 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
         if (currentItem.isSingleDayRem()) {
             val calendar = Calendar.getInstance()
             calendar.time = currentItem.startingDay
-            text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
-                .append(calendar.get(Calendar.MONTH) + 1).append("\n")
+            if (calendar.get(Calendar.DAY_OF_MONTH)<10){
+                text.append("0"+calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                    .append(calendar.get(Calendar.MONTH) + 1).append("\n")
+            } else{
+                text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                    .append(calendar.get(Calendar.MONTH) + 1).append("\n")
+            }
             text.append(UserInformation.context.getString(R.string.time)).append(" ")
                 .append(currentItem.hours)
                 .append(":").append(currentItem.minutes).append("\n")
         } else {
             if (currentItem.startingDay.after(Date())) {
                 val calendar = Calendar.getInstance()
-                calendar.time = currentItem.startingDay //TODO gg/mm/yyyy
-                text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
-                    .append(calendar.get(Calendar.MONTH) + 1).append(" - ")
+                calendar.time = currentItem.startingDay
+                if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+                    text.append("0" + calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                        .append(calendar.get(Calendar.MONTH) + 1).append(" - ")
+                } else {
+                    text.append(calendar.get(Calendar.DAY_OF_MONTH)).append("/")
+                        .append(calendar.get(Calendar.MONTH) + 1).append(" - ")
+                }
             }
             text.append(currentItem.dayStringify()).append("\n")
             text.append(UserInformation.context.getString(R.string.time)).append(" ")

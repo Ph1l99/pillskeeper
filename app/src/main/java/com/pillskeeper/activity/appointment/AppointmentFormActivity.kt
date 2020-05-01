@@ -207,7 +207,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                         this,
                         getString(R.string.appointmentError),
                         getString(R.string.message_title)
-                    )
+                    ).show()
                 }
             } else {
                 if (UserInformation.editAppointment(appointment!!.name, newAppointment)) {
@@ -223,7 +223,7 @@ class AppointmentFormActivity : AppCompatActivity() {
                         this,
                         getString(R.string.appointmentError),
                         getString(R.string.message_title)
-                    )
+                    ).show()
                 }
             }
         }

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.pillskeeper.R
 import com.pillskeeper.datamanager.UserInformation
+import com.pillskeeper.utility.Utils
 
 class FormEditingFragment : Fragment() {
 
@@ -49,11 +50,10 @@ class FormEditingFragment : Fragment() {
                         FormAdapter.localMedicine!!.name,
                         FormAdapter.localMedicine!!
                     )
-                ) {//TODO @Phil
-                    Toast.makeText(
+                ) {
+                    Utils.buildAlertDialog(
                         UserInformation.context,
-                        "Attenzione medicina non modificata!",
-                        Toast.LENGTH_LONG
+                        UserInformation.context.getString(R.string.valuesNotChanged)
                     ).show()
                 }
 
@@ -61,7 +61,7 @@ class FormEditingFragment : Fragment() {
             } else {
                 Toast.makeText(
                     UserInformation.context,
-                    "Attenzione inserire una quantità rimanente corretta!",
+                    UserInformation.context.getString(R.string.genericInfoError),
                     Toast.LENGTH_LONG
                 ).show()
             }

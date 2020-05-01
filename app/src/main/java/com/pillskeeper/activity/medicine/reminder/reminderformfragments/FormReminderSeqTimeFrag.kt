@@ -31,29 +31,16 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
         spinnerMinutesRem2 = view.findViewById(R.id.minutesReminderSpinner)
         nextTextView = view.findViewById(R.id.textViewNext)
 
-
         checkBoxes = HashMap()
 
         initSpinner()
 
-        if(FormAdapter.isAReminderEditing){
+        checkBoxes = if(FormAdapter.isAReminderEditing){
             spinnerHoursRem2.setSelection(FormAdapter.reminderHour)
             spinnerMinutesRem2.setSelection(FormAdapter.reminderMinute/5)
-            checkBoxes = buildCheckboxes(view)
+            populateCheckboxes(view)
         } else {
-            DaysEnum.values().forEach {
-                checkBoxes[it.name] = view.findViewById(
-                    when(it){
-                        DaysEnum.MON -> R.id.checkBoxMonday
-                        DaysEnum.TUE -> R.id.checkBoxTuesday
-                        DaysEnum.WED -> R.id.checkBoxWednesday
-                        DaysEnum.THU -> R.id.checkBoxThursday
-                        DaysEnum.FRI -> R.id.checkBoxFriday
-                        DaysEnum.SAT -> R.id.checkBoxSaturday
-                        DaysEnum.SUN -> R.id.checkBoxSunday
-                    }
-                )
-            }
+            buildCheckBoxHM(view)
         }
 
         nextTextView.setOnClickListener {
@@ -66,10 +53,10 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
                     FormAdapter.days = days
                     viewPager.currentItem = FormAdapter.FORM_SEQ_QUANTITY_REMINDER
                 } else {
-                    Toast.makeText(context, "Selezionare uno o più giorni!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Selezionare uno o più giorni!", Toast.LENGTH_LONG).show()//TODO R.string.....
                 }
             } else {
-                Toast.makeText(context, "Inserire un orario corretto!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Inserire un orario corretto!", Toast.LENGTH_LONG).show()//TODO R.string.....
             }
         }
 
@@ -78,7 +65,7 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
 
     private fun buildDaysArray(): LinkedList<DaysEnum>{
         val days: LinkedList<DaysEnum> = LinkedList()
-        checkBoxes.forEach {    if(it.value.isChecked)  days.add(DaysEnum.valueOf(it.key))  }
+        checkBoxes.forEach {    if(it.value.isChecked)  days.addLast(DaysEnum.valueOf(it.key))  }
         return days
     }
 
@@ -87,8 +74,26 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
         spinnerMinutesRem2.adapter = InitSpinner.initSpinnerMinute(requireActivity())
     }
 
-    private fun buildCheckboxes(view: View): HashMap<String, CheckBox> {
+    private fun populateCheckboxes(view: View): HashMap<String, CheckBox> {
+        val checkBoxes: HashMap<String,CheckBox> = buildCheckBoxHM(view)
+
+        FormAdapter.days?.forEach {
+            when(it){
+                DaysEnum.MON -> checkBoxes[DaysEnum.MON.name]?.isChecked = true
+                DaysEnum.TUE -> checkBoxes[DaysEnum.TUE.name]?.isChecked = true
+                DaysEnum.WED -> checkBoxes[DaysEnum.WED.name]?.isChecked = true
+                DaysEnum.THU -> checkBoxes[DaysEnum.THU.name]?.isChecked = true
+                DaysEnum.FRI -> checkBoxes[DaysEnum.FRI.name]?.isChecked = true
+                DaysEnum.SAT -> checkBoxes[DaysEnum.SAT.name]?.isChecked = true
+                DaysEnum.SUN -> checkBoxes[DaysEnum.SUN.name]?.isChecked = true
+            }
+        }
+        return checkBoxes
+    }
+
+    private fun buildCheckBoxHM(view: View): HashMap<String, CheckBox> {
         val checkBoxes: HashMap<String,CheckBox> = HashMap()
+
         DaysEnum.values().forEach {
             checkBoxes[it.name] = view.findViewById(
                 when(it){
@@ -101,18 +106,6 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
                     DaysEnum.SUN -> R.id.checkBoxSunday
                 }
             )
-        }
-
-        FormAdapter.days?.forEach {
-            when(it){
-                DaysEnum.MON -> checkBoxes[DaysEnum.MON.name]?.isChecked = true
-                DaysEnum.TUE -> checkBoxes[DaysEnum.TUE.name]?.isChecked = true
-                DaysEnum.WED -> checkBoxes[DaysEnum.WED.name]?.isChecked = true
-                DaysEnum.THU -> checkBoxes[DaysEnum.THU.name]?.isChecked = true
-                DaysEnum.FRI -> checkBoxes[DaysEnum.FRI.name]?.isChecked = true
-                DaysEnum.SAT -> checkBoxes[DaysEnum.SAT.name]?.isChecked = true
-                DaysEnum.SUN -> checkBoxes[DaysEnum.SUN.name]?.isChecked = true
-            }
         }
 
         return checkBoxes

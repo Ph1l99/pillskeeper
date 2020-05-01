@@ -116,4 +116,7 @@
     <string name="appointmentError">Appointment already existing</string>
     <string name="genericDelete">Error during deleting the item</string>
     <string name="mailtext">Alert from PillsKeeper</string>
+    <string name="status">Status: ALMOST FINISHED</string>
+    <string name="medicine">Medicine</string>
+    <string name="user">User</string>
 </resources>

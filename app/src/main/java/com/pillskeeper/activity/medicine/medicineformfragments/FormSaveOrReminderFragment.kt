@@ -14,6 +14,8 @@ import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
 import java.util.*
 
+//TODO aggingere loader onclick del bottone salva (va su internet)
+
 class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Fragment() {
 
     private lateinit var textViewBack: TextView

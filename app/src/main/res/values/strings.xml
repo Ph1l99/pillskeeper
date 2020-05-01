@@ -27,11 +27,9 @@
     <string name="closeButton">Chiudi</string>
     <string name="saveButton">Salva</string>
 
-
     <!--MedicinesListActivity-->
     <string name="nothingToSee">Nessuna Medicina trovata!</string>
     <string name="addMedicineText">Aggiungi nuova medicina</string>
-
 
     <!--Menu buttons-->
     <string name="appointmentMenu">Appuntamenti</string>

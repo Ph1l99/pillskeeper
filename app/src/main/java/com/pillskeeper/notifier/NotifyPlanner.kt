@@ -19,60 +19,6 @@ object NotifyPlanner{
     const val ACTION_NEXT_DAY_PLANNER = "com.pillskeeper.notifier.ACTION_NEXT_DAY_PLANNER"
     private const val TAG = "NotifyPlanner: "
 
-    //todo remove after accurate test
-    fun testPlanner(context: Context, alarmManager: AlarmManager) {
-        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Started")
-
-        val it = Appointment(
-            "test",
-            Date(),
-            null
-        )
-
-        val cal = Calendar.getInstance()
-        cal.time = it.date
-        cal.add(Calendar.MINUTE, 20)
-        it.date = cal.time
-
-        val intent = buildIntent(context, it, true)
-
-        val itTime = getDateFromItem(it)
-        val itID = generateIdForItem(it,itTime)
-        if(!isAlreadyExistingIntent(context,itID,intent)){
-            val pendingIntent = PendingIntent.getBroadcast(
-                context,
-                itID,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
-            )
-            alarmManager.setAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP,
-                itTime.time,
-                pendingIntent
-            )
-
-            /*if (Build.VERSION.SDK_INT >= 23)
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    itTime.time,
-                    pendingIntent
-                )
-            else
-                alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    itTime.time,
-                    pendingIntent
-                )*/
-
-            val calDebug = Calendar.getInstance()
-            calDebug.time = itTime
-            Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - " +
-                    "Alarm planned ${calDebug.get(Calendar.HOUR_OF_DAY)}:${calDebug.get(Calendar.MINUTE)} - ${calDebug.get(Calendar.DAY_OF_MONTH)}/${calDebug.get(Calendar.MONTH)}")
-        }
-
-        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Ended")
-    }
-
     fun planFullDayAlarms(context: Context?){
         Log.i(TAG, "planFullDayAlarms() - Started")
 
@@ -119,10 +65,10 @@ object NotifyPlanner{
 
             val cal = Calendar.getInstance()
             cal.time = itTime
-            Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
+            Log.i(TAG, "planSingleAlarm() - Alarm planned ${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH)}")
         }
 
-        Log.i(TAG, "EventBroadcastReceiver: planSingleAlarm() - Ended")
+        Log.i(TAG, "planSingleAlarm() - Ended")
     }
 
     fun planNextDayPlanner(context: Context?) {
@@ -166,16 +112,16 @@ object NotifyPlanner{
                     )
                 Log.i(
                     TAG,
-                    "MainActivity: planNextDayPlanner() - Next Day planned... ${cal.time}"
+                    "planNextDayPlanner() - Next Day planned... ${cal.time}"
                 )
             } else {
                 Log.i(
                     TAG,
-                    "MainActivity: planNextDayPlanner() - Next already planned!!!"
+                    "planNextDayPlanner() - Next already planned!!!"
                 )
             }
         }
-        Log.i(TAG, "MainActivity: planNextDayPlanner() - Ended")
+        Log.i(TAG, "planNextDayPlanner() - Ended")
     }
 
     private fun buildIntent(context: Context, it: Any, debug: Boolean = false): Intent{

@@ -31,21 +31,23 @@ class WelcomeActivity : AppCompatActivity() {
     private fun checkLogin() {
         val user = FirebaseAuthenticationManager.getCurrentUser()
         if (user != null) {
-            FirebaseAuthenticationManager.getCurrentUserIdToken(user, object : Callback {
-                override fun onSuccess(res: Boolean) {
-                    startActivity(Intent(applicationContext, HomeActivity::class.java))
-                    finish()
-                    progressBar.visibility = View.GONE
-                }
+            FirebaseAuthenticationManager.getCurrentUserIdToken(user,
+                object : Callback {
+                    override fun onSuccess(res: Boolean) {
+                        startActivity(Intent(applicationContext, HomeActivity::class.java))
+                        finish()
+                        progressBar.visibility = View.GONE
+                    }
 
-                override fun onError() {
-                    FirebaseAuth.getInstance().signOut()
-                    LocalDatabase.sharedPref?.edit()?.clear()?.apply()
-                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-                    finish()
-                    progressBar.visibility = View.GONE
+                    override fun onError() {
+                        FirebaseAuth.getInstance().signOut()
+                        LocalDatabase.sharedPref?.edit()?.clear()?.apply()
+                        startActivity(Intent(applicationContext, LoginActivity::class.java))
+                        finish()
+                        progressBar.visibility = View.GONE
+                    }
                 }
-            })
+            )
         } else {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

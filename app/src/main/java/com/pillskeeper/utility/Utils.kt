@@ -338,7 +338,7 @@ object Utils {
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setIcon(R.drawable.pills_icon)
-        builder.setPositiveButton("OK") { _: DialogInterface, _: Int ->
+        builder.setPositiveButton("OK") { _,_ ->
             callback?.onSuccess(true)
         }
         return builder.create()

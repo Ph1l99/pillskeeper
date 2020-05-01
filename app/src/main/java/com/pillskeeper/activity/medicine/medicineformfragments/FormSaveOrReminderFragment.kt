@@ -12,6 +12,7 @@ import com.pillskeeper.activity.medicine.MedicineLocaleListActivity
 import com.pillskeeper.activity.medicine.reminder.ReminderChooseDialog
 import com.pillskeeper.interfaces.Callback
 import com.pillskeeper.utility.Utils
+import kotlinx.android.synthetic.main.fragment_form_three.*
 import java.util.*
 
 //TODO aggingere loader onclick del bottone salva (va su internet)
@@ -42,12 +43,14 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
 
         textViewConfirm.setOnClickListener {
             textViewConfirm.isClickable = false
+            darkenMode(true)
             Utils.checkTextWords(
                 FormAdapter.pillName.toString(),
                 Locale.getDefault().language,
                 object : Callback {
                     override fun onSuccess(res: Boolean) {
                         if (res) {
+                            darkenMode(false)
                             Utils.buildAlertDialog(
                                 requireActivity(),
                                 getText(R.string.toxicWords).toString(),
@@ -56,6 +59,7 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                             textViewConfirm.isClickable = true
                             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
                         } else {
+                            darkenMode(false)
                             FormAdapter.addNewMedicine()
                             val intent = Intent(context, MedicineLocaleListActivity::class.java)
                             startActivity(intent)
@@ -64,6 +68,7 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                     }
 
                     override fun onError() {
+                        darkenMode(false)
                         Toast.makeText(
                             FormAdapter.formActivity,
                             getText(R.string.networkError),
@@ -88,7 +93,6 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
 
     override fun onResume() {
         super.onResume()
-
         initList()
     }
 
@@ -117,6 +121,12 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                 android.R.layout.simple_list_item_1,
                 stringList
             )
+    }
+
+    private fun darkenMode(enable: Boolean){
+        progressBarMed  .visibility   = if(enable) View.VISIBLE else View.INVISIBLE
+        darkenView      .visibility   = if(enable) View.VISIBLE else View.INVISIBLE
+
     }
 }
 

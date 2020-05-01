@@ -21,7 +21,7 @@ import com.pillskeeper.datamanager.LocalDatabase
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Mail
 import com.pillskeeper.utility.Menu
-import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
+import com.pillskeeper.utility.adapter.LocalMedicineAdapter
 import java.util.*
 
 class FinishedMedicinesActivity : AppCompatActivity() {
@@ -30,7 +30,7 @@ class FinishedMedicinesActivity : AppCompatActivity() {
         const val MINIMUM_QTY = 0.20
     }
 
-    private lateinit var mAdapter: MedicineLocaleCardAdapter
+    private lateinit var mAdapter: LocalMedicineAdapter
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
@@ -77,13 +77,12 @@ class FinishedMedicinesActivity : AppCompatActivity() {
     }
 
     private fun displayMedicines(list: LinkedList<LocalMedicine>) {
-        mAdapter = MedicineLocaleCardAdapter(list)
+        mAdapter = LocalMedicineAdapter(list)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        mAdapter.setOnItemClickListener {
-            val medicine = list[it]
-            openDialog(medicine)
+        mAdapter.onItemClick = {
+            openDialog(it)
         }
     }
 

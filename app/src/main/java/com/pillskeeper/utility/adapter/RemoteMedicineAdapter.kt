@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.remote_med_card_item.view.*
 class RemoteMedicineAdapter constructor(list: List<RemoteMedicine>) :
     RecyclerView.Adapter<RemoteMedicineAdapter.RemoteMedicineHolder>() {
     var onItemClick: ((RemoteMedicine) -> Unit)? = null
-    var medList: List<RemoteMedicine> = list
+    private var medList: List<RemoteMedicine> = list
 
     inner class RemoteMedicineHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.medText

@@ -14,12 +14,12 @@ import com.pillskeeper.activity.medicine.reminder.ReminderListActivity
 import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.Menu
-import com.pillskeeper.utility.adapter.MedicineLocaleCardAdapter
+import com.pillskeeper.utility.adapter.LocalMedicineAdapter
 import kotlinx.android.synthetic.main.content_pills_list.*
 
 class MedicineLocaleListActivity : AppCompatActivity() {
 
-    private lateinit var mAdapter: MedicineLocaleCardAdapter
+    private lateinit var mAdapter: LocalMedicineAdapter
 
     private lateinit var pillsArray: List<LocalMedicine>
     private var adapter: ArrayAdapter<String>? = null
@@ -99,15 +99,16 @@ class MedicineLocaleListActivity : AppCompatActivity() {
 
     private fun displayListMedicines() {
         pillsArray = UserInformation.medicines
-        mAdapter = MedicineLocaleCardAdapter(pillsArray, true)
+        mAdapter = LocalMedicineAdapter(pillsArray, true)
         recyclerView.adapter = mAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        mAdapter.setOnItemClickListener { position ->
+        mAdapter.onItemClick = {
+            it
             val intent = Intent(this, ReminderListActivity::class.java)
                 .putExtra(
                     ReminderListActivity.MEDICINE_NAME,
-                    UserInformation.medicines[position].name
+                    it.name
                 )
             startActivity(intent)
         }

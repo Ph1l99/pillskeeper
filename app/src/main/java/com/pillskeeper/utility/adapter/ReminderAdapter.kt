@@ -16,7 +16,7 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
     RecyclerView.Adapter<ReminderAdapter.ReminderHolder>() {
 
     var onItemClick: ((ReminderMedicine) -> Unit)? = null
-    var remList = list
+    private var remList = list
 
     inner class ReminderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView = itemView.reminderText
@@ -66,11 +66,5 @@ class ReminderAdapter constructor(list: List<ReminderMedicine>) :
         text.append(UserInformation.context.getString(R.string.quantity)).append(" ")
             .append(currentItem.dosage)
         holder.textView.text = text.toString()
-        holder.textView.setTextColor(
-            UserInformation.context.resources.getColor(
-                R.color.colorPrimary,
-                null
-            )
-        )
     }
 }

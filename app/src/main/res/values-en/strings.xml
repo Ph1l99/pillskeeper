@@ -120,4 +120,5 @@
     <string name="medicine">Medicine</string>
     <string name="user">User</string>
     <string name="medicineAlreadyFound">The medicine\'s name already exists</string>
+    <string name="valuesNotChanged">Values not changed</string>
 </resources>

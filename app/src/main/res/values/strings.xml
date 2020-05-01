@@ -150,6 +150,7 @@
     <string name="dateError">Inserire una data corretta</string>
     <string name="appointmentError">Appuntamento gia\' presente</string>
     <string name="genericDelete">Non è stato possibile cancellare</string>
+    <string name="valuesNotChanged">Valori non modificati</string>
     <string name="emailPassword">Controlla la tua mail, ti abbiamo inviato un link per il reset password!</string>
     <string name="oops">Oops! Si è verificato un errore, riprova!</string>
 

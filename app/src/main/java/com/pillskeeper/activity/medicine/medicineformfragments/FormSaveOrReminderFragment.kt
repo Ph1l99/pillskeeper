@@ -45,12 +45,12 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
                 Locale.getDefault().language,
                 object : Callback {
                     override fun onSuccess(res: Boolean) {
-                        if (res) {//TODO @phil
-                            Toast.makeText(
-                                FormAdapter.formActivity,
-                                getText(R.string.toxicWords),
-                                Toast.LENGTH_LONG
-                            ).show()
+                        if (res) {
+                            Utils.buildAlertDialog(
+                                requireActivity(),
+                                getText(R.string.toxicWords).toString(),
+                                getString(R.string.message_title)
+                            )
                             textViewConfirm.isClickable = true
                             viewPager.currentItem = FormAdapter.FORM_NAME_TYPE
                         } else {

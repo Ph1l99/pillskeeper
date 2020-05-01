@@ -86,7 +86,7 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
         textViewNext.setOnClickListener {
 
             if(editTextNameMed.text.toString().isNotEmpty()) {
-                if(UserInformation.getSpecificMedicine(editTextNameMed.text.toString()) == null) {//non esiste la medicina!!! si può procedere
+                if(UserInformation.getSpecificMedicine(editTextNameMed.text.toString()) == null) {
                     FormAdapter.pillName = editTextNameMed.text.toString()
                     FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
                     viewPager.currentItem = FormAdapter.FORM_QUANTITY

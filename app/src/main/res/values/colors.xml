@@ -6,5 +6,6 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#ff1414</color>
     <color name="black">#000000</color>
+    <color name="darken">#2C000000</color>
     <color name="lightgreen">#20B2AA</color>
 </resources>

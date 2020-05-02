@@ -54,10 +54,10 @@ class FormReminderSeqTimeFrag(private val viewPager: ViewPager) : Fragment() {
                     FormAdapter.days = days
                     viewPager.currentItem = FormAdapter.FORM_SEQ_QUANTITY_REMINDER
                 } else {
-                    Toast.makeText(context, "Selezionare uno o più giorni!", Toast.LENGTH_LONG).show()//TODO R.string.....
+                    Toast.makeText(context, getString(R.string.select_week), Toast.LENGTH_LONG).show()
                 }
             } else {
-                Toast.makeText(context, "Inserire un orario corretto!", Toast.LENGTH_LONG).show()//TODO R.string.....
+                Toast.makeText(context, getString(R.string.timeSelectReminder), Toast.LENGTH_LONG).show()
             }
         }
 

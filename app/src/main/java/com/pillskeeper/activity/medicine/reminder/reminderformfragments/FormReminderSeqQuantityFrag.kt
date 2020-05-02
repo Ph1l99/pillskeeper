@@ -133,7 +133,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                 }
 
             } else {
-                Toast.makeText(context, "Selezionare la quanità da assumere!", Toast.LENGTH_LONG).show()//todo change with modal
+                Toast.makeText(context, getString(R.string.dosageReminder), Toast.LENGTH_LONG).show()
             }
         }
 

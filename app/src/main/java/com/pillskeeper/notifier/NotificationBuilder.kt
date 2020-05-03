@@ -15,12 +15,19 @@ import com.pillskeeper.data.LocalMedicine
 import com.pillskeeper.data.ReminderMedicineSort
 import java.util.*
 
+/**
+ * class used to build and show notification
+ */
 object NotificationBuilder {
 
     private var notificationManager : NotificationManager? = null
     private const val NOTIFICATION_CHANNEL_ID = "6081945"
     private const val TAG = "NOTIFICATION_BUILDER: "
 
+    /**
+     * DEBUG function
+     * TODO to be removede later
+     */
     fun showNotificationDebug(context: Context){
         Log.i(TAG,"showNotificationTest: function started")
 
@@ -55,6 +62,9 @@ object NotificationBuilder {
         Log.i(TAG,"showNotificationTest: function ended")
     }
 
+    /**
+     * Fucntion used to show a standard alarm notification
+     */
     fun showNotificationReminder(context: Context, it: Any?) {
         Log.i(TAG,"showNotificationRem: function started")
 
@@ -97,6 +107,9 @@ object NotificationBuilder {
         Log.i(TAG,"showNotificationRem: function ended")
     }
 
+    /**
+     * Function used to show a LOW QUANTITY notification
+     */
     fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
         Log.i(TAG,"showNotificationLowQuantity: function started")
 
@@ -126,6 +139,9 @@ object NotificationBuilder {
         Log.i(TAG,"showNotificationLowQuantity: function ended")
     }
 
+    /**
+     * function used to build notifChannel for Android > OREO
+     */
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "channelPillsKeeper"

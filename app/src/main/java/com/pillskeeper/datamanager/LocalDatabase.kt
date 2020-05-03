@@ -31,7 +31,6 @@ object LocalDatabase {
     }
 
 
-
     /*  READ Function   */
 
     fun readUser(): User? {
@@ -99,7 +98,6 @@ object LocalDatabase {
     }
 
 
-
     /*  SAVE Function   */
 
     fun saveUser(user: User) {
@@ -133,7 +131,7 @@ object LocalDatabase {
     }
 
     fun erase() {
-        with(sharedPref?.edit()){
+        with(sharedPref?.edit()) {
             //this?.clear()?.commit()
             this?.apply()
         }

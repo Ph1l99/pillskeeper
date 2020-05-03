@@ -3,7 +3,6 @@ package com.pillskeeper.utility
 import android.Manifest
 import android.app.Activity
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -165,9 +164,13 @@ object Utils {
      * @param reminder The item we want to process
      * @return the same as @getListReminderNormalized (normalized reminderList)
      * */
-    fun getSingleReminderListNormalized(medName: String, medType: MedicineTypeEnum, reminder : ReminderMedicine): LinkedList<ReminderMedicineSort>{
+    fun getSingleReminderListNormalized(
+        medName: String,
+        medType: MedicineTypeEnum,
+        reminder: ReminderMedicine
+    ): LinkedList<ReminderMedicineSort> {
         val reminderSortList = LinkedList<ReminderMedicineSort>()
-        reminderSortList.add(ReminderMedicineSort(medName,medType,reminder))
+        reminderSortList.add(ReminderMedicineSort(medName, medType, reminder))
         return convertSeqToDate(reminderSortList)
     }
 
@@ -338,7 +341,7 @@ object Utils {
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setIcon(R.drawable.pills_icon)
-        builder.setPositiveButton("OK") { _,_ ->
+        builder.setPositiveButton("OK") { _, _ ->
             callback?.onSuccess(true)
         }
         return builder.create()
@@ -359,7 +362,10 @@ object Utils {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
             fusedLocationClient.lastLocation.addOnSuccessListener {
                 val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.query_location)))
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(context.getString(R.string.query_location))
+                    )
                 intent.setPackage("com.google.android.apps.maps")
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
@@ -367,7 +373,10 @@ object Utils {
             }
         } else {
             // Make a request for foreground-only location access.
-            ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), REQUEST_POSITION_PERMISSION_ID
+            ActivityCompat.requestPermissions(
+                activity,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                REQUEST_POSITION_PERMISSION_ID
             )
         }
     }

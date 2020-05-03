@@ -37,10 +37,9 @@ import kotlin.collections.HashMap
 
 object Utils {
 
-    private val regexUsername: Regex = "[A-Za-z]{2,30}".toRegex()
-    private val regexPhoneNumber: Regex = "[0-9]{10}".toRegex()
-    private val regexEmail: Regex =
-        "[A-Za-z0-9.]{1,30}[A-Za-z0-9]{1,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
+    private val regexUsername = "[A-Za-z]{2,30}".toRegex()
+    private val regexPhoneNumber = "[0-9]{10}".toRegex()
+    private val regexEmail = "[A-Za-z0-9.]{1,30}[A-Za-z0-9]{1,30}@[A-Za-z0-9]{2,30}\\.[A-Za-z]{2,10}".toRegex()
 
     lateinit var stdLayout: Drawable
 

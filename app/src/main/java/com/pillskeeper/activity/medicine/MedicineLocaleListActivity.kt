@@ -22,7 +22,6 @@ class MedicineLocaleListActivity : AppCompatActivity() {
     private lateinit var mAdapter: LocalMedicineAdapter
 
     private lateinit var pillsArray: List<LocalMedicine>
-    private var adapter: ArrayAdapter<String>? = null
 
     private lateinit var toolbar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
@@ -46,34 +45,6 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         val menu = Menu(toolbar, drawerLayout, navView, this)
         menu.createMenu()
 
-
-        /*Listeners
-        pills_list.setOnItemClickListener { _: AdapterView<*>, _: View, position: Int, _: Long ->
-
-            //val it = Intent(this, MedicinesRemoteListActivity::class.java)
-            //startActivity(it)
-
-            val it = Intent(this, ReminderListActivity::class.java)
-                .putExtra(ReminderListActivity.REMINDER_MEDICINE, UserInformation.medicines[position - 1])
-            startActivity(it)
-
-        }
-
-        pills_list.setOnItemLongClickListener { _, _, position, _ ->
-            val it = Intent(this, MedicineFormActivity::class.java)
-                .putExtra(MedicineFormActivity.LOCAL_MEDICINE,UserInformation.medicines[position - 1])
-            startActivity(it)
-
-            /*GenericDeleteDialog(
-                this,
-                UserInformation.medicines[position - 1].name,
-                DialogModeEnum.DELETE_MEDICINE
-            ).show()*/
-
-            return@setOnItemLongClickListener true
-        }
-         */
-
         addMedicineButton.setOnClickListener {
             val intent = Intent(this, MedicinesRemoteListActivity::class.java)
             startActivity(intent)
@@ -84,18 +55,6 @@ class MedicineLocaleListActivity : AppCompatActivity() {
         super.onWindowFocusChanged(hasFocus)
         displayListMedicines()
     }
-
-    /*
-    private fun initList() {
-        pillsArray = LinkedList()
-        pillsArray.add(getText(R.string.addMedicineText).toString())
-
-        UserInformation.medicines.forEach { entry -> pillsArray.add(entry.name) }
-
-        adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, pillsArray)
-        pills_list.adapter = adapter
-    }
-     */
 
     private fun displayListMedicines() {
         pillsArray = UserInformation.medicines

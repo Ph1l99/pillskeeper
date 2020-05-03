@@ -17,7 +17,7 @@ import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.utility.InitSpinner
 import java.util.*
 
-class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?) : Fragment()  {
+class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?) : Fragment() {
 
     private var dateSelected: Date? = null
 
@@ -46,10 +46,15 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?) : Fragment()
 
         initSpinner()
 
-        if(FormAdapter.isAReminderEditing){
+        if (FormAdapter.isAReminderEditing) {
             val calStart = Calendar.getInstance()
             calStart.time = FormAdapter.startDay!!
-            buttonDateReminder.text = getString(R.string.dateButtonFormatted, calStart.get(Calendar.DAY_OF_MONTH),calStart.get(Calendar.MONTH) + 1,calStart.get(Calendar.YEAR))
+            buttonDateReminder.text = getString(
+                R.string.dateButtonFormatted,
+                calStart.get(Calendar.DAY_OF_MONTH),
+                calStart.get(Calendar.MONTH) + 1,
+                calStart.get(Calendar.YEAR)
+            )
             FormAdapter.startDay = calStart.time
             dateSelected = FormAdapter.startDay
 
@@ -58,52 +63,68 @@ class FormReminderOneDayTimeFrag(private val viewPager: ViewPager?) : Fragment()
         }
 
         buttonDateReminder.setOnClickListener {
-            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                buttonDateReminder.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
+            DatePickerDialog(
+                requireActivity(),
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    buttonDateReminder.text =
+                        getString(R.string.dateButtonFormatted, dayOfMonth, monthOfYear + 1, year)
 
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                cal.set(Calendar.HOUR_OF_DAY, 0)
-                cal.set(Calendar.MINUTE, 0)
-                cal.set(Calendar.SECOND, 0)
-                cal.set(Calendar.MILLISECOND, 0)
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, monthOfYear)
+                    cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    cal.set(Calendar.HOUR_OF_DAY, 0)
+                    cal.set(Calendar.MINUTE, 0)
+                    cal.set(Calendar.SECOND, 0)
+                    cal.set(Calendar.MILLISECOND, 0)
 
-                dateSelected = cal.time
+                    dateSelected = cal.time
 
-            }, year, month, day).show()
+                },
+                year,
+                month,
+                day
+            ).show()
         }
 
         textViewNext.setOnClickListener {
-            if(dateSelected != null) {
+            if (dateSelected != null) {
 
                 cal.time = dateSelected!!
                 cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
                 cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
 
-                    if(cal.time >= Date()) {
-                        FormAdapter.startDay = cal.time
-                        FormAdapter.finishDay = cal.time
+                if (cal.time >= Date()) {
+                    FormAdapter.startDay = cal.time
+                    FormAdapter.finishDay = cal.time
 
-                        FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
-                        FormAdapter.reminderMinute = minutesReminderSpinner.selectedItem.toString().toInt()
+                    FormAdapter.reminderHour = hourReminderSpinner.selectedItem.toString().toInt()
+                    FormAdapter.reminderMinute =
+                        minutesReminderSpinner.selectedItem.toString().toInt()
 
-                        if (viewPager != null) {
-                            viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
-                        }
-                    } else {
-                        Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
+                    if (viewPager != null) {
+                        viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_QUANTITY
                     }
+                } else {
+                    Toast.makeText(
+                        UserInformation.context,
+                        UserInformation.context.getString(R.string.genericInfoError),
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
 
             } else {
-                Toast.makeText(UserInformation.context,"Per favore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    UserInformation.context,
+                    UserInformation.context.getString(R.string.genericInfoError),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 
         return view
     }
 
-    private fun initSpinner(){
+    private fun initSpinner() {
         hourReminderSpinner.adapter = InitSpinner.initSpinnerHour(requireActivity())
         minutesReminderSpinner.adapter = InitSpinner.initSpinnerMinute(requireActivity())
     }

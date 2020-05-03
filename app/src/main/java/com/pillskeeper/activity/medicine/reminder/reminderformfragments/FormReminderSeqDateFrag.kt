@@ -28,14 +28,17 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
     private var expDateSelected: Date? = null
     private var startDateSelected: Date? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_form_reminder_seq_date, container, false)
+        val view = inflater.inflate(R.layout.fragment_form_reminder_seq_date, container, false)
 
         buttonDateEnd = view.findViewById(R.id.buttonDateEnd)
         buttonDateStart = view.findViewById(R.id.buttonDateStart)
         nextTextView = view.findViewById(R.id.textViewNext)
-
 
 
         val calExp = Calendar.getInstance()
@@ -48,14 +51,19 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
         val monthStart = calExp.get(Calendar.MONTH)
         val dayStart = calExp.get(Calendar.DAY_OF_MONTH)
 
-        if(FormAdapter.isAReminderEditing){
+        if (FormAdapter.isAReminderEditing) {
             val calStr = Calendar.getInstance()
             calStr.time = FormAdapter.startDay
-            buttonDateStart.text = getString(R.string.dateButtonFormatted, calStart.get(Calendar.DAY_OF_MONTH),calStart.get(Calendar.MONTH) + 1,calStart.get(Calendar.YEAR))
+            buttonDateStart.text = getString(
+                R.string.dateButtonFormatted,
+                calStart.get(Calendar.DAY_OF_MONTH),
+                calStart.get(Calendar.MONTH) + 1,
+                calStart.get(Calendar.YEAR)
+            )
             FormAdapter.startDay = calStr.time
             startDateSelected = FormAdapter.startDay
 
-            if(FormAdapter.finishDay != null) {
+            if (FormAdapter.finishDay != null) {
                 val calEnd = Calendar.getInstance()
                 calEnd.time = FormAdapter.finishDay!!
                 buttonDateEnd.text = getString(
@@ -72,49 +80,63 @@ class FormReminderSeqDateFrag(private var viewPager: NoSlideViewPager) : Fragmen
 
         /*LISTENERS*/
         buttonDateStart.setOnClickListener {
-            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                buttonDateStart.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
+            DatePickerDialog(
+                requireActivity(),
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    buttonDateStart.text =
+                        getString(R.string.dateButtonFormatted, dayOfMonth, monthOfYear + 1, year)
 
-                calStart.set(Calendar.YEAR, year)
-                calStart.set(Calendar.MONTH, monthOfYear)
-                calStart.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                calStart.set(Calendar.HOUR_OF_DAY, 0)
-                calStart.set(Calendar.MINUTE, 0)
-                calStart.set(Calendar.SECOND, 0)
-                calStart.set(Calendar.MILLISECOND, 0)
+                    calStart.set(Calendar.YEAR, year)
+                    calStart.set(Calendar.MONTH, monthOfYear)
+                    calStart.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    calStart.set(Calendar.HOUR_OF_DAY, 0)
+                    calStart.set(Calendar.MINUTE, 0)
+                    calStart.set(Calendar.SECOND, 0)
+                    calStart.set(Calendar.MILLISECOND, 0)
 
-                startDateSelected = calStart.time
+                    startDateSelected = calStart.time
 
-            }, yearStart, monthStart, dayStart).show()
+                },
+                yearStart,
+                monthStart,
+                dayStart
+            ).show()
         }
 
 
         buttonDateEnd.setOnClickListener {
-            DatePickerDialog(requireActivity(), DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                buttonDateEnd.text = getString(R.string.dateButtonFormatted,dayOfMonth,monthOfYear+1,year)
+            DatePickerDialog(
+                requireActivity(),
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    buttonDateEnd.text =
+                        getString(R.string.dateButtonFormatted, dayOfMonth, monthOfYear + 1, year)
 
-                calExp.set(Calendar.YEAR, year)
-                calExp.set(Calendar.MONTH, monthOfYear)
-                calExp.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                calExp.set(Calendar.HOUR_OF_DAY, 0)
-                calExp.set(Calendar.MINUTE, 0)
-                calExp.set(Calendar.SECOND, 0)
-                calExp.set(Calendar.MILLISECOND, 0)
+                    calExp.set(Calendar.YEAR, year)
+                    calExp.set(Calendar.MONTH, monthOfYear)
+                    calExp.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    calExp.set(Calendar.HOUR_OF_DAY, 0)
+                    calExp.set(Calendar.MINUTE, 0)
+                    calExp.set(Calendar.SECOND, 0)
+                    calExp.set(Calendar.MILLISECOND, 0)
 
-                expDateSelected = calExp.time
+                    expDateSelected = calExp.time
 
-            }, yearExp, monthExp, dayExp).show()
+                },
+                yearExp,
+                monthExp,
+                dayExp
+            ).show()
         }
 
         nextTextView.setOnClickListener {
 
 
-            if(startDateSelected != null) {
+            if (startDateSelected != null) {
                 FormAdapter.startDay = startDateSelected
                 FormAdapter.finishDay = expDateSelected
                 viewPager.currentItem = FormAdapter.FORM_SEQ_TIME_REMINDER
             } else {
-                Toast.makeText(context, "Selezionare una data di inizio!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.dateError), Toast.LENGTH_LONG).show()
             }
 
 

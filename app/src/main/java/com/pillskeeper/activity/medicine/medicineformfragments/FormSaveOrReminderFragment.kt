@@ -121,12 +121,9 @@ class FormSaveOrReminderFragment(private val viewPager: NoSlideViewPager) : Frag
             )
     }
 
-    private fun darkenMode(enable: Boolean){
-        progressBarMed  .visibility   = if(enable) View.VISIBLE else View.INVISIBLE
-        darkenView      .visibility   = if(enable) View.VISIBLE else View.INVISIBLE
+    private fun darkenMode(enable: Boolean) {
+        progressBarMed.visibility = if (enable) View.VISIBLE else View.INVISIBLE
+        darkenView.visibility = if (enable) View.VISIBLE else View.INVISIBLE
 
     }
 }
-
-
-

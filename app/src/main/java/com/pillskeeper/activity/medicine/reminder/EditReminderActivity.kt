@@ -13,7 +13,7 @@ class EditReminderActivity : AppCompatActivity() {
 
     private val VIEW_PAGER_REMINDER_ID = 4040
 
-    private          var medName                : String? = null
+    private var medName: String? = null
 
     companion object {
         var oldReminder: ReminderMedicine? = null
@@ -25,7 +25,8 @@ class EditReminderActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_edit_reminder)
 
-        oldReminder = intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
+        oldReminder =
+            intent.getSerializableExtra(ReminderListActivity.REMINDER_MEDICINE) as ReminderMedicine
         medName = intent.getStringExtra(ReminderListActivity.MEDICINE_NAME)
 
         val viewPager = NoSlideViewPager(this)
@@ -46,7 +47,7 @@ class EditReminderActivity : AppCompatActivity() {
         FormAdapter.isAReminderEditing = true
         viewPager.adapter = adapter
 
-        if(oldReminder!!.isSingleDayRem()) {
+        if (oldReminder!!.isSingleDayRem()) {
             viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
         } else {
             viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER

@@ -184,10 +184,14 @@ class AppointmentFormActivity : AppCompatActivity() {
     }
 
     private fun addOrEditAppointment(cal: Calendar) {
-        cal.set(Calendar.MINUTE,
-            minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt())
-        cal.set(Calendar.HOUR_OF_DAY,
-            InitSpinner.hours[hourSpinnerAppointment.selectedItemPosition].toInt())
+        cal.set(
+            Calendar.MINUTE,
+            minuteArray[minuteSpinnerAppointment.selectedItemPosition].toInt()
+        )
+        cal.set(
+            Calendar.HOUR_OF_DAY,
+            InitSpinner.hours[hourSpinnerAppointment.selectedItemPosition].toInt()
+        )
         if (checkValues()) {
             val newAppointment = Appointment(
                 appointmentNameTV.text.toString(),

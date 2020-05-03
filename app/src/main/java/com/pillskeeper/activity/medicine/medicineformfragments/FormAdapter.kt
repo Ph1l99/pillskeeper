@@ -111,12 +111,12 @@ class FormAdapter(
                     newMed
                 ).filter { it.reminder.startingDay < Date(dataNormalizationLimit()) }
                     .forEach {
-                    NotifyPlanner.planSingleAlarm(
-                        formActivity!!,
-                        formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                        it
-                    )
-                }
+                        NotifyPlanner.planSingleAlarm(
+                            formActivity!!,
+                            formActivity!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                            it
+                        )
+                    }
 
                 writeMedOnDB(
                     RemoteMedicine(

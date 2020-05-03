@@ -26,7 +26,7 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         viewPager.id = VIEW_PAGER_REMINDER_ID
         relativeLayoutReminder.addView(viewPager)
 
-        fragType = intent.getBooleanExtra(ReminderChooseDialog.FRAG_TYPE,false)
+        fragType = intent.getBooleanExtra(ReminderChooseDialog.FRAG_TYPE, false)
         medName = intent.getStringExtra(ReminderChooseDialog.MED_NAME)
 
         val adapter = FormAdapter(supportFragmentManager, intent, viewPager)
@@ -37,16 +37,10 @@ class AddNewReminderFromListActivity : AppCompatActivity() {
         viewPager.adapter = adapter
 
 
-        if(fragType)
+        if (fragType)
             viewPager.currentItem = FormAdapter.FORM_ONE_DAY_REMINDER_TIME
         else
             viewPager.currentItem = FormAdapter.FORM_SEQ_DATE_REMINDER
 
-        /*
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.frameContainer,fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-         */
     }
 }

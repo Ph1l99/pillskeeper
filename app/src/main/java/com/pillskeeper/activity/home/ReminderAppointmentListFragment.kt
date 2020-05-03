@@ -25,7 +25,11 @@ class ReminderAppointmentListFragment : Fragment() {
     private lateinit var appointmentListSorted: LinkedList<Appointment>
     private lateinit var appointmentListMain: ListView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_reminder_appointment_list, container, false)
 
@@ -66,7 +70,13 @@ class ReminderAppointmentListFragment : Fragment() {
         appointmentListSorted = LinkedList(appointmentListSorted.filter { it.date <= filterDate })
         val arrayAdapterAppointments = LinkedList<String>()
         appointmentListSorted.forEach { arrayAdapterAppointments.add(formatOutputString(it)) }
-        appointmentListMain.adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, arrayAdapterAppointments)}
+        appointmentListMain.adapter = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_list_item_1,
+                arrayAdapterAppointments
+            )
+        }
     }
 
     private fun formatOutputString(item: Appointment): String {
@@ -76,9 +86,9 @@ class ReminderAppointmentListFragment : Fragment() {
             "${item.name} - ${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.MONTH) + 1}  "
         text += "${cal.get(Calendar.HOUR_OF_DAY)}:"
         text += if (cal.get(Calendar.MINUTE) < 10)
-                    "0${cal.get(Calendar.MINUTE)}"
-                else
-                    cal.get(Calendar.MINUTE)
+            "0${cal.get(Calendar.MINUTE)}"
+        else
+            cal.get(Calendar.MINUTE)
         return text
     }
 }

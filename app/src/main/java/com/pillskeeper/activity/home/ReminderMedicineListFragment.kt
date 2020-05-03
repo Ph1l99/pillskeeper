@@ -19,8 +19,12 @@ class ReminderMedicineListFragment : Fragment() {
     private lateinit var reminderListMain: ListView
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view= inflater.inflate(R.layout.fragment_reminder_medicine_list, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_reminder_medicine_list, container, false)
         reminderListMain = view.findViewById(R.id.reminderListMain)
         return view
     }
@@ -36,7 +40,13 @@ class ReminderMedicineListFragment : Fragment() {
         reminderListSorted = Utils.getSortedListReminders(filterDate)
         val arrayAdapterReminders = LinkedList<String>()
         reminderListSorted.forEach { arrayAdapterReminders.add(formatOutputString(it)) }
-        reminderListMain.adapter = context?.let { ArrayAdapter(it, android.R.layout.simple_list_item_1, arrayAdapterReminders)}
+        reminderListMain.adapter = context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_list_item_1,
+                arrayAdapterReminders
+            )
+        }
     }
 
     private fun formatOutputString(item: ReminderMedicineSort): String {

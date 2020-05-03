@@ -39,7 +39,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =  inflater.inflate(R.layout.fragment_form_reminder_seq_quantity, container, false)
+        val view = inflater.inflate(R.layout.fragment_form_reminder_seq_quantity, container, false)
 
         backTextView = view.findViewById(R.id.textViewBack)
         saveTextView = view.findViewById(R.id.textViewSave)
@@ -48,7 +48,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
 
         initSpinner()
 
-        if(FormAdapter.isAReminderEditing) {
+        if (FormAdapter.isAReminderEditing) {
             oldReminder = EditReminderActivity.oldReminder
             medName = FormAdapter.pillName
             notesReminder.setText(FormAdapter.reminderNotes)
@@ -61,10 +61,11 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
         }
 
         saveTextView.setOnClickListener {
-            if(dosageSpinnerReminder.selectedItem != null){
-                FormAdapter.reminderQuantity = dosageSpinnerReminder.selectedItem.toString().toFloat()
+            if (dosageSpinnerReminder.selectedItem != null) {
+                FormAdapter.reminderQuantity =
+                    dosageSpinnerReminder.selectedItem.toString().toFloat()
 
-                if(notesReminder.text != null){
+                if (notesReminder.text != null) {
                     FormAdapter.reminderNotes = notesReminder.text.toString()
                 }
 
@@ -78,7 +79,7 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                     FormAdapter.reminderNotes
                 )
 
-                if(FormAdapter.isANewMedicine){
+                if (FormAdapter.isANewMedicine) {
                     FormAdapter.addReminder(newRem)
                     viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
                 } else {
@@ -99,7 +100,8 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                                 medName!!,
                                 UserInformation.getSpecificMedicine(medName!!)!!.medicineType,
                                 newRem
-                            ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                            )
+                                .filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
                                 .forEach {
                                     NotifyPlanner.planSingleAlarm(
                                         activity?.applicationContext!!,
@@ -121,31 +123,31 @@ class FormReminderSeqQuantityFrag(private var viewPager: NoSlideViewPager) : Fra
                                     activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
                                     it
                                 )
-                        }
+                            }
                         activity?.finish()
                     } else {
                         Utils.buildAlertDialog(
                             requireContext(),
-                            "Errore nell'inserimento",
+                            getString(R.string.oops),
                             getString(R.string.message_title)
                         ).show()
                     }
                 }
 
             } else {
-                Toast.makeText(context, getString(R.string.dosageReminder), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, getString(R.string.dosageReminder), Toast.LENGTH_LONG)
+                    .show()
             }
         }
 
         return view
     }
 
-    private fun  initSpinner(){
+    private fun initSpinner() {
         dosageSpinnerReminder.adapter = InitSpinner.initSpinnerDosage(requireActivity())
-        if(FormAdapter.isAReminderEditing)
+        if (FormAdapter.isAReminderEditing)
             dosageSpinnerReminder.setSelection((FormAdapter.reminderQuantity / InitSpinner.DOSAGE_MULTI).toInt())
     }
-
 
 
 }

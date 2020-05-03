@@ -21,7 +21,6 @@ import com.pillskeeper.activity.medicine.TextReaderActivity
 import com.pillskeeper.datamanager.UserInformation
 import com.pillskeeper.enums.MedicineTypeEnum
 import com.pillskeeper.utility.Utils
-import java.text.Normalizer
 
 
 class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPager) : Fragment() {
@@ -85,8 +84,8 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
 
         textViewNext.setOnClickListener {
 
-            if(editTextNameMed.text.toString().isNotEmpty()) {
-                if(UserInformation.getSpecificMedicine(editTextNameMed.text.toString()) == null) {
+            if (editTextNameMed.text.toString().isNotEmpty()) {
+                if (UserInformation.getSpecificMedicine(editTextNameMed.text.toString()) == null) {
                     FormAdapter.pillName = editTextNameMed.text.toString()
                     FormAdapter.medicineType = getTypeFromText(spinner.selectedItem.toString())
                     viewPager.currentItem = FormAdapter.FORM_QUANTITY
@@ -122,7 +121,8 @@ class FormNameTypeFragment(private val intent: Intent, viewPager: NoSlideViewPag
             }
         }
 
-        val arrayAdapter = ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, medTypeValues)
+        val arrayAdapter =
+            ArrayAdapter(requireActivity(), android.R.layout.simple_spinner_item, medTypeValues)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerMedicineType.adapter = arrayAdapter
 

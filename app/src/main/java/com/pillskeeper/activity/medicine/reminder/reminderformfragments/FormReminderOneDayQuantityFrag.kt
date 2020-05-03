@@ -18,7 +18,10 @@ import com.pillskeeper.utility.Utils
 import java.util.*
 
 
-class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private val medName: String?) : Fragment() {
+class FormReminderOneDayQuantityFrag(
+    private val viewPager: ViewPager?,
+    private val medName: String?
+) : Fragment() {
 
     private lateinit var saveTextReminder: TextView
     private lateinit var textViewBack: TextView
@@ -31,14 +34,15 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_form_reminder_one_day_quantity, container, false)
+        val view =
+            inflater.inflate(R.layout.fragment_form_reminder_one_day_quantity, container, false)
 
         saveTextReminder = view.findViewById(R.id.textViewSave)
         textViewBack = view.findViewById(R.id.textViewBack)
         dosageQtyReminder = view.findViewById(R.id.dosageQtyReminder)
         reminderAddNotesEdit = view.findViewById(R.id.reminderAddNotesEdit)
 
-        if(FormAdapter.isAReminderEditing) {
+        if (FormAdapter.isAReminderEditing) {
 
             oldReminder = ReminderMedicine(
                 FormAdapter.reminderQuantity,
@@ -54,52 +58,6 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         }
 
         initSpinner()
-
-        /*
-        saveTextReminder.setOnClickListener {
-            if(dateSelected != null && dosageQtyReminder.selectedItem.toString().toFloat() > 0){
-                cal.time = dateSelected!!
-                cal.set(Calendar.HOUR_OF_DAY, hourReminderSpinner.selectedItem.toString().toInt())
-                cal.set(Calendar.MINUTE, minutesReminderSpinner.selectedItem.toString().toInt())
-                if (cal.time > Date()){
-                    val reminder = ReminderMedicine(
-                        dosageQtyReminder.selectedItem.toString().toFloat(),
-                        minutesReminderSpinner.selectedItem.toString().toInt(),
-                        hourReminderSpinner.selectedItem.toString().toInt(),
-                        cal.time,
-                        null,
-                        cal.time,
-                        reminderAddNotesEditT.text.toString()
-                    )
-                    if(viewPager != null) {
-                        FormAdapter.addReminder(reminder)
-                        viewPager.currentItem = FormAdapter.FORM_SAVE_OR_REMINDER
-                    } else {
-                        if (UserInformation.addNewReminder(medName!!,reminder)) {
-                            Utils.getSingleReminderListNormalized(
-                                medName,
-                                UserInformation.getSpecificMedicine(medName)!!.medicineType,
-                                reminder
-                            ).forEach {
-                                NotifyPlanner.planSingleAlarm(
-                                    activity!!,
-                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                    it
-                                )
-                            }
-                            activity?.finish()
-                        }
-                    }
-                } else {
-                    Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",Toast.LENGTH_LONG).show()
-                }
-            } else {
-                Toast.makeText(UserInformation.context,"Perfavore inserire informazioni corrette!",
-                    Toast.LENGTH_LONG).show()
-            }
-        }
-
-             */
 
         /*LISTENERS*/
         textViewBack.setOnClickListener {
@@ -144,14 +102,15 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                                 medName,
                                 UserInformation.getSpecificMedicine(medName)!!.medicineType,
                                 newReminder
-                            ).filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
+                            )
+                                .filter { it.reminder.startingDay < Date(Utils.dataNormalizationLimit()) }
                                 .forEach {
-                                NotifyPlanner.planSingleAlarm(
-                                    activity?.applicationContext!!,
-                                    activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
-                                    it
-                                )
-                            }
+                                    NotifyPlanner.planSingleAlarm(
+                                        activity?.applicationContext!!,
+                                        activity?.getSystemService(Context.ALARM_SERVICE) as AlarmManager,
+                                        it
+                                    )
+                                }
                         }
 
                     } else if (UserInformation.addNewReminder(medName!!, newReminder)) {
@@ -171,7 +130,7 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
                     } else {
                         Toast.makeText(
                             UserInformation.context,
-                            "Per favore inserire informazioni corrette!",
+                            UserInformation.context.getString(R.string.genericInfoError),
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -181,15 +140,16 @@ class FormReminderOneDayQuantityFrag(private val viewPager: ViewPager?, private 
         return view
     }
 
-    private fun  initSpinner(){
+    private fun initSpinner() {
         val qtyArray = ArrayList<String>()
         for (i in 0..10)
-            qtyArray.add("${i/2F}")
+            qtyArray.add("${i / 2F}")
 
-        val arrayAdapterDosage = ArrayAdapter(UserInformation.context,android.R.layout.simple_spinner_item, qtyArray)
+        val arrayAdapterDosage =
+            ArrayAdapter(UserInformation.context, android.R.layout.simple_spinner_item, qtyArray)
         arrayAdapterDosage.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         dosageQtyReminder.adapter = arrayAdapterDosage
-        if(FormAdapter.isAReminderEditing)
+        if (FormAdapter.isAReminderEditing)
             dosageQtyReminder.setSelection((FormAdapter.reminderQuantity * 2F).toInt())
     }
 

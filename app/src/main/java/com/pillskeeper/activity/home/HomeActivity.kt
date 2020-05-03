@@ -58,13 +58,13 @@ class HomeActivity : AppCompatActivity() {
 
 
         /*LISTENERS*/
-        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab?.position == HomeAdapter.PILLS_PAGE){
+                if (tab?.position == HomeAdapter.PILLS_PAGE) {
                     viewPager.currentItem = HomeAdapter.PILLS_PAGE
                 } else {
                     viewPager.currentItem = HomeAdapter.APPOINTMENTS_PAGE
@@ -74,10 +74,10 @@ class HomeActivity : AppCompatActivity() {
 
         //todo fare un activity per questa parte di codice qui(Strettamente necessario, semplice cn bottone si e no)
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if(powerManager.isIgnoringBatteryOptimizations(packageName)){
-            Toast.makeText(this, "NON OTTIMIZZATA (bene)" ,Toast.LENGTH_LONG).show()
+        if (powerManager.isIgnoringBatteryOptimizations(packageName)) {
+            Toast.makeText(this, "NON OTTIMIZZATA (bene)", Toast.LENGTH_LONG).show()
         } else {
-            Toast.makeText(this, "OTTIMIZZATA (male)" ,Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "OTTIMIZZATA (male)", Toast.LENGTH_LONG).show()
             val intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
             startActivity(intent)
         }

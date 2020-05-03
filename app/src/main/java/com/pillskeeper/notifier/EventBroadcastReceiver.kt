@@ -11,6 +11,9 @@ import com.pillskeeper.enums.TypeIntentWorker
 import com.pillskeeper.utility.Utils
 
 
+/**
+ * Class receiver used to manage all events (alerts) generated from Android system
+ */
 class EventBroadcastReceiver : BroadcastReceiver() {
 
     companion object {
@@ -19,6 +22,9 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         private const val TAG = "BROADCAST_RECEIVER: "
     }
 
+    /**
+     * function receiver that manage different use cases
+     */
     override fun onReceive(context: Context?, intent: Intent?) {
         Log.i(TAG, "onReceive() - Function started")
             if (intent != null) {
@@ -41,6 +47,9 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         Log.i(TAG, "onReceive() - Function ended")
     }
 
+    /**
+     * Function which show notification and decrease medicine current dosage
+     */
     private fun eventShowNotify(context: Context?, intent: Intent){
         val valueIntent = intent.getByteArrayExtra(VALUE_INTENT)
         if(valueIntent != null) {

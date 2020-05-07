@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pillskeeper">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -22,8 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".activity.DangerActivity" />
-        <activity android:name=".activity.medicine.reminder.AddNewReminderFromListActivity" />
+
         <activity
             android:name=".activity.registration.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -33,6 +31,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activity.DangerActivity"
+            android:label="@string/danger" />
+        <activity android:name=".activity.medicine.reminder.AddNewReminderFromListActivity" />
         <activity
             android:name=".activity.medicine.FinishedMedicinesActivity"
             android:label="@string/expiredMedicines"
@@ -83,8 +86,8 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS" />
-                <action android:name="com.pillskeeper.notifier.ACTION_PLANNER"/>
-                <action android:name="com.pillskeeper.notifier.ACTION_NEXT_DAY_PLANNER"/>
+                <action android:name="com.pillskeeper.notifier.ACTION_PLANNER" />
+                <action android:name="com.pillskeeper.notifier.ACTION_NEXT_DAY_PLANNER" />
             </intent-filter>
         </receiver>
 

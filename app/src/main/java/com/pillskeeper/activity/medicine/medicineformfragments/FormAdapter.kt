@@ -103,7 +103,7 @@ class FormAdapter(
                 totalQuantity,
                 remainingQuantity,
                 reminderList,
-                hashValue(pillName!!, medicineType!!)
+                hashValue(pillName!!.toLowerCase(Locale.ROOT), medicineType!!)
             )
             if (UserInformation.addNewMedicine(newMed)) {
 
@@ -121,7 +121,7 @@ class FormAdapter(
                 writeMedOnDB(
                     RemoteMedicine(
                         pillName!!,
-                        hashValue(pillName!!, medicineType!!),
+                        hashValue(pillName!!.toLowerCase(Locale.ROOT), medicineType!!),
                         medicineType!!
                     )
                 )

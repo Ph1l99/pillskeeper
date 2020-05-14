@@ -127,4 +127,8 @@
     <string name="notificationTitleMed">Medicine</string>
     <string name="notificationTitleApp">Appointment</string>
     <string name="notificationTitleEnd">Low quantity medicine</string>
+    <string name="deleteMed">Do you want to delete the medicine?</string>
+    <string name="deleteApp">Do you want to delete the appointment?</string>
+    <string name="deleteFriend">Do you want to delete the friend?</string>
+    <string name="friend">Friend</string>
 </resources>

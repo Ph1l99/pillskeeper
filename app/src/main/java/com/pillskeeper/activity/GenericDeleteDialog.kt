@@ -28,17 +28,17 @@ class GenericDeleteDialog(
 
         val item =
             when (dialogModeEnum) {
-                DialogModeEnum.DELETE_APPOINTMENT -> {//TODO @Phil
-                    titleDeleteTV.text = "Cancellare l'Appuntamento?"
-                    "Appuntamento"
+                DialogModeEnum.DELETE_APPOINTMENT -> {
+                    titleDeleteTV.text = context.getString(R.string.deleteApp)
+                    context.getString(R.string.notificationTitleApp)
                 }
                 DialogModeEnum.DELETE_MEDICINE -> {
-                    titleDeleteTV.text = "Cancellare l'Medicina?"
-                    "Medicina"
+                    titleDeleteTV.text = context.getString(R.string.deleteMed)
+                    context.getString(R.string.notificationTextMed)
                 }
                 else -> {
-                    titleDeleteTV.text = "Cancellare l'Amico?"
-                    "Amico"
+                    titleDeleteTV.text = context.getString(R.string.deleteFriend)
+                    context.getString(R.string.friend)
                 }
 
             }

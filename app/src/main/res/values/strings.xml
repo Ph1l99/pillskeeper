@@ -26,6 +26,7 @@
     <string name="abortButton">Annulla</string>
     <string name="closeButton">Chiudi</string>
     <string name="saveButton">Salva</string>
+    <string name="friend">Amico</string>
 
     <!--MedicinesListActivity-->
     <string name="nothingToSee">Nessuna Medicina trovata!</string>
@@ -33,7 +34,7 @@
 
     <!--Menu buttons-->
     <string name="user_settings">Impostazioni Utente</string>
-    <string name="friends">Friends</string>
+    <string name="friends">Amici</string>
     <string name="edit_profile">Modifica Profilo</string>
     <string name="pharmacies">Farmacie in zona</string>
     <string name="logout">Logout</string>
@@ -77,7 +78,6 @@
     <string name="notificationTitleApp">Appuntamento</string>
     <string name="notificationTitleEnd">Medicine in esaurimento</string>
 
-    <!--  -->
     <string name="Pills">Pillole</string>
     <string name="Syrup">Sciroppo</string>
     <string name="Suppository">Supposte</string>
@@ -147,6 +147,10 @@
 
     <string name="toxicWords">Riscontrato linguaggio volgare. Inserire nuovamente il nome</string>
 
+    <!--Generic delete dialog-->
+    <string name="deleteMed">Vuoi cancellare la medicina?</string>
+    <string name="deleteApp">Vuoi cancellare l\'appuntamento?</string>
+    <string name="deleteFriend">Vuoi cancellare l\'amico?</string>
 
     <!--Error message -->
     <string name="networkError">Impossibile accedere alla rete. Controlla la connessione e riprova</string>

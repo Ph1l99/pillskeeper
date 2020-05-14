@@ -70,6 +70,13 @@
     <string name="weekMonthPause">Settimane/mesi di pausa:</string>
     <string name="weekMonthConsecutive">Settimane/mesi consecutive:</string>
 
+    <string name="notificationTextMed">Hai una nuova medicina da prendere!</string>
+    <string name="notificationTextApp">Hai un nuovo appuntamento!</string>
+    <string name="notificationEnd">Attenzione, farmaco in esaurimento</string>
+    <string name="notificationTitleMed">Farmaco</string>
+    <string name="notificationTitleApp">Appuntamento</string>
+    <string name="notificationTitleEnd">Medicine in esaurimento</string>
+
     <!--  -->
     <string name="Pills">Pillole</string>
     <string name="Syrup">Sciroppo</string>

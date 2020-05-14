@@ -121,4 +121,10 @@
     <string name="user">User</string>
     <string name="medicineAlreadyFound">The medicine\'s name already exists</string>
     <string name="valuesNotChanged">Values not changed</string>
+    <string name="notificationTextMed">New medicine to take!</string>
+    <string name="notificationTextApp">You have a new appointment</string>
+    <string name="notificationEnd">Medicine with low quantity!</string>
+    <string name="notificationTitleMed">Medicine</string>
+    <string name="notificationTitleApp">Appointment</string>
+    <string name="notificationTitleEnd">Low quantity medicine</string>
 </resources>

@@ -20,7 +20,7 @@ import java.util.*
  */
 object NotificationBuilder {
 
-    private var notificationManager : NotificationManager? = null
+    private var notificationManager: NotificationManager? = null
     private const val NOTIFICATION_CHANNEL_ID = "6081945"
     private const val TAG = "NOTIFICATION_BUILDER: "
 
@@ -28,8 +28,8 @@ object NotificationBuilder {
      * DEBUG function
      * TODO to be removede later
      */
-    fun showNotificationDebug(context: Context){
-        Log.i(TAG,"showNotificationTest: function started")
+    fun showNotificationDebug(context: Context) {
+        Log.i(TAG, "showNotificationTest: function started")
 
         notificationManager = getSystemService(context, NotificationManager::class.java)
         createNotificationChannel()
@@ -40,7 +40,8 @@ object NotificationBuilder {
 
         val cal = Calendar.getInstance()
         cal.time = Date()
-        val timeStr = cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
+        val timeStr =
+            cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
 
         text += timeStr
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
@@ -52,40 +53,45 @@ object NotificationBuilder {
             .setPriority(Notification.VISIBILITY_PUBLIC)
             .setDefaults(Notification.DEFAULT_ALL)
             .setSound(soundUri)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(text))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(text)
+            )
 
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
 
-        Log.i(TAG,"showNotificationTest: function ended")
+        Log.i(TAG, "showNotificationTest: function ended")
     }
 
     /**
      * Fucntion used to show a standard alarm notification
      */
     fun showNotificationReminder(context: Context, it: Any?) {
-        Log.i(TAG,"showNotificationRem: function started")
+        Log.i(TAG, "showNotificationRem: function started")
 
         notificationManager = getSystemService(context, NotificationManager::class.java)
         createNotificationChannel()
 
         val icon: Int
         val title: String
-        var text = "Buongiorno! "
+        var text = ""
 
         val cal = Calendar.getInstance()
         cal.time = Date()
-        val timeStr = cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
-        if(it is ReminderMedicineSort) {
-            title = "Medicina!"
-            text += "Hai una nuova medicina da prendere. \n${it.medName}: ${it.reminder.dosage} ${context.getText(it.medType.text)} \n $timeStr"
+        val timeStr =
+            cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
+        if (it is ReminderMedicineSort) {
+            title = context.getString(R.string.notificationTitleMed)
+            text += context.getString(R.string.notificationTextMed) + " \n${it.medName}: ${it.reminder.dosage} ${context.getText(
+                it.medType.text
+            )} \n $timeStr"
             icon = R.drawable.records_medicines
         } else {
             (it as Appointment)
-            title = "Appuntamento!"
-            text += "Ha un appuntamento: ${it.name} $timeStr"
+            title = context.getString(R.string.notificationTitleApp)
+            text += context.getString(R.string.notificationTextApp) + "${it.name} $timeStr"
             icon = R.drawable.calendar
         }
 
@@ -98,31 +104,36 @@ object NotificationBuilder {
             .setPriority(Notification.VISIBILITY_PUBLIC)
             .setDefaults(Notification.DEFAULT_ALL)
             .setSound(soundUri)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(text))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(text)
+            )
 
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
-        Log.i(TAG,"showNotificationRem: function ended")
+        Log.i(TAG, "showNotificationRem: function ended")
     }
 
     /**
      * Function used to show a LOW QUANTITY notification
      */
-    fun showNotificationLowQuantity(context: Context, med :LocalMedicine){
-        Log.i(TAG,"showNotificationLowQuantity: function started")
+    fun showNotificationLowQuantity(context: Context, med: LocalMedicine) {
+        Log.i(TAG, "showNotificationLowQuantity: function started")
 
         notificationManager = getSystemService(context, NotificationManager::class.java)
         createNotificationChannel()
 
         val icon = R.drawable.records_medicines
-        val title = "Medicina in esaurimento"
-        val text = "Attenzione, la seguente medicina si sta esaurendo! \n${med.name} ${med.remainingQty} ${context.getText(med.medicineType.text)}"
+        val title = context.getString(R.string.notificationTitleEnd)
+        val text =
+            context.getString(R.string.notificationEnd) + "\n${med.name} ${med.remainingQty} ${context.getText(
+                med.medicineType.text
+            )}"
 
 
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(context,NOTIFICATION_CHANNEL_ID)
+        val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(icon)
             .setContentTitle(title)
             .setContentText("$text - ${Date()}")
@@ -130,13 +141,15 @@ object NotificationBuilder {
             .setSound(soundUri)
             .setPriority(Notification.VISIBILITY_PUBLIC)
             .setDefaults(Notification.DEFAULT_ALL)
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText(text))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(text)
+            )
 
         val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
         notificationManager?.notify(id, notificationBuilder.build())
 
-        Log.i(TAG,"showNotificationLowQuantity: function ended")
+        Log.i(TAG, "showNotificationLowQuantity: function ended")
     }
 
     /**

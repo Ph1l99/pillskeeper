@@ -29,12 +29,10 @@ class EventBroadcastReceiver : BroadcastReceiver() {
         Log.i(TAG, "onReceive() - Function started")
             if (intent != null) {
 
-                //todo this flow can be executed more times, like on boot and at 4am (must be managed this???)
                 if (intent.action == Intent.ACTION_BOOT_COMPLETED || intent.action == NotifyPlanner.ACTION_NEXT_DAY_PLANNER) {
                     UserInformation.cleanAppointmentAndReminderList()
                     NotifyPlanner.planFullDayAlarms(context)
                     NotifyPlanner.planNextDayPlanner(context)
-                    NotificationBuilder.showNotificationDebug(context!!) //todo remove when tested
                 } else if (intent.getStringExtra(TYPE_INTENT) != null) {
                     if (intent.getStringExtra(TYPE_INTENT) == TypeIntentWorker.SHOW_NOTIFY.toString())
                         eventShowNotify(context, intent)

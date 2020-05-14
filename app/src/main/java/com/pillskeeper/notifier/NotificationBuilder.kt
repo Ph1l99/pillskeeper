@@ -25,47 +25,6 @@ object NotificationBuilder {
     private const val TAG = "NOTIFICATION_BUILDER: "
 
     /**
-     * DEBUG function
-     * TODO to be removede later
-     */
-    fun showNotificationDebug(context: Context) {
-        Log.i(TAG, "showNotificationTest: function started")
-
-        notificationManager = getSystemService(context, NotificationManager::class.java)
-        createNotificationChannel()
-
-        val icon = R.drawable.records_medicines
-        val title = "PIANIFICAZIONEEEEEEEEE!"
-        var text = "PIANIFICATO! ALLE  "
-
-        val cal = Calendar.getInstance()
-        cal.time = Date()
-        val timeStr =
-            cal.get(Calendar.HOUR_OF_DAY).toString() + ":" + cal.get(Calendar.MINUTE).toString()
-
-        text += timeStr
-        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
-        val notificationBuilder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
-            .setSmallIcon(icon)
-            .setContentTitle(title)
-            .setContentText(text)
-            .setAutoCancel(false)
-            .setPriority(Notification.VISIBILITY_PUBLIC)
-            .setDefaults(Notification.DEFAULT_ALL)
-            .setSound(soundUri)
-            .setStyle(
-                NotificationCompat.BigTextStyle()
-                    .bigText(text)
-            )
-
-        val id = ((Date().time / 1000L) % Int.MAX_VALUE).toInt()
-        notificationManager?.notify(id, notificationBuilder.build())
-
-
-        Log.i(TAG, "showNotificationTest: function ended")
-    }
-
-    /**
      * Fucntion used to show a standard alarm notification
      */
     fun showNotificationReminder(context: Context, it: Any?) {

@@ -71,15 +71,5 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         })
-
-        //todo fare un activity per questa parte di codice qui(Strettamente necessario, semplice cn bottone si e no)
-        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (powerManager.isIgnoringBatteryOptimizations(packageName)) {
-            Toast.makeText(this, "NON OTTIMIZZATA (bene)", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(this, "OTTIMIZZATA (male)", Toast.LENGTH_LONG).show()
-            val intent = Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-            startActivity(intent)
-        }
     }
 }
